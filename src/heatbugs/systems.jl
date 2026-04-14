@@ -13,8 +13,8 @@ function initialize!(::InitHBSystem, world::World)
     n = min(params.bug_count, length(all_patches))
     for i in 1:n
         x, y = all_patches[i]
-        ideal = params.min_ideal_temp + rand(rng) * (params.max_ideal_temp - params.min_ideal_temp)
-        output = params.min_output_heat + rand(rng) * (params.max_output_heat - params.min_output_heat)
+        ideal = params.min_ideal_temp + Float64(rand(rng, 0:Int(params.max_ideal_temp - params.min_ideal_temp) - 1))
+        output = params.min_output_heat + Float64(rand(rng, 0:Int(params.max_output_heat - params.min_output_heat) - 1))
         unhappy = abs(ideal - grid.temp[x, y])
         eid = new_entity!(world, (HBPos(x, y), HBBug(ideal, output, unhappy)))
         grid.cells[x, y] = eid
@@ -110,11 +110,8 @@ function update!(::HBGoSystem, world::World)
 end
 
 function _hb_random_neighbor(rng, x::Int, y::Int, w::Int, h::Int)
-    dx = rand(rng, -1:1)
-    dy = rand(rng, -1:1)
-    if dx == 0 && dy == 0
-        dx = rand(rng, [-1, 1])
-    end
+    offsets = ((-1,-1),(-1,0),(-1,1),(0,-1),(0,1),(1,-1),(1,0),(1,1))
+    dx, dy = offsets[rand(rng, 1:8)]
     return (mod1(x + dx, w), mod1(y + dy, h))
 end
 

@@ -12,9 +12,9 @@ function initialize!(::InitErosionSystem, world::World)
         if params.bumpy
             dist = sqrt((x - cx)^2 + (y - cy)^2)
             if params.hill
-                g.elevation[x, y] = -100.0 * (dist / max_dist) + 100.0 + rand(rng) * 100.0
+                g.elevation[x, y] = -100.0 * (dist / max_dist) + 100.0 + Float64(rand(rng, 0:99))
             else
-                g.elevation[x, y] = rand(rng) * 125.0
+                g.elevation[x, y] = Float64(rand(rng, 0:124))
             end
         else
             g.elevation[x, y] = 100.0
@@ -23,22 +23,25 @@ function initialize!(::InitErosionSystem, world::World)
         g.drain[x, y] = false
     end
 
-    # Smooth terrain via diffusion
+    # Smooth terrain via diffusion (NetLogo: diffuse elevation 0.5)
+    # NetLogo diffuse: each patch shares rate/8 of its value with each of its
+    # existing neighbors; shares to non-existent neighbors are kept by the patch.
     if params.bumpy
-        tmp = similar(g.elevation)
+        old = similar(g.elevation)
+        rate8 = 0.5 / 8.0
         for _ in 1:params.terrain_smoothness
+            copyto!(old, g.elevation)
             for x in 1:w, y in 1:h
-                s = 0.0; n = 0
+                s = 0.0; n_nbrs = 0
                 for dx in -1:1, dy in -1:1
                     (dx == 0 && dy == 0) && continue
                     nx, ny = x + dx, y + dy
                     if 1 <= nx <= w && 1 <= ny <= h
-                        s += g.elevation[nx, ny]; n += 1
+                        s += old[nx, ny]; n_nbrs += 1
                     end
                 end
-                tmp[x, y] = g.elevation[x, y] * 0.5 + 0.5 * (s / max(n, 1))
+                g.elevation[x, y] = old[x, y] * (1.0 - n_nbrs * rate8) + s * rate8
             end
-            copyto!(g.elevation, tmp)
         end
     end
 

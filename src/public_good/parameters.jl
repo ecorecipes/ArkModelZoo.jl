@@ -5,6 +5,6 @@ Base.@kwdef mutable struct PGParams
     fraction_put_in::Float64 = 0.5   # fraction of money each agent invests
     punishment_cost::Float64 = 1.0   # cost to punisher and punished
     punish::Bool = false              # whether punishment mechanism is active
-    max_ticks::Int = 50
+    max_ticks::Int = 200
     seed::Int = 42
 end

@@ -56,15 +56,14 @@ end
 function _ca1d_update_stats!(world::World)
     g = get_resource(world, CA1DGrid)
     stats = get_resource(world, CA1DStats)
-    total_on = 0
-    total_cells = 0
-    for row in 1:stats.current_row, x in 1:g.width
-        total_cells += 1
+    row = stats.current_row
+    on_count = 0
+    for x in 1:g.width
         if g.cells[x, row]
-            total_on += 1
+            on_count += 1
         end
     end
-    stats.density_on = total_cells > 0 ? total_on / total_cells : 0.0
+    stats.density_on = g.width > 0 ? on_count / g.width : 0.0
 end
 
 struct CA1DTerminationSystem <: System end

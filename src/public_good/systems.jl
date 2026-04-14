@@ -1,3 +1,6 @@
+# NetLogo-compatible rounding (round half up, not banker's rounding)
+_nl_round(x) = floor(Int, x + 0.5)
+
 # --- Initialization ---
 
 struct InitPGSystem <: System end
@@ -10,7 +13,7 @@ function initialize!(::InitPGSystem, world::World)
         ag.id = i
         ag.money = params.initial_money
         ag.fraction_put_in = params.fraction_put_in
-        ag.investment = round(ag.fraction_put_in * ag.money)
+        ag.investment = 0.0
         new_entity!(world, (ag,))
     end
 
@@ -46,7 +49,7 @@ function update!(::PGGoSystem, world::World)
     # Take money: each agent invests
     bank = 0.0
     for ag in agents
-        ag.investment = round(ag.fraction_put_in * ag.money)
+        ag.investment = Float64(_nl_round(ag.fraction_put_in * ag.money))
         bank += ag.investment
         ag.money -= ag.investment
     end
@@ -60,8 +63,11 @@ function update!(::PGGoSystem, world::World)
         ag.money += share
     end
 
-    # Optional punishment: the richest loses money
+    # Optional punishment: all agents pay, then richest pays again
     if params.punish
+        for ag in agents
+            ag.money -= params.punishment_cost
+        end
         richest = agents[1]
         for ag in agents
             if ag.money > richest.money

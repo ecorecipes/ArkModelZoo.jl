@@ -27,7 +27,10 @@ end
 
 function ca1d_values(::CA1DObserver, world::World)
     stats = get_resource(world, CA1DStats)
-    return Float64[Float64(stats.current_row), stats.density_on]
+    g = get_resource(world, CA1DGrid)
+    # NetLogo current-row counts down from max-pycor (grid_height - 1)
+    nl_current_row = Float64(g.height - stats.current_row)
+    return Float64[nl_current_row, stats.density_on]
 end
 
 function run_ca_1d_elementary(; params::CA1DParams = CA1DParams(), observe::Bool = true)

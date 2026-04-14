@@ -86,23 +86,25 @@ function update!(::AIDSGoSystem, world::World)
         !p.is_righty && continue
         rand(rng) * 10.0 >= p.coupling_tendency && continue
 
-        # Find a potential partner: uncoupled lefty nearby (within ~1 patch)
-        best_j = 0
-        best_dist = 2.0  # max coupling distance
+        # Find a potential partner: uncoupled lefty on the patch at (-1, 0)
+        # NetLogo turtles-at -1 0: turtles on the patch 1 unit to the left
+        my_px = mod(floor(Int, p.x + 0.5), Int(w))
+        my_py = mod(floor(Int, p.y + 0.5), Int(h))
+        target_px = mod(my_px - 1 + Int(w), Int(w))
+        candidates = Int[]
         for j in 1:n
             j == i && continue
             q = people[j][2]
             q.coupled && continue
             q.is_righty && continue
-            dx = abs(p.x - q.x); dx = min(dx, w - dx)
-            dy = abs(p.y - q.y); dy = min(dy, h - dy)
-            d = sqrt(dx^2 + dy^2)
-            if d < best_dist
-                best_dist = d
-                best_j = j
+            qpx = mod(floor(Int, q.x + 0.5), Int(w))
+            qpy = mod(floor(Int, q.y + 0.5), Int(h))
+            if qpx == target_px && qpy == my_py
+                push!(candidates, j)
             end
         end
-        best_j == 0 && continue
+        isempty(candidates) && continue
+        best_j = candidates[rand(rng, 1:length(candidates))]
         q = people[best_j][2]
         rand(rng) * 10.0 >= q.coupling_tendency && continue
         # Couple them
