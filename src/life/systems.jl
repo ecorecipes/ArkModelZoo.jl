@@ -79,6 +79,6 @@ end
 function _lf_update_stats!(grid::LFGrid, stats::LFStats)
     n = count(grid.cells)
     stats.living_count = n
-    stats.density = n / (grid.width * grid.height) * 100.0
+    stats.density = n / (grid.width * grid.height)
     return nothing
 end
