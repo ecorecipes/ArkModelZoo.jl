@@ -1,0 +1,1 @@
+struct RadDummy end

@@ -1,0 +1,1 @@
+struct MSISDummy end

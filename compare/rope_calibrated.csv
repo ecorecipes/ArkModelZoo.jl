@@ -1,0 +1,4 @@
+variable,comparison,mae,nmae,corr_mean,ks,ecdf_r,mmd_stat,mmd_p,pass
+n-visible,ark_vs_ark,0.000000,0.000000,1.000000,0.000000,NaN,0.000000,1.000000,
+n-visible,java_vs_java,0.000000,0.000000,1.000000,0.000000,NaN,0.000000,1.000000,
+n-visible,ark_vs_java,0.321357,0.001996,NaN,0.000000,NaN,0.786939,0.001996,true

@@ -1,0 +1,4 @@
+variable,comparison,mae,nmae,corr_mean,ks,ecdf_r,mmd_stat,mmd_p,pass
+total-food,ark_vs_ark,2.082919,0.017195,0.999616,0.166667,0.972412,-0.007110,0.530938,
+total-food,java_vs_java,2.872305,0.022197,0.999260,0.166667,0.987450,-0.011027,0.656687,
+total-food,ark_vs_java,1.798176,0.014260,0.999832,0.266667,0.969900,-0.002047,0.373253,true

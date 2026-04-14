@@ -1,0 +1,1 @@
+struct SNDDummy end

@@ -1,0 +1,4 @@
+variable,comparison,mae,nmae,corr_mean,ks,ecdf_r,mmd_stat,mmd_p,pass
+sum-of-spins,ark_vs_ark,101.858824,0.591057,-0.684383,0.233333,0.978174,0.009147,0.217565,
+sum-of-spins,java_vs_java,30.760784,0.280323,0.862330,0.233333,0.970226,0.016354,0.165669,
+sum-of-spins,ark_vs_java,113.724183,0.586409,-0.845894,0.266667,0.976360,0.000001,0.375250,true

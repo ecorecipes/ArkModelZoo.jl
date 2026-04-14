@@ -1,0 +1,7 @@
+variable,comparison,mae,nmae,corr_mean,ks,ecdf_r,mmd_stat,mmd_p,pass
+traps-triggered,ark_vs_ark,309.732980,0.017716,0.999953,0.180000,0.972540,-0.004160,0.550898,
+traps-triggered,java_vs_java,581.227815,0.031457,0.999945,0.160000,0.992210,0.003816,0.279441,
+traps-triggered,ark_vs_java,407.384901,0.022989,0.999988,0.660000,0.782171,0.071980,0.001996,false
+balls-in-air,ark_vs_ark,8.260927,0.008546,0.999331,0.000000,NaN,-0.001702,0.483034,
+balls-in-air,java_vs_java,11.710728,0.011636,0.999336,0.000000,NaN,0.003179,0.265469,
+balls-in-air,ark_vs_java,8.541722,0.008708,0.999751,0.000000,NaN,-0.001623,0.459082,true

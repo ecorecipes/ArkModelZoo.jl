@@ -1,0 +1,1 @@
+struct SBotDummy end

@@ -1,0 +1,4 @@
+variable,comparison,mae,nmae,corr_mean,ks,ecdf_r,mmd_stat,mmd_p,pass
+n-infected,ark_vs_ark,0.243615,0.017076,0.999227,0.100000,0.988267,-0.018756,0.832335,
+n-infected,java_vs_java,0.182090,0.014007,0.998821,0.166667,0.982558,-0.025080,0.976048,
+n-infected,ark_vs_java,0.400166,0.028314,0.998869,0.166667,0.982538,-0.023036,0.966068,true

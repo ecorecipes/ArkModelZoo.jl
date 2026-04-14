@@ -1,0 +1,4 @@
+variable,comparison,mae,nmae,corr_mean,ks,ecdf_r,mmd_stat,mmd_p,pass
+p-occupied,ark_vs_ark,0.005261,0.005261,0.998691,0.200000,0.961883,0.006006,0.237525,
+p-occupied,java_vs_java,0.003522,0.003522,0.999103,0.233333,0.977315,-0.003859,0.570858,
+p-occupied,ark_vs_java,0.004790,0.004790,0.997899,0.400000,0.904818,0.002130,0.317365,true

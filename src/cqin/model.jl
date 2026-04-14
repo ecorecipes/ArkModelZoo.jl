@@ -1,0 +1,46 @@
+function cqin_world(; initial_capacity::Int = 128)
+    return World(CQINDummy; initial_capacity = initial_capacity, allow_mutable = true)
+end
+
+function cqin_systems()
+    return (InitCQINSystem(), CQINGoSystem(), CQINTerminationSystem())
+end
+
+function cqin_model(params::CQINParams = CQINParams())
+    world = cqin_world()
+    add_resource!(world, Tick(0))
+    add_resource!(world, Terminate(false))
+    add_resource!(world, RNGResource(Xoshiro(params.seed)))
+    add_resource!(world, deepcopy(params))
+    add_resource!(world, CQINNetwork())
+    add_resource!(world, CQINStats())
+    scheduler = Scheduler(world, cqin_systems())
+    initialize!(scheduler)
+    return scheduler
+end
+
+struct CQINObserver end
+
+function cqin_headers(::CQINObserver)
+    return ["NumUpdated", "NumResistant", "NumAdjusted"]
+end
+
+function cqin_values(::CQINObserver, world::World)
+    stats = get_resource(world, CQINStats)
+    return Float64[stats.num_updated, stats.num_resistant, stats.num_adjusted]
+end
+
+function run_cqin(; params::CQINParams = CQINParams(), observe::Bool = true)
+    scheduler = cqin_model(params)
+    obs = CQINObserver()
+    trajectory = Vector{Vector{Float64}}()
+    if observe
+        push!(trajectory, cqin_values(obs, scheduler.world))
+    end
+    while step!(scheduler)
+        if observe
+            push!(trajectory, cqin_values(obs, scheduler.world))
+        end
+    end
+    return scheduler, trajectory
+end

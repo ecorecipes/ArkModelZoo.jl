@@ -1,0 +1,1 @@
+struct BBoxDummy end

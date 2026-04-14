@@ -1,0 +1,4 @@
+variable,comparison,mae,nmae,corr_mean,ks,ecdf_r,mmd_stat,mmd_p,pass
+n-remaining,ark_vs_ark,2.192869,0.010538,0.999853,0.133333,0.982100,-0.020700,0.892216,
+n-remaining,java_vs_java,1.135655,0.005567,0.999913,0.166667,0.970901,-0.019775,0.864271,
+n-remaining,ark_vs_java,1.369486,0.006713,0.999704,0.133333,0.990480,-0.015328,0.698603,true

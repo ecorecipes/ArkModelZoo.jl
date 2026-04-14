@@ -1,0 +1,4 @@
+variable,comparison,mae,nmae,corr_mean,ks,ecdf_r,mmd_stat,mmd_p,pass
+avg-heat,ark_vs_ark,0.912190,0.006558,0.999203,0.166667,0.982675,0.006047,0.191617,
+avg-heat,java_vs_java,0.856941,0.006172,0.999144,0.100000,0.991712,0.004527,0.243513,
+avg-heat,ark_vs_java,0.720134,0.005176,0.999291,0.200000,0.988368,-0.001069,0.439122,true

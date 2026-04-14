@@ -1,0 +1,4 @@
+variable,comparison,mae,nmae,corr_mean,ks,ecdf_r,mmd_stat,mmd_p,pass
+decays,ark_vs_ark,0.566335,0.007282,0.998656,0.100000,0.944911,0.000152,0.481038,
+decays,java_vs_java,0.518574,0.006820,0.999099,0.033333,0.999719,-0.005405,0.964072,
+decays,ark_vs_java,0.558375,0.007344,0.998841,0.033333,0.984324,-0.001499,0.614770,true

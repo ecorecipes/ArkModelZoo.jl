@@ -1,0 +1,4 @@
+variable,comparison,mae,nmae,corr_mean,ks,ecdf_r,mmd_stat,mmd_p,pass
+n-colors,ark_vs_ark,0.000000,0.000000,1.000000,0.000000,NaN,0.000000,1.000000,
+n-colors,java_vs_java,0.000000,0.000000,1.000000,0.000000,NaN,0.000000,1.000000,
+n-colors,ark_vs_java,0.000000,0.000000,1.000000,0.000000,NaN,0.000000,1.000000,true

@@ -1,0 +1,4 @@
+variable,comparison,mae,nmae,corr_mean,ks,ecdf_r,mmd_stat,mmd_p,pass
+collisions,ark_vs_ark,20.555887,0.106710,0.998074,0.200000,0.982370,-0.008429,0.562874,
+collisions,java_vs_java,8.744113,0.040626,0.997404,0.233333,0.978255,-0.010200,0.588822,
+collisions,ark_vs_java,34.472139,0.160162,0.998228,0.233333,0.982782,0.029390,0.145709,false

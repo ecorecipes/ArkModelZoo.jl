@@ -1,0 +1,4 @@
+variable,comparison,mae,nmae,corr_mean,ks,ecdf_r,mmd_stat,mmd_p,pass
+n-trees,ark_vs_ark,6.471476,0.061672,0.912647,0.200000,0.986433,-0.006486,0.664671,
+n-trees,java_vs_java,11.661526,0.112527,0.832812,0.233333,0.952676,0.009090,0.169661,
+n-trees,ark_vs_java,12.725871,0.119082,0.876619,0.300000,0.963931,0.019369,0.085828,true

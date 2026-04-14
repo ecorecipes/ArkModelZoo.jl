@@ -1,0 +1,1 @@
+struct FDDummy end

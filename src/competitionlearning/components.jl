@@ -1,0 +1,1 @@
+struct CLDummy end

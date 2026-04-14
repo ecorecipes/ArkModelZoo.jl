@@ -1,0 +1,4 @@
+variable,comparison,mae,nmae,corr_mean,ks,ecdf_r,mmd_stat,mmd_p,pass
+fire-size,ark_vs_ark,68.745215,0.035630,0.999780,0.166667,0.978512,-0.023491,0.888224,
+fire-size,java_vs_java,46.345875,0.023776,0.999610,0.100000,0.987593,-0.024883,0.940120,
+fire-size,ark_vs_java,17.199340,0.008914,0.999879,0.166667,0.981635,-0.022756,0.850299,true

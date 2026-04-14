@@ -1,0 +1,4 @@
+variable,comparison,mae,nmae,corr_mean,ks,ecdf_r,mmd_stat,mmd_p,pass
+avg-heading,ark_vs_ark,6.390099,0.034064,0.982468,0.266667,0.953442,0.002288,0.325349,
+avg-heading,java_vs_java,4.509016,0.024713,0.989906,0.166667,0.974787,-0.011148,0.604790,
+avg-heading,ark_vs_java,3.320011,0.017698,0.991616,0.233333,0.969305,0.007079,0.249501,true
