@@ -5,18 +5,20 @@ mutable struct TGRoad
     is_intersection::Matrix{Bool}
     green_light_up::Matrix{Bool}  # at intersections
     my_phase::Matrix{Int}         # phase for each intersection (-1 = non-intersection)
-    signal_color_ns::Matrix{Int}  # 0=red, 1=green, 2=off (north-south signal)
-    signal_color_ew::Matrix{Int}  # east-west signal
+    # Patch colors for signal patches: 0=none, 1=red, 2=green, 3=white(road)
+    patch_color::Matrix{Int}
+    grid_x_inc::Float64
+    grid_y_inc::Float64
 end
 
-function TGRoad(w::Int, h::Int)
+function TGRoad(w::Int, h::Int, gxi::Float64, gyi::Float64)
     TGRoad(w, h,
            fill(false, w, h),
            fill(false, w, h),
            fill(true, w, h),
            fill(-1, w, h),
            fill(0, w, h),
-           fill(0, w, h))
+           gxi, gyi)
 end
 
 mutable struct TGStats

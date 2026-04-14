@@ -8,25 +8,25 @@ function initialize!(::InitS1GSystem, world::World)
     grid = get_resource(world, S1GGrid)
     w, h = grid.width, grid.height
 
-    # Generate sugar landscape: two peaks like the classic Sugarscape
-    # Peak 1 at (w/4, h/4), Peak 2 at (3w/4, 3h/4), max sugar = 4
-    cx1, cy1 = w ÷ 4, h ÷ 4
-    cx2, cy2 = 3w ÷ 4, 3h ÷ 4
+    # Generate sugar landscape matching NetLogo: peaks at (35,35) and (15,15)
+    # in 0-indexed coords, which is (36,36) and (16,16) in 1-indexed
+    # NetLogo uses distancexy which respects wrapping
+    cx1, cy1 = 16, 16   # NetLogo (15,15) in 0-indexed
+    cx2, cy2 = 36, 36   # NetLogo (35,35) in 0-indexed
     for x in 1:w, y in 1:h
-        d1 = sqrt((x - cx1)^2 + (y - cy1)^2)
-        d2 = sqrt((x - cx2)^2 + (y - cy2)^2)
+        # Wrapping distance (matching NetLogo distancexy)
+        dx1 = min(abs(x - cx1), w - abs(x - cx1))
+        dy1 = min(abs(y - cy1), h - abs(y - cy1))
+        d1 = sqrt(Float64(dx1)^2 + Float64(dy1)^2)
+        dx2 = min(abs(x - cx2), w - abs(x - cx2))
+        dy2 = min(abs(y - cy2), h - abs(y - cy2))
+        d2 = sqrt(Float64(dx2)^2 + Float64(dy2)^2)
         d = min(d1, d2)
-        if d <= 5
-            ms = 4.0
-        elseif d <= 10
-            ms = 3.0
-        elseif d <= 15
-            ms = 2.0
-        elseif d <= 20
-            ms = 1.0
-        else
-            ms = 0.0
-        end
+        ms = 0.0
+        if d <= 20; ms = 1.0; end
+        if d <= 15; ms = 2.0; end
+        if d <= 10; ms = 3.0; end
+        if d <= 5;  ms = 4.0; end
         grid.max_psugar[x, y] = ms
         grid.psugar[x, y] = ms
     end
@@ -78,33 +78,40 @@ function update!(::S1GGoSystem, world::World)
 
     dead = Entity[]
     for (eid, ag) in agents
-        # Move: look in 4 cardinal directions up to vision distance
-        # Pick unoccupied patch with most sugar, closest if tie
-        best_x, best_y = ag.x, ag.y
-        best_sugar = grid.psugar[ag.x, ag.y]
-        best_dist = 0
-
+        # Move: collect unoccupied vision patches + current patch (always included)
+        # NetLogo: (patch-set patch-here (patches at-points vision-points) with [not any? turtles-here])
+        # The `with` filter applies to vision patches only, NOT to patch-here
+        # So patch-here is ALWAYS a candidate (distance=0 makes it win ties)
+        candidates = Tuple{Int,Int}[]
+        push!(candidates, (ag.x, ag.y))  # patch-here always included
         for (ddx, ddy) in ((0, 1), (0, -1), (1, 0), (-1, 0))
             for d in 1:ag.vision
                 nx = mod1(ag.x + ddx * d, w)
                 ny = mod1(ag.y + ddy * d, h)
-                if is_zero(grid.occupant[nx, ny]) || (nx == ag.x && ny == ag.y)
-                    ps = grid.psugar[nx, ny]
-                    if ps > best_sugar || (ps == best_sugar && d < best_dist)
-                        best_sugar = ps
-                        best_x = nx
-                        best_y = ny
-                        best_dist = d
-                    end
+                if is_zero(grid.occupant[nx, ny])
+                    push!(candidates, (nx, ny))
                 end
             end
         end
+        unique!(candidates)
 
-        # Move to best location
-        if best_x != ag.x || best_y != ag.y
+        # with-max [psugar]
+        max_ps = maximum(grid.psugar[c[1], c[2]] for c in candidates)
+        winners = filter(c -> grid.psugar[c[1], c[2]] == max_ps, candidates)
+
+        # min-one-of [distance myself] (wrapping Euclidean distance)
+        function wdist(cx, cy)
+            dx = min(abs(cx - ag.x), w - abs(cx - ag.x))
+            dy = min(abs(cy - ag.y), h - abs(cy - ag.y))
+            return sqrt(Float64(dx)^2 + Float64(dy)^2)
+        end
+        min_d = minimum(wdist(c[1], c[2]) for c in winners)
+        closest = filter(c -> wdist(c[1], c[2]) == min_d, winners)
+        chosen = closest[rand(rng, 1:length(closest))]
+
+        if chosen != (ag.x, ag.y)
             grid.occupant[ag.x, ag.y] = zero_entity
-            ag.x = best_x
-            ag.y = best_y
+            ag.x, ag.y = chosen
             grid.occupant[ag.x, ag.y] = eid
         end
 

@@ -120,8 +120,8 @@ function update!(::SHGoSystem, world::World)
             end
         end
 
-        # Wiggle and move
-        sh.heading += rand(rng, -50:50)
+        # Wiggle and move (triangular distribution matching NetLogo: random 50 - random 50)
+        sh.heading += rand(rng, 0:49) - rand(rng, 0:49)
         _sh_fd!(sh, 1.0, w, h)
 
         # Bring carried sheep along
@@ -144,7 +144,7 @@ function update!(::SHGoSystem, world::World)
     for (eid, _) in sheep_list
         sp = get_components(world, eid, (SHSheepPos,))[1]
         sp.hidden && continue
-        sp.heading += rand(rng, -50:50)
+        sp.heading += rand(rng, 0:49) - rand(rng, 0:49)
         θ = deg2rad(sp.heading)
         sp.x = mod(sp.x + sin(θ) * params.sheep_speed, w)
         sp.y = mod(sp.y + cos(θ) * params.sheep_speed, h)
@@ -167,28 +167,27 @@ function update!(::SHStatsSystem, world::World)
     stats = get_resource(world, SHStats)
     grid = get_resource(world, SHGrid)
     w, h = params.grid_width, params.grid_height
-    tick_val = get_resource(world, Tick).tick
 
-    # Only compute every 50 ticks (expensive)
-    if tick_val % 50 != 0 && tick_val > 0
-        return nothing
-    end
-
+    # Count ALL sheep per patch (including hidden) for sheepless-neighborhoods
+    all_sheep_count = fill(0, w, h)
+    # Count VISIBLE sheep per patch for denominator + num_sheep_visible
     fill!(grid.sheep_count, 0)
     num_visible = 0
 
     for (_, sheeps) in Query(world, (SHSheepPos,))
         @inbounds for i in eachindex(sheeps)
             s = sheeps[i]
-            s.hidden && continue
-            num_visible += 1
             cx = clamp(floor(Int, s.x) + 1, 1, w)
             cy = clamp(floor(Int, s.y) + 1, 1, h)
-            grid.sheep_count[cx, cy] += 1
+            all_sheep_count[cx, cy] += 1
+            if !s.hidden
+                num_visible += 1
+                grid.sheep_count[cx, cy] += 1
+            end
         end
     end
 
-    # Count patches with sheep_nearby == 0
+    # sheepless-neighborhoods: patches where sum of ALL sheep in 8 neighbors == 0
     sheepless = 0
     for x in 1:w, y in 1:h
         nearby = 0
@@ -196,17 +195,27 @@ function update!(::SHStatsSystem, world::World)
             (dx == 0 && dy == 0) && continue
             nx = mod1(x + dx, w)
             ny = mod1(y + dy, h)
-            nearby += grid.sheep_count[nx, ny]
+            nearby += all_sheep_count[nx, ny]
         end
         if nearby == 0
             sheepless += 1
         end
     end
 
-    patches_without_sheep = w * h - num_visible
+    # Denominator: patches with no VISIBLE sheep
+    patches_without_visible = 0
+    for x in 1:w, y in 1:h
+        if grid.sheep_count[x, y] == 0
+            patches_without_visible += 1
+        end
+    end
+
     stats.num_sheep_visible = num_visible
-    stats.herding_efficiency = patches_without_sheep > 0 ?
-        (sheepless / patches_without_sheep) * 100.0 : 0.0
+    if num_visible > 0 && patches_without_visible > 0
+        stats.herding_efficiency = (sheepless / patches_without_visible) * 100.0
+    else
+        stats.herding_efficiency = 0.0
+    end
     return nothing
 end
 

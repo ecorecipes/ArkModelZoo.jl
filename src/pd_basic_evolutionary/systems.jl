@@ -24,6 +24,7 @@ struct PDEGoSystem <: System end
 
 function update!(::PDEGoSystem, world::World)
     params = get_resource(world, PDEParams)
+    rng = get_resource(world, RNGResource).rng
     grid = get_resource(world, PDEGrid)
     w, h = grid.width, grid.height
 
@@ -45,22 +46,35 @@ function update!(::PDEGoSystem, world::World)
         end
     end
 
-    # select-strategy: copy old, then adopt neighbor's strategy with max score
+    # select-strategy: save old, then adopt neighbor's strategy with max score
+    # NetLogo processes patches in random order with immediate updates
     copyto!(grid.old_cooperate, grid.cooperate)
 
-    for x in 1:w, y in 1:h
+    # Random processing order (matching NetLogo's ask patches)
+    positions = [(x, y) for x in 1:w for y in 1:h]
+    Random.shuffle!(rng, positions)
+
+    for (x, y) in positions
         best_score = -Inf
-        best_coop = grid.cooperate[x, y]
+        best_candidates = Tuple{Int,Int}[]
         for dx in -1:1, dy in -1:1
             (dx == 0 && dy == 0) && continue
             nx = mod1(x + dx, w)
             ny = mod1(y + dy, h)
-            if grid.score[nx, ny] > best_score
-                best_score = grid.score[nx, ny]
-                best_coop = grid.cooperate[nx, ny]
+            s = grid.score[nx, ny]
+            if s > best_score
+                best_score = s
+                empty!(best_candidates)
+                push!(best_candidates, (nx, ny))
+            elseif s == best_score
+                push!(best_candidates, (nx, ny))
             end
         end
-        grid.cooperate[x, y] = best_coop
+        # Random tie-breaking (matching NetLogo's max-one-of)
+        if !isempty(best_candidates)
+            chosen = best_candidates[rand(rng, 1:length(best_candidates))]
+            grid.cooperate[x, y] = grid.cooperate[chosen[1], chosen[2]]
+        end
     end
 
     _pde_update_stats!(world)

@@ -12,9 +12,12 @@ function trafficgrid_model(params::TGParams = TGParams())
     add_resource!(world, Terminate(false))
     add_resource!(world, RNGResource(Xoshiro(params.seed)))
     add_resource!(world, deepcopy(params))
-    w = params.grid_size_x * 7 + 1   # approximate world size
-    h = params.grid_size_y * 7 + 1
-    add_resource!(world, TGRoad(w, h))
+    # World size: -18..18 = 37x37 (matching NetLogo wrapper)
+    w = 37
+    h = 37
+    gxi = Float64(w) / params.grid_size_x
+    gyi = Float64(h) / params.grid_size_y
+    add_resource!(world, TGRoad(w, h, gxi, gyi))
     add_resource!(world, TGStats())
     scheduler = Scheduler(world, trafficgrid_systems())
     initialize!(scheduler)
