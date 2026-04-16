@@ -18,10 +18,7 @@ end
 
 function elfarol_model(params::ElFarolParams = ElFarolParams())
     world = elfarol_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, ElFarolHistory(params.memory_size * 2))
     add_resource!(world, ElFarolStats())
     scheduler = Scheduler(world, elfarol_systems())
@@ -41,16 +38,5 @@ function elfarol_values(::ElFarolObserver, world::World)
 end
 
 function run_elfarol(; params::ElFarolParams = ElFarolParams(), observe::Bool = true)
-    scheduler = elfarol_model(params)
-    obs = ElFarolObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, elfarol_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, elfarol_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(elfarol_model, ElFarolObserver(), elfarol_values; params, observe)
 end

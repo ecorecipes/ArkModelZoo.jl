@@ -21,10 +21,7 @@ end
 
 function lassavirus_model(params::LassaParams = LassaParams())
     world = lassavirus_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, LassaStats())
     add_resource!(world, LassaRegistry())
     scheduler = Scheduler(world, lassavirus_systems())
@@ -44,16 +41,5 @@ function lassavirus_values(::LassaVirusObserver, world::World)
 end
 
 function run_lassavirus(; params::LassaParams = LassaParams(), observe::Bool = true)
-    scheduler = lassavirus_model(params)
-    obs = LassaVirusObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, lassavirus_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, lassavirus_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(lassavirus_model, LassaVirusObserver(), lassavirus_values; params, observe)
 end

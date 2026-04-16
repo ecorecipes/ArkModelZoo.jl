@@ -8,10 +8,7 @@ end
 
 function fakenews_model(params::FNewsParams = FNewsParams())
     world = fakenews_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, FNewsNetwork())
     add_resource!(world, FNewsStats())
     scheduler = Scheduler(world, fakenews_systems())
@@ -31,16 +28,5 @@ function fakenews_values(::FNewsObserver, world::World)
 end
 
 function run_fakenews(; params::FNewsParams = FNewsParams(), observe::Bool = true)
-    scheduler = fakenews_model(params)
-    obs = FNewsObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, fakenews_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, fakenews_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(fakenews_model, FNewsObserver(), fakenews_values; params, observe)
 end

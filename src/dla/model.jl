@@ -18,10 +18,7 @@ end
 
 function dla_model(params::DLAParams = DLAParams())
     world = dla_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, DLAGrid(params.grid_width, params.grid_height))
     add_resource!(world, DLAStats())
     scheduler = Scheduler(world, dla_systems())
@@ -41,16 +38,5 @@ function dla_values(::DLAObserver, world::World)
 end
 
 function run_dla(; params::DLAParams = DLAParams(), observe::Bool = true)
-    scheduler = dla_model(params)
-    obs = DLAObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, dla_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, dla_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(dla_model, DLAObserver(), dla_values; params, observe)
 end

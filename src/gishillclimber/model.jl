@@ -18,10 +18,7 @@ end
 
 function gishillclimber_model(params::GHCParams = GHCParams())
     world = gishillclimber_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, GHCGrid(params.grid_size, params.grid_size))
     add_resource!(world, GHCStats())
     scheduler = Scheduler(world, gishillclimber_systems())
@@ -41,16 +38,5 @@ function gishillclimber_values(::GHCObserver, world::World)
 end
 
 function run_gishillclimber(; params::GHCParams = GHCParams(), observe::Bool = true)
-    scheduler = gishillclimber_model(params)
-    obs = GHCObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, gishillclimber_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, gishillclimber_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(gishillclimber_model, GHCObserver(), gishillclimber_values; params, observe)
 end

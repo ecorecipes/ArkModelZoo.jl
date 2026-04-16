@@ -23,10 +23,7 @@ end
 
 function wolfsheep_model(params::WolfSheepParams = WolfSheepParams())
     world = wolfsheep_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, GrassGrid(params.grid_width, params.grid_height))
     add_resource!(world, WSPopulationStats())
     scheduler = Scheduler(world, wolfsheep_systems())
@@ -46,16 +43,5 @@ function wolfsheep_values(::WolfSheepObserver, world::World)
 end
 
 function run_wolfsheep(; params::WolfSheepParams = WolfSheepParams(), observe::Bool = true)
-    scheduler = wolfsheep_model(params)
-    obs = WolfSheepObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, wolfsheep_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, wolfsheep_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(wolfsheep_model, WolfSheepObserver(), wolfsheep_values; params, observe)
 end

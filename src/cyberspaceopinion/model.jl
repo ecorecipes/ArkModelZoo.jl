@@ -14,10 +14,7 @@ end
 
 function cyber_model(params::CyberParams = CyberParams())
     world = cyber_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, CyberGrid(params.grid_size, params.grid_size))
     add_resource!(world, CyberNetwork(params.grid_size * params.grid_size))
     add_resource!(world, CyberStats())
@@ -38,16 +35,5 @@ function cyber_values(::CyberObserver, world::World)
 end
 
 function run_cyber(; params::CyberParams = CyberParams(), observe::Bool = true)
-    scheduler = cyber_model(params)
-    obs = CyberObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, cyber_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, cyber_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(cyber_model, CyberObserver(), cyber_values; params, observe)
 end

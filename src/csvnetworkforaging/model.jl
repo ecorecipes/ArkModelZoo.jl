@@ -8,10 +8,7 @@ end
 
 function csvnetworkforaging_model(params::CNFParams = CNFParams())
     world = csvnetworkforaging_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, CNFNetwork())
     add_resource!(world, CNFStats())
     scheduler = Scheduler(world, csvnetworkforaging_systems())
@@ -31,16 +28,5 @@ function csvnetworkforaging_values(::CNFObserver, world::World)
 end
 
 function run_csvnetworkforaging(; params::CNFParams = CNFParams(), observe::Bool = true)
-    scheduler = csvnetworkforaging_model(params)
-    obs = CNFObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, csvnetworkforaging_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, csvnetworkforaging_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(csvnetworkforaging_model, CNFObserver(), csvnetworkforaging_values; params, observe)
 end

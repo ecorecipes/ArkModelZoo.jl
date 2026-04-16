@@ -23,10 +23,7 @@ end
 
 function sir_model(params::SIRParams = SIRParams())
     world = sir_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, SIRStats())
     scheduler = Scheduler(world, sir_systems())
     initialize!(scheduler)
@@ -45,16 +42,5 @@ function sir_values(::SIRObserver, world::World)
 end
 
 function run_sir(; params::SIRParams = SIRParams(), observe::Bool = true)
-    scheduler = sir_model(params)
-    obs = SIRObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, sir_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, sir_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(sir_model, SIRObserver(), sir_values; params, observe)
 end

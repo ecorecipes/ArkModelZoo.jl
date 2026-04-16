@@ -12,10 +12,7 @@ end
 
 function minoritybelief_model(params::MBeliefParams = MBeliefParams())
     world = minoritybelief_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, MBeliefState())
     add_resource!(world, MBeliefStats())
     scheduler = Scheduler(world, minoritybelief_systems())
@@ -35,16 +32,5 @@ function minoritybelief_values(::MBeliefObserver, world::World)
 end
 
 function run_minoritybelief(; params::MBeliefParams = MBeliefParams(), observe::Bool = true)
-    scheduler = minoritybelief_model(params)
-    obs = MBeliefObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, minoritybelief_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, minoritybelief_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(minoritybelief_model, MBeliefObserver(), minoritybelief_values; params, observe)
 end

@@ -23,10 +23,7 @@ end
 
 function wealthdistribution_model(params::WDParams = WDParams())
     world = wealthdistribution_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, WDGrid(params.grid_width, params.grid_height))
     add_resource!(world, WDStats())
     scheduler = Scheduler(world, wealthdistribution_systems())
@@ -46,16 +43,5 @@ function wealthdistribution_values(::WDObserver, world::World)
 end
 
 function run_wealthdistribution(; params::WDParams = WDParams(), observe::Bool = true)
-    scheduler = wealthdistribution_model(params)
-    obs = WDObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, wealthdistribution_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, wealthdistribution_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(wealthdistribution_model, WDObserver(), wealthdistribution_values; params, observe)
 end

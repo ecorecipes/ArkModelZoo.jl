@@ -12,10 +12,7 @@ end
 
 function simplemarket_model(params::SMktParams = SMktParams())
     world = simplemarket_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, SMktState())
     add_resource!(world, SMktStats())
     scheduler = Scheduler(world, simplemarket_systems())
@@ -35,16 +32,5 @@ function simplemarket_values(::SMktObserver, world::World)
 end
 
 function run_simplemarket(; params::SMktParams = SMktParams(), observe::Bool = true)
-    scheduler = simplemarket_model(params)
-    obs = SMktObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, simplemarket_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, simplemarket_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(simplemarket_model, SMktObserver(), simplemarket_values; params, observe)
 end

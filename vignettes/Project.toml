@@ -1,0 +1,11 @@
+[deps]
+ArkModelZoo = "049c65f7-fd94-4f03-8c0a-83602e57dd21"
+Plots = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"
+Statistics = "10745b16-79ce-11e8-11f9-7d13ad32a3b2"
+
+[sources]
+ArkModelZoo = { path = ".." }
+
+[compat]
+Plots = "1.41"
+julia = "1.10"

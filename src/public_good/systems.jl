@@ -1,5 +1,6 @@
 # NetLogo-compatible rounding (round half up, not banker's rounding)
-_nl_round(x) = floor(Int, x + 0.5)
+# Use Float64 to avoid Int64 overflow with exponentially growing values
+_nl_round(x) = floor(x + 0.5)
 
 # --- Initialization ---
 

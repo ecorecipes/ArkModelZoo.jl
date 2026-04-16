@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.28">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Shepherds</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="shepherds_files/libs/clipboard/clipboard.min.js"></script>
+<script src="shepherds_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="shepherds_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="shepherds_files/libs/quarto-html/popper.min.js"></script>
+<script src="shepherds_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="shepherds_files/libs/quarto-html/anchor.min.js"></script>
+<link href="shepherds_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="shepherds_files/libs/quarto-html/quarto-syntax-highlighting-49e51e44f424ea8c7044b429bdbbbfe2.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="shepherds_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="shepherds_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="shepherds_files/libs/bootstrap/bootstrap-8ffd5f67044e5306d9846f29df41dda5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a>
+  <ul class="collapse">
+  <li><a href="#what-is-it" id="toc-what-is-it" class="nav-link" data-scroll-target="#what-is-it">WHAT IS IT?</a></li>
+  <li><a href="#how-it-works" id="toc-how-it-works" class="nav-link" data-scroll-target="#how-it-works">HOW IT WORKS</a></li>
+  <li><a href="#things-to-notice" id="toc-things-to-notice" class="nav-link" data-scroll-target="#things-to-notice">THINGS TO NOTICE</a></li>
+  <li><a href="#things-to-try" id="toc-things-to-try" class="nav-link" data-scroll-target="#things-to-try">THINGS TO TRY</a></li>
+  <li><a href="#extending-the-model" id="toc-extending-the-model" class="nav-link" data-scroll-target="#extending-the-model">EXTENDING THE MODEL</a></li>
+  <li><a href="#netlogo-features" id="toc-netlogo-features" class="nav-link" data-scroll-target="#netlogo-features">NETLOGO FEATURES</a></li>
+  <li><a href="#related-models" id="toc-related-models" class="nav-link" data-scroll-target="#related-models">RELATED MODELS</a></li>
+  <li><a href="#credits-and-references" id="toc-credits-and-references" class="nav-link" data-scroll-target="#credits-and-references">CREDITS AND REFERENCES</a></li>
+  <li><a href="#how-to-cite" id="toc-how-to-cite" class="nav-link" data-scroll-target="#how-to-cite">HOW TO CITE</a></li>
+  <li><a href="#copyright-and-license" id="toc-copyright-and-license" class="nav-link" data-scroll-target="#copyright-and-license">COPYRIGHT AND LICENSE</a></li>
+  </ul></li>
+  <li><a href="#parameters" id="toc-parameters" class="nav-link" data-scroll-target="#parameters">Parameters</a></li>
+  <li><a href="#source-code" id="toc-source-code" class="nav-link" data-scroll-target="#source-code">Source Code</a></li>
+  <li><a href="#time-series" id="toc-time-series" class="nav-link" data-scroll-target="#time-series">Time Series</a></li>
+  <li><a href="#ensemble-runs" id="toc-ensemble-runs" class="nav-link" data-scroll-target="#ensemble-runs">Ensemble Runs</a></li>
+  <li><a href="#parameter-sensitivity" id="toc-parameter-sensitivity" class="nav-link" data-scroll-target="#parameter-sensitivity">Parameter Sensitivity</a></li>
+  <li><a href="#appendix-source-code" id="toc-appendix-source-code" class="nav-link" data-scroll-target="#appendix-source-code">Appendix: Source Code</a>
+  <ul class="collapse">
+  <li><a href="#parameters-parameters.jl" id="toc-parameters-parameters.jl" class="nav-link" data-scroll-target="#parameters-parameters.jl">Parameters (<code>parameters.jl</code>)</a></li>
+  <li><a href="#components-components.jl" id="toc-components-components.jl" class="nav-link" data-scroll-target="#components-components.jl">Components (<code>components.jl</code>)</a></li>
+  <li><a href="#resources-resources.jl" id="toc-resources-resources.jl" class="nav-link" data-scroll-target="#resources-resources.jl">Resources (<code>resources.jl</code>)</a></li>
+  <li><a href="#systems-systems.jl" id="toc-systems-systems.jl" class="nav-link" data-scroll-target="#systems-systems.jl">Systems (<code>systems.jl</code>)</a></li>
+  <li><a href="#model-model.jl" id="toc-model-model.jl" class="nav-link" data-scroll-target="#model-model.jl">Model (<code>model.jl</code>)</a></li>
+  </ul></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="shepherds.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li><li><a href="shepherds.md"><i class="bi bi-file-code"></i>Github (GFM)</a></li></ul></div></nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Shepherds</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<section id="what-is-it" class="level3">
+<h3 class="anchored" data-anchor-id="what-is-it">WHAT IS IT?</h3>
+<p>This project is inspired by two simpler models: one of termites gathering wood chips into piles and one of moving sheep. In this project, sheep wander randomly while shepherds circulate trying to herd them. Whether or not the sheep eventually end up in a single herd depends on the number of shepherds and how fast they move compared to the sheep.</p>
+</section>
+<section id="how-it-works" class="level3">
+<h3 class="anchored" data-anchor-id="how-it-works">HOW IT WORKS</h3>
+<p>The shepherds follow a set of simple rules. Each shepherd starts wandering randomly. If it bumps into a sheep, it picks the sheep up, and continues to wander randomly. When it bumps into another sheep, it finds a nearby empty space, puts its sheep down, and looks for another one.</p>
+</section>
+<section id="things-to-notice" class="level3">
+<h3 class="anchored" data-anchor-id="things-to-notice">THINGS TO NOTICE</h3>
+<p>As small herds of sheep begin to form, the herds are not “protected” in any way. That is, shepherds sometimes take sheep away from existing herds. That strategy might seem counter-productive. But if the herds were “protected”, you would end up with lots of little herds, not several big ones. Why is this?</p>
+<p>In general, if there are enough shepherds and/or the shepherds move much faster than the sheep, the number of herds decreases with time. Why? One explanation is as follows: some herds disappear, when shepherds carry away all of the sheep. If sheep never moved, it would not be possible for a new herd to start from scratch, since shepherds always put their sheep near other sheep. So the number of herds would necessarily decrease over time. (The only way a “new” herd would start is when an existing herd splits into two.) However, since sheep move, they can form new herds. If they move too fast relative to the shepherds, the herding will break down.</p>
+<p>If there are not enough shepherds, or if the sheep move fast enough relative to the shepherds, the shepherds cannot keep up with the wanderings of their sheep, and the sheep will disperse.</p>
+<p>Are the final herds roughly round? What other physical situations also produce round things?</p>
+<p>This project is a good example of a probabilistic and decentralized strategy. There is no shepherd in charge, and no special pre-designated site for the herds. The movement of the shepherds and sheep and thus their behavior is probabilistic. Each shepherd follows a set of simple rules, but the group as a whole accomplishes a rather sophisticated task.</p>
+</section>
+<section id="things-to-try" class="level3">
+<h3 class="anchored" data-anchor-id="things-to-try">THINGS TO TRY</h3>
+<p>Can you find the minimum number of shepherds needed to herd a given number of sheep? Which helps more, doubling the number of shepherds or doubling the speed of the existing shepherds (by cutting the SHEEP-SPEED in half)?</p>
+<p>How many sheep can one individual shepherd keep in a group?</p>
+<p>Start with a SHEEP-SPEED of zero (the sheep stay put), let the shepherd gather them into herds, and then slowly increase the SHEEP-SPEED. How is the herding efficiency affected? How high does SHEEP-SPEED need to be for the shepherds to be useless, that is, for the herding efficiency returns to its initial value? This is the same as saying that the distribution of sheep is no better than random.</p>
+<p>When there are just two or three herds left, which of them is most likely to “win” as the single, final herd? How often does the larger of the two herds win? If one herd has only a single sheep, and the other herd has the rest of the sheep, what are the chances that the first herd will win?</p>
+<p>Compare this model to “Termites”. It runs slower, but aside from that, are the results the same?</p>
+<p>In both the Termites and the Shepherds models, if the turtles don’t jump away from the piles/herds they make, piling/herding happens more slowly and to a lesser extent. Does this make sense? Experiment with different search commands that you might give the shepherds besides “fd 1” and “jump 20”.</p>
+</section>
+<section id="extending-the-model" class="level3">
+<h3 class="anchored" data-anchor-id="extending-the-model">EXTENDING THE MODEL</h3>
+<p>Can you find other ways to measure herding efficiency?</p>
+<p>Can you extend the model so that sheep follow each other, tending to cluster?</p>
+<p>Can you extend the model to have the shepherds sort white sheep from black sheep?</p>
+<p>Can you change the model so that there’s only ever one sheep on a patch? Does it change the behavior of the model?</p>
+<p>The way the model is currently written, multiple sheep are allowed to occupy the same physical location. And, since all shepherds search for a sheep to pick up before any of them actually take their sheep away, a shepherd may come to a location with several sheep and, examining one at random, find that another shepherd has already laid a hold of that sheep. Currently shepherds give up on all sheep at that location when this happens, rather than seeing if there are other sheep there which are still unattended. (If shepherds did not check to see whether a sheep was attended, multiple shepherds might each pick up the same sheep and take it away, thereby cloning it!) Can you find a way to make shepherds check all sheep at a location before leaving?</p>
+<p>Real shepherds often use sheepdogs to help them with their herding. A sheepdog in this context might put down some chemical which “scares” the sheep, i.e., wandering sheep try to avoid it and move down gradient. Can you implement sheepdogs and see how helpful they are? Can you come up with a rough equivalence of how many shepherds a sheepdog can replace (to maintain the same herding efficiency), or how many sheepdogs are needed to replace a single shepherd?</p>
+<p>Since it would be difficult to force sheep-turtles to follow shepherd-turtles which have “picked them up”, the mechanics of picking a sheep up actually involve “killing” the sheep and creating a sheep-shepherd collective which wanders around following shepherd rules until it finds a place to put the sheep down, at which point another sheep is “created” at that location, and the collective reverts to being a normal shepherd again. Can you change the model so the shepherds actually herd the sheep rather than killing them and recreating them?</p>
+</section>
+<section id="netlogo-features" class="level3">
+<h3 class="anchored" data-anchor-id="netlogo-features">NETLOGO FEATURES</h3>
+<p>Compare this code to that of “Termites”. It’s similar, except that sheep and shepherds are both turtles here, and active, while in Termites the wood chips are patches and remain passive. As a result, the Termites model runs faster.</p>
+<p>The two models are coded somewhat differently, however. Termites uses a loops-within-GO structure that is worth noting. GO is a turtle forever button, so each turtle executes the code in the GO function in parallel and independently of each other. Since each turtle moves through the GO function at its own pace, it’s OK for functions like search-for-chip to be written as loops, which execute repeatedly until a certain condition is satisfied. Then each turtle goes on to the next loop.</p>
+<p>But in this model, GO is an observer forever button, because we want to have separate “ask” blocks for the sheeps and the shepherds, and because we want to update the plot every so often. Since the observer waits for all of the turtles to finish the “ask” before moving on to the next line of code, it wouldn’t be OK for a turtle to take more than one step inside the “ask” – because then all the other turtles would have to wait for it. So instead of using loops, this model uses the boolean variables carrying-sheep? and found-herd? to keep track of whether each turtle is in sheep-finding mode, herd-finding mode, or empty-spot-finding mode.</p>
+</section>
+<section id="related-models" class="level3">
+<h3 class="anchored" data-anchor-id="related-models">RELATED MODELS</h3>
+<ul>
+<li>Termites</li>
+<li>Painted Desert Challenge</li>
+<li>State Machine Example</li>
+</ul>
+</section>
+<section id="credits-and-references" class="level3">
+<h3 class="anchored" data-anchor-id="credits-and-references">CREDITS AND REFERENCES</h3>
+<p>Thanks to Christopher Kribs Zaleta for his help with converting the model from StarLogoT to NetLogo.</p>
+</section>
+<section id="how-to-cite" class="level3">
+<h3 class="anchored" data-anchor-id="how-to-cite">HOW TO CITE</h3>
+<p>If you mention this model or the NetLogo software in a publication, we ask that you include the citations below.</p>
+<p>For the model itself:</p>
+<ul>
+<li>Wilensky, U. (1998). NetLogo Shepherds model. http://ccl.northwestern.edu/netlogo/models/Shepherds. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.</li>
+</ul>
+<p>Please cite the NetLogo software as:</p>
+<ul>
+<li>Wilensky, U. (1999). NetLogo. http://ccl.northwestern.edu/netlogo/. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.</li>
+</ul>
+</section>
+<section id="copyright-and-license" class="level3">
+<h3 class="anchored" data-anchor-id="copyright-and-license">COPYRIGHT AND LICENSE</h3>
+<p>Copyright 1998 Uri Wilensky.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="http://ccl.northwestern.edu/images/creativecommons/byncsa.png" class="img-fluid figure-img"></p>
+<figcaption>CC BY-NC-SA 3.0</figcaption>
+</figure>
+</div>
+<p>This model is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License. To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/3.0/ or send a letter to Creative Commons, 559 Nathan Abbott Way, Stanford, California 94305, USA.</p>
+<p>NetLogo itself is free software for non-commercial use under the terms of the GNU General Public License (<a href="https://ccl.northwestern.edu/netlogo/docs/copyright.html">see full license information here</a>).</p>
+<p>To inquire about commercial licenses for either NetLogo or specific models from the models library, please contact netlogo-commercial-admin@ccl.northwestern.edu.</p>
+<p>This model was created as part of the project: CONNECTED MATHEMATICS: MAKING SENSE OF COMPLEX PHENOMENA THROUGH BUILDING OBJECT-BASED PARALLEL MODELS (OBPML). The project gratefully acknowledges the support of the National Science Foundation (Applications of Advanced Technologies Program) – grant numbers RED #9552950 and REC #9632612.</p>
+<p>This model was converted to NetLogo as part of the projects: PARTICIPATORY SIMULATIONS: NETWORK-BASED DESIGN FOR SYSTEMS LEARNING IN CLASSROOMS and/or INTEGRATED SIMULATION AND MODELING ENVIRONMENT. The project gratefully acknowledges the support of the National Science Foundation (REPP &amp; ROLE programs) – grant numbers REC #9814682 and REC-0126227. Converted from StarLogoT to NetLogo, 2001.</p>
+<!-- 1998 2001 -->
+</section>
+</section>
+<section id="parameters" class="level2">
+<h2 class="anchored" data-anchor-id="parameters">Parameters</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>num_sheep</code></td>
+<td><code>Int</code></td>
+<td><code>150</code></td>
+<td>num sheep</td>
+</tr>
+<tr class="even">
+<td><code>num_shepherds</code></td>
+<td><code>Int</code></td>
+<td><code>30</code></td>
+<td>num shepherds</td>
+</tr>
+<tr class="odd">
+<td><code>sheep_speed</code></td>
+<td><code>Float64</code></td>
+<td><code>0.02</code></td>
+<td>sheep speed</td>
+</tr>
+<tr class="even">
+<td><code>grid_width</code></td>
+<td><code>Int</code></td>
+<td><code>51</code></td>
+<td>-25..25 = 51</td>
+</tr>
+<tr class="odd">
+<td><code>grid_height</code></td>
+<td><code>Int</code></td>
+<td><code>51</code></td>
+<td>grid height</td>
+</tr>
+<tr class="even">
+<td><code>max_ticks</code></td>
+<td><code>Int</code></td>
+<td><code>500</code></td>
+<td>max ticks</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="source-code" class="level2">
+<h2 class="anchored" data-anchor-id="source-code">Source Code</h2>
+<p>The Julia code to run this model:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">ArkModelZoo</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>_, trajectory <span class="op">=</span> <span class="fu">run_shepherds</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="time-series" class="level2">
+<h2 class="anchored" data-anchor-id="time-series">Time Series</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="plot_timeseries.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>Shepherds time series</figcaption>
+</figure>
+</div>
+</section>
+<section id="ensemble-runs" class="level2">
+<h2 class="anchored" data-anchor-id="ensemble-runs">Ensemble Runs</h2>
+<p>Ten replicates with different random seeds, showing mean ± standard deviation.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="plot_ensemble.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>Shepherds ensemble</figcaption>
+</figure>
+</div>
+</section>
+<section id="parameter-sensitivity" class="level2">
+<h2 class="anchored" data-anchor-id="parameter-sensitivity">Parameter Sensitivity</h2>
+<p>Varying <code>num_sheep</code>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="plot_sensitivity.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>Shepherds sensitivity</figcaption>
+</figure>
+</div>
+</section>
+<section id="appendix-source-code" class="level2">
+<h2 class="anchored" data-anchor-id="appendix-source-code">Appendix: Source Code</h2>
+<p>This model is implemented in the <a href="https://github.com/sdwfrost/Ark.jl">Ark.jl</a> Entity-Component-System (ECS) framework. The code is split into five files, each with a distinct role:</p>
+<ul>
+<li><strong>Parameters</strong>: a mutable struct holding all configurable values.</li>
+<li><strong>Components</strong>: lightweight data types attached to individual entities (agents).</li>
+<li><strong>Resources</strong>: world-level shared state accessible to all systems.</li>
+<li><strong>Systems</strong>: functions that operate on entities each tick, defining model behavior.</li>
+<li><strong>Model</strong>: wiring that assembles the world, registers resources and systems, and provides the run entry point.</li>
+</ul>
+<section id="parameters-parameters.jl" class="level3">
+<h3 class="anchored" data-anchor-id="parameters-parameters.jl">Parameters (<code>parameters.jl</code>)</h3>
+<p>The parameter struct uses <code>@kwdef</code> so that every field has a default value and can be overridden by keyword. These defaults match the original NetLogo model’s slider settings.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">Base</span>.<span class="pp">@kwdef</span> <span class="kw">mutable struct</span> SHParams</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    num_sheep<span class="op">::</span><span class="dt">Int </span><span class="op">=</span> <span class="fl">150</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    num_shepherds<span class="op">::</span><span class="dt">Int </span><span class="op">=</span> <span class="fl">30</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    sheep_speed<span class="op">::</span><span class="dt">Float64 </span><span class="op">=</span> <span class="fl">0.02</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    grid_width<span class="op">::</span><span class="dt">Int </span><span class="op">=</span> <span class="fl">51</span>    <span class="co"># -25..25 = 51</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    grid_height<span class="op">::</span><span class="dt">Int </span><span class="op">=</span> <span class="fl">51</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    max_ticks<span class="op">::</span><span class="dt">Int </span><span class="op">=</span> <span class="fl">500</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    seed<span class="op">::</span><span class="dt">Int </span><span class="op">=</span> <span class="fl">42</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="components-components.jl" class="level3">
+<h3 class="anchored" data-anchor-id="components-components.jl">Components (<code>components.jl</code>)</h3>
+<p>Components are lightweight data types attached to individual entities (agents). Mutable structs hold per-entity state, while empty tag structs act as markers for the ECS query system to efficiently filter entities.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">mutable struct</span> SHSheepPos</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    x<span class="op">::</span><span class="dt">Float64</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    y<span class="op">::</span><span class="dt">Float64</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    heading<span class="op">::</span><span class="dt">Float64</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    hidden<span class="op">::</span><span class="dt">Bool</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">SHSheepPos</span>() <span class="op">=</span> <span class="fu">SHSheepPos</span>(<span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="cn">false</span>)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="kw">mutable struct</span> SHShepherdState</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    x<span class="op">::</span><span class="dt">Float64</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    y<span class="op">::</span><span class="dt">Float64</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    heading<span class="op">::</span><span class="dt">Float64</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    carried_sheep<span class="op">::</span><span class="dt">Entity</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    found_herd<span class="op">::</span><span class="dt">Bool</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="fu">SHShepherdState</span>() <span class="op">=</span> <span class="fu">SHShepherdState</span>(<span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>, zero_entity, <span class="cn">false</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="resources-resources.jl" class="level3">
+<h3 class="anchored" data-anchor-id="resources-resources.jl">Resources (<code>resources.jl</code>)</h3>
+<p>Resources are world-level singletons shared across all systems, used for global state and aggregate statistics.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">mutable struct</span> SHGrid</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    width<span class="op">::</span><span class="dt">Int</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    height<span class="op">::</span><span class="dt">Int</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    sheep_count<span class="op">::</span><span class="dt">Matrix{Int}  </span><span class="co"># count of visible sheep per cell</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">SHGrid</span>(w<span class="op">::</span><span class="dt">Int</span>, h<span class="op">::</span><span class="dt">Int</span>)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">SHGrid</span>(w, h, <span class="fu">zeros</span>(<span class="dt">Int</span>, w, h))</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="kw">mutable struct</span> SHStats</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    herding_efficiency<span class="op">::</span><span class="dt">Float64</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    num_sheep_visible<span class="op">::</span><span class="dt">Int</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="fu">SHStats</span>() <span class="op">=</span> <span class="fu">SHStats</span>(<span class="fl">0.0</span>, <span class="fl">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="systems-systems.jl" class="level3">
+<h3 class="anchored" data-anchor-id="systems-systems.jl">Systems (<code>systems.jl</code>)</h3>
+<p>Systems contain the model logic and execute in a defined order each tick. Each system struct implements either <code>initialize!</code> (run once at setup) or <code>update!</code> (run every tick).</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Initialization ---</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> InitSHSystem <span class="op">&lt;:</span><span class="dt"> System </span><span class="kw">end</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">initialize!</span>(<span class="op">::</span><span class="dt">InitSHSystem</span>, world<span class="op">::</span><span class="dt">World</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    params <span class="op">=</span> <span class="fu">get_resource</span>(world, SHParams)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    rng <span class="op">=</span> <span class="fu">get_resource</span>(world, RNGResource).rng</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    w, h <span class="op">=</span> params.grid_width, params.grid_height</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Create sheep</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span>params.num_sheep</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>        sx <span class="op">=</span> <span class="fu">rand</span>(rng) <span class="op">*</span> w</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>        sy <span class="op">=</span> <span class="fu">rand</span>(rng) <span class="op">*</span> h</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>        heading <span class="op">=</span> <span class="fu">rand</span>(rng) <span class="op">*</span> <span class="fl">360.0</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>        <span class="fu">new_entity!</span>(world, (<span class="fu">SHSheepPos</span>(sx, sy, heading, <span class="cn">false</span>),))</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Create shepherds</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span>params.num_shepherds</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>        sx <span class="op">=</span> <span class="fu">rand</span>(rng) <span class="op">*</span> w</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>        sy <span class="op">=</span> <span class="fu">rand</span>(rng) <span class="op">*</span> h</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>        heading <span class="op">=</span> <span class="fu">rand</span>(rng) <span class="op">*</span> <span class="fl">360.0</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>        <span class="fu">new_entity!</span>(world, (<span class="fu">SHShepherdState</span>(sx, sy, heading, zero_entity, <span class="cn">false</span>),))</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="cn">nothing</span></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Go ---</span></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> SHGoSystem <span class="op">&lt;:</span><span class="dt"> System </span><span class="kw">end</span></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">update!</span>(<span class="op">::</span><span class="dt">SHGoSystem</span>, world<span class="op">::</span><span class="dt">World</span>)</span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>    params <span class="op">=</span> <span class="fu">get_resource</span>(world, SHParams)</span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>    rng <span class="op">=</span> <span class="fu">get_resource</span>(world, RNGResource).rng</span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>    w, h <span class="op">=</span> <span class="fu">Float64</span>(params.grid_width), <span class="fu">Float64</span>(params.grid_height)</span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Collect shepherds</span></span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>    shepherds <span class="op">=</span> <span class="dt">Tuple</span>{Entity, <span class="dt">Int</span>}[]</span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (eids, states) <span class="kw">in</span> <span class="fu">Query</span>(world, (SHShepherdState,))</span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>        <span class="pp">@inbounds</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="fu">eachindex</span>(states)</span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>            <span class="fu">push!</span>(shepherds, (eids[i], i))</span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>    <span class="bu">Random</span>.<span class="fu">shuffle!</span>(rng, shepherds)</span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Build spatial index of visible sheep positions (cell -&gt; list of sheep entities)</span></span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>    sheep_at <span class="op">=</span> <span class="fu">Dict</span><span class="dt">{Tuple{Int,Int}, Vector{Entity}}</span>()</span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (eids, sheeps) <span class="kw">in</span> <span class="fu">Query</span>(world, (SHSheepPos,))</span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a>        <span class="pp">@inbounds</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="fu">eachindex</span>(sheeps)</span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a>            s <span class="op">=</span> sheeps[i]</span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a>            s.hidden <span class="op">&amp;&amp;</span> <span class="cf">continue</span></span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a>            cx <span class="op">=</span> <span class="fu">clamp</span>(<span class="fu">floor</span>(<span class="dt">Int</span>, s.x) <span class="op">+</span> <span class="fl">1</span>, <span class="fl">1</span>, params.grid_width)</span>
+<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a>            cy <span class="op">=</span> <span class="fu">clamp</span>(<span class="fu">floor</span>(<span class="dt">Int</span>, s.y) <span class="op">+</span> <span class="fl">1</span>, <span class="fl">1</span>, params.grid_height)</span>
+<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a>            key <span class="op">=</span> (cx, cy)</span>
+<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="fu">haskey</span>(sheep_at, key)</span>
+<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a>                <span class="fu">push!</span>(sheep_at[key], eids[i])</span>
+<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span></span>
+<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a>                sheep_at[key] <span class="op">=</span> [eids[i]]</span>
+<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a>            <span class="cf">end</span></span>
+<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (eid, _) <span class="kw">in</span> shepherds</span>
+<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a>        sh <span class="op">=</span> <span class="fu">get_components</span>(world, eid, (SHShepherdState,))[<span class="fl">1</span>]</span>
+<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a>        cx <span class="op">=</span> <span class="fu">clamp</span>(<span class="fu">floor</span>(<span class="dt">Int</span>, sh.x) <span class="op">+</span> <span class="fl">1</span>, <span class="fl">1</span>, params.grid_width)</span>
+<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a>        cy <span class="op">=</span> <span class="fu">clamp</span>(<span class="fu">floor</span>(<span class="dt">Int</span>, sh.y) <span class="op">+</span> <span class="fl">1</span>, <span class="fl">1</span>, params.grid_height)</span>
+<span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a>        key <span class="op">=</span> (cx, cy)</span>
+<span id="cb5-68"><a href="#cb5-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-69"><a href="#cb5-69" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="fu">is_zero</span>(sh.carried_sheep)</span>
+<span id="cb5-70"><a href="#cb5-70" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Search for sheep at current cell</span></span>
+<span id="cb5-71"><a href="#cb5-71" aria-hidden="true" tabindex="-1"></a>            local_sheep <span class="op">=</span> <span class="fu">get</span>(sheep_at, key, Entity[])</span>
+<span id="cb5-72"><a href="#cb5-72" aria-hidden="true" tabindex="-1"></a>            visible <span class="op">=</span> <span class="fu">filter</span>(<span class="cn">e</span> <span class="op">-&gt;</span> <span class="cf">begin</span></span>
+<span id="cb5-73"><a href="#cb5-73" aria-hidden="true" tabindex="-1"></a>                sp <span class="op">=</span> <span class="fu">get_components</span>(world, <span class="cn">e</span>, (SHSheepPos,))[<span class="fl">1</span>]</span>
+<span id="cb5-74"><a href="#cb5-74" aria-hidden="true" tabindex="-1"></a>                !sp.hidden</span>
+<span id="cb5-75"><a href="#cb5-75" aria-hidden="true" tabindex="-1"></a>            <span class="cf">end</span>, local_sheep)</span>
+<span id="cb5-76"><a href="#cb5-76" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> !<span class="fu">isempty</span>(visible)</span>
+<span id="cb5-77"><a href="#cb5-77" aria-hidden="true" tabindex="-1"></a>                picked <span class="op">=</span> visible[<span class="fu">rand</span>(rng, <span class="fl">1</span><span class="op">:</span><span class="fu">length</span>(visible))]</span>
+<span id="cb5-78"><a href="#cb5-78" aria-hidden="true" tabindex="-1"></a>                sp <span class="op">=</span> <span class="fu">get_components</span>(world, picked, (SHSheepPos,))[<span class="fl">1</span>]</span>
+<span id="cb5-79"><a href="#cb5-79" aria-hidden="true" tabindex="-1"></a>                sp.hidden <span class="op">=</span> <span class="cn">true</span></span>
+<span id="cb5-80"><a href="#cb5-80" aria-hidden="true" tabindex="-1"></a>                sh.carried_sheep <span class="op">=</span> picked</span>
+<span id="cb5-81"><a href="#cb5-81" aria-hidden="true" tabindex="-1"></a>                <span class="co"># Step forward 1</span></span>
+<span id="cb5-82"><a href="#cb5-82" aria-hidden="true" tabindex="-1"></a>                <span class="fu">_sh_fd!</span>(sh, <span class="fl">1.0</span>, w, h)</span>
+<span id="cb5-83"><a href="#cb5-83" aria-hidden="true" tabindex="-1"></a>            <span class="cf">end</span></span>
+<span id="cb5-84"><a href="#cb5-84" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elseif</span> sh.found_herd</span>
+<span id="cb5-85"><a href="#cb5-85" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Find empty spot - check if any visible sheep here</span></span>
+<span id="cb5-86"><a href="#cb5-86" aria-hidden="true" tabindex="-1"></a>            local_sheep <span class="op">=</span> <span class="fu">get</span>(sheep_at, key, Entity[])</span>
+<span id="cb5-87"><a href="#cb5-87" aria-hidden="true" tabindex="-1"></a>            visible_here <span class="op">=</span> <span class="fu">filter</span>(<span class="cn">e</span> <span class="op">-&gt;</span> <span class="cf">begin</span></span>
+<span id="cb5-88"><a href="#cb5-88" aria-hidden="true" tabindex="-1"></a>                sp <span class="op">=</span> <span class="fu">get_components</span>(world, <span class="cn">e</span>, (SHSheepPos,))[<span class="fl">1</span>]</span>
+<span id="cb5-89"><a href="#cb5-89" aria-hidden="true" tabindex="-1"></a>                !sp.hidden</span>
+<span id="cb5-90"><a href="#cb5-90" aria-hidden="true" tabindex="-1"></a>            <span class="cf">end</span>, local_sheep)</span>
+<span id="cb5-91"><a href="#cb5-91" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="fu">isempty</span>(visible_here)</span>
+<span id="cb5-92"><a href="#cb5-92" aria-hidden="true" tabindex="-1"></a>                <span class="co"># Drop sheep</span></span>
+<span id="cb5-93"><a href="#cb5-93" aria-hidden="true" tabindex="-1"></a>                carried <span class="op">=</span> <span class="fu">get_components</span>(world, sh.carried_sheep, (SHSheepPos,))[<span class="fl">1</span>]</span>
+<span id="cb5-94"><a href="#cb5-94" aria-hidden="true" tabindex="-1"></a>                carried.x <span class="op">=</span> sh.x</span>
+<span id="cb5-95"><a href="#cb5-95" aria-hidden="true" tabindex="-1"></a>                carried.y <span class="op">=</span> sh.y</span>
+<span id="cb5-96"><a href="#cb5-96" aria-hidden="true" tabindex="-1"></a>                carried.hidden <span class="op">=</span> <span class="cn">false</span></span>
+<span id="cb5-97"><a href="#cb5-97" aria-hidden="true" tabindex="-1"></a>                <span class="co"># Re-index</span></span>
+<span id="cb5-98"><a href="#cb5-98" aria-hidden="true" tabindex="-1"></a>                ncx <span class="op">=</span> <span class="fu">clamp</span>(<span class="fu">floor</span>(<span class="dt">Int</span>, sh.x) <span class="op">+</span> <span class="fl">1</span>, <span class="fl">1</span>, params.grid_width)</span>
+<span id="cb5-99"><a href="#cb5-99" aria-hidden="true" tabindex="-1"></a>                ncy <span class="op">=</span> <span class="fu">clamp</span>(<span class="fu">floor</span>(<span class="dt">Int</span>, sh.y) <span class="op">+</span> <span class="fl">1</span>, <span class="fl">1</span>, params.grid_height)</span>
+<span id="cb5-100"><a href="#cb5-100" aria-hidden="true" tabindex="-1"></a>                nkey <span class="op">=</span> (ncx, ncy)</span>
+<span id="cb5-101"><a href="#cb5-101" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> <span class="fu">haskey</span>(sheep_at, nkey)</span>
+<span id="cb5-102"><a href="#cb5-102" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">push!</span>(sheep_at[nkey], sh.carried_sheep)</span>
+<span id="cb5-103"><a href="#cb5-103" aria-hidden="true" tabindex="-1"></a>                <span class="cf">else</span></span>
+<span id="cb5-104"><a href="#cb5-104" aria-hidden="true" tabindex="-1"></a>                    sheep_at[nkey] <span class="op">=</span> [sh.carried_sheep]</span>
+<span id="cb5-105"><a href="#cb5-105" aria-hidden="true" tabindex="-1"></a>                <span class="cf">end</span></span>
+<span id="cb5-106"><a href="#cb5-106" aria-hidden="true" tabindex="-1"></a>                sh.carried_sheep <span class="op">=</span> zero_entity</span>
+<span id="cb5-107"><a href="#cb5-107" aria-hidden="true" tabindex="-1"></a>                sh.found_herd <span class="op">=</span> <span class="cn">false</span></span>
+<span id="cb5-108"><a href="#cb5-108" aria-hidden="true" tabindex="-1"></a>                sh.heading <span class="op">=</span> <span class="fu">rand</span>(rng) <span class="op">*</span> <span class="fl">360.0</span></span>
+<span id="cb5-109"><a href="#cb5-109" aria-hidden="true" tabindex="-1"></a>                <span class="fu">_sh_fd!</span>(sh, <span class="fl">20.0</span>, w, h)</span>
+<span id="cb5-110"><a href="#cb5-110" aria-hidden="true" tabindex="-1"></a>            <span class="cf">end</span></span>
+<span id="cb5-111"><a href="#cb5-111" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span></span>
+<span id="cb5-112"><a href="#cb5-112" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Find new herd - check if visible sheep here</span></span>
+<span id="cb5-113"><a href="#cb5-113" aria-hidden="true" tabindex="-1"></a>            local_sheep <span class="op">=</span> <span class="fu">get</span>(sheep_at, key, Entity[])</span>
+<span id="cb5-114"><a href="#cb5-114" aria-hidden="true" tabindex="-1"></a>            visible_here <span class="op">=</span> <span class="fu">filter</span>(<span class="cn">e</span> <span class="op">-&gt;</span> <span class="cf">begin</span></span>
+<span id="cb5-115"><a href="#cb5-115" aria-hidden="true" tabindex="-1"></a>                sp <span class="op">=</span> <span class="fu">get_components</span>(world, <span class="cn">e</span>, (SHSheepPos,))[<span class="fl">1</span>]</span>
+<span id="cb5-116"><a href="#cb5-116" aria-hidden="true" tabindex="-1"></a>                !sp.hidden</span>
+<span id="cb5-117"><a href="#cb5-117" aria-hidden="true" tabindex="-1"></a>            <span class="cf">end</span>, local_sheep)</span>
+<span id="cb5-118"><a href="#cb5-118" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> !<span class="fu">isempty</span>(visible_here)</span>
+<span id="cb5-119"><a href="#cb5-119" aria-hidden="true" tabindex="-1"></a>                sh.found_herd <span class="op">=</span> <span class="cn">true</span></span>
+<span id="cb5-120"><a href="#cb5-120" aria-hidden="true" tabindex="-1"></a>            <span class="cf">end</span></span>
+<span id="cb5-121"><a href="#cb5-121" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb5-122"><a href="#cb5-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-123"><a href="#cb5-123" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Wiggle and move (triangular distribution matching NetLogo: random 50 - random 50)</span></span>
+<span id="cb5-124"><a href="#cb5-124" aria-hidden="true" tabindex="-1"></a>        sh.heading <span class="op">+=</span> <span class="fu">rand</span>(rng, <span class="fl">0</span><span class="op">:</span><span class="fl">49</span>) <span class="op">-</span> <span class="fu">rand</span>(rng, <span class="fl">0</span><span class="op">:</span><span class="fl">49</span>)</span>
+<span id="cb5-125"><a href="#cb5-125" aria-hidden="true" tabindex="-1"></a>        <span class="fu">_sh_fd!</span>(sh, <span class="fl">1.0</span>, w, h)</span>
+<span id="cb5-126"><a href="#cb5-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-127"><a href="#cb5-127" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Bring carried sheep along</span></span>
+<span id="cb5-128"><a href="#cb5-128" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> !<span class="fu">is_zero</span>(sh.carried_sheep)</span>
+<span id="cb5-129"><a href="#cb5-129" aria-hidden="true" tabindex="-1"></a>            carried <span class="op">=</span> <span class="fu">get_components</span>(world, sh.carried_sheep, (SHSheepPos,))[<span class="fl">1</span>]</span>
+<span id="cb5-130"><a href="#cb5-130" aria-hidden="true" tabindex="-1"></a>            carried.x <span class="op">=</span> sh.x</span>
+<span id="cb5-131"><a href="#cb5-131" aria-hidden="true" tabindex="-1"></a>            carried.y <span class="op">=</span> sh.y</span>
+<span id="cb5-132"><a href="#cb5-132" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb5-133"><a href="#cb5-133" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-134"><a href="#cb5-134" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-135"><a href="#cb5-135" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Move visible sheep</span></span>
+<span id="cb5-136"><a href="#cb5-136" aria-hidden="true" tabindex="-1"></a>    sheep_list <span class="op">=</span> <span class="dt">Tuple</span>{Entity, <span class="dt">Int</span>}[]</span>
+<span id="cb5-137"><a href="#cb5-137" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (eids, sheeps) <span class="kw">in</span> <span class="fu">Query</span>(world, (SHSheepPos,))</span>
+<span id="cb5-138"><a href="#cb5-138" aria-hidden="true" tabindex="-1"></a>        <span class="pp">@inbounds</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="fu">eachindex</span>(sheeps)</span>
+<span id="cb5-139"><a href="#cb5-139" aria-hidden="true" tabindex="-1"></a>            <span class="fu">push!</span>(sheep_list, (eids[i], i))</span>
+<span id="cb5-140"><a href="#cb5-140" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb5-141"><a href="#cb5-141" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-142"><a href="#cb5-142" aria-hidden="true" tabindex="-1"></a>    <span class="bu">Random</span>.<span class="fu">shuffle!</span>(rng, sheep_list)</span>
+<span id="cb5-143"><a href="#cb5-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-144"><a href="#cb5-144" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (eid, _) <span class="kw">in</span> sheep_list</span>
+<span id="cb5-145"><a href="#cb5-145" aria-hidden="true" tabindex="-1"></a>        sp <span class="op">=</span> <span class="fu">get_components</span>(world, eid, (SHSheepPos,))[<span class="fl">1</span>]</span>
+<span id="cb5-146"><a href="#cb5-146" aria-hidden="true" tabindex="-1"></a>        sp.hidden <span class="op">&amp;&amp;</span> <span class="cf">continue</span></span>
+<span id="cb5-147"><a href="#cb5-147" aria-hidden="true" tabindex="-1"></a>        sp.heading <span class="op">+=</span> <span class="fu">rand</span>(rng, <span class="fl">0</span><span class="op">:</span><span class="fl">49</span>) <span class="op">-</span> <span class="fu">rand</span>(rng, <span class="fl">0</span><span class="op">:</span><span class="fl">49</span>)</span>
+<span id="cb5-148"><a href="#cb5-148" aria-hidden="true" tabindex="-1"></a>        θ <span class="op">=</span> <span class="fu">deg2rad</span>(sp.heading)</span>
+<span id="cb5-149"><a href="#cb5-149" aria-hidden="true" tabindex="-1"></a>        sp.x <span class="op">=</span> <span class="fu">mod</span>(sp.x <span class="op">+</span> <span class="fu">sin</span>(θ) <span class="op">*</span> params.sheep_speed, w)</span>
+<span id="cb5-150"><a href="#cb5-150" aria-hidden="true" tabindex="-1"></a>        sp.y <span class="op">=</span> <span class="fu">mod</span>(sp.y <span class="op">+</span> <span class="fu">cos</span>(θ) <span class="op">*</span> params.sheep_speed, h)</span>
+<span id="cb5-151"><a href="#cb5-151" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-152"><a href="#cb5-152" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="cn">nothing</span></span>
+<span id="cb5-153"><a href="#cb5-153" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb5-154"><a href="#cb5-154" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-155"><a href="#cb5-155" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">_sh_fd!</span>(state, dist<span class="op">::</span><span class="dt">Float64</span>, w<span class="op">::</span><span class="dt">Float64</span>, h<span class="op">::</span><span class="dt">Float64</span>)</span>
+<span id="cb5-156"><a href="#cb5-156" aria-hidden="true" tabindex="-1"></a>    θ <span class="op">=</span> <span class="fu">deg2rad</span>(state.heading)</span>
+<span id="cb5-157"><a href="#cb5-157" aria-hidden="true" tabindex="-1"></a>    state.x <span class="op">=</span> <span class="fu">mod</span>(state.x <span class="op">+</span> <span class="fu">sin</span>(θ) <span class="op">*</span> dist, w)</span>
+<span id="cb5-158"><a href="#cb5-158" aria-hidden="true" tabindex="-1"></a>    state.y <span class="op">=</span> <span class="fu">mod</span>(state.y <span class="op">+</span> <span class="fu">cos</span>(θ) <span class="op">*</span> dist, h)</span>
+<span id="cb5-159"><a href="#cb5-159" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb5-160"><a href="#cb5-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-161"><a href="#cb5-161" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Stats Update ---</span></span>
+<span id="cb5-162"><a href="#cb5-162" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-163"><a href="#cb5-163" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> SHStatsSystem <span class="op">&lt;:</span><span class="dt"> System </span><span class="kw">end</span></span>
+<span id="cb5-164"><a href="#cb5-164" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-165"><a href="#cb5-165" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">update!</span>(<span class="op">::</span><span class="dt">SHStatsSystem</span>, world<span class="op">::</span><span class="dt">World</span>)</span>
+<span id="cb5-166"><a href="#cb5-166" aria-hidden="true" tabindex="-1"></a>    params <span class="op">=</span> <span class="fu">get_resource</span>(world, SHParams)</span>
+<span id="cb5-167"><a href="#cb5-167" aria-hidden="true" tabindex="-1"></a>    stats <span class="op">=</span> <span class="fu">get_resource</span>(world, SHStats)</span>
+<span id="cb5-168"><a href="#cb5-168" aria-hidden="true" tabindex="-1"></a>    grid <span class="op">=</span> <span class="fu">get_resource</span>(world, SHGrid)</span>
+<span id="cb5-169"><a href="#cb5-169" aria-hidden="true" tabindex="-1"></a>    w, h <span class="op">=</span> params.grid_width, params.grid_height</span>
+<span id="cb5-170"><a href="#cb5-170" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-171"><a href="#cb5-171" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Count ALL sheep per patch (including hidden) for sheepless-neighborhoods</span></span>
+<span id="cb5-172"><a href="#cb5-172" aria-hidden="true" tabindex="-1"></a>    all_sheep_count <span class="op">=</span> <span class="fu">fill</span>(<span class="fl">0</span>, w, h)</span>
+<span id="cb5-173"><a href="#cb5-173" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Count VISIBLE sheep per patch for denominator + num_sheep_visible</span></span>
+<span id="cb5-174"><a href="#cb5-174" aria-hidden="true" tabindex="-1"></a>    <span class="fu">fill!</span>(grid.sheep_count, <span class="fl">0</span>)</span>
+<span id="cb5-175"><a href="#cb5-175" aria-hidden="true" tabindex="-1"></a>    num_visible <span class="op">=</span> <span class="fl">0</span></span>
+<span id="cb5-176"><a href="#cb5-176" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-177"><a href="#cb5-177" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (_, sheeps) <span class="kw">in</span> <span class="fu">Query</span>(world, (SHSheepPos,))</span>
+<span id="cb5-178"><a href="#cb5-178" aria-hidden="true" tabindex="-1"></a>        <span class="pp">@inbounds</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="fu">eachindex</span>(sheeps)</span>
+<span id="cb5-179"><a href="#cb5-179" aria-hidden="true" tabindex="-1"></a>            s <span class="op">=</span> sheeps[i]</span>
+<span id="cb5-180"><a href="#cb5-180" aria-hidden="true" tabindex="-1"></a>            cx <span class="op">=</span> <span class="fu">clamp</span>(<span class="fu">floor</span>(<span class="dt">Int</span>, s.x) <span class="op">+</span> <span class="fl">1</span>, <span class="fl">1</span>, w)</span>
+<span id="cb5-181"><a href="#cb5-181" aria-hidden="true" tabindex="-1"></a>            cy <span class="op">=</span> <span class="fu">clamp</span>(<span class="fu">floor</span>(<span class="dt">Int</span>, s.y) <span class="op">+</span> <span class="fl">1</span>, <span class="fl">1</span>, h)</span>
+<span id="cb5-182"><a href="#cb5-182" aria-hidden="true" tabindex="-1"></a>            all_sheep_count[cx, cy] <span class="op">+=</span> <span class="fl">1</span></span>
+<span id="cb5-183"><a href="#cb5-183" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> !s.hidden</span>
+<span id="cb5-184"><a href="#cb5-184" aria-hidden="true" tabindex="-1"></a>                num_visible <span class="op">+=</span> <span class="fl">1</span></span>
+<span id="cb5-185"><a href="#cb5-185" aria-hidden="true" tabindex="-1"></a>                grid.sheep_count[cx, cy] <span class="op">+=</span> <span class="fl">1</span></span>
+<span id="cb5-186"><a href="#cb5-186" aria-hidden="true" tabindex="-1"></a>            <span class="cf">end</span></span>
+<span id="cb5-187"><a href="#cb5-187" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb5-188"><a href="#cb5-188" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-189"><a href="#cb5-189" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-190"><a href="#cb5-190" aria-hidden="true" tabindex="-1"></a>    <span class="co"># sheepless-neighborhoods: patches where sum of ALL sheep in 8 neighbors == 0</span></span>
+<span id="cb5-191"><a href="#cb5-191" aria-hidden="true" tabindex="-1"></a>    sheepless <span class="op">=</span> <span class="fl">0</span></span>
+<span id="cb5-192"><a href="#cb5-192" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> x <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span>w, y <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span>h</span>
+<span id="cb5-193"><a href="#cb5-193" aria-hidden="true" tabindex="-1"></a>        nearby <span class="op">=</span> <span class="fl">0</span></span>
+<span id="cb5-194"><a href="#cb5-194" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> dx <span class="kw">in</span> <span class="op">-</span><span class="fl">1</span><span class="op">:</span><span class="fl">1</span>, dy <span class="kw">in</span> <span class="op">-</span><span class="fl">1</span><span class="op">:</span><span class="fl">1</span></span>
+<span id="cb5-195"><a href="#cb5-195" aria-hidden="true" tabindex="-1"></a>            (dx <span class="op">==</span> <span class="fl">0</span> <span class="op">&amp;&amp;</span> dy <span class="op">==</span> <span class="fl">0</span>) <span class="op">&amp;&amp;</span> <span class="cf">continue</span></span>
+<span id="cb5-196"><a href="#cb5-196" aria-hidden="true" tabindex="-1"></a>            nx <span class="op">=</span> <span class="fu">mod1</span>(x <span class="op">+</span> dx, w)</span>
+<span id="cb5-197"><a href="#cb5-197" aria-hidden="true" tabindex="-1"></a>            ny <span class="op">=</span> <span class="fu">mod1</span>(y <span class="op">+</span> dy, h)</span>
+<span id="cb5-198"><a href="#cb5-198" aria-hidden="true" tabindex="-1"></a>            nearby <span class="op">+=</span> all_sheep_count[nx, ny]</span>
+<span id="cb5-199"><a href="#cb5-199" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb5-200"><a href="#cb5-200" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> nearby <span class="op">==</span> <span class="fl">0</span></span>
+<span id="cb5-201"><a href="#cb5-201" aria-hidden="true" tabindex="-1"></a>            sheepless <span class="op">+=</span> <span class="fl">1</span></span>
+<span id="cb5-202"><a href="#cb5-202" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb5-203"><a href="#cb5-203" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-204"><a href="#cb5-204" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-205"><a href="#cb5-205" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Denominator: patches with no VISIBLE sheep</span></span>
+<span id="cb5-206"><a href="#cb5-206" aria-hidden="true" tabindex="-1"></a>    patches_without_visible <span class="op">=</span> <span class="fl">0</span></span>
+<span id="cb5-207"><a href="#cb5-207" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> x <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span>w, y <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span>h</span>
+<span id="cb5-208"><a href="#cb5-208" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> grid.sheep_count[x, y] <span class="op">==</span> <span class="fl">0</span></span>
+<span id="cb5-209"><a href="#cb5-209" aria-hidden="true" tabindex="-1"></a>            patches_without_visible <span class="op">+=</span> <span class="fl">1</span></span>
+<span id="cb5-210"><a href="#cb5-210" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb5-211"><a href="#cb5-211" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-212"><a href="#cb5-212" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-213"><a href="#cb5-213" aria-hidden="true" tabindex="-1"></a>    stats.num_sheep_visible <span class="op">=</span> num_visible</span>
+<span id="cb5-214"><a href="#cb5-214" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> num_visible <span class="op">&gt;</span> <span class="fl">0</span> <span class="op">&amp;&amp;</span> patches_without_visible <span class="op">&gt;</span> <span class="fl">0</span></span>
+<span id="cb5-215"><a href="#cb5-215" aria-hidden="true" tabindex="-1"></a>        stats.herding_efficiency <span class="op">=</span> (sheepless <span class="op">/</span> patches_without_visible) <span class="op">*</span> <span class="fl">100.0</span></span>
+<span id="cb5-216"><a href="#cb5-216" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span></span>
+<span id="cb5-217"><a href="#cb5-217" aria-hidden="true" tabindex="-1"></a>        stats.herding_efficiency <span class="op">=</span> <span class="fl">0.0</span></span>
+<span id="cb5-218"><a href="#cb5-218" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-219"><a href="#cb5-219" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="cn">nothing</span></span>
+<span id="cb5-220"><a href="#cb5-220" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb5-221"><a href="#cb5-221" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-222"><a href="#cb5-222" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Termination ---</span></span>
+<span id="cb5-223"><a href="#cb5-223" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-224"><a href="#cb5-224" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> SHTerminationSystem <span class="op">&lt;:</span><span class="dt"> System </span><span class="kw">end</span></span>
+<span id="cb5-225"><a href="#cb5-225" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-226"><a href="#cb5-226" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">update!</span>(<span class="op">::</span><span class="dt">SHTerminationSystem</span>, world<span class="op">::</span><span class="dt">World</span>)</span>
+<span id="cb5-227"><a href="#cb5-227" aria-hidden="true" tabindex="-1"></a>    params <span class="op">=</span> <span class="fu">get_resource</span>(world, SHParams)</span>
+<span id="cb5-228"><a href="#cb5-228" aria-hidden="true" tabindex="-1"></a>    tick <span class="op">=</span> <span class="fu">get_resource</span>(world, Tick)</span>
+<span id="cb5-229"><a href="#cb5-229" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> tick.tick <span class="op">+</span> <span class="fl">1</span> <span class="op">&gt;=</span> params.max_ticks</span>
+<span id="cb5-230"><a href="#cb5-230" aria-hidden="true" tabindex="-1"></a>        <span class="fu">get_resource</span>(world, Terminate).stop <span class="op">=</span> <span class="cn">true</span></span>
+<span id="cb5-231"><a href="#cb5-231" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-232"><a href="#cb5-232" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="cn">nothing</span></span>
+<span id="cb5-233"><a href="#cb5-233" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="model-model.jl" class="level3">
+<h3 class="anchored" data-anchor-id="model-model.jl">Model (<code>model.jl</code>)</h3>
+<p>The model file assembles all pieces: it creates the ECS <code>World</code> with the required component types, registers resources, builds the <code>Scheduler</code> with systems in execution order, and exposes the public <code>run</code> entry point. The observer pattern records the trajectory each tick.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">shepherds_world</span>(; initial_capacity<span class="op">::</span><span class="dt">Int </span><span class="op">=</span> <span class="fl">4096</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fu">World</span>(SHSheepPos, SHShepherdState; initial_capacity <span class="op">=</span> initial_capacity, allow_mutable <span class="op">=</span> <span class="cn">true</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">shepherds_systems</span>()</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (<span class="fu">InitSHSystem</span>(), <span class="fu">SHGoSystem</span>(), <span class="fu">SHStatsSystem</span>(), <span class="fu">SHTerminationSystem</span>())</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">shepherds_model</span>(params<span class="op">::</span><span class="dt">SHParams </span><span class="op">=</span> <span class="fu">SHParams</span>())</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    world <span class="op">=</span> <span class="fu">shepherds_world</span>()</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">_add_standard_resources!</span>(world, params)</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_resource!</span>(world, <span class="fu">SHGrid</span>(params.grid_width, params.grid_height))</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_resource!</span>(world, <span class="fu">SHStats</span>())</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    scheduler <span class="op">=</span> <span class="fu">Scheduler</span>(world, <span class="fu">shepherds_systems</span>())</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">initialize!</span>(scheduler)</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> scheduler</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> SHObserver <span class="kw">end</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">shepherds_headers</span>(<span class="op">::</span><span class="dt">SHObserver</span>)</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [<span class="st">"HerdingEfficiency"</span>, <span class="st">"NumSheepVisible"</span>]</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">shepherds_values</span>(<span class="op">::</span><span class="dt">SHObserver</span>, world<span class="op">::</span><span class="dt">World</span>)</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>    stats <span class="op">=</span> <span class="fu">get_resource</span>(world, SHStats)</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dt">Float64</span>[stats.herding_efficiency, <span class="fu">Float64</span>(stats.num_sheep_visible)]</span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">run_shepherds</span>(; params<span class="op">::</span><span class="dt">SHParams </span><span class="op">=</span> <span class="fu">SHParams</span>(), observe<span class="op">::</span><span class="dt">Bool </span><span class="op">=</span> <span class="cn">true</span>)</span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fu">_run_model</span>(shepherds_model, <span class="fu">SHObserver</span>(), shepherds_values; params, observe)</span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

@@ -15,17 +15,6 @@ function _satt_influence_function(influence::String, val::Int, max_entrench::Int
     return 1.0
 end
 
-function _satt_neighbors_wrap(x::Int, y::Int, w::Int, h::Int)
-    nbrs = Tuple{Int,Int}[]
-    for dx in -1:1, dy in -1:1
-        (dx == 0 && dy == 0) && continue
-        nx = mod1(x + dx, w)
-        ny = mod1(y + dy, h)
-        push!(nbrs, (nx, ny))
-    end
-    return nbrs
-end
-
 struct InitSAttSystem <: System end
 
 function initialize!(::InitSAttSystem, world::World)
@@ -89,7 +78,7 @@ function update!(::SAttGoSystem, world::World)
     shuffle!(rng, cells)
 
     for (x, y) in cells
-        nbrs = _satt_neighbors_wrap(x, y, w, h)
+        nbrs = moore_neighbors_wrap(x, y, w, h)
         isempty(nbrs) && continue
         my_old = grid.old_attitude[x, y]
 

@@ -8,10 +8,7 @@ end
 
 function firebenchmark_model(params::FBParams = FBParams())
     world = firebenchmark_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, FBGrid(params.grid_width, params.grid_height))
     add_resource!(world, FBStats())
     scheduler = Scheduler(world, firebenchmark_systems())
@@ -31,16 +28,5 @@ function firebenchmark_values(::FBObserver, world::World)
 end
 
 function run_firebenchmark(; params::FBParams = FBParams(), observe::Bool = true)
-    scheduler = firebenchmark_model(params)
-    obs = FBObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, firebenchmark_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, firebenchmark_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(firebenchmark_model, FBObserver(), firebenchmark_values; params, observe)
 end

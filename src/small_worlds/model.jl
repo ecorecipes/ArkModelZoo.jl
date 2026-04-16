@@ -8,10 +8,7 @@ end
 
 function sw_model(params::SWParams = SWParams())
     world = sw_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, SWNetwork())
     add_resource!(world, SWStats())
     scheduler = Scheduler(world, sw_systems())
@@ -32,16 +29,5 @@ function sw_values(::SWObserver, world::World)
 end
 
 function run_small_worlds(; params::SWParams = SWParams(), observe::Bool = true)
-    scheduler = sw_model(params)
-    obs = SWObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, sw_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, sw_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(sw_model, SWObserver(), sw_values; params, observe)
 end

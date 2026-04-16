@@ -8,10 +8,7 @@ end
 
 function schelling_model(params::SchParams = SchParams())
     world = schelling_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, SchGrid(params.grid_width, params.grid_height))
     add_resource!(world, SchStats())
     scheduler = Scheduler(world, schelling_systems())
@@ -31,16 +28,5 @@ function schelling_values(::SchObserver, world::World)
 end
 
 function run_schelling(; params::SchParams = SchParams(), observe::Bool = true)
-    scheduler = schelling_model(params)
-    obs = SchObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, schelling_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, schelling_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(schelling_model, SchObserver(), schelling_values; params, observe)
 end

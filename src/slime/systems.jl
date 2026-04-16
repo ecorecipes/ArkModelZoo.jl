@@ -89,7 +89,7 @@ function update!(::SLGoSystem, world::World)
     end
 
     # Diffuse chemical
-    _sl_diffuse!(chem, params.diffusion_rate, w, h)
+    diffuse!(chem, params.diffusion_rate, w, h)
 
     # Evaporate
     @inbounds for i in eachindex(chem)
@@ -128,32 +128,6 @@ function _sl_turn_toward_chemical!(pos::SLPosition, hdg::SLHeading,
         hdg.heading = mod(hdg.heading + sniff_angle, 360.0)
     elseif left_chem >= ahead_chem
         hdg.heading = mod(hdg.heading - sniff_angle + 360.0, 360.0)
-    end
-    return nothing
-end
-
-# NetLogo `diffuse chemical fraction`:
-# Each patch shares `fraction` of its value equally to 8 neighbors (1/8 each).
-# Patch keeps (1 - fraction) of its original value plus what it receives from neighbors.
-function _sl_diffuse!(chem::Matrix{Float64}, fraction::Float64, w::Int, h::Int)
-    old = copy(chem)
-    share = fraction / 8.0
-    keep = 1.0 - fraction
-
-    @inbounds for x in 1:w, y in 1:h
-        val = old[x, y]
-        chem[x, y] = keep * val
-    end
-
-    @inbounds for x in 1:w, y in 1:h
-        contribution = old[x, y] * share
-        contribution == 0.0 && continue
-        for dx in -1:1, dy in -1:1
-            (dx == 0 && dy == 0) && continue
-            nx = mod1(x + dx, w)
-            ny = mod1(y + dy, h)
-            chem[nx, ny] += contribution
-        end
     end
     return nothing
 end

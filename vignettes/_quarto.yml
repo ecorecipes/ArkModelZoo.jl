@@ -1,0 +1,14 @@
+format:
+  html:
+    theme: cosmo
+    code-fold: true
+    toc: true
+  pdf:
+    pdf-engine: lualatex
+    mainfont: "STIX Two Text"
+    mathfont: "STIX Two Math"
+    monofont: "Fira Code"
+    toc: true
+    colorlinks: true
+  gfm:
+    toc: true

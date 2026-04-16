@@ -30,16 +30,7 @@ function update!(::BBGoSystem, world::World)
 
     # Phase 1: count firing neighbors
     for x in 1:w, y in 1:h
-        cnt = 0
-        for dx in -1:1, dy in -1:1
-            (dx == 0 && dy == 0) && continue
-            nx = mod1(x + dx, w)
-            ny = mod1(y + dy, h)
-            if grid.state[nx, ny] == 1
-                cnt += 1
-            end
-        end
-        grid.firing_neighbors[x, y] = cnt
+        grid.firing_neighbors[x, y] = moore_neighbor_count(==(1), grid.state, x, y, w, h)
     end
 
     # Phase 2: update states

@@ -20,10 +20,7 @@ end
 
 function diffusionofhiv_model(params::HIVParams = HIVParams())
     world = diffusionofhiv_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, HIVState(params.grid_width, params.grid_height))
     add_resource!(world, HIVStats())
     scheduler = Scheduler(world, diffusionofhiv_systems())
@@ -43,16 +40,5 @@ function diffusionofhiv_values(::HIVObserver, world::World)
 end
 
 function run_diffusionofhiv(; params::HIVParams = HIVParams(), observe::Bool = true)
-    scheduler = diffusionofhiv_model(params)
-    obs = HIVObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, diffusionofhiv_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, diffusionofhiv_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(diffusionofhiv_model, HIVObserver(), diffusionofhiv_values; params, observe)
 end

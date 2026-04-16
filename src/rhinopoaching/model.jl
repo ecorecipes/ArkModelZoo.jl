@@ -124,16 +124,5 @@ function rhino_values(::RhinoObserver, world::World)
 end
 
 function run_rhinopoaching(; params::RhinoParams = RhinoParams(), observe::Bool = true)
-    scheduler = rhinopoaching_model(params)
-    obs = RhinoObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, rhino_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, rhino_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(rhinopoaching_model, RhinoObserver(), rhino_values; params, observe)
 end

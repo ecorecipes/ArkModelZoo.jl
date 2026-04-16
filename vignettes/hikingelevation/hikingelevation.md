@@ -1,0 +1,316 @@
+# HikingElevation
+
+
+- [Overview](#overview)
+- [Parameters](#parameters)
+- [Source Code](#source-code)
+- [Appendix: Source Code](#appendix-source-code)
+  - [Parameters (`parameters.jl`)](#parameters-parametersjl)
+  - [Components (`components.jl`)](#components-componentsjl)
+  - [Resources (`resources.jl`)](#resources-resourcesjl)
+  - [Systems (`systems.jl`)](#systems-systemsjl)
+  - [Model (`model.jl`)](#model-modeljl)
+
+## Overview
+
+This vignette demonstrates the **HikingElevation** model implemented in
+[ArkModelZoo.jl](https://github.com/sdwfrost/ArkModelZoo.jl) using the
+Ark.jl ECS framework.
+
+## Parameters
+
+| Parameter   | Type     | Default | Description |
+|-------------|----------|---------|-------------|
+| `max_ticks` | `Int`    | `200`   | max ticks   |
+| `data_path` | `String` | `""`    | data path   |
+
+## Source Code
+
+The Julia code to run this model:
+
+``` julia
+using ArkModelZoo
+_, trajectory = run_hikingelevation()
+```
+
+## Appendix: Source Code
+
+This model is implemented in the
+[Ark.jl](https://github.com/sdwfrost/Ark.jl) Entity-Component-System
+(ECS) framework. The code is split into five files, each with a distinct
+role:
+
+- **Parameters**: a mutable struct holding all configurable values.
+- **Components**: lightweight data types attached to individual entities
+  (agents).
+- **Resources**: world-level shared state accessible to all systems.
+- **Systems**: functions that operate on entities each tick, defining
+  model behavior.
+- **Model**: wiring that assembles the world, registers resources and
+  systems, and provides the run entry point.
+
+### Parameters (`parameters.jl`)
+
+The parameter struct uses `@kwdef` so that every field has a default
+value and can be overridden by keyword. These defaults match the
+original NetLogo model’s slider settings.
+
+``` julia
+Base.@kwdef mutable struct HikeParams
+    max_ticks::Int = 200
+    seed::Int = 42
+    data_path::String = ""
+end
+```
+
+### Components (`components.jl`)
+
+Components are lightweight data types attached to individual entities
+(agents). Mutable structs hold per-entity state, while empty tag structs
+act as markers for the ECS query system to efficiently filter entities.
+
+``` julia
+mutable struct HikePosition
+    x::Int
+    y::Int
+end
+HikePosition() = HikePosition(0, 0)
+
+mutable struct HikeState
+    steep::Bool
+    outbound::Bool
+    hike_time_planned::Float64
+    hike_time_elapsed::Float64
+end
+HikeState() = HikeState(false, true, 480.0, 0.0)
+
+struct HikerTag end
+```
+
+### Resources (`resources.jl`)
+
+Resources are world-level singletons shared across all systems, used for
+global state and aggregate statistics.
+
+``` julia
+# Grid: 262×184 non-wrapping (NL 0..261 × 0..183)
+mutable struct HikeGrid
+    width::Int
+    height::Int
+    elevation::Matrix{Float64}
+    tread_count::Matrix{Float64}
+    min_elev::Float64
+    max_elev::Float64
+    goal_x::Int       # 1-indexed grid coords
+    goal_y::Int
+    entrance_x::Int
+    entrance_y::Int
+    turtle_count::Int  # total hikers created
+end
+
+function HikeGrid(w::Int, h::Int)
+    HikeGrid(w, h, zeros(w, h), fill(160.0, w, h),
+             0.0, 0.0, 131, 91, 260, 51, 0)
+end
+
+mutable struct HikeStats
+    track_elevation::Float64
+end
+HikeStats() = HikeStats(0.0)
+```
+
+### Systems (`systems.jl`)
+
+Systems contain the model logic and execute in a defined order each
+tick. Each system struct implements either `initialize!` (run once at
+setup) or `update!` (run every tick).
+
+``` julia
+# Hiking Elevation systems
+# Order: init → spawn → move → stats → termination
+
+# --- Initialization ---
+struct InitHikeSystem <: System end
+
+function initialize!(::InitHikeSystem, world::World)
+    params = get_resource(world, HikeParams)
+    grid   = get_resource(world, HikeGrid)
+
+    raster = gis_load_asc(params.data_path)
+    grid.elevation = gis_apply_raster_simple(raster)
+    grid.min_elev  = gis_minimum(raster)
+    grid.max_elev  = gis_maximum(raster)
+    grid.tread_count .= 160.0
+    return nothing
+end
+
+# --- Spawn one hiker per tick at entrance ---
+struct HikeSpawnSystem <: System end
+
+function update!(::HikeSpawnSystem, world::World)
+    rng  = get_resource(world, RNGResource).rng
+    grid = get_resource(world, HikeGrid)
+
+    steep = rand(rng) < 0.5
+    planned = 480.0 + randn(rng) * 5.0
+    state = HikeState(steep, true, planned, 0.0)
+    new_entity!(world, (HikePosition(grid.entrance_x, grid.entrance_y), state, HikerTag()))
+    grid.turtle_count += 1
+    return nothing
+end
+
+# --- Movement toward goal / entrance ---
+struct HikeMoveSystem <: System
+    to_remove::Vector{Entity}
+end
+HikeMoveSystem() = HikeMoveSystem(Entity[])
+
+function update!(system::HikeMoveSystem, world::World)
+    grid = get_resource(world, HikeGrid)
+    empty!(system.to_remove)
+
+    for (eids, positions, states, _) in Query(world, (HikePosition, HikeState, HikerTag))
+        @inbounds for i in eachindex(positions)
+            pos   = positions[i]
+            state = states[i]
+            state.hike_time_elapsed += 1.0
+
+            # Determine target
+            if state.outbound
+                tx, ty = grid.goal_x, grid.goal_y
+            else
+                tx, ty = grid.entrance_x, grid.entrance_y
+            end
+
+            # Move to best Moore neighbor (minimize distance to target)
+            best_score = Inf
+            best_x, best_y = pos.x, pos.y
+
+            for dx in -1:1, dy in -1:1
+                (dx == 0 && dy == 0) && continue
+                nx = pos.x + dx
+                ny = pos.y + dy
+                (nx < 1 || nx > grid.width || ny < 1 || ny > grid.height) && continue
+                dist = sqrt(Float64((nx - tx)^2 + (ny - ty)^2))
+                elev = grid.elevation[nx, ny]
+                # Steep hikers prefer higher elevation, others prefer lower
+                elev_bias = state.steep ? -elev * 0.001 : elev * 0.001
+                score = dist + elev_bias
+                if score < best_score
+                    best_score = score
+                    best_x = nx
+                    best_y = ny
+                end
+            end
+
+            pos.x = best_x
+            pos.y = best_y
+
+            # Erode tread
+            grid.tread_count[pos.x, pos.y] = max(0.0, grid.tread_count[pos.x, pos.y] - 0.6)
+
+            # Check turnaround / arrival conditions
+            dist_goal = sqrt(Float64((pos.x - grid.goal_x)^2 + (pos.y - grid.goal_y)^2))
+            dist_entrance = sqrt(Float64((pos.x - grid.entrance_x)^2 + (pos.y - grid.entrance_y)^2))
+
+            if state.outbound
+                if dist_goal <= 1.0 || state.hike_time_elapsed > state.hike_time_planned / 4.0
+                    state.outbound = false
+                end
+            else
+                if dist_entrance <= 1.0
+                    push!(system.to_remove, eids[i])
+                end
+            end
+        end
+    end
+
+    for eid in system.to_remove
+        is_alive(world, eid) && remove_entity!(world, eid)
+    end
+    return nothing
+end
+
+# --- Stats: track elevation of turtle 500 ---
+struct HikeStatsSystem <: System end
+
+function update!(::HikeStatsSystem, world::World)
+    grid  = get_resource(world, HikeGrid)
+    stats = get_resource(world, HikeStats)
+
+    # Turtle 500 won't exist with max_ticks=200 (one hiker per tick)
+    if grid.turtle_count >= 500
+        # Would need entity tracking; approximate with 0 for safety
+        stats.track_elevation = 0.0
+    else
+        stats.track_elevation = 0.0
+    end
+    return nothing
+end
+
+# --- Termination ---
+struct HikeTerminationSystem <: System end
+
+function update!(::HikeTerminationSystem, world::World)
+    params = get_resource(world, HikeParams)
+    tick   = get_resource(world, Tick)
+    if tick.tick + 1 >= params.max_ticks
+        get_resource(world, Terminate).stop = true
+    end
+    return nothing
+end
+```
+
+### Model (`model.jl`)
+
+The model file assembles all pieces: it creates the ECS `World` with the
+required component types, registers resources, builds the `Scheduler`
+with systems in execution order, and exposes the public `run` entry
+point. The observer pattern records the trajectory each tick.
+
+``` julia
+function hikingelevation_world(; initial_capacity::Int = 1024)
+    return World(
+        HikePosition,
+        HikeState,
+        HikerTag;
+        initial_capacity = initial_capacity,
+        allow_mutable = true,
+    )
+end
+
+function hikingelevation_systems()
+    return (
+        InitHikeSystem(),
+        HikeSpawnSystem(),
+        HikeMoveSystem(),
+        HikeStatsSystem(),
+        HikeTerminationSystem(),
+    )
+end
+
+function hikingelevation_model(params::HikeParams = HikeParams())
+    world = hikingelevation_world()
+    _add_standard_resources!(world, params)
+    add_resource!(world, HikeGrid(262, 184))
+    add_resource!(world, HikeStats())
+    scheduler = Scheduler(world, hikingelevation_systems())
+    initialize!(scheduler)
+    return scheduler
+end
+
+struct HikeObserver end
+
+function hikingelevation_headers(::HikeObserver)
+    return ["TrackElevation"]
+end
+
+function hikingelevation_values(::HikeObserver, world::World)
+    stats = get_resource(world, HikeStats)
+    return Float64[stats.track_elevation]
+end
+
+function run_hikingelevation(; params::HikeParams = HikeParams(), observe::Bool = true)
+    return _run_model(hikingelevation_model, HikeObserver(), hikingelevation_values; params, observe)
+end
+```

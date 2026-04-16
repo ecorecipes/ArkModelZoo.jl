@@ -8,10 +8,7 @@ end
 
 function disinfobitstringnw_model(params::DisBitParams = DisBitParams())
     world = disinfobitstringnw_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, DisBitNetwork())
     add_resource!(world, DisBitStats())
     scheduler = Scheduler(world, disinfobitstringnw_systems())
@@ -32,16 +29,5 @@ function disinfobitstringnw_values(::DisBitObserver, world::World)
 end
 
 function run_disinfobitstringnw(; params::DisBitParams = DisBitParams(), observe::Bool = true)
-    scheduler = disinfobitstringnw_model(params)
-    obs = DisBitObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, disinfobitstringnw_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, disinfobitstringnw_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(disinfobitstringnw_model, DisBitObserver(), disinfobitstringnw_values; params, observe)
 end

@@ -8,10 +8,7 @@ end
 
 function culturaldiffusion_model(params::CulturalDiffusionParams = CulturalDiffusionParams())
     world = culturaldiffusion_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, CDState())
     add_resource!(world, CDStats())
     scheduler = Scheduler(world, culturaldiffusion_systems())
@@ -31,16 +28,5 @@ function culturaldiffusion_values(::CDObserver, world::World)
 end
 
 function run_culturaldiffusion(; params::CulturalDiffusionParams = CulturalDiffusionParams(), observe::Bool = true)
-    scheduler = culturaldiffusion_model(params)
-    obs = CDObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, culturaldiffusion_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, culturaldiffusion_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(culturaldiffusion_model, CDObserver(), culturaldiffusion_values; params, observe)
 end

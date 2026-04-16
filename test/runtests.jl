@@ -2,7 +2,63 @@ using Test
 using Ark
 using ArkModelZoo
 
+const _CLASSMODELS_DIR = let
+    path = get(ENV, "NETLOGO_CLASSMODELS_DIR", "")
+    isempty(path) ? nothing : normpath(path)
+end
+
+function _classmodels_path(parts...)
+    _CLASSMODELS_DIR === nothing && return nothing
+    path = joinpath(_CLASSMODELS_DIR, parts...)
+    return ispath(path) ? path : nothing
+end
+
 @testset "ArkModelZoo" begin
+
+    @testset "Model registry" begin
+        specs = model_catalog()
+        @test length(specs) == 155
+        @test length(available_models()) == 155
+        @test model_categories() == [
+            "Biology & Ecology",
+            "Computer Science & Math",
+            "Economics",
+            "Land Use & GIS",
+            "Miscellaneous",
+            "Networks",
+            "Physics & Chemistry",
+            "Social Science",
+            "Other Models",
+        ]
+
+        sir = model_info("sir")
+        @test sir.title == "SIR"
+        @test sir.category == "Biology & Ecology"
+        @test sir.params_symbol == :SIRParams
+        @test sir.run_symbol == :run_sir
+        @test isdefined(ArkModelZoo, sir.params_symbol)
+        @test isdefined(ArkModelZoo, sir.run_symbol)
+
+        rgw = model_info("run_rgw")
+        @test rgw.name == "rabbits_grass_weeds"
+        @test rgw.run_symbol == :run_rgw
+        @test :run_rabbits_grass_weeds in rgw.exports
+
+        @test model_info("simple_birth_rates").name == "birthrates"
+        @test model_info("disinfo_nw_bitstring").name == "disinfobitstringnw"
+        @test model_info("artificial_economy").name == "artificialeconomy"
+        @test model_info("search_path").run_symbol == :run_search_path
+
+        _, generic_traj = run_model("simple_birth_rates"; params = BirthRatesParams(max_ticks=5, seed=7))
+        @test !isempty(generic_traj)
+
+        social = model_catalog(category = "Social Science")
+        @test !isempty(social)
+        @test all(spec -> spec.category == "Social Science", social)
+        @test "sir" in available_models(category = "Biology & Ecology")
+
+        @test_throws ErrorException model_info("definitely_not_a_model")
+    end
 
     @testset "Segregation" begin
         params = SegregationParams(density=80.0, grid_width=21, grid_height=21, max_ticks=50, seed=42)
@@ -72,6 +128,19 @@ using ArkModelZoo
         tick = get_resource(scheduler.world, Tick)
         @test stats.total_population > 0
         println("  Ethnocentrism: $(tick.tick) ticks, population=$(stats.total_population)")
+    end
+
+    @testset "Search Path" begin
+        params = SearchPathParams(total_time=50, max_ticks=50, seed=42)
+        scheduler, trajectory = run_search_path(params=params)
+        @test length(trajectory) > 1
+        stats = get_resource(scheduler.world, SearchPathStats)
+        tick = get_resource(scheduler.world, Tick)
+        @test trajectory[1] == [0.0, 0.0]
+        @test 0 <= stats.number_caught <= params.number_of_targets
+        @test trajectory[end][1] == stats.number_caught
+        @test trajectory[end][2] == tick.tick
+        println("  Search Path: $(tick.tick) ticks, caught=$(stats.number_caught)")
     end
 
     @testset "Voter" begin
@@ -907,26 +976,32 @@ using ArkModelZoo
         println("  GIS HillClimber: $(length(trajectory)-1) ticks, mean_elev=$(round(stats.mean_elevation, digits=1)), n_peak=$(stats.n_at_peak)")
     end
 
+    if (hike_path = _classmodels_path("OtherClasses", "HikingElevation", "Clipped-Grayson.asc")) !== nothing
     @testset "Hiking Elevation" begin
-        hike_path = "/Users/username/Projects/netlogo/ClassModels/OtherClasses/HikingElevation/Clipped-Grayson.asc"
         scheduler, trajectory = run_hikingelevation(params=HikeParams(max_ticks=200, seed=42, data_path=hike_path))
         @test length(trajectory) > 1
         stats = get_resource(scheduler.world, HikeStats)
         @test stats.track_elevation >= 0
         println("  Hiking Elevation: $(length(trajectory)-1) ticks, track_elev=$(round(stats.track_elevation, digits=1))")
     end
+    else
+        @info "Skipping Hiking Elevation tests; set NETLOGO_CLASSMODELS_DIR to enable GIS fixture tests."
+    end
 
+    if (bomb_path = _classmodels_path("CSS645Models", "BombScenario", "lenfant_new_clipped3.asc")) !== nothing
     @testset "Bomb Scenario" begin
-        bomb_path = "/Users/username/Projects/netlogo/ClassModels/CSS645Models/BombScenario/lenfant_new_clipped3.asc"
         scheduler, trajectory = run_bombscenario(params=BombParams(max_ticks=50, seed=42, data_path=bomb_path))
         @test length(trajectory) > 1
         stats = get_resource(scheduler.world, BombStats)
         @test stats.arrested_total >= 0
         println("  Bomb Scenario: $(length(trajectory)-1) ticks, arrested=$(stats.arrested_total)")
     end
+    else
+        @info "Skipping Bomb Scenario tests; set NETLOGO_CLASSMODELS_DIR to enable GIS fixture tests."
+    end
 
+    if (mdr_path = _classmodels_path("CSS600Models", "MultidrugResistant", "data", "mincosf1.asc")) !== nothing
     @testset "Multidrug Resistant" begin
-        mdr_path = "/Users/username/Projects/netlogo/ClassModels/CSS600Models/MultidrugResistant/data/mincosf1.asc"
         scheduler, trajectory = run_multidrugresistant(params=MDRParams(max_ticks=200, seed=42, data_path=mdr_path))
         @test length(trajectory) > 1
         stats = get_resource(scheduler.world, MDRStats)
@@ -934,15 +1009,21 @@ using ArkModelZoo
         @test stats.recovered_patients >= 0
         println("  Multidrug Resistant: $(length(trajectory)-1) ticks, dead=$(stats.dead_patients), recovered=$(stats.recovered_patients)")
     end
+    else
+        @info "Skipping Multidrug Resistant tests; set NETLOGO_CLASSMODELS_DIR to enable GIS fixture tests."
+    end
 
+    if (sleuth_dir = _classmodels_path("OtherClasses", "Politics_of_LandUse")) !== nothing
     @testset "Sleuth Land Use" begin
-        sleuth_dir = "/Users/username/Projects/netlogo/ClassModels/OtherClasses/Politics_of_LandUse"
         scheduler, trajectory = run_sleuthlanduse(params=SleuthParams(max_ticks=50, seed=42, data_dir=sleuth_dir))
         @test length(trajectory) > 1
         stats = get_resource(scheduler.world, SleuthStats)
         @test stats.urbantotal > 0
         @test 0 <= stats.purbantotal <= 1
         println("  Sleuth Land Use: $(length(trajectory)-1) ticks, urban=$(stats.urbantotal), pct=$(round(stats.purbantotal*100, digits=1))%")
+    end
+    else
+        @info "Skipping Sleuth Land Use tests; set NETLOGO_CLASSMODELS_DIR to enable GIS fixture tests."
     end
 
     @testset "Diffusion of HIV" begin
@@ -953,14 +1034,17 @@ using ArkModelZoo
         println("  Diffusion HIV: $(length(trajectory)-1) ticks, pct_infected=$(round(stats.pct_infected*100, digits=1))%")
     end
 
+    if (rad_dir = _classmodels_path("CSS645Models", "Rise_of_Radicalism", "data")) !== nothing
     @testset "Rise of Radicalism" begin
-        rad_dir = "/Users/username/Projects/netlogo/ClassModels/CSS645Models/Rise_of_Radicalism/data"
         scheduler, trajectory = run_riseofradicalism(params=RadParams(max_ticks=50, seed=42, data_dir=rad_dir))
         @test length(trajectory) > 1
         stats = get_resource(scheduler.world, RadStats)
         @test stats.percent_radicals >= 0
         @test stats.overtaken_townships >= 0
         println("  Rise of Radicalism: $(length(trajectory)-1) ticks, pct_rad=$(round(stats.percent_radicals, digits=1))%, townships=$(round(stats.overtaken_townships, digits=1))%")
+    end
+    else
+        @info "Skipping Rise of Radicalism tests; set NETLOGO_CLASSMODELS_DIR to enable GIS fixture tests."
     end
 
     @testset "Contagion NW" begin
@@ -1378,6 +1462,155 @@ using ArkModelZoo
         @test length(traj) >= 2
         @test length(traj[1]) == 3
         println("  Rabbits Grass Weeds: $(length(traj)-1) ticks, rabbits=$(traj[end][1])")
+    end
+
+    # --- Batch C: Erosion, CA 1D, Virus on Network, Preferential Attachment, Small Worlds, Rebellion, Fireflies, AIDS ---
+
+    @testset "Erosion" begin
+        params = ERParams(grid_width=21, grid_height=21, max_ticks=50, seed=42)
+        scheduler, trajectory = run_erosion(params=params)
+        @test length(trajectory) > 1
+        tick = get_resource(scheduler.world, Tick)
+        stats = get_resource(scheduler.world, ERStats)
+        @test tick.tick >= 50
+        @test stats.total_water >= 0.0
+        println("  Erosion: $(tick.tick) ticks, mean_elev=$(round(stats.mean_elevation, digits=1)), water=$(round(stats.total_water, digits=1))")
+    end
+
+    @testset "CA 1D Elementary" begin
+        params = CA1DParams(grid_width=51, grid_height=50, rule=30, max_ticks=49, seed=42)
+        scheduler, trajectory = run_ca_1d_elementary(params=params)
+        @test length(trajectory) > 1
+        stats = get_resource(scheduler.world, CA1DStats)
+        @test stats.current_row >= 2
+        @test 0.0 < stats.density_on < 1.0
+        println("  CA 1D Elementary: row=$(stats.current_row), density=$(round(stats.density_on, digits=3))")
+    end
+
+    @testset "Virus on Network" begin
+        params = VONParams(number_of_nodes=80, average_node_degree=4, initial_outbreak_size=3, max_ticks=100, seed=42)
+        scheduler, trajectory = run_virus_on_network(params=params)
+        @test length(trajectory) > 1
+        stats = get_resource(scheduler.world, VONStats)
+        @test stats.num_susceptible + stats.num_infected + stats.num_resistant == params.number_of_nodes
+        println("  Virus on Network: S=$(stats.num_susceptible), I=$(stats.num_infected), R=$(stats.num_resistant)")
+    end
+
+    @testset "Preferential Attachment" begin
+        params = PAParams(max_nodes=100, max_ticks=98, seed=42)
+        scheduler, trajectory = run_preferential_attachment(params=params)
+        @test length(trajectory) > 1
+        stats = get_resource(scheduler.world, PAStats)
+        @test stats.num_nodes == 100
+        @test stats.max_degree >= 2
+        println("  Preferential Attachment: nodes=$(stats.num_nodes), edges=$(stats.num_edges), max_degree=$(stats.max_degree)")
+    end
+
+    @testset "Small Worlds" begin
+        params = SWParams(num_nodes=20, rewiring_probability=0.3, max_ticks=1, seed=42)
+        scheduler, trajectory = run_small_worlds(params=params)
+        @test length(trajectory) >= 2
+        stats = get_resource(scheduler.world, SWStats)
+        @test stats.clustering_coefficient >= 0.0
+        @test stats.average_path_length > 0.0
+        println("  Small Worlds: CC=$(round(stats.clustering_coefficient, digits=3)), APL=$(round(stats.average_path_length, digits=3))")
+    end
+
+    @testset "Rebellion" begin
+        params = REBParams(grid_width=20, grid_height=20, max_ticks=50, seed=42)
+        scheduler, trajectory = run_rebellion(params=params)
+        @test length(trajectory) > 1
+        stats = get_resource(scheduler.world, REBStats)
+        @test stats.num_quiet + stats.num_active + stats.num_jailed > 0
+        println("  Rebellion: quiet=$(stats.num_quiet), active=$(stats.num_active), jailed=$(stats.num_jailed)")
+    end
+
+    @testset "Fireflies" begin
+        params = FFParams(number=100, cycle_length=10, flash_length=1, max_ticks=50, seed=42)
+        scheduler, trajectory = run_fireflies(params=params)
+        @test length(trajectory) > 1
+        stats = get_resource(scheduler.world, FFStats)
+        @test stats.num_flashing >= 0
+        println("  Fireflies: flashing=$(stats.num_flashing)")
+    end
+
+    @testset "AIDS" begin
+        params = AIDSParams(initial_people=100, max_ticks=100, seed=42)
+        scheduler, trajectory = run_aids(params=params)
+        @test length(trajectory) > 1
+        stats = get_resource(scheduler.world, AIDSStats)
+        @test stats.num_uninfected + stats.num_infected_unknown + stats.num_infected_known == params.initial_people
+        println("  AIDS: uninfected=$(stats.num_uninfected), unknown=$(stats.num_infected_unknown), known=$(stats.num_infected_known)")
+    end
+
+    # --- Batch D: PD Evolutionary, Genetic Algorithm, Sugarscape 1, Granovetter, Logistic Growth, Voting, Public Good, Brian's Brain ---
+
+    @testset "PD Basic Evolutionary" begin
+        params = PDEParams(grid_width=21, grid_height=21, max_ticks=50, seed=42)
+        scheduler, trajectory = run_pd_basic_evolutionary(params=params)
+        @test length(trajectory) > 1
+        tick = get_resource(scheduler.world, Tick)
+        @test tick.tick >= 1
+        @test trajectory[1][1] + trajectory[1][2] == params.grid_width * params.grid_height
+        println("  PD Basic Evolutionary: $(tick.tick) ticks, cooperators=$(Int(trajectory[end][1]))")
+    end
+
+    @testset "Simple Genetic Algorithm" begin
+        params = SGAParams(population_size=50, chromosome_length=20, max_ticks=200, seed=42)
+        scheduler, trajectory = run_simple_genetic_algorithm(params=params)
+        @test length(trajectory) > 1
+        @test trajectory[end][1] >= trajectory[1][1]
+        println("  Simple GA: best_fitness=$(trajectory[end][1]), mean=$(round(trajectory[end][2], digits=1))")
+    end
+
+    @testset "Sugarscape 1 Growback" begin
+        params = S1GParams(initial_population=100, grid_width=50, grid_height=50, max_ticks=50, seed=42)
+        scheduler, trajectory = run_sugarscape_1_growback(params=params)
+        @test length(trajectory) > 1
+        @test trajectory[1][1] == 100.0
+        println("  Sugarscape 1: final pop=$(Int(trajectory[end][1])), mean_sugar=$(round(trajectory[end][2], digits=1))")
+    end
+
+    @testset "Granovetter" begin
+        params = GRANParams(number_of_agents=20, max_ticks=30, seed=42)
+        scheduler, trajectory = run_granovetter(params=params)
+        @test length(trajectory) > 1
+        @test trajectory[end][1] >= trajectory[1][1]
+        println("  Granovetter: final %rioting=$(round(trajectory[end][1], digits=1))")
+    end
+
+    @testset "Logistic Growth" begin
+        params = LGParams(initial_stock=0.1, max_ticks=500, seed=42)
+        scheduler, trajectory = run_logistic_growth(params=params)
+        @test length(trajectory) > 1
+        @test trajectory[1][1] ≈ 0.1
+        @test trajectory[end][1] > 0.9
+        println("  Logistic Growth: final stock=$(round(trajectory[end][1], digits=4))")
+    end
+
+    @testset "Voting" begin
+        params = VOTParams(grid_width=31, grid_height=31, max_ticks=50, seed=42)
+        scheduler, trajectory = run_voting(params=params)
+        @test length(trajectory) > 1
+        @test trajectory[1][1] + trajectory[1][2] == params.grid_width * params.grid_height
+        println("  Voting: final blue=$(Int(trajectory[end][1])), green=$(Int(trajectory[end][2]))")
+    end
+
+    @testset "Public Good" begin
+        params = PGParams(num_agents=10, max_ticks=20, seed=42)
+        scheduler, trajectory = run_public_good(params=params)
+        @test length(trajectory) > 1
+        @test trajectory[1][1] == params.initial_money
+        println("  Public Good: final mean_money=$(round(trajectory[end][1], digits=2))")
+    end
+
+    @testset "Brian's Brain" begin
+        params = BBParams(grid_width=21, grid_height=21, max_ticks=50, seed=42)
+        scheduler, trajectory = run_brians_brain(params=params)
+        @test length(trajectory) > 1
+        total_cells = params.grid_width * params.grid_height
+        @test trajectory[1][1] + trajectory[1][2] + trajectory[1][3] == total_cells
+        println("  Brian's Brain: final firing=$(Int(trajectory[end][1])), refractory=$(Int(trajectory[end][2]))")
     end
 
 end

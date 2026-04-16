@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.28">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Quality Improvement Network</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="cqin_files/libs/clipboard/clipboard.min.js"></script>
+<script src="cqin_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="cqin_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="cqin_files/libs/quarto-html/popper.min.js"></script>
+<script src="cqin_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="cqin_files/libs/quarto-html/anchor.min.js"></script>
+<link href="cqin_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="cqin_files/libs/quarto-html/quarto-syntax-highlighting-49e51e44f424ea8c7044b429bdbbbfe2.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="cqin_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="cqin_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="cqin_files/libs/bootstrap/bootstrap-8ffd5f67044e5306d9846f29df41dda5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#parameters" id="toc-parameters" class="nav-link" data-scroll-target="#parameters">Parameters</a></li>
+  <li><a href="#source-code" id="toc-source-code" class="nav-link" data-scroll-target="#source-code">Source Code</a></li>
+  <li><a href="#time-series" id="toc-time-series" class="nav-link" data-scroll-target="#time-series">Time Series</a></li>
+  <li><a href="#ensemble-runs" id="toc-ensemble-runs" class="nav-link" data-scroll-target="#ensemble-runs">Ensemble Runs</a></li>
+  <li><a href="#parameter-sensitivity" id="toc-parameter-sensitivity" class="nav-link" data-scroll-target="#parameter-sensitivity">Parameter Sensitivity</a></li>
+  <li><a href="#appendix-source-code" id="toc-appendix-source-code" class="nav-link" data-scroll-target="#appendix-source-code">Appendix: Source Code</a>
+  <ul class="collapse">
+  <li><a href="#parameters-parameters.jl" id="toc-parameters-parameters.jl" class="nav-link" data-scroll-target="#parameters-parameters.jl">Parameters (<code>parameters.jl</code>)</a></li>
+  <li><a href="#components-components.jl" id="toc-components-components.jl" class="nav-link" data-scroll-target="#components-components.jl">Components (<code>components.jl</code>)</a></li>
+  <li><a href="#resources-resources.jl" id="toc-resources-resources.jl" class="nav-link" data-scroll-target="#resources-resources.jl">Resources (<code>resources.jl</code>)</a></li>
+  <li><a href="#systems-systems.jl" id="toc-systems-systems.jl" class="nav-link" data-scroll-target="#systems-systems.jl">Systems (<code>systems.jl</code>)</a></li>
+  <li><a href="#model-model.jl" id="toc-model-model.jl" class="nav-link" data-scroll-target="#model-model.jl">Model (<code>model.jl</code>)</a></li>
+  </ul></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="cqin.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li><li><a href="cqin.md"><i class="bi bi-file-code"></i>Github (GFM)</a></li></ul></div></nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Quality Improvement Network</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>This vignette demonstrates the <strong>Quality Improvement Network</strong> model implemented in <a href="https://github.com/sdwfrost/ArkModelZoo.jl">ArkModelZoo.jl</a> using the Ark.jl ECS framework.</p>
+</section>
+<section id="parameters" class="level2">
+<h2 class="anchored" data-anchor-id="parameters">Parameters</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 28%">
+<col style="width: 15%">
+<col style="width: 23%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>number_of_nodes</code></td>
+<td><code>Int</code></td>
+<td><code>94</code></td>
+<td>number of nodes</td>
+</tr>
+<tr class="even">
+<td><code>node_degree</code></td>
+<td><code>Int</code></td>
+<td><code>3</code></td>
+<td>node degree</td>
+</tr>
+<tr class="odd">
+<td><code>schema_share_effectiveness</code></td>
+<td><code>Float64</code></td>
+<td><code>85.0</code></td>
+<td>schema share effectiveness</td>
+</tr>
+<tr class="even">
+<td><code>schema_check_frequency</code></td>
+<td><code>Int</code></td>
+<td><code>1</code></td>
+<td>schema check frequency</td>
+</tr>
+<tr class="odd">
+<td><code>rejection_chance</code></td>
+<td><code>Float64</code></td>
+<td><code>10.0</code></td>
+<td>rejection chance</td>
+</tr>
+<tr class="even">
+<td><code>rejection_threshold</code></td>
+<td><code>Float64</code></td>
+<td><code>25.0</code></td>
+<td>rejection threshold</td>
+</tr>
+<tr class="odd">
+<td><code>problem_space_complexity</code></td>
+<td><code>Float64</code></td>
+<td><code>90.0</code></td>
+<td>problem space complexity</td>
+</tr>
+<tr class="even">
+<td><code>problem_solving_effectiveness</code></td>
+<td><code>Float64</code></td>
+<td><code>60.0</code></td>
+<td>problem solving effectiveness</td>
+</tr>
+<tr class="odd">
+<td><code>coevolution_constraints</code></td>
+<td><code>Float64</code></td>
+<td><code>50.0</code></td>
+<td>coevolution constraints</td>
+</tr>
+<tr class="even">
+<td><code>initial_detection_size</code></td>
+<td><code>Int</code></td>
+<td><code>14</code></td>
+<td>initial detection size</td>
+</tr>
+<tr class="odd">
+<td><code>learning_gain</code></td>
+<td><code>Float64</code></td>
+<td><code>1.1</code></td>
+<td>learning gain</td>
+</tr>
+<tr class="even">
+<td><code>planned_iterations</code></td>
+<td><code>Int</code></td>
+<td><code>20</code></td>
+<td>planned iterations</td>
+</tr>
+<tr class="odd">
+<td><code>signal_base</code></td>
+<td><code>Float64</code></td>
+<td><code>0.0</code></td>
+<td>signal base</td>
+</tr>
+<tr class="even">
+<td><code>signal_increment</code></td>
+<td><code>Float64</code></td>
+<td><code>10.0</code></td>
+<td>signal increment</td>
+</tr>
+<tr class="odd">
+<td><code>signal_target</code></td>
+<td><code>Float64</code></td>
+<td><code>100.0</code></td>
+<td>signal target</td>
+</tr>
+<tr class="even">
+<td><code>max_non_cooperating</code></td>
+<td><code>Float64</code></td>
+<td><code>0.5</code></td>
+<td>max non cooperating</td>
+</tr>
+<tr class="odd">
+<td><code>max_ticks</code></td>
+<td><code>Int</code></td>
+<td><code>100</code></td>
+<td>max ticks</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="source-code" class="level2">
+<h2 class="anchored" data-anchor-id="source-code">Source Code</h2>
+<p>The Julia code to run this model:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">ArkModelZoo</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>_, trajectory <span class="op">=</span> <span class="fu">run_cqin</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="time-series" class="level2">
+<h2 class="anchored" data-anchor-id="time-series">Time Series</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="plot_timeseries.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>Quality Improvement Network time series</figcaption>
+</figure>
+</div>
+</section>
+<section id="ensemble-runs" class="level2">
+<h2 class="anchored" data-anchor-id="ensemble-runs">Ensemble Runs</h2>
+<p>Ten replicates with different random seeds, showing mean ± standard deviation.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="plot_ensemble.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>Quality Improvement Network ensemble</figcaption>
+</figure>
+</div>
+</section>
+<section id="parameter-sensitivity" class="level2">
+<h2 class="anchored" data-anchor-id="parameter-sensitivity">Parameter Sensitivity</h2>
+<p>Varying <code>number_of_nodes</code>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="plot_sensitivity.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>Quality Improvement Network sensitivity</figcaption>
+</figure>
+</div>
+</section>
+<section id="appendix-source-code" class="level2">
+<h2 class="anchored" data-anchor-id="appendix-source-code">Appendix: Source Code</h2>
+<p>This model is implemented in the <a href="https://github.com/sdwfrost/Ark.jl">Ark.jl</a> Entity-Component-System (ECS) framework. The code is split into five files, each with a distinct role:</p>
+<ul>
+<li><strong>Parameters</strong>: a mutable struct holding all configurable values.</li>
+<li><strong>Components</strong>: lightweight data types attached to individual entities (agents).</li>
+<li><strong>Resources</strong>: world-level shared state accessible to all systems.</li>
+<li><strong>Systems</strong>: functions that operate on entities each tick, defining model behavior.</li>
+<li><strong>Model</strong>: wiring that assembles the world, registers resources and systems, and provides the run entry point.</li>
+</ul>
+<section id="parameters-parameters.jl" class="level3">
+<h3 class="anchored" data-anchor-id="parameters-parameters.jl">Parameters (<code>parameters.jl</code>)</h3>
+<p>The parameter struct uses <code>@kwdef</code> so that every field has a default value and can be overridden by keyword. These defaults match the original NetLogo model’s slider settings.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">Base</span>.<span class="pp">@kwdef</span> <span class="kw">mutable struct</span> CQINParams</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    number_of_nodes<span class="op">::</span><span class="dt">Int </span><span class="op">=</span> <span class="fl">94</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    node_degree<span class="op">::</span><span class="dt">Int </span><span class="op">=</span> <span class="fl">3</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    schema_share_effectiveness<span class="op">::</span><span class="dt">Float64 </span><span class="op">=</span> <span class="fl">85.0</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    schema_check_frequency<span class="op">::</span><span class="dt">Int </span><span class="op">=</span> <span class="fl">1</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    rejection_chance<span class="op">::</span><span class="dt">Float64 </span><span class="op">=</span> <span class="fl">10.0</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    rejection_threshold<span class="op">::</span><span class="dt">Float64 </span><span class="op">=</span> <span class="fl">25.0</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    problem_space_complexity<span class="op">::</span><span class="dt">Float64 </span><span class="op">=</span> <span class="fl">90.0</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    problem_solving_effectiveness<span class="op">::</span><span class="dt">Float64 </span><span class="op">=</span> <span class="fl">60.0</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    coevolution_constraints<span class="op">::</span><span class="dt">Float64 </span><span class="op">=</span> <span class="fl">50.0</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    initial_detection_size<span class="op">::</span><span class="dt">Int </span><span class="op">=</span> <span class="fl">14</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    learning_gain<span class="op">::</span><span class="dt">Float64 </span><span class="op">=</span> <span class="fl">1.1</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    planned_iterations<span class="op">::</span><span class="dt">Int </span><span class="op">=</span> <span class="fl">20</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    signal_base<span class="op">::</span><span class="dt">Float64 </span><span class="op">=</span> <span class="fl">0.0</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    signal_increment<span class="op">::</span><span class="dt">Float64 </span><span class="op">=</span> <span class="fl">10.0</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    signal_target<span class="op">::</span><span class="dt">Float64 </span><span class="op">=</span> <span class="fl">100.0</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    max_non_cooperating<span class="op">::</span><span class="dt">Float64 </span><span class="op">=</span> <span class="fl">0.5</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    max_ticks<span class="op">::</span><span class="dt">Int </span><span class="op">=</span> <span class="fl">100</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    seed<span class="op">::</span><span class="dt">Int </span><span class="op">=</span> <span class="fl">42</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="components-components.jl" class="level3">
+<h3 class="anchored" data-anchor-id="components-components.jl">Components (<code>components.jl</code>)</h3>
+<p>Components are lightweight data types attached to individual entities (agents). Mutable structs hold per-entity state, while empty tag structs act as markers for the ECS query system to efficiently filter entities.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> CQINDummy <span class="kw">end</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="resources-resources.jl" class="level3">
+<h3 class="anchored" data-anchor-id="resources-resources.jl">Resources (<code>resources.jl</code>)</h3>
+<p>Resources are world-level singletons shared across all systems, used for global state and aggregate statistics.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Node state constants</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> CQIN_SUSCEPTIBLE <span class="op">=</span> <span class="fl">0</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> CQIN_UPDATED <span class="op">=</span> <span class="fl">1</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> CQIN_AGREED <span class="op">=</span> <span class="fl">2</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> CQIN_IMPLEMENTED <span class="op">=</span> <span class="fl">3</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> CQIN_REVIEWED <span class="op">=</span> <span class="fl">4</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> CQIN_ADJUSTED <span class="op">=</span> <span class="fl">5</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> CQIN_RESISTANT <span class="op">=</span> <span class="fl">6</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="kw">mutable struct</span> CQINNetwork</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    n_nodes<span class="op">::</span><span class="dt">Int</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    states<span class="op">::</span><span class="dt">Vector{Int}          </span><span class="co"># node state (0-6)</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    schema_check_timer<span class="op">::</span><span class="dt">Vector{Int}</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    adj<span class="op">::</span><span class="dt">Vector{Set{Int}}        </span><span class="co"># adjacency list</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    degree<span class="op">::</span><span class="dt">Vector{Int}          </span><span class="co"># cached degree per node</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    iteration_count<span class="op">::</span><span class="dt">Int</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    signal<span class="op">::</span><span class="dt">Float64</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">CQINNetwork</span>()</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">CQINNetwork</span>(<span class="fl">0</span>, <span class="dt">Int</span>[], <span class="dt">Int</span>[], <span class="dt">Set</span>{<span class="dt">Int</span>}[], <span class="dt">Int</span>[], <span class="fl">0</span>, <span class="fl">0.0</span>)</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">_cqin_add_node!</span>(net<span class="op">::</span><span class="dt">CQINNetwork</span>, state<span class="op">::</span><span class="dt">Int</span>)</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">push!</span>(net.states, state)</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">push!</span>(net.schema_check_timer, <span class="fl">0</span>)</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">push!</span>(net.adj, <span class="fu">Set</span><span class="dt">{Int}</span>())</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">push!</span>(net.degree, <span class="fl">0</span>)</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>    net.n_nodes <span class="op">+=</span> <span class="fl">1</span></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> net.n_nodes</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">_cqin_add_edge!</span>(net<span class="op">::</span><span class="dt">CQINNetwork</span>, i<span class="op">::</span><span class="dt">Int</span>, j<span class="op">::</span><span class="dt">Int</span>)</span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> i <span class="op">!=</span> j <span class="op">&amp;&amp;</span> j <span class="op">∉</span> net.adj[i]</span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>        <span class="fu">push!</span>(net.adj[i], j)</span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>        <span class="fu">push!</span>(net.adj[j], i)</span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>        net.degree[i] <span class="op">+=</span> <span class="fl">1</span></span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>        net.degree[j] <span class="op">+=</span> <span class="fl">1</span></span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a><span class="kw">mutable struct</span> CQINStats</span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>    num_updated<span class="op">::</span><span class="dt">Int</span></span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>    num_resistant<span class="op">::</span><span class="dt">Int</span></span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>    num_adjusted<span class="op">::</span><span class="dt">Int</span></span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a><span class="fu">CQINStats</span>() <span class="op">=</span> <span class="fu">CQINStats</span>(<span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>)</span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">_cqin_update_counts!</span>(net<span class="op">::</span><span class="dt">CQINNetwork</span>, stats<span class="op">::</span><span class="dt">CQINStats</span>)</span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>    stats.num_updated <span class="op">=</span> <span class="fu">count</span>(<span class="op">==</span>(CQIN_UPDATED), net.states)</span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a>    stats.num_resistant <span class="op">=</span> <span class="fu">count</span>(<span class="op">==</span>(CQIN_RESISTANT), net.states)</span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a>    stats.num_adjusted <span class="op">=</span> <span class="fu">count</span>(<span class="op">==</span>(CQIN_ADJUSTED), net.states)</span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="systems-systems.jl" class="level3">
+<h3 class="anchored" data-anchor-id="systems-systems.jl">Systems (<code>systems.jl</code>)</h3>
+<p>Systems contain the model logic and execute in a defined order each tick. Each system struct implements either <code>initialize!</code> (run once at setup) or <code>update!</code> (run every tick).</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> InitCQINSystem <span class="op">&lt;:</span><span class="dt"> System </span><span class="kw">end</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">_cqin_build_pa!</span>(net<span class="op">::</span><span class="dt">CQINNetwork</span>, rng, n<span class="op">::</span><span class="dt">Int</span>, m<span class="op">::</span><span class="dt">Int</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Build preferential-attachment network (Barabási-Albert)</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Start with m+1 fully connected nodes</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span>(m<span class="op">+</span><span class="fl">1</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>        <span class="fu">_cqin_add_node!</span>(net, CQIN_SUSCEPTIBLE)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span>(m<span class="op">+</span><span class="fl">1</span>), j <span class="kw">in</span> (i<span class="op">+</span><span class="fl">1</span>)<span class="op">:</span>(m<span class="op">+</span><span class="fl">1</span>)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>        <span class="fu">_cqin_add_edge!</span>(net, i, j)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add remaining nodes with preferential attachment</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _ <span class="kw">in</span> (m<span class="op">+</span><span class="fl">2</span>)<span class="op">:</span>n</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>        new_id <span class="op">=</span> <span class="fu">_cqin_add_node!</span>(net, CQIN_SUSCEPTIBLE)</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>        total_degree <span class="op">=</span> <span class="fu">sum</span>(net.degree[<span class="fl">1</span><span class="op">:</span>new_id<span class="op">-</span><span class="fl">1</span>])</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>        targets <span class="op">=</span> <span class="fu">Set</span><span class="dt">{Int}</span>()</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>        attempts <span class="op">=</span> <span class="fl">0</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>        <span class="cf">while</span> <span class="fu">length</span>(targets) <span class="op">&lt;</span> m <span class="op">&amp;&amp;</span> attempts <span class="op">&lt;</span> <span class="fl">10000</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>            attempts <span class="op">+=</span> <span class="fl">1</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>            r <span class="op">=</span> <span class="fu">rand</span>(rng) <span class="op">*</span> total_degree</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>            cumulative <span class="op">=</span> <span class="fl">0.0</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> j <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span>(new_id<span class="op">-</span><span class="fl">1</span>)</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>                cumulative <span class="op">+=</span> net.degree[j]</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> cumulative <span class="op">&gt;=</span> r</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">push!</span>(targets, j)</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">break</span></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>                <span class="cf">end</span></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>            <span class="cf">end</span></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> t <span class="kw">in</span> targets</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>            <span class="fu">_cqin_add_edge!</span>(net, new_id, t)</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">initialize!</span>(<span class="op">::</span><span class="dt">InitCQINSystem</span>, world<span class="op">::</span><span class="dt">World</span>)</span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>    params <span class="op">=</span> <span class="fu">get_resource</span>(world, CQINParams)</span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>    rng <span class="op">=</span> <span class="fu">get_resource</span>(world, RNGResource).rng</span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>    net <span class="op">=</span> <span class="fu">get_resource</span>(world, CQINNetwork)</span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>    stats <span class="op">=</span> <span class="fu">get_resource</span>(world, CQINStats)</span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>    <span class="fu">_cqin_build_pa!</span>(net, rng, params.number_of_nodes, params.node_degree)</span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>    net.signal <span class="op">=</span> params.signal_base</span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Run initial cycle</span></span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>    <span class="fu">_cqin_cycle!</span>(net, rng, params)</span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>    <span class="fu">_cqin_update_counts!</span>(net, stats)</span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="cn">nothing</span></span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">_cqin_cycle!</span>(net<span class="op">::</span><span class="dt">CQINNetwork</span>, rng, params<span class="op">::</span><span class="dt">CQINParams</span>)</span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Reset all nodes to susceptible, reset timers</span></span>
+<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span>net.n_nodes</span>
+<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a>        net.states[i] <span class="op">=</span> CQIN_SUSCEPTIBLE</span>
+<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a>        net.schema_check_timer[i] <span class="op">=</span> <span class="fl">0</span></span>
+<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a>    net.iteration_count <span class="op">+=</span> <span class="fl">1</span></span>
+<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Pick initial_detection_size random nodes → set to UPDATED</span></span>
+<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a>    indices <span class="op">=</span> <span class="fu">shuffle!</span>(rng, <span class="fu">collect</span>(<span class="fl">1</span><span class="op">:</span>net.n_nodes))</span>
+<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> k <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu">min</span>(params.initial_detection_size, net.n_nodes)</span>
+<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a>        net.states[indices[k]] <span class="op">=</span> CQIN_UPDATED</span>
+<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a><span class="co"># Check whether any stop condition is met</span></span>
+<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">_cqin_should_stop</span>(net<span class="op">::</span><span class="dt">CQINNetwork</span>, params<span class="op">::</span><span class="dt">CQINParams</span>, target_state<span class="op">::</span><span class="dt">Int</span>)</span>
+<span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a>    n_resistant <span class="op">=</span> <span class="fu">count</span>(<span class="op">==</span>(CQIN_RESISTANT), net.states)</span>
+<span id="cb5-68"><a href="#cb5-68" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> n_resistant <span class="op">&gt;=</span> net.n_nodes <span class="op">*</span> params.max_non_cooperating</span>
+<span id="cb5-69"><a href="#cb5-69" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="cn">true</span></span>
+<span id="cb5-70"><a href="#cb5-70" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-71"><a href="#cb5-71" aria-hidden="true" tabindex="-1"></a>    <span class="co"># All nodes are in target state or resistant</span></span>
+<span id="cb5-72"><a href="#cb5-72" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="fu">all</span>(s <span class="op">-&gt;</span> s <span class="op">==</span> target_state <span class="op">||</span> s <span class="op">==</span> CQIN_RESISTANT, net.states)</span>
+<span id="cb5-73"><a href="#cb5-73" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="cn">true</span></span>
+<span id="cb5-74"><a href="#cb5-74" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-75"><a href="#cb5-75" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> net.iteration_count <span class="op">==</span> params.planned_iterations <span class="op">+</span> <span class="fl">1</span></span>
+<span id="cb5-76"><a href="#cb5-76" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="cn">true</span></span>
+<span id="cb5-77"><a href="#cb5-77" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-78"><a href="#cb5-78" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> net.signal <span class="op">&gt;=</span> params.signal_target</span>
+<span id="cb5-79"><a href="#cb5-79" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="cn">true</span></span>
+<span id="cb5-80"><a href="#cb5-80" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-81"><a href="#cb5-81" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="cn">false</span></span>
+<span id="cb5-82"><a href="#cb5-82" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb5-83"><a href="#cb5-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-84"><a href="#cb5-84" aria-hidden="true" tabindex="-1"></a><span class="co"># Schema check: node may become resistant or advance to next_state</span></span>
+<span id="cb5-85"><a href="#cb5-85" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">_cqin_schema_check!</span>(net<span class="op">::</span><span class="dt">CQINNetwork</span>, rng, params<span class="op">::</span><span class="dt">CQINParams</span>, i<span class="op">::</span><span class="dt">Int</span>, current_state<span class="op">::</span><span class="dt">Int</span>, next_state<span class="op">::</span><span class="dt">Int</span>)</span>
+<span id="cb5-86"><a href="#cb5-86" aria-hidden="true" tabindex="-1"></a>    complexity <span class="op">=</span> params.problem_space_complexity</span>
+<span id="cb5-87"><a href="#cb5-87" aria-hidden="true" tabindex="-1"></a>    threshold_mod <span class="op">=</span> params.rejection_threshold <span class="op">*</span> (<span class="fl">0.8</span> <span class="op">+</span> complexity <span class="op">/</span> <span class="fl">100.0</span>)</span>
+<span id="cb5-88"><a href="#cb5-88" aria-hidden="true" tabindex="-1"></a>    chance_mod <span class="op">=</span> params.rejection_chance <span class="op">*</span> (<span class="fl">0.8</span> <span class="op">+</span> complexity <span class="op">/</span> <span class="fl">100.0</span>)</span>
+<span id="cb5-89"><a href="#cb5-89" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="fu">rand</span>(rng) <span class="op">*</span> <span class="fl">100.0</span> <span class="op">&lt;</span> threshold_mod</span>
+<span id="cb5-90"><a href="#cb5-90" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="fu">rand</span>(rng) <span class="op">*</span> <span class="fl">100.0</span> <span class="op">&lt;</span> chance_mod</span>
+<span id="cb5-91"><a href="#cb5-91" aria-hidden="true" tabindex="-1"></a>            net.states[i] <span class="op">=</span> CQIN_RESISTANT</span>
+<span id="cb5-92"><a href="#cb5-92" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span></span>
+<span id="cb5-93"><a href="#cb5-93" aria-hidden="true" tabindex="-1"></a>            net.states[i] <span class="op">=</span> next_state</span>
+<span id="cb5-94"><a href="#cb5-94" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb5-95"><a href="#cb5-95" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-96"><a href="#cb5-96" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb5-97"><a href="#cb5-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-98"><a href="#cb5-98" aria-hidden="true" tabindex="-1"></a><span class="co"># Phase 1: spread-signal (updated nodes spread to susceptible neighbors)</span></span>
+<span id="cb5-99"><a href="#cb5-99" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">_cqin_phase1!</span>(net<span class="op">::</span><span class="dt">CQINNetwork</span>, rng, params<span class="op">::</span><span class="dt">CQINParams</span>)</span>
+<span id="cb5-100"><a href="#cb5-100" aria-hidden="true" tabindex="-1"></a>    effectiveness <span class="op">=</span> params.schema_share_effectiveness <span class="op">*</span> params.learning_gain <span class="op">^</span> net.iteration_count</span>
+<span id="cb5-101"><a href="#cb5-101" aria-hidden="true" tabindex="-1"></a>    order <span class="op">=</span> <span class="fu">shuffle!</span>(rng, <span class="fu">collect</span>(<span class="fl">1</span><span class="op">:</span>net.n_nodes))</span>
+<span id="cb5-102"><a href="#cb5-102" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> order</span>
+<span id="cb5-103"><a href="#cb5-103" aria-hidden="true" tabindex="-1"></a>        net.states[i] <span class="op">==</span> CQIN_UPDATED <span class="op">||</span> <span class="cf">continue</span></span>
+<span id="cb5-104"><a href="#cb5-104" aria-hidden="true" tabindex="-1"></a>        net.schema_check_timer[i] <span class="op">+=</span> <span class="fl">1</span></span>
+<span id="cb5-105"><a href="#cb5-105" aria-hidden="true" tabindex="-1"></a>        neighbors <span class="op">=</span> <span class="fu">shuffle!</span>(rng, <span class="fu">collect</span>(net.adj[i]))</span>
+<span id="cb5-106"><a href="#cb5-106" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> j <span class="kw">in</span> neighbors</span>
+<span id="cb5-107"><a href="#cb5-107" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> net.states[j] <span class="op">==</span> CQIN_SUSCEPTIBLE</span>
+<span id="cb5-108"><a href="#cb5-108" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> <span class="fu">rand</span>(rng) <span class="op">*</span> <span class="fl">100.0</span> <span class="op">&lt;</span> effectiveness</span>
+<span id="cb5-109"><a href="#cb5-109" aria-hidden="true" tabindex="-1"></a>                    net.states[j] <span class="op">=</span> CQIN_UPDATED</span>
+<span id="cb5-110"><a href="#cb5-110" aria-hidden="true" tabindex="-1"></a>                <span class="cf">end</span></span>
+<span id="cb5-111"><a href="#cb5-111" aria-hidden="true" tabindex="-1"></a>            <span class="cf">end</span></span>
+<span id="cb5-112"><a href="#cb5-112" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb5-113"><a href="#cb5-113" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-114"><a href="#cb5-114" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Schema checks for updated nodes</span></span>
+<span id="cb5-115"><a href="#cb5-115" aria-hidden="true" tabindex="-1"></a>    order2 <span class="op">=</span> <span class="fu">shuffle!</span>(rng, <span class="fu">collect</span>(<span class="fl">1</span><span class="op">:</span>net.n_nodes))</span>
+<span id="cb5-116"><a href="#cb5-116" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> order2</span>
+<span id="cb5-117"><a href="#cb5-117" aria-hidden="true" tabindex="-1"></a>        net.states[i] <span class="op">==</span> CQIN_UPDATED <span class="op">||</span> <span class="cf">continue</span></span>
+<span id="cb5-118"><a href="#cb5-118" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> net.schema_check_timer[i] <span class="op">&gt;</span> <span class="fl">0</span> <span class="op">&amp;&amp;</span> <span class="fu">mod</span>(net.schema_check_timer[i], params.schema_check_frequency) <span class="op">==</span> <span class="fl">0</span></span>
+<span id="cb5-119"><a href="#cb5-119" aria-hidden="true" tabindex="-1"></a>            <span class="fu">_cqin_schema_check!</span>(net, rng, params, i, CQIN_UPDATED, CQIN_AGREED)</span>
+<span id="cb5-120"><a href="#cb5-120" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb5-121"><a href="#cb5-121" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-122"><a href="#cb5-122" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb5-123"><a href="#cb5-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-124"><a href="#cb5-124" aria-hidden="true" tabindex="-1"></a><span class="co"># Phase 2: problem-solve (updated → agreed spread)</span></span>
+<span id="cb5-125"><a href="#cb5-125" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">_cqin_phase2!</span>(net<span class="op">::</span><span class="dt">CQINNetwork</span>, rng, params<span class="op">::</span><span class="dt">CQINParams</span>)</span>
+<span id="cb5-126"><a href="#cb5-126" aria-hidden="true" tabindex="-1"></a>    effectiveness <span class="op">=</span> params.schema_share_effectiveness <span class="op">*</span> params.learning_gain <span class="op">^</span> net.iteration_count</span>
+<span id="cb5-127"><a href="#cb5-127" aria-hidden="true" tabindex="-1"></a>    ps_factor <span class="op">=</span> (params.problem_solving_effectiveness <span class="op">*</span> params.learning_gain <span class="op">^</span> net.iteration_count) <span class="op">/</span> params.problem_space_complexity</span>
+<span id="cb5-128"><a href="#cb5-128" aria-hidden="true" tabindex="-1"></a>    prob <span class="op">=</span> effectiveness <span class="op">*</span> ps_factor</span>
+<span id="cb5-129"><a href="#cb5-129" aria-hidden="true" tabindex="-1"></a>    order <span class="op">=</span> <span class="fu">shuffle!</span>(rng, <span class="fu">collect</span>(<span class="fl">1</span><span class="op">:</span>net.n_nodes))</span>
+<span id="cb5-130"><a href="#cb5-130" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> order</span>
+<span id="cb5-131"><a href="#cb5-131" aria-hidden="true" tabindex="-1"></a>        net.states[i] <span class="op">==</span> CQIN_AGREED <span class="op">||</span> <span class="cf">continue</span></span>
+<span id="cb5-132"><a href="#cb5-132" aria-hidden="true" tabindex="-1"></a>        net.schema_check_timer[i] <span class="op">+=</span> <span class="fl">1</span></span>
+<span id="cb5-133"><a href="#cb5-133" aria-hidden="true" tabindex="-1"></a>        neighbors <span class="op">=</span> <span class="fu">shuffle!</span>(rng, <span class="fu">collect</span>(net.adj[i]))</span>
+<span id="cb5-134"><a href="#cb5-134" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> j <span class="kw">in</span> neighbors</span>
+<span id="cb5-135"><a href="#cb5-135" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> net.states[j] <span class="op">==</span> CQIN_UPDATED</span>
+<span id="cb5-136"><a href="#cb5-136" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> <span class="fu">rand</span>(rng) <span class="op">*</span> <span class="fl">100.0</span> <span class="op">&lt;</span> prob</span>
+<span id="cb5-137"><a href="#cb5-137" aria-hidden="true" tabindex="-1"></a>                    net.states[j] <span class="op">=</span> CQIN_AGREED</span>
+<span id="cb5-138"><a href="#cb5-138" aria-hidden="true" tabindex="-1"></a>                <span class="cf">end</span></span>
+<span id="cb5-139"><a href="#cb5-139" aria-hidden="true" tabindex="-1"></a>            <span class="cf">end</span></span>
+<span id="cb5-140"><a href="#cb5-140" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb5-141"><a href="#cb5-141" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-142"><a href="#cb5-142" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Schema checks for agreed nodes</span></span>
+<span id="cb5-143"><a href="#cb5-143" aria-hidden="true" tabindex="-1"></a>    order2 <span class="op">=</span> <span class="fu">shuffle!</span>(rng, <span class="fu">collect</span>(<span class="fl">1</span><span class="op">:</span>net.n_nodes))</span>
+<span id="cb5-144"><a href="#cb5-144" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> order2</span>
+<span id="cb5-145"><a href="#cb5-145" aria-hidden="true" tabindex="-1"></a>        net.states[i] <span class="op">==</span> CQIN_AGREED <span class="op">||</span> <span class="cf">continue</span></span>
+<span id="cb5-146"><a href="#cb5-146" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> net.schema_check_timer[i] <span class="op">&gt;</span> <span class="fl">0</span> <span class="op">&amp;&amp;</span> <span class="fu">mod</span>(net.schema_check_timer[i], params.schema_check_frequency) <span class="op">==</span> <span class="fl">0</span></span>
+<span id="cb5-147"><a href="#cb5-147" aria-hidden="true" tabindex="-1"></a>            <span class="fu">_cqin_schema_check!</span>(net, rng, params, i, CQIN_AGREED, CQIN_IMPLEMENTED)</span>
+<span id="cb5-148"><a href="#cb5-148" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb5-149"><a href="#cb5-149" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-150"><a href="#cb5-150" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb5-151"><a href="#cb5-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-152"><a href="#cb5-152" aria-hidden="true" tabindex="-1"></a><span class="co"># Phase 3: implement (agreed → implemented spread)</span></span>
+<span id="cb5-153"><a href="#cb5-153" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">_cqin_phase3!</span>(net<span class="op">::</span><span class="dt">CQINNetwork</span>, rng, params<span class="op">::</span><span class="dt">CQINParams</span>)</span>
+<span id="cb5-154"><a href="#cb5-154" aria-hidden="true" tabindex="-1"></a>    effectiveness <span class="op">=</span> params.schema_share_effectiveness <span class="op">*</span> params.learning_gain <span class="op">^</span> net.iteration_count</span>
+<span id="cb5-155"><a href="#cb5-155" aria-hidden="true" tabindex="-1"></a>    ps_factor <span class="op">=</span> (params.problem_solving_effectiveness <span class="op">*</span> params.learning_gain <span class="op">^</span> net.iteration_count) <span class="op">/</span> params.problem_space_complexity</span>
+<span id="cb5-156"><a href="#cb5-156" aria-hidden="true" tabindex="-1"></a>    coev_factor <span class="op">=</span> (<span class="fl">100.0</span> <span class="op">-</span> params.coevolution_constraints) <span class="op">/</span> <span class="fl">100.0</span></span>
+<span id="cb5-157"><a href="#cb5-157" aria-hidden="true" tabindex="-1"></a>    prob <span class="op">=</span> effectiveness <span class="op">*</span> ps_factor <span class="op">*</span> coev_factor</span>
+<span id="cb5-158"><a href="#cb5-158" aria-hidden="true" tabindex="-1"></a>    order <span class="op">=</span> <span class="fu">shuffle!</span>(rng, <span class="fu">collect</span>(<span class="fl">1</span><span class="op">:</span>net.n_nodes))</span>
+<span id="cb5-159"><a href="#cb5-159" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> order</span>
+<span id="cb5-160"><a href="#cb5-160" aria-hidden="true" tabindex="-1"></a>        net.states[i] <span class="op">==</span> CQIN_IMPLEMENTED <span class="op">||</span> <span class="cf">continue</span></span>
+<span id="cb5-161"><a href="#cb5-161" aria-hidden="true" tabindex="-1"></a>        net.schema_check_timer[i] <span class="op">+=</span> <span class="fl">1</span></span>
+<span id="cb5-162"><a href="#cb5-162" aria-hidden="true" tabindex="-1"></a>        neighbors <span class="op">=</span> <span class="fu">shuffle!</span>(rng, <span class="fu">collect</span>(net.adj[i]))</span>
+<span id="cb5-163"><a href="#cb5-163" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> j <span class="kw">in</span> neighbors</span>
+<span id="cb5-164"><a href="#cb5-164" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> net.states[j] <span class="op">==</span> CQIN_AGREED</span>
+<span id="cb5-165"><a href="#cb5-165" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> <span class="fu">rand</span>(rng) <span class="op">*</span> <span class="fl">100.0</span> <span class="op">&lt;</span> prob</span>
+<span id="cb5-166"><a href="#cb5-166" aria-hidden="true" tabindex="-1"></a>                    net.states[j] <span class="op">=</span> CQIN_IMPLEMENTED</span>
+<span id="cb5-167"><a href="#cb5-167" aria-hidden="true" tabindex="-1"></a>                <span class="cf">end</span></span>
+<span id="cb5-168"><a href="#cb5-168" aria-hidden="true" tabindex="-1"></a>            <span class="cf">end</span></span>
+<span id="cb5-169"><a href="#cb5-169" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb5-170"><a href="#cb5-170" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-171"><a href="#cb5-171" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Schema checks for implemented nodes</span></span>
+<span id="cb5-172"><a href="#cb5-172" aria-hidden="true" tabindex="-1"></a>    order2 <span class="op">=</span> <span class="fu">shuffle!</span>(rng, <span class="fu">collect</span>(<span class="fl">1</span><span class="op">:</span>net.n_nodes))</span>
+<span id="cb5-173"><a href="#cb5-173" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> order2</span>
+<span id="cb5-174"><a href="#cb5-174" aria-hidden="true" tabindex="-1"></a>        net.states[i] <span class="op">==</span> CQIN_IMPLEMENTED <span class="op">||</span> <span class="cf">continue</span></span>
+<span id="cb5-175"><a href="#cb5-175" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> net.schema_check_timer[i] <span class="op">&gt;</span> <span class="fl">0</span> <span class="op">&amp;&amp;</span> <span class="fu">mod</span>(net.schema_check_timer[i], params.schema_check_frequency) <span class="op">==</span> <span class="fl">0</span></span>
+<span id="cb5-176"><a href="#cb5-176" aria-hidden="true" tabindex="-1"></a>            <span class="fu">_cqin_schema_check!</span>(net, rng, params, i, CQIN_IMPLEMENTED, CQIN_REVIEWED)</span>
+<span id="cb5-177"><a href="#cb5-177" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb5-178"><a href="#cb5-178" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-179"><a href="#cb5-179" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb5-180"><a href="#cb5-180" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-181"><a href="#cb5-181" aria-hidden="true" tabindex="-1"></a><span class="co"># Phase 4: review (implemented → reviewed spread)</span></span>
+<span id="cb5-182"><a href="#cb5-182" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">_cqin_phase4!</span>(net<span class="op">::</span><span class="dt">CQINNetwork</span>, rng, params<span class="op">::</span><span class="dt">CQINParams</span>)</span>
+<span id="cb5-183"><a href="#cb5-183" aria-hidden="true" tabindex="-1"></a>    effectiveness <span class="op">=</span> params.schema_share_effectiveness <span class="op">*</span> params.learning_gain <span class="op">^</span> net.iteration_count</span>
+<span id="cb5-184"><a href="#cb5-184" aria-hidden="true" tabindex="-1"></a>    order <span class="op">=</span> <span class="fu">shuffle!</span>(rng, <span class="fu">collect</span>(<span class="fl">1</span><span class="op">:</span>net.n_nodes))</span>
+<span id="cb5-185"><a href="#cb5-185" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> order</span>
+<span id="cb5-186"><a href="#cb5-186" aria-hidden="true" tabindex="-1"></a>        net.states[i] <span class="op">==</span> CQIN_REVIEWED <span class="op">||</span> <span class="cf">continue</span></span>
+<span id="cb5-187"><a href="#cb5-187" aria-hidden="true" tabindex="-1"></a>        net.schema_check_timer[i] <span class="op">+=</span> <span class="fl">1</span></span>
+<span id="cb5-188"><a href="#cb5-188" aria-hidden="true" tabindex="-1"></a>        neighbors <span class="op">=</span> <span class="fu">shuffle!</span>(rng, <span class="fu">collect</span>(net.adj[i]))</span>
+<span id="cb5-189"><a href="#cb5-189" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> j <span class="kw">in</span> neighbors</span>
+<span id="cb5-190"><a href="#cb5-190" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> net.states[j] <span class="op">==</span> CQIN_IMPLEMENTED</span>
+<span id="cb5-191"><a href="#cb5-191" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> <span class="fu">rand</span>(rng) <span class="op">*</span> <span class="fl">100.0</span> <span class="op">&lt;</span> effectiveness</span>
+<span id="cb5-192"><a href="#cb5-192" aria-hidden="true" tabindex="-1"></a>                    net.states[j] <span class="op">=</span> CQIN_REVIEWED</span>
+<span id="cb5-193"><a href="#cb5-193" aria-hidden="true" tabindex="-1"></a>                <span class="cf">end</span></span>
+<span id="cb5-194"><a href="#cb5-194" aria-hidden="true" tabindex="-1"></a>            <span class="cf">end</span></span>
+<span id="cb5-195"><a href="#cb5-195" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb5-196"><a href="#cb5-196" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-197"><a href="#cb5-197" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Schema checks for reviewed nodes</span></span>
+<span id="cb5-198"><a href="#cb5-198" aria-hidden="true" tabindex="-1"></a>    order2 <span class="op">=</span> <span class="fu">shuffle!</span>(rng, <span class="fu">collect</span>(<span class="fl">1</span><span class="op">:</span>net.n_nodes))</span>
+<span id="cb5-199"><a href="#cb5-199" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> order2</span>
+<span id="cb5-200"><a href="#cb5-200" aria-hidden="true" tabindex="-1"></a>        net.states[i] <span class="op">==</span> CQIN_REVIEWED <span class="op">||</span> <span class="cf">continue</span></span>
+<span id="cb5-201"><a href="#cb5-201" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> net.schema_check_timer[i] <span class="op">&gt;</span> <span class="fl">0</span> <span class="op">&amp;&amp;</span> <span class="fu">mod</span>(net.schema_check_timer[i], params.schema_check_frequency) <span class="op">==</span> <span class="fl">0</span></span>
+<span id="cb5-202"><a href="#cb5-202" aria-hidden="true" tabindex="-1"></a>            <span class="fu">_cqin_schema_check!</span>(net, rng, params, i, CQIN_REVIEWED, CQIN_ADJUSTED)</span>
+<span id="cb5-203"><a href="#cb5-203" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb5-204"><a href="#cb5-204" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-205"><a href="#cb5-205" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb5-206"><a href="#cb5-206" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-207"><a href="#cb5-207" aria-hidden="true" tabindex="-1"></a><span class="co"># Phase 5: adjust (reviewed → adjusted spread, update signal)</span></span>
+<span id="cb5-208"><a href="#cb5-208" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">_cqin_phase5!</span>(net<span class="op">::</span><span class="dt">CQINNetwork</span>, rng, params<span class="op">::</span><span class="dt">CQINParams</span>)</span>
+<span id="cb5-209"><a href="#cb5-209" aria-hidden="true" tabindex="-1"></a>    effectiveness <span class="op">=</span> params.schema_share_effectiveness <span class="op">*</span> params.learning_gain <span class="op">^</span> net.iteration_count</span>
+<span id="cb5-210"><a href="#cb5-210" aria-hidden="true" tabindex="-1"></a>    ps_factor <span class="op">=</span> (params.problem_solving_effectiveness <span class="op">*</span> params.learning_gain <span class="op">^</span> net.iteration_count) <span class="op">/</span> params.problem_space_complexity</span>
+<span id="cb5-211"><a href="#cb5-211" aria-hidden="true" tabindex="-1"></a>    coev_factor <span class="op">=</span> (<span class="fl">100.0</span> <span class="op">-</span> params.coevolution_constraints) <span class="op">/</span> <span class="fl">100.0</span></span>
+<span id="cb5-212"><a href="#cb5-212" aria-hidden="true" tabindex="-1"></a>    prob <span class="op">=</span> effectiveness <span class="op">*</span> ps_factor <span class="op">*</span> coev_factor</span>
+<span id="cb5-213"><a href="#cb5-213" aria-hidden="true" tabindex="-1"></a>    order <span class="op">=</span> <span class="fu">shuffle!</span>(rng, <span class="fu">collect</span>(<span class="fl">1</span><span class="op">:</span>net.n_nodes))</span>
+<span id="cb5-214"><a href="#cb5-214" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> order</span>
+<span id="cb5-215"><a href="#cb5-215" aria-hidden="true" tabindex="-1"></a>        net.states[i] <span class="op">==</span> CQIN_ADJUSTED <span class="op">||</span> <span class="cf">continue</span></span>
+<span id="cb5-216"><a href="#cb5-216" aria-hidden="true" tabindex="-1"></a>        net.schema_check_timer[i] <span class="op">+=</span> <span class="fl">1</span></span>
+<span id="cb5-217"><a href="#cb5-217" aria-hidden="true" tabindex="-1"></a>        neighbors <span class="op">=</span> <span class="fu">shuffle!</span>(rng, <span class="fu">collect</span>(net.adj[i]))</span>
+<span id="cb5-218"><a href="#cb5-218" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> j <span class="kw">in</span> neighbors</span>
+<span id="cb5-219"><a href="#cb5-219" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> net.states[j] <span class="op">==</span> CQIN_REVIEWED</span>
+<span id="cb5-220"><a href="#cb5-220" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> <span class="fu">rand</span>(rng) <span class="op">*</span> <span class="fl">100.0</span> <span class="op">&lt;</span> prob</span>
+<span id="cb5-221"><a href="#cb5-221" aria-hidden="true" tabindex="-1"></a>                    net.states[j] <span class="op">=</span> CQIN_ADJUSTED</span>
+<span id="cb5-222"><a href="#cb5-222" aria-hidden="true" tabindex="-1"></a>                <span class="cf">end</span></span>
+<span id="cb5-223"><a href="#cb5-223" aria-hidden="true" tabindex="-1"></a>            <span class="cf">end</span></span>
+<span id="cb5-224"><a href="#cb5-224" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb5-225"><a href="#cb5-225" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-226"><a href="#cb5-226" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Schema checks for adjusted nodes — also update signal</span></span>
+<span id="cb5-227"><a href="#cb5-227" aria-hidden="true" tabindex="-1"></a>    order2 <span class="op">=</span> <span class="fu">shuffle!</span>(rng, <span class="fu">collect</span>(<span class="fl">1</span><span class="op">:</span>net.n_nodes))</span>
+<span id="cb5-228"><a href="#cb5-228" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> order2</span>
+<span id="cb5-229"><a href="#cb5-229" aria-hidden="true" tabindex="-1"></a>        net.states[i] <span class="op">==</span> CQIN_ADJUSTED <span class="op">||</span> <span class="cf">continue</span></span>
+<span id="cb5-230"><a href="#cb5-230" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> net.schema_check_timer[i] <span class="op">&gt;</span> <span class="fl">0</span> <span class="op">&amp;&amp;</span> <span class="fu">mod</span>(net.schema_check_timer[i], params.schema_check_frequency) <span class="op">==</span> <span class="fl">0</span></span>
+<span id="cb5-231"><a href="#cb5-231" aria-hidden="true" tabindex="-1"></a>            <span class="fu">_cqin_schema_check!</span>(net, rng, params, i, CQIN_ADJUSTED, CQIN_ADJUSTED)</span>
+<span id="cb5-232"><a href="#cb5-232" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Signal update after schema check in phase 5</span></span>
+<span id="cb5-233"><a href="#cb5-233" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> net.states[i] <span class="op">==</span> CQIN_ADJUSTED</span>
+<span id="cb5-234"><a href="#cb5-234" aria-hidden="true" tabindex="-1"></a>                net.signal <span class="op">=</span> <span class="fu">min</span>(net.signal <span class="op">+</span> params.signal_increment, params.signal_target)</span>
+<span id="cb5-235"><a href="#cb5-235" aria-hidden="true" tabindex="-1"></a>            <span class="cf">end</span></span>
+<span id="cb5-236"><a href="#cb5-236" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb5-237"><a href="#cb5-237" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-238"><a href="#cb5-238" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb5-239"><a href="#cb5-239" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-240"><a href="#cb5-240" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> CQINGoSystem <span class="op">&lt;:</span><span class="dt"> System </span><span class="kw">end</span></span>
+<span id="cb5-241"><a href="#cb5-241" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-242"><a href="#cb5-242" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">update!</span>(<span class="op">::</span><span class="dt">CQINGoSystem</span>, world<span class="op">::</span><span class="dt">World</span>)</span>
+<span id="cb5-243"><a href="#cb5-243" aria-hidden="true" tabindex="-1"></a>    params <span class="op">=</span> <span class="fu">get_resource</span>(world, CQINParams)</span>
+<span id="cb5-244"><a href="#cb5-244" aria-hidden="true" tabindex="-1"></a>    rng <span class="op">=</span> <span class="fu">get_resource</span>(world, RNGResource).rng</span>
+<span id="cb5-245"><a href="#cb5-245" aria-hidden="true" tabindex="-1"></a>    net <span class="op">=</span> <span class="fu">get_resource</span>(world, CQINNetwork)</span>
+<span id="cb5-246"><a href="#cb5-246" aria-hidden="true" tabindex="-1"></a>    stats <span class="op">=</span> <span class="fu">get_resource</span>(world, CQINStats)</span>
+<span id="cb5-247"><a href="#cb5-247" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-248"><a href="#cb5-248" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Each tick is one full PDSA cycle: cycle → 5×phase1 → 5×phase2 → 5×phase3 → 5×phase4 → 5×phase5</span></span>
+<span id="cb5-249"><a href="#cb5-249" aria-hidden="true" tabindex="-1"></a>    <span class="fu">_cqin_cycle!</span>(net, rng, params)</span>
+<span id="cb5-250"><a href="#cb5-250" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-251"><a href="#cb5-251" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Phase 1: spread-signal (go), repeat 5</span></span>
+<span id="cb5-252"><a href="#cb5-252" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span></span>
+<span id="cb5-253"><a href="#cb5-253" aria-hidden="true" tabindex="-1"></a>        <span class="fu">_cqin_should_stop</span>(net, params, CQIN_UPDATED) <span class="op">&amp;&amp;</span> <span class="cf">break</span></span>
+<span id="cb5-254"><a href="#cb5-254" aria-hidden="true" tabindex="-1"></a>        <span class="fu">_cqin_phase1!</span>(net, rng, params)</span>
+<span id="cb5-255"><a href="#cb5-255" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-256"><a href="#cb5-256" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-257"><a href="#cb5-257" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Phase 2: problem-solve (go-2), repeat 5</span></span>
+<span id="cb5-258"><a href="#cb5-258" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span></span>
+<span id="cb5-259"><a href="#cb5-259" aria-hidden="true" tabindex="-1"></a>        <span class="fu">_cqin_should_stop</span>(net, params, CQIN_AGREED) <span class="op">&amp;&amp;</span> <span class="cf">break</span></span>
+<span id="cb5-260"><a href="#cb5-260" aria-hidden="true" tabindex="-1"></a>        <span class="fu">_cqin_phase2!</span>(net, rng, params)</span>
+<span id="cb5-261"><a href="#cb5-261" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-262"><a href="#cb5-262" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-263"><a href="#cb5-263" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Phase 3: implement (go-3), repeat 5</span></span>
+<span id="cb5-264"><a href="#cb5-264" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span></span>
+<span id="cb5-265"><a href="#cb5-265" aria-hidden="true" tabindex="-1"></a>        <span class="fu">_cqin_should_stop</span>(net, params, CQIN_IMPLEMENTED) <span class="op">&amp;&amp;</span> <span class="cf">break</span></span>
+<span id="cb5-266"><a href="#cb5-266" aria-hidden="true" tabindex="-1"></a>        <span class="fu">_cqin_phase3!</span>(net, rng, params)</span>
+<span id="cb5-267"><a href="#cb5-267" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-268"><a href="#cb5-268" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-269"><a href="#cb5-269" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Phase 4: review (go-4), repeat 5</span></span>
+<span id="cb5-270"><a href="#cb5-270" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span></span>
+<span id="cb5-271"><a href="#cb5-271" aria-hidden="true" tabindex="-1"></a>        <span class="fu">_cqin_should_stop</span>(net, params, CQIN_REVIEWED) <span class="op">&amp;&amp;</span> <span class="cf">break</span></span>
+<span id="cb5-272"><a href="#cb5-272" aria-hidden="true" tabindex="-1"></a>        <span class="fu">_cqin_phase4!</span>(net, rng, params)</span>
+<span id="cb5-273"><a href="#cb5-273" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-274"><a href="#cb5-274" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-275"><a href="#cb5-275" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Phase 5: adjust (go-5), repeat 5</span></span>
+<span id="cb5-276"><a href="#cb5-276" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span></span>
+<span id="cb5-277"><a href="#cb5-277" aria-hidden="true" tabindex="-1"></a>        <span class="fu">_cqin_should_stop</span>(net, params, CQIN_ADJUSTED) <span class="op">&amp;&amp;</span> <span class="cf">break</span></span>
+<span id="cb5-278"><a href="#cb5-278" aria-hidden="true" tabindex="-1"></a>        <span class="fu">_cqin_phase5!</span>(net, rng, params)</span>
+<span id="cb5-279"><a href="#cb5-279" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-280"><a href="#cb5-280" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-281"><a href="#cb5-281" aria-hidden="true" tabindex="-1"></a>    <span class="fu">_cqin_update_counts!</span>(net, stats)</span>
+<span id="cb5-282"><a href="#cb5-282" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="cn">nothing</span></span>
+<span id="cb5-283"><a href="#cb5-283" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb5-284"><a href="#cb5-284" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-285"><a href="#cb5-285" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> CQINTerminationSystem <span class="op">&lt;:</span><span class="dt"> System </span><span class="kw">end</span></span>
+<span id="cb5-286"><a href="#cb5-286" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-287"><a href="#cb5-287" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">update!</span>(<span class="op">::</span><span class="dt">CQINTerminationSystem</span>, world<span class="op">::</span><span class="dt">World</span>)</span>
+<span id="cb5-288"><a href="#cb5-288" aria-hidden="true" tabindex="-1"></a>    params <span class="op">=</span> <span class="fu">get_resource</span>(world, CQINParams)</span>
+<span id="cb5-289"><a href="#cb5-289" aria-hidden="true" tabindex="-1"></a>    tick <span class="op">=</span> <span class="fu">get_resource</span>(world, Tick)</span>
+<span id="cb5-290"><a href="#cb5-290" aria-hidden="true" tabindex="-1"></a>    net <span class="op">=</span> <span class="fu">get_resource</span>(world, CQINNetwork)</span>
+<span id="cb5-291"><a href="#cb5-291" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> tick.tick <span class="op">+</span> <span class="fl">1</span> <span class="op">&gt;=</span> params.max_ticks <span class="op">||</span> net.signal <span class="op">&gt;=</span> params.signal_target <span class="op">||</span> net.iteration_count <span class="op">&gt;=</span> params.planned_iterations <span class="op">+</span> <span class="fl">1</span></span>
+<span id="cb5-292"><a href="#cb5-292" aria-hidden="true" tabindex="-1"></a>        <span class="fu">get_resource</span>(world, Terminate).stop <span class="op">=</span> <span class="cn">true</span></span>
+<span id="cb5-293"><a href="#cb5-293" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-294"><a href="#cb5-294" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="cn">nothing</span></span>
+<span id="cb5-295"><a href="#cb5-295" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="model-model.jl" class="level3">
+<h3 class="anchored" data-anchor-id="model-model.jl">Model (<code>model.jl</code>)</h3>
+<p>The model file assembles all pieces: it creates the ECS <code>World</code> with the required component types, registers resources, builds the <code>Scheduler</code> with systems in execution order, and exposes the public <code>run</code> entry point. The observer pattern records the trajectory each tick.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">cqin_world</span>(; initial_capacity<span class="op">::</span><span class="dt">Int </span><span class="op">=</span> <span class="fl">128</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fu">World</span>(CQINDummy; initial_capacity <span class="op">=</span> initial_capacity, allow_mutable <span class="op">=</span> <span class="cn">true</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">cqin_systems</span>()</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (<span class="fu">InitCQINSystem</span>(), <span class="fu">CQINGoSystem</span>(), <span class="fu">CQINTerminationSystem</span>())</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">cqin_model</span>(params<span class="op">::</span><span class="dt">CQINParams </span><span class="op">=</span> <span class="fu">CQINParams</span>())</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    world <span class="op">=</span> <span class="fu">cqin_world</span>()</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">_add_standard_resources!</span>(world, params)</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_resource!</span>(world, <span class="fu">CQINNetwork</span>())</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_resource!</span>(world, <span class="fu">CQINStats</span>())</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    scheduler <span class="op">=</span> <span class="fu">Scheduler</span>(world, <span class="fu">cqin_systems</span>())</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">initialize!</span>(scheduler)</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> scheduler</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> CQINObserver <span class="kw">end</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">cqin_headers</span>(<span class="op">::</span><span class="dt">CQINObserver</span>)</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [<span class="st">"NumUpdated"</span>, <span class="st">"NumResistant"</span>, <span class="st">"NumAdjusted"</span>]</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">cqin_values</span>(<span class="op">::</span><span class="dt">CQINObserver</span>, world<span class="op">::</span><span class="dt">World</span>)</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>    stats <span class="op">=</span> <span class="fu">get_resource</span>(world, CQINStats)</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dt">Float64</span>[stats.num_updated, stats.num_resistant, stats.num_adjusted]</span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">run_cqin</span>(; params<span class="op">::</span><span class="dt">CQINParams </span><span class="op">=</span> <span class="fu">CQINParams</span>(), observe<span class="op">::</span><span class="dt">Bool </span><span class="op">=</span> <span class="cn">true</span>)</span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fu">_run_model</span>(cqin_model, <span class="fu">CQINObserver</span>(), cqin_values; params, observe)</span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

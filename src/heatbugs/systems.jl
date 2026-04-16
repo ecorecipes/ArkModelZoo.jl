@@ -30,21 +30,9 @@ function update!(::HBDiffuseSystem, world::World)
     params = get_resource(world, HBParams)
     grid = get_resource(world, HBGrid)
     w, h = grid.width, grid.height
-    rate = params.diffusion_rate
 
     # NetLogo diffuse: each patch shares rate/8 of its value with each of 8 neighbors
-    old_temp = copy(grid.temp)
-    share = rate / 8.0
-    for x in 1:w, y in 1:h
-        lost = old_temp[x, y] * rate
-        grid.temp[x, y] -= lost
-        for dx in -1:1, dy in -1:1
-            (dx == 0 && dy == 0) && continue
-            nx = mod1(x + dx, w)
-            ny = mod1(y + dy, h)
-            grid.temp[nx, ny] += old_temp[x, y] * share
-        end
-    end
+    diffuse!(grid.temp, params.diffusion_rate, w, h)
 
     # Evaporation
     evap = 1.0 - params.evaporation_rate

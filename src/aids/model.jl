@@ -8,10 +8,7 @@ end
 
 function aids_model(params::AIDSParams = AIDSParams())
     world = aids_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, AIDSStats())
     scheduler = Scheduler(world, aids_systems())
     initialize!(scheduler)
@@ -31,16 +28,5 @@ function aids_values(::AIDSObserver, world::World)
 end
 
 function run_aids(; params::AIDSParams = AIDSParams(), observe::Bool = true)
-    scheduler = aids_model(params)
-    obs = AIDSObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, aids_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, aids_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(aids_model, AIDSObserver(), aids_values; params, observe)
 end

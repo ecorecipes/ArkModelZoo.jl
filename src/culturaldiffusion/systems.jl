@@ -26,18 +26,6 @@ end
 # Helpers for 2D grid indexing (1-based)
 _cd_idx(x::Int, y::Int, w::Int) = (y - 1) * w + x
 
-function _cd_neighbors(x::Int, y::Int, w::Int, h::Int)
-    # Moore neighborhood (8 neighbors) with wrapping
-    result = Tuple{Int,Int}[]
-    for dx in -1:1, dy in -1:1
-        (dx == 0 && dy == 0) && continue
-        nx = mod1(x + dx, w)
-        ny = mod1(y + dy, h)
-        push!(result, (nx, ny))
-    end
-    return result
-end
-
 function _cd_weighted_rand_index(rng, probs::Vector{Float64})
     nc = length(probs)
     nc == 0 && return -1
@@ -86,7 +74,7 @@ function update!(::CDGoSystem, world::World)
 
         # Adoption
         if rand(rng) < params.prob_adoption && check
-            nbrs = _cd_neighbors(px, py, w, h)
+            nbrs = moore_neighbors_wrap(px, py, w, h)
             # one-of neighbors
             nx, ny = nbrs[rand(rng, 1:length(nbrs))]
             nidx = _cd_idx(nx, ny, w)

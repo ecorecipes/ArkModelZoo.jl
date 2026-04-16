@@ -13,10 +13,7 @@ end
 
 function croprotation_model(params::CRParams = CRParams())
     world = croprotation_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, CRState(params.grid_size, params.grid_size))
     add_resource!(world, CRStats())
     scheduler = Scheduler(world, croprotation_systems())
@@ -36,16 +33,5 @@ function croprotation_values(::CRObserver, world::World)
 end
 
 function run_croprotation(; params::CRParams = CRParams(), observe::Bool = true)
-    scheduler = croprotation_model(params)
-    obs = CRObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, croprotation_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, croprotation_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(croprotation_model, CRObserver(), croprotation_values; params, observe)
 end

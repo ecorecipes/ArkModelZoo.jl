@@ -1,0 +1,191 @@
+---
+title: "ArkModelZoo.jl Vignettes"
+---
+
+## Overview
+
+ArkModelZoo.jl contains **154** agent-based models ported from NetLogo to Julia using the [Ark.jl](https://github.com/sdwfrost/Ark.jl) Entity Component System (ECS) framework. Each vignette provides background information, default parameters, time-series plots, ensemble runs, and parameter sensitivity analysis.
+
+## Models by Category
+
+### Biology & Ecology
+
+- [Aids](aids/aids.qmd)
+- [Altruism](altruism/altruism.qmd)
+- [Ants](ants/ants.qmd)
+- [Birthrates](birthrates/birthrates.qmd)
+- [Climatechange](climatechange/climatechange.qmd)
+- [Contagionnw](contagionnw/contagionnw.qmd)
+- [Contagionsi](contagionsi/contagionsi.qmd)
+- [Contagionsir](contagionsir/contagionsir.qmd)
+- [Cooperation](cooperation/cooperation.qmd)
+- [Croprotation](croprotation/croprotation.qmd)
+- [Daisyworld](daisyworld/daisyworld.qmd)
+- [Decay](decay/decay.qmd)
+- [Erosion](erosion/erosion.qmd)
+- [Fireflies](fireflies/fireflies.qmd)
+- [Flocking](flocking/flocking.qmd)
+- [Flockingnetwork](flockingnetwork/flockingnetwork.qmd)
+- [Forestdewdney](forestdewdney/forestdewdney.qmd)
+- [Fungalbioremediation](fungalbioremediation/fungalbioremediation.qmd)
+- [Grassbrushtrees](grassbrushtrees/grassbrushtrees.qmd)
+- [Mimicry](mimicry/mimicry.qmd)
+- [Multidrugresistant](multidrugresistant/multidrugresistant.qmd)
+- [Rabbits Grass Weeds](rabbits_grass_weeds/rabbits_grass_weeds.qmd)
+- [Rhinopoaching](rhinopoaching/rhinopoaching.qmd)
+- [Sir](sir/sir.qmd)
+- [Slowspread](slowspread/slowspread.qmd)
+- [Sugarscape 1 Growback](sugarscape_1_growback/sugarscape_1_growback.qmd)
+- [Sugarscapeculture](sugarscapeculture/sugarscapeculture.qmd)
+- [Sugarscapesexual](sugarscapesexual/sugarscapesexual.qmd)
+- [Termites](termites/termites.qmd)
+- [Tumor](tumor/tumor.qmd)
+- [Virus](virus/virus.qmd)
+- [Wolfsheep](wolfsheep/wolfsheep.qmd)
+
+### Computer Science & Math
+
+- [Abtgc](abtgc/abtgc.qmd)
+- [Antsystem](antsystem/antsystem.qmd)
+- [Bayesian](bayesian/bayesian.qmd)
+- [Boiling](boiling/boiling.qmd)
+- [Brians Brain](brians_brain/brians_brain.qmd)
+- [Ca 1D Elementary](ca_1d_elementary/ca_1d_elementary.qmd)
+- [Coin](coin/coin.qmd)
+- [Contactprocess](contactprocess/contactprocess.qmd)
+- [Cqin](cqin/cqin.qmd)
+- [Csvnetworkforaging](csvnetworkforaging/csvnetworkforaging.qmd)
+- [Csvpopulation](csvpopulation/csvpopulation.qmd)
+- [Diffusion](diffusion/diffusion.qmd)
+- [Diffusionnetwork](diffusionnetwork/diffusionnetwork.qmd)
+- [Dla](dla/dla.qmd)
+- [Dlasimple](dlasimple/dlasimple.qmd)
+- [Ipd](ipd/ipd.qmd)
+- [Life](life/life.qmd)
+- [Logistic Growth](logistic_growth/logistic_growth.qmd)
+- [Mailmen](mailmen/mailmen.qmd)
+- [Paretolearn](paretolearn/paretolearn.qmd)
+- [Prefattachhomophily](prefattachhomophily/prefattachhomophily.qmd)
+- [Rope](rope/rope.qmd)
+
+### Economics
+
+- [Artificialeconomy](artificialeconomy/artificialeconomy.qmd)
+- [Bullwhipeffect](bullwhipeffect/bullwhipeffect.qmd)
+- [Public Good](public_good/public_good.qmd)
+
+### Land Use & GIS
+
+- [Gishillclimber](gishillclimber/gishillclimber.qmd)
+- [Hikingelevation](hikingelevation/hikingelevation.qmd)
+- [Sleuthlanduse](sleuthlanduse/sleuthlanduse.qmd)
+
+### Miscellaneous
+
+- [Blackbox](blackbox/blackbox.qmd)
+- [Ethnocentrism](ethnocentrism/ethnocentrism.qmd)
+- [Modsocsegregation](modsocsegregation/modsocsegregation.qmd)
+- [Traffic2Lanes](traffic2lanes/traffic2lanes.qmd)
+- [Trafficbasic](trafficbasic/trafficbasic.qmd)
+- [Trafficgrid](trafficgrid/trafficgrid.qmd)
+- [Trafficintersection](trafficintersection/trafficintersection.qmd)
+
+### Networks
+
+- [Preferential Attachment](preferential_attachment/preferential_attachment.qmd)
+- [Resilientteam](resilientteam/resilientteam.qmd)
+- [Small Worlds](small_worlds/small_worlds.qmd)
+
+### Physics & Chemistry
+
+- [Crystallization](crystallization/crystallization.qmd)
+- [Heatbugs](heatbugs/heatbugs.qmd)
+
+### Social Science
+
+- [Axelrodcultural](axelrodcultural/axelrodcultural.qmd)
+- [Babysittingcoop](babysittingcoop/babysittingcoop.qmd)
+- [Bank Reserves](bank_reserves/bank_reserves.qmd)
+- [Beinggreen](beinggreen/beinggreen.qmd)
+- [Bombscenario](bombscenario/bombscenario.qmd)
+- [Civilizationgrowth](civilizationgrowth/civilizationgrowth.qmd)
+- [Competitionlearning](competitionlearning/competitionlearning.qmd)
+- [Coordination](coordination/coordination.qmd)
+- [Coordination2Groups](coordination2groups/coordination2groups.qmd)
+- [Culturaldiffusion](culturaldiffusion/culturaldiffusion.qmd)
+- [Cyberspaceopinion](cyberspaceopinion/cyberspaceopinion.qmd)
+- [Dating](dating/dating.qmd)
+- [Druguse](druguse/druguse.qmd)
+- [Druguseoverdose](druguseoverdose/druguseoverdose.qmd)
+- [Evolutionofnorms](evolutionofnorms/evolutionofnorms.qmd)
+- [Fakenews](fakenews/fakenews.qmd)
+- [Granovetter](granovetter/granovetter.qmd)
+- [Infodiffusion](infodiffusion/infodiffusion.qmd)
+- [Languageborders](languageborders/languageborders.qmd)
+- [Leonarditechadoption](leonarditechadoption/leonarditechadoption.qmd)
+- [Marriage](marriage/marriage.qmd)
+- [Minoritybelief](minoritybelief/minoritybelief.qmd)
+- [Misinformationsbfc](misinformationsbfc/misinformationsbfc.qmd)
+- [Opinionbc](opinionbc/opinionbc.qmd)
+- [Participatorydisinfo](participatorydisinfo/participatorydisinfo.qmd)
+- [Participatorydisinformation](participatorydisinformation/participatorydisinformation.qmd)
+- [Pd Basic Evolutionary](pd_basic_evolutionary/pd_basic_evolutionary.qmd)
+- [Pdsimple](pdsimple/pdsimple.qmd)
+- [Privacyopinion](privacyopinion/privacyopinion.qmd)
+- [Productsmarket](productsmarket/productsmarket.qmd)
+- [Rationalevolvingpd](rationalevolvingpd/rationalevolvingpd.qmd)
+- [Rebellion](rebellion/rebellion.qmd)
+- [Recruiting](recruiting/recruiting.qmd)
+- [Recruitingmovement](recruitingmovement/recruitingmovement.qmd)
+- [Recruitingsupporters](recruitingsupporters/recruitingsupporters.qmd)
+- [Riseofradicalism](riseofradicalism/riseofradicalism.qmd)
+- [Schelling](schelling/schelling.qmd)
+- [Segregation](segregation/segregation.qmd)
+- [Simplemarket](simplemarket/simplemarket.qmd)
+- [Simplemarketrandom](simplemarketrandom/simplemarketrandom.qmd)
+- [Simplemarkettable](simplemarkettable/simplemarkettable.qmd)
+- [Socialinfluence](socialinfluence/socialinfluence.qmd)
+- [Socialnetworkdiffusion](socialnetworkdiffusion/socialnetworkdiffusion.qmd)
+- [Spatialattitude](spatialattitude/spatialattitude.qmd)
+- [Spatialopinion](spatialopinion/spatialopinion.qmd)
+- [Spreadingbots](spreadingbots/spreadingbots.qmd)
+- [Spreadinggroups](spreadinggroups/spreadinggroups.qmd)
+- [Superdiffuser](superdiffuser/superdiffuser.qmd)
+- [Tourism](tourism/tourism.qmd)
+- [Unitcohesion](unitcohesion/unitcohesion.qmd)
+- [Voter](voter/voter.qmd)
+- [Voting](voting/voting.qmd)
+- [Wealthdistribution](wealthdistribution/wealthdistribution.qmd)
+- [Wisdomcrowd](wisdomcrowd/wisdomcrowd.qmd)
+
+### Other Models
+
+- [Diffusionofhiv](diffusionofhiv/diffusionofhiv.qmd)
+- [Disinfobitstringnw](disinfobitstringnw/disinfobitstringnw.qmd)
+- [Elfarol](elfarol/elfarol.qmd)
+- [Fire](fire/fire.qmd)
+- [Firebenchmark](firebenchmark/firebenchmark.qmd)
+- [Firepercolation](firepercolation/firepercolation.qmd)
+- [Giant Component](giant_component/giant_component.qmd)
+- [Infinitelife](infinitelife/infinitelife.qmd)
+- [Ising](ising/ising.qmd)
+- [Languagechange](languagechange/languagechange.qmd)
+- [Lassavirus](lassavirus/lassavirus.qmd)
+- [Minimalsis](minimalsis/minimalsis.qmd)
+- [Minoritygame](minoritygame/minoritygame.qmd)
+- [Mousetraps](mousetraps/mousetraps.qmd)
+- [Particles](particles/particles.qmd)
+- [Party](party/party.qmd)
+- [Percolation](percolation/percolation.qmd)
+- [Polymerdynamics](polymerdynamics/polymerdynamics.qmd)
+- [Rumormill](rumormill/rumormill.qmd)
+- [Sand](sand/sand.qmd)
+- [Shepherds](shepherds/shepherds.qmd)
+- [Simple Genetic Algorithm](simple_genetic_algorithm/simple_genetic_algorithm.qmd)
+- [Slime](slime/slime.qmd)
+- [Soliddiffusion](soliddiffusion/soliddiffusion.qmd)
+- [Teamassembly](teamassembly/teamassembly.qmd)
+- [Thermostat](thermostat/thermostat.qmd)
+- [Virus On Network](virus_on_network/virus_on_network.qmd)
+- [Voronoivoter](voronoivoter/voronoivoter.qmd)
+

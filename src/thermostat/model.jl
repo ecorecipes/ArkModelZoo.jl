@@ -20,10 +20,7 @@ end
 
 function thermostat_model(params::ThermostatParams = ThermostatParams())
     world = thermostat_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, ThermoGrid(params.grid_width, params.grid_height, params.min_cor))
     add_resource!(world, ThermoStats())
     scheduler = Scheduler(world, thermostat_systems())
@@ -43,16 +40,5 @@ function thermostat_values(::ThermostatObserver, world::World)
 end
 
 function run_thermostat(; params::ThermostatParams = ThermostatParams(), observe::Bool = true)
-    scheduler = thermostat_model(params)
-    obs = ThermostatObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, thermostat_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, thermostat_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(thermostat_model, ThermostatObserver(), thermostat_values; params, observe)
 end

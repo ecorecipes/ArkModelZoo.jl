@@ -17,10 +17,7 @@ end
 
 function rationalevolvingpd_model(params::REPDParams = REPDParams())
     world = rationalevolvingpd_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, REPDState(params.grid_size, params.grid_size))
     add_resource!(world, REPDStats())
     scheduler = Scheduler(world, rationalevolvingpd_systems())
@@ -40,16 +37,5 @@ function rationalevolvingpd_values(::REPDObserver, world::World)
 end
 
 function run_rationalevolvingpd(; params::REPDParams = REPDParams(), observe::Bool = true)
-    scheduler = rationalevolvingpd_model(params)
-    obs = REPDObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, rationalevolvingpd_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, rationalevolvingpd_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(rationalevolvingpd_model, REPDObserver(), rationalevolvingpd_values; params, observe)
 end

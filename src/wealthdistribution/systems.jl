@@ -24,12 +24,12 @@ function initialize!(::InitWDSystem, world::World)
                 grid.grain_here[x, y] = grid.max_grain_here[x, y]
             end
         end
-        _wd_diffuse!(grid, 0.25)
+        diffuse!(grid.grain_here, 0.25, w, h)
     end
 
     # repeat 10 [ diffuse grain-here 0.25 ]
     for _ in 1:10
-        _wd_diffuse!(grid, 0.25)
+        diffuse!(grid.grain_here, 0.25, w, h)
     end
 
     # ask patches [ set grain-here floor grain-here; set max-grain-here grain-here ]
@@ -59,25 +59,6 @@ function initialize!(::InitWDSystem, world::World)
     # Initial Gini
     update!(WDGiniSystem(), world)
     return nothing
-end
-
-# NetLogo diffuse: each patch gives fraction/8 to each of 8 Moore neighbors, keeps (1-fraction)
-function _wd_diffuse!(grid::WDGrid, fraction::Float64)
-    w, h = grid.width, grid.height
-    old = copy(grid.grain_here)
-    share = fraction / 8.0
-    for x in 1:w, y in 1:h
-        grid.grain_here[x, y] = old[x, y] * (1.0 - fraction)
-    end
-    for x in 1:w, y in 1:h
-        contrib = old[x, y] * share
-        for dx in -1:1, dy in -1:1
-            (dx == 0 && dy == 0) && continue
-            nx = mod1(x + dx, w)
-            ny = mod1(y + dy, h)
-            grid.grain_here[nx, ny] += contrib
-        end
-    end
 end
 
 # --- Turn Towards Grain ---

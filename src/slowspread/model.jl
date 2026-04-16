@@ -8,10 +8,7 @@ end
 
 function slowspread_model(params::SSpreadParams = SSpreadParams())
     world = slowspread_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, SSpreadNetwork())
     add_resource!(world, SSpreadStats())
     scheduler = Scheduler(world, slowspread_systems())
@@ -31,16 +28,5 @@ function slowspread_values(::SSpreadObserver, world::World)
 end
 
 function run_slowspread(; params::SSpreadParams = SSpreadParams(), observe::Bool = true)
-    scheduler = slowspread_model(params)
-    obs = SSpreadObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, slowspread_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, slowspread_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(slowspread_model, SSpreadObserver(), slowspread_values; params, observe)
 end

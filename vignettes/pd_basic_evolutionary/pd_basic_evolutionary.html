@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.28">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>PD Basic Evolutionary</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="pd_basic_evolutionary_files/libs/clipboard/clipboard.min.js"></script>
+<script src="pd_basic_evolutionary_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="pd_basic_evolutionary_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="pd_basic_evolutionary_files/libs/quarto-html/popper.min.js"></script>
+<script src="pd_basic_evolutionary_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="pd_basic_evolutionary_files/libs/quarto-html/anchor.min.js"></script>
+<link href="pd_basic_evolutionary_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="pd_basic_evolutionary_files/libs/quarto-html/quarto-syntax-highlighting-49e51e44f424ea8c7044b429bdbbbfe2.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="pd_basic_evolutionary_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="pd_basic_evolutionary_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="pd_basic_evolutionary_files/libs/bootstrap/bootstrap-8ffd5f67044e5306d9846f29df41dda5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a>
+  <ul class="collapse">
+  <li><a href="#what-is-it" id="toc-what-is-it" class="nav-link" data-scroll-target="#what-is-it">WHAT IS IT?</a></li>
+  <li><a href="#how-it-works" id="toc-how-it-works" class="nav-link" data-scroll-target="#how-it-works">HOW IT WORKS</a></li>
+  <li><a href="#things-to-notice" id="toc-things-to-notice" class="nav-link" data-scroll-target="#things-to-notice">THINGS TO NOTICE</a></li>
+  <li><a href="#things-to-try" id="toc-things-to-try" class="nav-link" data-scroll-target="#things-to-try">THINGS TO TRY</a></li>
+  <li><a href="#extending-the-model" id="toc-extending-the-model" class="nav-link" data-scroll-target="#extending-the-model">EXTENDING THE MODEL</a></li>
+  <li><a href="#how-to-cite" id="toc-how-to-cite" class="nav-link" data-scroll-target="#how-to-cite">HOW TO CITE</a></li>
+  <li><a href="#copyright-and-license" id="toc-copyright-and-license" class="nav-link" data-scroll-target="#copyright-and-license">COPYRIGHT AND LICENSE</a></li>
+  </ul></li>
+  <li><a href="#parameters" id="toc-parameters" class="nav-link" data-scroll-target="#parameters">Parameters</a></li>
+  <li><a href="#source-code" id="toc-source-code" class="nav-link" data-scroll-target="#source-code">Source Code</a></li>
+  <li><a href="#time-series" id="toc-time-series" class="nav-link" data-scroll-target="#time-series">Time Series</a></li>
+  <li><a href="#ensemble-runs" id="toc-ensemble-runs" class="nav-link" data-scroll-target="#ensemble-runs">Ensemble Runs</a></li>
+  <li><a href="#parameter-sensitivity" id="toc-parameter-sensitivity" class="nav-link" data-scroll-target="#parameter-sensitivity">Parameter Sensitivity</a></li>
+  <li><a href="#appendix-source-code" id="toc-appendix-source-code" class="nav-link" data-scroll-target="#appendix-source-code">Appendix: Source Code</a>
+  <ul class="collapse">
+  <li><a href="#parameters-parameters.jl" id="toc-parameters-parameters.jl" class="nav-link" data-scroll-target="#parameters-parameters.jl">Parameters (<code>parameters.jl</code>)</a></li>
+  <li><a href="#components-components.jl" id="toc-components-components.jl" class="nav-link" data-scroll-target="#components-components.jl">Components (<code>components.jl</code>)</a></li>
+  <li><a href="#resources-resources.jl" id="toc-resources-resources.jl" class="nav-link" data-scroll-target="#resources-resources.jl">Resources (<code>resources.jl</code>)</a></li>
+  <li><a href="#systems-systems.jl" id="toc-systems-systems.jl" class="nav-link" data-scroll-target="#systems-systems.jl">Systems (<code>systems.jl</code>)</a></li>
+  <li><a href="#model-model.jl" id="toc-model-model.jl" class="nav-link" data-scroll-target="#model-model.jl">Model (<code>model.jl</code>)</a></li>
+  </ul></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="pd_basic_evolutionary.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li><li><a href="pd_basic_evolutionary.md"><i class="bi bi-file-code"></i>Github (GFM)</a></li></ul></div></nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">PD Basic Evolutionary</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<section id="what-is-it" class="level3">
+<h3 class="anchored" data-anchor-id="what-is-it">WHAT IS IT?</h3>
+<p>One of the most prominently studied phenomena in Game Theory is the “Prisoner’s Dilemma.” The Prisoner’s Dilemma, which was formulated by Melvin Drescher and Merrill Flood and named by Albert W. Tucker, is an example of a class of games called non-zero-sum games.</p>
+<p>In zero-sum games, total benefit to all players add up to zero, or in other words, each player can only benefit at the expense of other players (e.g.&nbsp;chess, football, poker — one person can only win when the opponent loses). On the other hand, in non-zero-games, each person’s benefit does not necessarily come at the expense of someone else. In many non-zero-sum situations, a person can benefit only when others benefit as well. Non-zero-sum situations exist where the supply of a resource is not fixed or limited in any way (e.g.&nbsp;knowledge, artwork, and trade). Prisoner’s Dilemma, as a non-zero-sum game, demonstrates a conflict between rational individual behavior and the benefits of cooperation in certain situations. The classical prisoner’s dilemma is as follows:</p>
+<p>Two suspects are apprehended by the police. The police do have enough evidence to convict these two suspects. As a result, they separate the two, visit each of them, and offer both the same deal: “If you confess, and your accomplice remains silent, he goes to jail for 10 years and you can go free. If you both remain silent, only minor charges can be brought upon both of you and you guys get 6 months each. If you both confess, then each of you two gets 5 years.”</p>
+<p>Each suspect may reason as follows: “Either my partner confesses or not. If he does confess and I remain silent, I get 10 years while if I confess, I get 5 years. So, if my partner confesses, it is best that I confess and get only 5 years than 10 years in prison. If he didn’t, then by confessing, I go free, whereby remaining silent, I get 6 months. Thus, if he didn’t confess, it is best to confess, so that I can go free. Whether or not my partner confesses or not, it is best that I confess.”</p>
+<p>In a non-iterated prisoner’s dilemma, the two partners will never have to work together again. Both partners are thinking in the above manner and decide to confess. Consequently, they both receive 5 years in prison. If neither would have confessed, they would have only gotten 6 months each. The rational behavior paradoxically leads to a socially unbeneficial outcome.</p>
+<pre><code>                             Payoff Matrix</code></pre>
+</section>
+<section id="how-it-works" class="level3">
+<h3 class="anchored" data-anchor-id="how-it-works">HOW IT WORKS</h3>
+<p>Each patch will either cooperate (blue) or defect (red) in the initial start of the model. At each cycle, each patch will interact with all of its 8 neighbors to determine the score for the interaction. Should a patch have cooperated, its score will be the number of neighbors that also cooperated. Should a patch defect, then the score for this patch will be the product of the Defection-Award multiple and the number of neighbors that cooperated (i.e.&nbsp;the patch has taken advantage of the patches that cooperated).</p>
+<p>In the subsequent round, the patch will set its old-cooperate? to be the strategy it used in the previous round. For the upcoming round, the patch will adopt the strategy of one of its neighbors that scored the highest in the previous round.</p>
+<p>If a patch is blue, then the patch cooperated in the previous and current round.<br>
+If a patch is red, then the patch defected in the previous iteration as well as the current round.<br>
+If a patch is green, then the patch cooperated in the previous round but defected in the current round.<br>
+If a patch is yellow, then the patch defected in the previous round but cooperated in the current round.</p>
+</section>
+<section id="things-to-notice" class="level3">
+<h3 class="anchored" data-anchor-id="things-to-notice">THINGS TO NOTICE</h3>
+<p>Notice the effect the Defection-Award multiple plays in determining the number of patches that will completely cooperate (red) or completely defect (blue). At what Defection-Award multiple value will a patch be indifferent to defecting or cooperating? At what Defection-Award multiple value will there be a dynamic change between red, blue, green, and yellow - where in the end of the model no particular color dominates all of the patches (i.e.&nbsp;view is not all red or all blue)?</p>
+<p>Note the Initial-Cooperation percentage. Given that Defection-Award multiple is low (below 1), if the initial percentage of cooperating patches is high, will there be more defecting or cooperating patches eventually? How about when the Defection-Award multiple is high? Does the initial percentage of cooperation effect the outcome of the model, and, if so, how?</p>
+</section>
+<section id="things-to-try" class="level3">
+<h3 class="anchored" data-anchor-id="things-to-try">THINGS TO TRY</h3>
+<p>Increase the Defection-Award multiple by moving the “Defection-Award” slider (just increase the “Defection-Award” slider while model is running), and observe how the histogram for each color of patch changes. In particular, pay attention to the red and blue bars. Does the number of pure cooperation or defection decrease or increase with the increase of the Defection-Award multiple? How about with a decrease of the Defection-Award multiple? (Just increase the “Defection-Award” slider while model is running.)</p>
+<p>At each start of the model, either set the initial-cooperation percentage to be very high or very low (move the slider for “initial-cooperation”), and proportionally value the Defection-Award multiple (move the slider for “Defection-Award” in the same direction) with regards to the initial-cooperation percentage. Which color dominates the world, when the initial-cooperation is high and the Defection-Award is high? Which color dominates the world when initial-cooperation is low and the Defection-Award multiple is also low?</p>
+</section>
+<section id="extending-the-model" class="level3">
+<h3 class="anchored" data-anchor-id="extending-the-model">EXTENDING THE MODEL</h3>
+<p>Alter the code so that the patches have a strategy to implement. For example, instead of adopting to cooperated or defect based on the neighboring patch with the maximum score. Instead, let each patch consider the history of cooperation or defection of it neighboring patches, and allow it to decide whether to cooperate or defect as a result.</p>
+<p>Implement these four strategies:</p>
+<ol type="1">
+<li>Cooperate-all-the-time: regardless of neighboring patches’ history, cooperate.<br>
+</li>
+<li>Tit-for-Tat: only cooperate with neighboring patches, if they have never defected. Otherwise, defect.<br>
+</li>
+<li>Tit-for-Tat-with-forgiveness: cooperate if on the previous round, the patch cooperated. Otherwise, defect.<br>
+</li>
+<li>Defect-all-the-time: regardless of neighboring patches’ history, defect.</li>
+</ol>
+<p>How are the cooperating and defecting patches distributed? Which strategy results with the highest score on average? On what conditions will this strategy be a poor strategy to use?</p>
+</section>
+<section id="how-to-cite" class="level3">
+<h3 class="anchored" data-anchor-id="how-to-cite">HOW TO CITE</h3>
+<p>If you mention this model in a publication, we ask that you include these citations for the model itself and for the NetLogo software:</p>
+<ul>
+<li>Wilensky, U. (2002). NetLogo PD Basic Evolutionary model. http://ccl.northwestern.edu/netlogo/models/PDBasicEvolutionary. Center for Connected Learning and Computer-Based Modeling, Northwestern Institute on Complex Systems, Northwestern University, Evanston, IL.</li>
+<li>Wilensky, U. (1999). NetLogo. http://ccl.northwestern.edu/netlogo/. Center for Connected Learning and Computer-Based Modeling, Northwestern Institute on Complex Systems, Northwestern University, Evanston, IL.</li>
+</ul>
+</section>
+<section id="copyright-and-license" class="level3">
+<h3 class="anchored" data-anchor-id="copyright-and-license">COPYRIGHT AND LICENSE</h3>
+<p>Copyright 2002 Uri Wilensky.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" class="img-fluid figure-img"></p>
+<figcaption>CC BY-NC-SA 3.0</figcaption>
+</figure>
+</div>
+<p>This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/3.0/ or send a letter to Creative Commons, 559 Nathan Abbott Way, Stanford, California 94305, USA.</p>
+<p>Commercial licenses are also available. To inquire about commercial licenses, please contact Uri Wilensky at uri@northwestern.edu.</p>
+<p>This model was created as part of the projects: PARTICIPATORY SIMULATIONS: NETWORK-BASED DESIGN FOR SYSTEMS LEARNING IN CLASSROOMS and/or INTEGRATED SIMULATION AND MODELING ENVIRONMENT. The project gratefully acknowledges the support of the National Science Foundation (REPP &amp; ROLE programs) – grant numbers REC #9814682 and REC-0126227.</p>
+</section>
+</section>
+<section id="parameters" class="level2">
+<h2 class="anchored" data-anchor-id="parameters">Parameters</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 28%">
+<col style="width: 15%">
+<col style="width: 23%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>initial_cooperation</code></td>
+<td><code>Float64</code></td>
+<td><code>66.6</code></td>
+<td>percent of patches that cooperate initially</td>
+</tr>
+<tr class="even">
+<td><code>defection_award</code></td>
+<td><code>Float64</code></td>
+<td><code>1.59</code></td>
+<td>multiplier for defectors</td>
+</tr>
+<tr class="odd">
+<td><code>grid_width</code></td>
+<td><code>Int</code></td>
+<td><code>101</code></td>
+<td>-50..50 = 101 patches</td>
+</tr>
+<tr class="even">
+<td><code>grid_height</code></td>
+<td><code>Int</code></td>
+<td><code>101</code></td>
+<td>grid height</td>
+</tr>
+<tr class="odd">
+<td><code>max_ticks</code></td>
+<td><code>Int</code></td>
+<td><code>200</code></td>
+<td>max ticks</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="source-code" class="level2">
+<h2 class="anchored" data-anchor-id="source-code">Source Code</h2>
+<p>The Julia code to run this model:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">ArkModelZoo</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>_, trajectory <span class="op">=</span> <span class="fu">run_pd_basic_evolutionary</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="time-series" class="level2">
+<h2 class="anchored" data-anchor-id="time-series">Time Series</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="plot_timeseries.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>PD Basic Evolutionary time series</figcaption>
+</figure>
+</div>
+</section>
+<section id="ensemble-runs" class="level2">
+<h2 class="anchored" data-anchor-id="ensemble-runs">Ensemble Runs</h2>
+<p>Ten replicates with different random seeds, showing mean ± standard deviation.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="plot_ensemble.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>PD Basic Evolutionary ensemble</figcaption>
+</figure>
+</div>
+</section>
+<section id="parameter-sensitivity" class="level2">
+<h2 class="anchored" data-anchor-id="parameter-sensitivity">Parameter Sensitivity</h2>
+<p>Varying <code>initial_cooperation</code>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="plot_sensitivity.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>PD Basic Evolutionary sensitivity</figcaption>
+</figure>
+</div>
+</section>
+<section id="appendix-source-code" class="level2">
+<h2 class="anchored" data-anchor-id="appendix-source-code">Appendix: Source Code</h2>
+<p>This model is implemented in the <a href="https://github.com/sdwfrost/Ark.jl">Ark.jl</a> Entity-Component-System (ECS) framework. The code is split into five files, each with a distinct role:</p>
+<ul>
+<li><strong>Parameters</strong>: a mutable struct holding all configurable values.</li>
+<li><strong>Components</strong>: lightweight data types attached to individual entities (agents).</li>
+<li><strong>Resources</strong>: world-level shared state accessible to all systems.</li>
+<li><strong>Systems</strong>: functions that operate on entities each tick, defining model behavior.</li>
+<li><strong>Model</strong>: wiring that assembles the world, registers resources and systems, and provides the run entry point.</li>
+</ul>
+<section id="parameters-parameters.jl" class="level3">
+<h3 class="anchored" data-anchor-id="parameters-parameters.jl">Parameters (<code>parameters.jl</code>)</h3>
+<p>The parameter struct uses <code>@kwdef</code> so that every field has a default value and can be overridden by keyword. These defaults match the original NetLogo model’s slider settings.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">Base</span>.<span class="pp">@kwdef</span> <span class="kw">mutable struct</span> PDEParams</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    initial_cooperation<span class="op">::</span><span class="dt">Float64 </span><span class="op">=</span> <span class="fl">66.6</span>   <span class="co"># percent of patches that cooperate initially</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    defection_award<span class="op">::</span><span class="dt">Float64 </span><span class="op">=</span> <span class="fl">1.59</span>       <span class="co"># multiplier for defectors</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    grid_width<span class="op">::</span><span class="dt">Int </span><span class="op">=</span> <span class="fl">101</span>                 <span class="co"># -50..50 = 101 patches</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    grid_height<span class="op">::</span><span class="dt">Int </span><span class="op">=</span> <span class="fl">101</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    max_ticks<span class="op">::</span><span class="dt">Int </span><span class="op">=</span> <span class="fl">200</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    seed<span class="op">::</span><span class="dt">Int </span><span class="op">=</span> <span class="fl">42</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="components-components.jl" class="level3">
+<h3 class="anchored" data-anchor-id="components-components.jl">Components (<code>components.jl</code>)</h3>
+<p>Components are lightweight data types attached to individual entities (agents). Mutable structs hold per-entity state, while empty tag structs act as markers for the ECS query system to efficiently filter entities.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># PD Basic Evolutionary is purely patch-based; no ECS agent components needed.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="resources-resources.jl" class="level3">
+<h3 class="anchored" data-anchor-id="resources-resources.jl">Resources (<code>resources.jl</code>)</h3>
+<p>Resources are world-level singletons shared across all systems, used for global state and aggregate statistics.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">mutable struct</span> PDEGrid</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    width<span class="op">::</span><span class="dt">Int</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    height<span class="op">::</span><span class="dt">Int</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    cooperate<span class="op">::</span><span class="dt">Matrix{Bool}</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    old_cooperate<span class="op">::</span><span class="dt">Matrix{Bool}</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    score<span class="op">::</span><span class="dt">Matrix{Float64}</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">PDEGrid</span>(w<span class="op">::</span><span class="dt">Int</span>, h<span class="op">::</span><span class="dt">Int</span>)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">PDEGrid</span>(w, h, <span class="fu">falses</span>(w, h), <span class="fu">falses</span>(w, h), <span class="fu">zeros</span>(w, h))</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="kw">mutable struct</span> PDEStats</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    num_cooperators<span class="op">::</span><span class="dt">Int</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    num_defectors<span class="op">::</span><span class="dt">Int</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    num_cc<span class="op">::</span><span class="dt">Int   </span><span class="co"># was C, still C (blue)</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    num_dd<span class="op">::</span><span class="dt">Int   </span><span class="co"># was D, still D (red)</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    num_cd<span class="op">::</span><span class="dt">Int   </span><span class="co"># was C, now D (green)</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    num_dc<span class="op">::</span><span class="dt">Int   </span><span class="co"># was D, now C (yellow)</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="fu">PDEStats</span>() <span class="op">=</span> <span class="fu">PDEStats</span>(<span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="systems-systems.jl" class="level3">
+<h3 class="anchored" data-anchor-id="systems-systems.jl">Systems (<code>systems.jl</code>)</h3>
+<p>Systems contain the model logic and execute in a defined order each tick. Each system struct implements either <code>initialize!</code> (run once at setup) or <code>update!</code> (run every tick).</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Initialization ---</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> InitPDESystem <span class="op">&lt;:</span><span class="dt"> System </span><span class="kw">end</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">initialize!</span>(<span class="op">::</span><span class="dt">InitPDESystem</span>, world<span class="op">::</span><span class="dt">World</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    params <span class="op">=</span> <span class="fu">get_resource</span>(world, PDEParams)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    rng <span class="op">=</span> <span class="fu">get_resource</span>(world, RNGResource).rng</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    grid <span class="op">=</span> <span class="fu">get_resource</span>(world, PDEGrid)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    w, h <span class="op">=</span> grid.width, grid.height</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> x <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span>w, y <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span>h</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>        c <span class="op">=</span> <span class="fu">rand</span>(rng) <span class="op">&lt;</span> (params.initial_cooperation <span class="op">/</span> <span class="fl">100.0</span>)</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>        grid.cooperate[x, y] <span class="op">=</span> c</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>        grid.old_cooperate[x, y] <span class="op">=</span> c</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">_pde_update_stats!</span>(world)</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="cn">nothing</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Go: interact + select-strategy ---</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> PDEGoSystem <span class="op">&lt;:</span><span class="dt"> System </span><span class="kw">end</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">update!</span>(<span class="op">::</span><span class="dt">PDEGoSystem</span>, world<span class="op">::</span><span class="dt">World</span>)</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>    params <span class="op">=</span> <span class="fu">get_resource</span>(world, PDEParams)</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>    rng <span class="op">=</span> <span class="fu">get_resource</span>(world, RNGResource).rng</span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>    grid <span class="op">=</span> <span class="fu">get_resource</span>(world, PDEGrid)</span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>    w, h <span class="op">=</span> grid.width, grid.height</span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>    <span class="co"># interact: compute scores</span></span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> x <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span>w, y <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span>h</span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>        total_cooperators <span class="op">=</span> <span class="fu">moore_neighbor_count</span>(identity, grid.cooperate, x, y, w, h)</span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> grid.cooperate[x, y]</span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>            grid.score[x, y] <span class="op">=</span> <span class="fu">Float64</span>(total_cooperators)</span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span></span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a>            grid.score[x, y] <span class="op">=</span> params.defection_award <span class="op">*</span> total_cooperators</span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a>    <span class="co"># select-strategy: save old, then adopt neighbor's strategy with max score</span></span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a>    <span class="co"># NetLogo processes patches in random order with immediate updates</span></span>
+<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a>    <span class="fu">copyto!</span>(grid.old_cooperate, grid.cooperate)</span>
+<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Random processing order (matching NetLogo's ask patches)</span></span>
+<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a>    positions <span class="op">=</span> [(x, y) for x <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span>w for y <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span>h]</span>
+<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a>    <span class="bu">Random</span>.<span class="fu">shuffle!</span>(rng, positions)</span>
+<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (x, y) <span class="kw">in</span> positions</span>
+<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a>        best_score <span class="op">=</span> <span class="op">-</span><span class="cn">Inf</span></span>
+<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a>        best_candidates <span class="op">=</span> <span class="dt">Tuple</span>{<span class="dt">Int</span>,<span class="dt">Int</span>}[]</span>
+<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> dx <span class="kw">in</span> <span class="op">-</span><span class="fl">1</span><span class="op">:</span><span class="fl">1</span>, dy <span class="kw">in</span> <span class="op">-</span><span class="fl">1</span><span class="op">:</span><span class="fl">1</span></span>
+<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a>            (dx <span class="op">==</span> <span class="fl">0</span> <span class="op">&amp;&amp;</span> dy <span class="op">==</span> <span class="fl">0</span>) <span class="op">&amp;&amp;</span> <span class="cf">continue</span></span>
+<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a>            nx <span class="op">=</span> <span class="fu">mod1</span>(x <span class="op">+</span> dx, w)</span>
+<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a>            ny <span class="op">=</span> <span class="fu">mod1</span>(y <span class="op">+</span> dy, h)</span>
+<span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a>            s <span class="op">=</span> grid.score[nx, ny]</span>
+<span id="cb6-57"><a href="#cb6-57" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> s <span class="op">&gt;</span> best_score</span>
+<span id="cb6-58"><a href="#cb6-58" aria-hidden="true" tabindex="-1"></a>                best_score <span class="op">=</span> s</span>
+<span id="cb6-59"><a href="#cb6-59" aria-hidden="true" tabindex="-1"></a>                <span class="fu">empty!</span>(best_candidates)</span>
+<span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a>                <span class="fu">push!</span>(best_candidates, (nx, ny))</span>
+<span id="cb6-61"><a href="#cb6-61" aria-hidden="true" tabindex="-1"></a>            <span class="cf">elseif</span> s <span class="op">==</span> best_score</span>
+<span id="cb6-62"><a href="#cb6-62" aria-hidden="true" tabindex="-1"></a>                <span class="fu">push!</span>(best_candidates, (nx, ny))</span>
+<span id="cb6-63"><a href="#cb6-63" aria-hidden="true" tabindex="-1"></a>            <span class="cf">end</span></span>
+<span id="cb6-64"><a href="#cb6-64" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb6-65"><a href="#cb6-65" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Random tie-breaking (matching NetLogo's max-one-of)</span></span>
+<span id="cb6-66"><a href="#cb6-66" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> !<span class="fu">isempty</span>(best_candidates)</span>
+<span id="cb6-67"><a href="#cb6-67" aria-hidden="true" tabindex="-1"></a>            chosen <span class="op">=</span> best_candidates[<span class="fu">rand</span>(rng, <span class="fl">1</span><span class="op">:</span><span class="fu">length</span>(best_candidates))]</span>
+<span id="cb6-68"><a href="#cb6-68" aria-hidden="true" tabindex="-1"></a>            grid.cooperate[x, y] <span class="op">=</span> grid.cooperate[chosen[<span class="fl">1</span>], chosen[<span class="fl">2</span>]]</span>
+<span id="cb6-69"><a href="#cb6-69" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb6-70"><a href="#cb6-70" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb6-71"><a href="#cb6-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-72"><a href="#cb6-72" aria-hidden="true" tabindex="-1"></a>    <span class="fu">_pde_update_stats!</span>(world)</span>
+<span id="cb6-73"><a href="#cb6-73" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="cn">nothing</span></span>
+<span id="cb6-74"><a href="#cb6-74" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb6-75"><a href="#cb6-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-76"><a href="#cb6-76" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">_pde_update_stats!</span>(world<span class="op">::</span><span class="dt">World</span>)</span>
+<span id="cb6-77"><a href="#cb6-77" aria-hidden="true" tabindex="-1"></a>    grid <span class="op">=</span> <span class="fu">get_resource</span>(world, PDEGrid)</span>
+<span id="cb6-78"><a href="#cb6-78" aria-hidden="true" tabindex="-1"></a>    stats <span class="op">=</span> <span class="fu">get_resource</span>(world, PDEStats)</span>
+<span id="cb6-79"><a href="#cb6-79" aria-hidden="true" tabindex="-1"></a>    w, h <span class="op">=</span> grid.width, grid.height</span>
+<span id="cb6-80"><a href="#cb6-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-81"><a href="#cb6-81" aria-hidden="true" tabindex="-1"></a>    nc <span class="op">=</span> <span class="fl">0</span>; nd <span class="op">=</span> <span class="fl">0</span>; cc <span class="op">=</span> <span class="fl">0</span>; dd <span class="op">=</span> <span class="fl">0</span>; cd <span class="op">=</span> <span class="fl">0</span>; dc <span class="op">=</span> <span class="fl">0</span></span>
+<span id="cb6-82"><a href="#cb6-82" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> x <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span>w, y <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span>h</span>
+<span id="cb6-83"><a href="#cb6-83" aria-hidden="true" tabindex="-1"></a>        old_c <span class="op">=</span> grid.old_cooperate[x, y]</span>
+<span id="cb6-84"><a href="#cb6-84" aria-hidden="true" tabindex="-1"></a>        new_c <span class="op">=</span> grid.cooperate[x, y]</span>
+<span id="cb6-85"><a href="#cb6-85" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> new_c</span>
+<span id="cb6-86"><a href="#cb6-86" aria-hidden="true" tabindex="-1"></a>            nc <span class="op">+=</span> <span class="fl">1</span></span>
+<span id="cb6-87"><a href="#cb6-87" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span></span>
+<span id="cb6-88"><a href="#cb6-88" aria-hidden="true" tabindex="-1"></a>            nd <span class="op">+=</span> <span class="fl">1</span></span>
+<span id="cb6-89"><a href="#cb6-89" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb6-90"><a href="#cb6-90" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> old_c <span class="op">&amp;&amp;</span> new_c</span>
+<span id="cb6-91"><a href="#cb6-91" aria-hidden="true" tabindex="-1"></a>            cc <span class="op">+=</span> <span class="fl">1</span></span>
+<span id="cb6-92"><a href="#cb6-92" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elseif</span> !old_c <span class="op">&amp;&amp;</span> !new_c</span>
+<span id="cb6-93"><a href="#cb6-93" aria-hidden="true" tabindex="-1"></a>            dd <span class="op">+=</span> <span class="fl">1</span></span>
+<span id="cb6-94"><a href="#cb6-94" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elseif</span> old_c <span class="op">&amp;&amp;</span> !new_c</span>
+<span id="cb6-95"><a href="#cb6-95" aria-hidden="true" tabindex="-1"></a>            cd <span class="op">+=</span> <span class="fl">1</span></span>
+<span id="cb6-96"><a href="#cb6-96" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span></span>
+<span id="cb6-97"><a href="#cb6-97" aria-hidden="true" tabindex="-1"></a>            dc <span class="op">+=</span> <span class="fl">1</span></span>
+<span id="cb6-98"><a href="#cb6-98" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb6-99"><a href="#cb6-99" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb6-100"><a href="#cb6-100" aria-hidden="true" tabindex="-1"></a>    stats.num_cooperators <span class="op">=</span> nc</span>
+<span id="cb6-101"><a href="#cb6-101" aria-hidden="true" tabindex="-1"></a>    stats.num_defectors <span class="op">=</span> nd</span>
+<span id="cb6-102"><a href="#cb6-102" aria-hidden="true" tabindex="-1"></a>    stats.num_cc <span class="op">=</span> cc</span>
+<span id="cb6-103"><a href="#cb6-103" aria-hidden="true" tabindex="-1"></a>    stats.num_dd <span class="op">=</span> dd</span>
+<span id="cb6-104"><a href="#cb6-104" aria-hidden="true" tabindex="-1"></a>    stats.num_cd <span class="op">=</span> cd</span>
+<span id="cb6-105"><a href="#cb6-105" aria-hidden="true" tabindex="-1"></a>    stats.num_dc <span class="op">=</span> dc</span>
+<span id="cb6-106"><a href="#cb6-106" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="cn">nothing</span></span>
+<span id="cb6-107"><a href="#cb6-107" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb6-108"><a href="#cb6-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-109"><a href="#cb6-109" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Termination ---</span></span>
+<span id="cb6-110"><a href="#cb6-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-111"><a href="#cb6-111" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> PDETerminationSystem <span class="op">&lt;:</span><span class="dt"> System </span><span class="kw">end</span></span>
+<span id="cb6-112"><a href="#cb6-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-113"><a href="#cb6-113" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">update!</span>(<span class="op">::</span><span class="dt">PDETerminationSystem</span>, world<span class="op">::</span><span class="dt">World</span>)</span>
+<span id="cb6-114"><a href="#cb6-114" aria-hidden="true" tabindex="-1"></a>    params <span class="op">=</span> <span class="fu">get_resource</span>(world, PDEParams)</span>
+<span id="cb6-115"><a href="#cb6-115" aria-hidden="true" tabindex="-1"></a>    tick <span class="op">=</span> <span class="fu">get_resource</span>(world, Tick)</span>
+<span id="cb6-116"><a href="#cb6-116" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> tick.tick <span class="op">+</span> <span class="fl">1</span> <span class="op">&gt;=</span> params.max_ticks</span>
+<span id="cb6-117"><a href="#cb6-117" aria-hidden="true" tabindex="-1"></a>        <span class="fu">get_resource</span>(world, Terminate).stop <span class="op">=</span> <span class="cn">true</span></span>
+<span id="cb6-118"><a href="#cb6-118" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb6-119"><a href="#cb6-119" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="cn">nothing</span></span>
+<span id="cb6-120"><a href="#cb6-120" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="model-model.jl" class="level3">
+<h3 class="anchored" data-anchor-id="model-model.jl">Model (<code>model.jl</code>)</h3>
+<p>The model file assembles all pieces: it creates the ECS <code>World</code> with the required component types, registers resources, builds the <code>Scheduler</code> with systems in execution order, and exposes the public <code>run</code> entry point. The observer pattern records the trajectory each tick.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">pde_world</span>(; initial_capacity<span class="op">::</span><span class="dt">Int </span><span class="op">=</span> <span class="fl">64</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fu">World</span>(; initial_capacity <span class="op">=</span> initial_capacity, allow_mutable <span class="op">=</span> <span class="cn">true</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">pde_systems</span>()</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>        <span class="fu">InitPDESystem</span>(),</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">PDEGoSystem</span>(),</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>        <span class="fu">PDETerminationSystem</span>(),</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">pde_model</span>(params<span class="op">::</span><span class="dt">PDEParams </span><span class="op">=</span> <span class="fu">PDEParams</span>())</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    world <span class="op">=</span> <span class="fu">pde_world</span>()</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">_add_standard_resources!</span>(world, params)</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_resource!</span>(world, <span class="fu">PDEGrid</span>(params.grid_width, params.grid_height))</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_resource!</span>(world, <span class="fu">PDEStats</span>())</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    scheduler <span class="op">=</span> <span class="fu">Scheduler</span>(world, <span class="fu">pde_systems</span>())</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">initialize!</span>(scheduler)</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> scheduler</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> PDEObserver <span class="kw">end</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">pde_headers</span>(<span class="op">::</span><span class="dt">PDEObserver</span>)</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [<span class="st">"Cooperators"</span>, <span class="st">"Defectors"</span>, <span class="st">"CC"</span>, <span class="st">"DD"</span>]</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">pde_values</span>(<span class="op">::</span><span class="dt">PDEObserver</span>, world<span class="op">::</span><span class="dt">World</span>)</span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>    stats <span class="op">=</span> <span class="fu">get_resource</span>(world, PDEStats)</span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dt">Float64</span>[stats.num_cooperators, stats.num_defectors,</span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>                    stats.num_cc, stats.num_dd]</span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">run_pd_basic_evolutionary</span>(; params<span class="op">::</span><span class="dt">PDEParams </span><span class="op">=</span> <span class="fu">PDEParams</span>(), observe<span class="op">::</span><span class="dt">Bool </span><span class="op">=</span> <span class="cn">true</span>)</span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fu">_run_model</span>(pde_model, <span class="fu">PDEObserver</span>(), pde_values; params, observe)</span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

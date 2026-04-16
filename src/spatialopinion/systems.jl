@@ -17,18 +17,6 @@ function _sopn_influence_function(influence::String, val::Int, max_entrench::Int
     return 1.0
 end
 
-# Wrapping Moore neighbors for a grid indexed 1:w, 1:h
-function _sopn_neighbors_wrap(x::Int, y::Int, w::Int, h::Int)
-    nbrs = Tuple{Int,Int}[]
-    for dx in -1:1, dy in -1:1
-        (dx == 0 && dy == 0) && continue
-        nx = mod1(x + dx, w)
-        ny = mod1(y + dy, h)
-        push!(nbrs, (nx, ny))
-    end
-    return nbrs
-end
-
 struct InitSOpnSystem <: System end
 
 function initialize!(::InitSOpnSystem, world::World)
@@ -94,7 +82,7 @@ function update!(::SOpnGoSystem, world::World)
     shuffle!(rng, cells)
 
     for (x, y) in cells
-        nbrs = _sopn_neighbors_wrap(x, y, w, h)
+        nbrs = moore_neighbors_wrap(x, y, w, h)
         isempty(nbrs) && continue
         my_old = grid.old_attitude[x, y]
 

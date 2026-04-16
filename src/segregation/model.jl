@@ -19,10 +19,7 @@ end
 
 function segregation_model(params::SegregationParams = SegregationParams())
     world = segregation_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, SegregationGrid(params.grid_width, params.grid_height))
     add_resource!(world, SegregationStats())
     scheduler = Scheduler(world, segregation_systems())
@@ -43,16 +40,5 @@ function segregation_values(::SegregationObserver, world::World)
 end
 
 function run_segregation(; params::SegregationParams = SegregationParams(), observe::Bool = true)
-    scheduler = segregation_model(params)
-    obs = SegregationObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, segregation_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, segregation_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(segregation_model, SegregationObserver(), segregation_values; params, observe)
 end

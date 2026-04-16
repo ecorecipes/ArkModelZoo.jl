@@ -17,10 +17,7 @@ end
 
 function contactprocess_model(params::ContactProcessParams = ContactProcessParams())
     world = contactprocess_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, ContactGrid(params.grid_width, params.grid_height))
     add_resource!(world, ContactStats())
     scheduler = Scheduler(world, contactprocess_systems())
@@ -40,16 +37,5 @@ function contactprocess_values(::ContactProcessObserver, world::World)
 end
 
 function run_contactprocess(; params::ContactProcessParams = ContactProcessParams(), observe::Bool = true)
-    scheduler = contactprocess_model(params)
-    obs = ContactProcessObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, contactprocess_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, contactprocess_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(contactprocess_model, ContactProcessObserver(), contactprocess_values; params, observe)
 end

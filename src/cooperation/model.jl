@@ -18,10 +18,7 @@ end
 
 function cooperation_model(params::COOPParams = COOPParams())
     world = cooperation_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, COOPGrassGrid(params.grid_width, params.grid_height))
     add_resource!(world, COOPStats())
     scheduler = Scheduler(world, cooperation_systems())
@@ -41,16 +38,5 @@ function cooperation_values(::COOPObserver, world::World)
 end
 
 function run_cooperation(; params::COOPParams = COOPParams(), observe::Bool = true)
-    scheduler = cooperation_model(params)
-    obs = COOPObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, cooperation_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, cooperation_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(cooperation_model, COOPObserver(), cooperation_values; params, observe)
 end

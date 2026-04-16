@@ -40,19 +40,6 @@ function _cyber_build_scale_free!(net::CyberNetwork, n::Int, rng)
     return degree
 end
 
-# --- Moore neighborhood (non-wrapping) ---
-function _cyber_moore_neighbors(x::Int, y::Int, w::Int, h::Int)
-    neighbors = Tuple{Int,Int}[]
-    for dx in -1:1, dy in -1:1
-        (dx == 0 && dy == 0) && continue
-        nx, ny = x + dx, y + dy
-        if 1 <= nx <= w && 1 <= ny <= h
-            push!(neighbors, (nx, ny))
-        end
-    end
-    return neighbors
-end
-
 # --- Systems ---
 
 struct InitCyberSystem <: System end
@@ -95,7 +82,7 @@ function initialize!(::InitCyberSystem, world::World)
             end
         end
         # Spatial (Moore) neighbors
-        for (nx, ny) in _cyber_moore_neighbors(lx, ly, w, h)
+        for (nx, ny) in moore_neighbors_bounded(lx, ly, w, h)
             if grid.sentiment[nx, ny] >= params.threshold_sentiment
                 grid.extremist[nx, ny] = true
                 grid.sentiment[nx, ny] = 1.0
@@ -157,7 +144,7 @@ function update!(::CyberSpreadSystem, world::World)
     for x in 1:w, y in 1:h
         if grid.susceptible[x, y] && !grid.recovered[x, y] && !grid.infected[x, y]
             n_infected_neighbors = 0
-            for (nx, ny) in _cyber_moore_neighbors(x, y, w, h)
+            for (nx, ny) in moore_neighbors_bounded(x, y, w, h)
                 if grid.infected[nx, ny]
                     n_infected_neighbors += 1
                 end

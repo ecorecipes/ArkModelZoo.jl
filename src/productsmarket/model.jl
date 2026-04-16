@@ -8,10 +8,7 @@ end
 
 function productsmarket_model(params::PMktParams = PMktParams())
     world = productsmarket_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, PMktNetwork())
     add_resource!(world, PMktStats())
     scheduler = Scheduler(world, productsmarket_systems())
@@ -31,16 +28,5 @@ function productsmarket_values(::PMktObserver, world::World)
 end
 
 function run_productsmarket(; params::PMktParams = PMktParams(), observe::Bool = true)
-    scheduler = productsmarket_model(params)
-    obs = PMktObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, productsmarket_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, productsmarket_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(productsmarket_model, PMktObserver(), productsmarket_values; params, observe)
 end

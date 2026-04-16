@@ -17,10 +17,7 @@ end
 
 function gbt_model(params::GBTParams = GBTParams())
     world = gbt_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, GBTGrid(params.grid_width, params.grid_height))
     add_resource!(world, GBTStats())
     scheduler = Scheduler(world, gbt_systems())
@@ -40,16 +37,5 @@ function gbt_values(::GBTObserver, world::World)
 end
 
 function run_gbt(; params::GBTParams = GBTParams(), observe::Bool = true)
-    scheduler = gbt_model(params)
-    obs = GBTObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, gbt_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, gbt_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(gbt_model, GBTObserver(), gbt_values; params, observe)
 end

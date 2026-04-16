@@ -8,10 +8,7 @@ end
 
 function languagechange_model(params::LCParams = LCParams())
     world = languagechange_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, LCNetwork())
     add_resource!(world, LCStats())
     scheduler = Scheduler(world, languagechange_systems())
@@ -31,16 +28,5 @@ function languagechange_values(::LCObserver, world::World)
 end
 
 function run_languagechange(; params::LCParams = LCParams(), observe::Bool = true)
-    scheduler = languagechange_model(params)
-    obs = LCObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, languagechange_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, languagechange_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(languagechange_model, LCObserver(), languagechange_values; params, observe)
 end

@@ -17,10 +17,7 @@ end
 
 function resilient_model(params::ResilientParams = ResilientParams())
     world = resilient_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, ResilientAgentState(params.n_agents, params.init_value, params.init_rate))
     add_resource!(world, ResilientRelationState(params.n_agents))
     add_resource!(world, ResilientEnvState(params.n_agents))
@@ -42,16 +39,5 @@ function resilient_values(::ResilientObserver, world::World)
 end
 
 function run_resilient(; params::ResilientParams = ResilientParams(), observe::Bool = true)
-    scheduler = resilient_model(params)
-    obs = ResilientObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, resilient_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, resilient_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(resilient_model, ResilientObserver(), resilient_values; params, observe)
 end

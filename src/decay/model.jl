@@ -20,10 +20,7 @@ end
 
 function decay_model(params::DecayParams = DecayParams())
     world = decay_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, DecayStats())
     scheduler = Scheduler(world, decay_systems())
     initialize!(scheduler)
@@ -42,16 +39,5 @@ function decay_values(::DecayObserver, world::World)
 end
 
 function run_decay(; params::DecayParams = DecayParams(), observe::Bool = true)
-    scheduler = decay_model(params)
-    obs = DecayObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, decay_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, decay_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(decay_model, DecayObserver(), decay_values; params, observe)
 end

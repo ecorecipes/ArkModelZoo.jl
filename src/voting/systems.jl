@@ -26,14 +26,7 @@ function update!(::VOTGoSystem, world::World)
 
     # Phase 1: compute totals (sum of 8 neighbors' votes)
     for x in 1:w, y in 1:h
-        s = 0
-        for dx in -1:1, dy in -1:1
-            (dx == 0 && dy == 0) && continue
-            nx = mod1(x + dx, w)
-            ny = mod1(y + dy, h)
-            s += grid.vote[nx, ny]
-        end
-        grid.total[x, y] = s
+        grid.total[x, y] = moore_neighbor_sum(grid.vote, x, y, w, h)
     end
 
     # Phase 2: update votes based on totals

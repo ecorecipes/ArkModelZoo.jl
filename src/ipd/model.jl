@@ -14,10 +14,7 @@ end
 
 function ipd_model(params::IPDParams = IPDParams())
     world = ipd_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, IPDGrid(params.grid_size, params.grid_size))
     add_resource!(world, IPDStats())
     scheduler = Scheduler(world, ipd_systems())
@@ -37,16 +34,5 @@ function ipd_values(::IPDObserver, world::World)
 end
 
 function run_ipd(; params::IPDParams = IPDParams(), observe::Bool = true)
-    scheduler = ipd_model(params)
-    obs = IPDObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, ipd_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, ipd_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(ipd_model, IPDObserver(), ipd_values; params, observe)
 end

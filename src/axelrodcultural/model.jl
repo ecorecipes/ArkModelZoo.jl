@@ -17,10 +17,7 @@ end
 
 function axelrodcultural_model(params::AxelrodParams = AxelrodParams())
     world = axelrodcultural_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, AxelrodGrid(params.world_size, params.world_size, params.F))
     add_resource!(world, AxelrodStats())
     scheduler = Scheduler(world, axelrodcultural_systems())
@@ -40,16 +37,5 @@ function axelrodcultural_values(::AxelrodObserver, world::World)
 end
 
 function run_axelrodcultural(; params::AxelrodParams = AxelrodParams(), observe::Bool = true)
-    scheduler = axelrodcultural_model(params)
-    obs = AxelrodObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, axelrodcultural_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, axelrodcultural_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(axelrodcultural_model, AxelrodObserver(), axelrodcultural_values; params, observe)
 end

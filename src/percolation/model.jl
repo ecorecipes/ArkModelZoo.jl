@@ -8,10 +8,7 @@ end
 
 function percolation_model(params::PERCParams = PERCParams())
     world = percolation_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, PERCGrid(params.grid_width, params.grid_height))
     add_resource!(world, PERCStats())
     scheduler = Scheduler(world, percolation_systems())
@@ -31,16 +28,5 @@ function percolation_values(::PERCObserver, world::World)
 end
 
 function run_percolation(; params::PERCParams = PERCParams(), observe::Bool = true)
-    scheduler = percolation_model(params)
-    obs = PERCObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, percolation_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, percolation_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(percolation_model, PERCObserver(), percolation_values; params, observe)
 end

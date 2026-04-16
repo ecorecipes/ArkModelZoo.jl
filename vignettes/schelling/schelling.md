@@ -1,0 +1,491 @@
+# Schelling Segregation
+
+
+- [Overview](#overview)
+  - [WHAT IS IT?](#what-is-it)
+  - [THINGS TO NOTICE](#things-to-notice)
+  - [THINGS TO TRY](#things-to-try)
+  - [EXTENDING THE MODEL](#extending-the-model)
+  - [NETLOGO FEATURES](#netlogo-features)
+  - [CREDITS AND REFERENCES](#credits-and-references)
+  - [HOW TO CITE](#how-to-cite)
+  - [COPYRIGHT AND LICENSE](#copyright-and-license)
+- [Parameters](#parameters)
+- [Source Code](#source-code)
+- [Time Series](#time-series)
+- [Ensemble Runs](#ensemble-runs)
+- [Parameter Sensitivity](#parameter-sensitivity)
+- [Appendix: Source Code](#appendix-source-code)
+  - [Parameters (`parameters.jl`)](#parameters-parametersjl)
+  - [Components (`components.jl`)](#components-componentsjl)
+  - [Resources (`resources.jl`)](#resources-resourcesjl)
+  - [Systems (`systems.jl`)](#systems-systemsjl)
+  - [Model (`model.jl`)](#model-modeljl)
+
+## Overview
+
+### WHAT IS IT?
+
+This project models the behavior of two types of agents in a
+neighborhood. The orange agents and blue agents get along with one
+another. But each agent wants to make sure that it lives near some of
+“its own.” That is, each orange agent wants to live near at least some
+orange agents, and each blue agent wants to live near at least some blue
+agents. The simulation shows how these individual preferences ripple
+through the neighborhood, leading to large-scale patterns.
+
+This project was inspired by Thomas Schelling’s writings about social
+systems (such as housing patterns in cities).
+
+### THINGS TO NOTICE
+
+When you execute SETUP, the orange and blue agents are randomly
+distributed throughout the neighborhood. But many agents are “unhappy”
+since they don’t have enough same-color neighbors. The unhappy agents
+move to new locations in the vicinity. But in the new locations, they
+might tip the balance of the local population, prompting other agents to
+leave. If a few agents move into an area, the local blue agents might
+leave. But when the blue agents move to a new area, they might prompt
+orange agents to leave that area.
+
+Over time, the number of unhappy agents decreases. But the neighborhood
+becomes more segregated, with clusters of orange agents and clusters of
+blue agents.
+
+In the case where each agent wants at least 30% same-color neighbors,
+the agents end up with (on average) 70% same-color neighbors. So
+relatively small individual preferences can lead to significant overall
+segregation.
+
+### THINGS TO TRY
+
+Try different values for %-SIMILAR-WANTED. How does the overall degree
+of segregation change?
+
+If each agent wants at least 40% same-color neighbors, what percentage
+(on average) do they end up with?
+
+Try different values of DENSITY. How does the initial occupancy density
+affect the percentage of unhappy agents? How does it affect the time it
+takes for the model to finish?
+
+Can you set sliders so that the model never finishes running, and agents
+keep looking for new locations?
+
+### EXTENDING THE MODEL
+
+The `find-new-spot` procedure has the agents move locally till they find
+a spot. Can you rewrite this procedure so the agents move directly to an
+appropriate new spot?
+
+Incorporate social networks into this model. For instance, have unhappy
+agents decide on a new location based on information about what a
+neighborhood is like from other agents in their network.
+
+Change the rules for agent happiness. One idea: suppose that the agents
+need some minimum threshold of “good neighbors” to be happy with their
+location. Suppose further that they don’t always know if someone makes a
+good neighbor. When they do, they use that information. When they don’t,
+they use color as a proxy – i.e., they assume that agents of the same
+color make good neighbors.
+
+The two different visualizations emphasize different aspects of the
+model. The SQUARE-X visualization shows whether an agent is happy or
+not. Can you design a different visualization that emphasizes different
+aspects?
+
+### NETLOGO FEATURES
+
+`sprout` is used to create agents while ensuring no patch has more than
+one agent on it.
+
+When an agent moves, `move-to` is used to move the agent to the center
+of the patch it eventually finds.
+
+Note two different methods that can be used for find-new-spot, one of
+them (the one we use) is recursive.
+
+### CREDITS AND REFERENCES
+
+Schelling, T. (1978). Micromotives and Macrobehavior. New York: Norton.
+
+See also: Rauch, J. (2002). Seeing Around Corners; The Atlantic Monthly;
+April 2002;Volume 289, No. 4; 35-48.
+https://www.theatlantic.com/magazine/archive/2002/04/seeing-around-corners/302471/
+
+### HOW TO CITE
+
+If you mention this model or the NetLogo software in a publication, we
+ask that you include the citations below.
+
+For the model itself:
+
+- Wilensky, U. (1997). NetLogo Segregation model.
+  http://ccl.northwestern.edu/netlogo/models/Segregation. Center for
+  Connected Learning and Computer-Based Modeling, Northwestern
+  University, Evanston, IL.
+
+Please cite the NetLogo software as:
+
+- Wilensky, U. (1999). NetLogo. http://ccl.northwestern.edu/netlogo/.
+  Center for Connected Learning and Computer-Based Modeling,
+  Northwestern University, Evanston, IL.
+
+### COPYRIGHT AND LICENSE
+
+Copyright 1997 Uri Wilensky.
+
+![CC BY-NC-SA
+3.0](http://ccl.northwestern.edu/images/creativecommons/byncsa.png)
+
+This model is licensed under the Creative Commons
+Attribution-NonCommercial-ShareAlike 3.0 License. To view a copy of this
+license, visit https://creativecommons.org/licenses/by-nc-sa/3.0/ or
+send a letter to Creative Commons, 559 Nathan Abbott Way, Stanford,
+California 94305, USA.
+
+NetLogo itself is free software for non-commercial use under the terms
+of the GNU General Public License ([see full license information
+here](https://ccl.northwestern.edu/netlogo/docs/copyright.html)).
+
+To inquire about commercial licenses for either NetLogo or specific
+models from the models library, please contact
+netlogo-commercial-admin@ccl.northwestern.edu.
+
+This model was created as part of the project: CONNECTED MATHEMATICS:
+MAKING SENSE OF COMPLEX PHENOMENA THROUGH BUILDING OBJECT-BASED PARALLEL
+MODELS (OBPML). The project gratefully acknowledges the support of the
+National Science Foundation (Applications of Advanced Technologies
+Program) – grant numbers RED \#9552950 and REC \#9632612.
+
+This model was converted to NetLogo as part of the projects:
+PARTICIPATORY SIMULATIONS: NETWORK-BASED DESIGN FOR SYSTEMS LEARNING IN
+CLASSROOMS and/or INTEGRATED SIMULATION AND MODELING ENVIRONMENT. The
+project gratefully acknowledges the support of the National Science
+Foundation (REPP & ROLE programs) – grant numbers REC \#9814682 and
+REC-0126227. Converted from StarLogoT to NetLogo, 2001.
+
+<!-- 1997 2001 -->
+
+## Parameters
+
+| Parameter            | Type      | Default | Description        |
+|----------------------|-----------|---------|--------------------|
+| `density`            | `Float64` | `70.0`  | density            |
+| `pct_similar_wanted` | `Float64` | `30.0`  | pct similar wanted |
+| `grid_width`         | `Int`     | `51`    | grid width         |
+| `grid_height`        | `Int`     | `51`    | grid height        |
+| `max_ticks`          | `Int`     | `100`   | max ticks          |
+
+## Source Code
+
+The Julia code to run this model:
+
+``` julia
+using ArkModelZoo
+_, trajectory = run_schelling()
+```
+
+## Time Series
+
+<img src="plot_timeseries.png" style="width:100.0%"
+alt="Schelling Segregation time series" />
+
+## Ensemble Runs
+
+Ten replicates with different random seeds, showing mean ± standard
+deviation.
+
+<img src="plot_ensemble.png" style="width:100.0%"
+alt="Schelling Segregation ensemble" />
+
+## Parameter Sensitivity
+
+Varying `density`.
+
+<img src="plot_sensitivity.png" style="width:100.0%"
+alt="Schelling Segregation sensitivity" />
+
+## Appendix: Source Code
+
+This model is implemented in the
+[Ark.jl](https://github.com/sdwfrost/Ark.jl) Entity-Component-System
+(ECS) framework. The code is split into five files, each with a distinct
+role:
+
+- **Parameters**: a mutable struct holding all configurable values.
+- **Components**: lightweight data types attached to individual entities
+  (agents).
+- **Resources**: world-level shared state accessible to all systems.
+- **Systems**: functions that operate on entities each tick, defining
+  model behavior.
+- **Model**: wiring that assembles the world, registers resources and
+  systems, and provides the run entry point.
+
+### Parameters (`parameters.jl`)
+
+The parameter struct uses `@kwdef` so that every field has a default
+value and can be overridden by keyword. These defaults match the
+original NetLogo model’s slider settings.
+
+``` julia
+Base.@kwdef mutable struct SchParams
+    density::Float64 = 70.0
+    pct_similar_wanted::Float64 = 30.0
+    grid_width::Int = 51
+    grid_height::Int = 51
+    max_ticks::Int = 100
+    seed::Int = 42
+end
+```
+
+### Components (`components.jl`)
+
+Components are lightweight data types attached to individual entities
+(agents). Mutable structs hold per-entity state, while empty tag structs
+act as markers for the ECS query system to efficiently filter entities.
+
+``` julia
+mutable struct SchPosition
+    x::Int
+    y::Int
+end
+SchPosition() = SchPosition(0, 0)
+
+# true = red, false = blue
+mutable struct SchColor
+    red::Bool
+end
+SchColor() = SchColor(true)
+
+mutable struct SchHappiness
+    similar_nearby::Int
+    other_nearby::Int
+    total_nearby::Int
+    happy::Bool
+end
+SchHappiness() = SchHappiness(0, 0, 0, false)
+```
+
+### Resources (`resources.jl`)
+
+Resources are world-level singletons shared across all systems, used for
+global state and aggregate statistics.
+
+``` julia
+mutable struct SchGrid
+    width::Int
+    height::Int
+    cells::Matrix{Entity}
+end
+
+function SchGrid(w::Int, h::Int)
+    SchGrid(w, h, fill(zero_entity, w, h))
+end
+
+function _sch_is_empty(grid::SchGrid, x::Int, y::Int)
+    return is_zero(grid.cells[x, y])
+end
+
+function _sch_set_cell!(grid::SchGrid, x::Int, y::Int, eid::Entity)
+    grid.cells[x, y] = eid
+end
+
+function _sch_clear_cell!(grid::SchGrid, x::Int, y::Int)
+    grid.cells[x, y] = zero_entity
+end
+
+mutable struct SchStats
+    percent_similar::Float64
+    percent_unhappy::Float64
+end
+SchStats() = SchStats(0.0, 0.0)
+```
+
+### Systems (`systems.jl`)
+
+Systems contain the model logic and execute in a defined order each
+tick. Each system struct implements either `initialize!` (run once at
+setup) or `update!` (run every tick).
+
+``` julia
+# Schelling Segregation — classic teleportation variant
+# 51×51 wrapping grid, 70% density, red/blue, 30% threshold
+
+struct InitSchSystem <: System end
+
+function initialize!(::InitSchSystem, world::World)
+    params = get_resource(world, SchParams)
+    rng    = get_resource(world, RNGResource).rng
+    grid   = get_resource(world, SchGrid)
+
+    for x in 1:grid.width, y in 1:grid.height
+        if rand(rng, 0:99) < round(Int, params.density)
+            is_red = rand(rng, Bool)
+            eid = new_entity!(world, (SchPosition(x, y), SchColor(is_red), SchHappiness()))
+            _sch_set_cell!(grid, x, y, eid)
+        end
+    end
+
+    # Initial happiness computation
+    update!(SchUpdateHappinessSystem(), world)
+    return nothing
+end
+
+# --- Happiness computation ---
+struct SchUpdateHappinessSystem <: System end
+
+function update!(::SchUpdateHappinessSystem, world::World)
+    params = get_resource(world, SchParams)
+    grid   = get_resource(world, SchGrid)
+    stats  = get_resource(world, SchStats)
+
+    total_similar  = 0
+    total_neighbors = 0
+    num_unhappy    = 0
+    num_agents     = 0
+
+    for (_, positions, colors, happinesses) in Query(world, (SchPosition, SchColor, SchHappiness))
+        @inbounds for i in eachindex(positions)
+            pos   = positions[i]
+            color = colors[i]
+            h     = happinesses[i]
+
+            similar = 0
+            other   = 0
+            for dx in -1:1, dy in -1:1
+                (dx == 0 && dy == 0) && continue
+                nx = mod1(pos.x + dx, grid.width)
+                ny = mod1(pos.y + dy, grid.height)
+                neighbor_eid = grid.cells[nx, ny]
+                is_zero(neighbor_eid) && continue
+                nc = get_components(world, neighbor_eid, (SchColor,))[1]
+                if nc.red == color.red
+                    similar += 1
+                else
+                    other += 1
+                end
+            end
+
+            total = similar + other
+            h.similar_nearby = similar
+            h.other_nearby   = other
+            h.total_nearby   = total
+            h.happy = total == 0 || (similar / total * 100.0 >= params.pct_similar_wanted)
+
+            if !h.happy
+                num_unhappy += 1
+            end
+            num_agents += 1
+            total_similar  += similar
+            total_neighbors += total
+        end
+    end
+
+    stats.percent_unhappy = num_agents > 0 ? num_unhappy / num_agents * 100.0 : 0.0
+    stats.percent_similar = total_neighbors > 0 ? total_similar / total_neighbors * 100.0 : 0.0
+    return nothing
+end
+
+# --- Move unhappy agents (teleport to random empty patch) ---
+struct SchMoveUnhappySystem <: System end
+
+function update!(::SchMoveUnhappySystem, world::World)
+    rng  = get_resource(world, RNGResource).rng
+    grid = get_resource(world, SchGrid)
+
+    # Collect empty patches
+    empty_patches = Tuple{Int,Int}[]
+    for x in 1:grid.width, y in 1:grid.height
+        if _sch_is_empty(grid, x, y)
+            push!(empty_patches, (x, y))
+        end
+    end
+
+    # Collect unhappy agents
+    unhappy = Tuple{Entity, Int, Int}[]
+    for (eids, positions, _, happinesses) in Query(world, (SchPosition, SchColor, SchHappiness))
+        @inbounds for i in eachindex(positions)
+            if !happinesses[i].happy
+                push!(unhappy, (eids[i], positions[i].x, positions[i].y))
+            end
+        end
+    end
+
+    shuffle!(rng, unhappy)
+
+    for (eid, ox, oy) in unhappy
+        isempty(empty_patches) && break
+        # Pick random empty patch
+        idx = rand(rng, 1:length(empty_patches))
+        nx, ny = empty_patches[idx]
+
+        # Swap: old cell becomes empty, new cell gets agent
+        _sch_clear_cell!(grid, ox, oy)
+        _sch_set_cell!(grid, nx, ny, eid)
+
+        pos = get_components(world, eid, (SchPosition,))[1]
+        pos.x = nx
+        pos.y = ny
+
+        # Update empty list: remove used patch, add old patch
+        empty_patches[idx] = (ox, oy)
+    end
+    return nothing
+end
+
+# --- Termination ---
+struct SchTerminationSystem <: System end
+
+function update!(::SchTerminationSystem, world::World)
+    params = get_resource(world, SchParams)
+    tick   = get_resource(world, Tick)
+    stats  = get_resource(world, SchStats)
+    if stats.percent_unhappy == 0.0 || tick.tick + 1 >= params.max_ticks
+        get_resource(world, Terminate).stop = true
+    end
+    return nothing
+end
+```
+
+### Model (`model.jl`)
+
+The model file assembles all pieces: it creates the ECS `World` with the
+required component types, registers resources, builds the `Scheduler`
+with systems in execution order, and exposes the public `run` entry
+point. The observer pattern records the trajectory each tick.
+
+``` julia
+function schelling_world(; initial_capacity::Int = 4096)
+    return World(SchPosition, SchColor, SchHappiness; initial_capacity = initial_capacity, allow_mutable = true)
+end
+
+function schelling_systems()
+    return (InitSchSystem(), SchMoveUnhappySystem(), SchUpdateHappinessSystem(), SchTerminationSystem())
+end
+
+function schelling_model(params::SchParams = SchParams())
+    world = schelling_world()
+    _add_standard_resources!(world, params)
+    add_resource!(world, SchGrid(params.grid_width, params.grid_height))
+    add_resource!(world, SchStats())
+    scheduler = Scheduler(world, schelling_systems())
+    initialize!(scheduler)
+    return scheduler
+end
+
+struct SchObserver end
+
+function schelling_headers(::SchObserver)
+    return ["PercentSimilar", "PercentUnhappy"]
+end
+
+function schelling_values(::SchObserver, world::World)
+    stats = get_resource(world, SchStats)
+    return Float64[stats.percent_similar, stats.percent_unhappy]
+end
+
+function run_schelling(; params::SchParams = SchParams(), observe::Bool = true)
+    return _run_model(schelling_model, SchObserver(), schelling_values; params, observe)
+end
+```

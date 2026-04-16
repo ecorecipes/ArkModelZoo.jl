@@ -1,0 +1,845 @@
+# DiffusionOfHIV
+
+
+- [Overview](#overview)
+  - [WHAT IS IT?](#what-is-it)
+  - [HOW IT WORKS](#how-it-works)
+  - [THINGS TO NOTICE](#things-to-notice)
+  - [THINGS TO TRY](#things-to-try)
+  - [EXTENDING THE MODEL](#extending-the-model)
+  - [NETLOGO FEATURES](#netlogo-features)
+  - [CREDITS AND REFERENCES](#credits-and-references)
+  - [HOW TO CITE](#how-to-cite)
+  - [COPYRIGHT AND LICENSE](#copyright-and-license)
+- [Parameters](#parameters)
+- [Source Code](#source-code)
+- [Time Series](#time-series)
+- [Ensemble Runs](#ensemble-runs)
+- [Parameter Sensitivity](#parameter-sensitivity)
+- [Appendix: Source Code](#appendix-source-code)
+  - [Parameters (`parameters.jl`)](#parameters-parametersjl)
+  - [Components (`components.jl`)](#components-componentsjl)
+  - [Resources (`resources.jl`)](#resources-resourcesjl)
+  - [Systems (`systems.jl`)](#systems-systemsjl)
+  - [Model (`model.jl`)](#model-modeljl)
+
+## Overview
+
+### WHAT IS IT?
+
+This model simulates the spread of the human immunodeficiency virus
+(HIV), via sexual transmission, through a small isolated human
+population. It therefore illustrates the effects of certain sexual
+practices across a population.
+
+As is well known now, HIV is spread in a variety of ways of which sexual
+contact is only one. HIV can also be spread by needle-sharing among
+injecting drug users, through blood transfusions (although this has
+become very uncommon in countries like the United States in which blood
+is screened for HIV antibodies), or from HIV-infected women to their
+babies either before or during birth, or afterwards through
+breast-feeding. This model focuses only on the spread of HIV via sexual
+contact.
+
+The model examines the emergent effects of four aspects of sexual
+behavior. The user controls the population’s tendency to practice
+abstinence, the amount of time an average “couple” in the population
+will stay together, the population’s tendency to use condoms, and the
+population’s tendency to get tested for HIV. Exploration of the first
+and second variables may illustrate how changes in sexual mores in our
+society have contributed to increases in the prevalence of sexually
+transmitted diseases, while exploration of the third and fourth may
+provide contemporary solutions to the problem.
+
+By allowing the user to control how often an average individual will
+choose to be tested, the user can explore an important dimension of
+HIV’s threat to public health. Because the virus does not make itself
+immediately known in its host, individuals are often infected for some
+time before a test or immune deficiency symptoms (which leads to a test)
+identifies them as such. Regular identification of individuals infected
+by the virus could have significant public health impacts if knowledge
+of the infection positively affected sexual behaviors. This model
+explores this possibility by making all individuals who know of their
+positive HIV status always practice safe sex.
+
+### HOW IT WORKS
+
+The model uses “couples” to represent two people engaged in sexual
+relations. Individuals wander around the world when they are not in
+couples. Upon coming into contact with a suitable partner, there is a
+chance the two individuals will “couple” together. When this happens,
+the two individuals no longer move about, they stand next to each other
+holding hands as a representation of two people in a sexual
+relationship.
+
+The presence of the virus in the population is represented by the colors
+of individuals. Three colors are used: green individuals are uninfected,
+blue individuals are infected but their infection is unknown, and red
+individuals are infected and their infection is known.
+
+### THINGS TO NOTICE
+
+Set the INITIAL-PEOPLE slider to 300, AVERAGE-COUPLING-TENDENCY to 10,
+AVERAGE-COMMITMENT to 100, and the other two sliders to 0. Push SETUP
+and then push GO. Notice that many individuals rapidly pair up into
+stationary “couples”, with the patches behind them turned a dark gray.
+These couples represent sexual activity between the two individuals.
+Individuals that continue to move about (and do not have a gray patch
+behind them) are not engaging in sexual relations. With
+RELATIONSHIP-DURATION set to 100, an average individual will have
+monogamous sexual relations with a partner for about 100 weeks
+(approximately 2 years) before ending the sexual relationship and
+searching out a new partner.
+
+Stop the simulation (by pressing the GO button once again), move the
+AVERAGE-COUPLING-TENDENCY slider to 0, push SETUP, and start the
+simulation again (with the GO button). Notice that this time, couples
+are not forming. With a low COUPLING-TENDENCY, individuals do not choose
+to have sex, which in this model is depicted by the graphical
+representation of couplehood. Notice that with these settings, HIV does
+not typically spread. However, spreading could happen since the
+population’s tendency is set according to a normal distribution and a
+few people will probably have COUPLING-TENDENCY values above 0 at this
+setting.
+
+Again reset the simulation, this time with AVERAGE-COUPLING-TENDENCY set
+back to 10 and AVERAGE-COMMITMENT set to 1. Notice that while
+individuals do not stand still next to each other for any noticeable
+length of time, coupling is nevertheless occurring. This is indicated by
+the occasional flash of dark gray behind individuals that are briefly
+next to one another. Notice that the spread of HIV is actually faster
+when RELATIONSHIP-DURATION is very short compared to when it is very
+long.
+
+Now run a simulation with AVERAGE-COMMITMENT equal to 1,
+AVERAGE-COUPLING-TENDENCY set to 1, AVERAGE-CONDOM-USE set to 10, and
+AVERAGE-TEST-FREQUENCY set to 1.0. With negligible couple formation and
+high condom use anyway, there should be no spread of HIV. Notice how
+pale blue “infection unknown” individuals turn red much quicker in this
+simulation. When the individuals turn red, they know their HIV status.
+Some individuals turn red because they have been infected for long
+enough that they develop symptoms, which alerts them to the need for an
+HIV test. Others become red because they choose to be tested. With
+AVERAGE-TEST-FREQUENCY set to 1.0, healthy individuals are also being
+tested, but their color does not change since the tests come back
+negative.
+
+When all the individuals in the simulation are either green or red,
+change the sliders without stopping the simulation. Set
+AVERAGE-COUPLING-TENDENCY to 10, AVERAGE-COMMITMENT to 100,
+AVERAGE-CONDOM-USE to 0, and AVERAGE-TEST-FREQUENCY to 0. Notice that
+despite the immediate formation of couples and the fact that condom-use
+tendency is presumably very low, some between healthy (green)
+individuals and infected (red) individuals, no spread of HIV occurs.
+This is because while the model expects HIV positive individuals to
+continue to engage in sexual relations, it presumes that those
+individuals will always use condoms and that the condoms will always
+work. The rationale for this design is discussed briefly in the “What is
+it?” section of this tab.
+
+Finally, set INITIAL-PEOPLE to 500 to notice that couples can form on
+top of each other. Watch the simulation until you see individuals by
+themselves, but standing still and with a gray patch behind them
+indicating coupling. Underneath one of its neighbors, is the individuals
+partner. This apparent bug in the program is necessary because
+individuals need to be able to couple fairly freely. If space
+constraints prohibited coupling, unwanted emergent behavior would occur
+with high population densities.
+
+Couples are formed by a partnership of “righty” and “lefty” shapes which
+is not immediately noticeable. These shapes are not intended to
+represent genders in any fashion, but merely to provide a useful way to
+depict couple graphics. In order for the hands of a righty and lefty to
+match up, both must be off-centered in their patch. Without this
+feature, two couples next to each other would appear to be a line of
+four individuals (instead of two groups of two). It is intended that the
+differences between righty and lefty shapes not be especially apparent
+in order to prevent unintended associations with gender. Any righty or
+lefty shape can be thought of as male or female or neither.
+
+### THINGS TO TRY
+
+Run a number of experiments with the GO button to find out the effects
+of different variables on the spread of HIV. Try using good controls in
+your experiment. Good controls are when only one variable is changed
+between trials. For instance, to find out what effect the average
+duration of a relationship has, run four experiments with the
+AVERAGE-COMMITMENT slider set at 1 the first time, 2 the second time, 10
+the third time, and 50 the last. How much does the prevalence of HIV
+increase in each case? Does this match your expectations?
+
+Are the effects of some slider variables mediated by the effects of
+others? For instance, if lower AVERAGE-COMMITMENT values seem to
+increase the spread of HIV when all other sliders are set at 0, does the
+same thing occur if all other sliders are set at 10? You can run many
+experiments to test different hypotheses regarding the emergent public
+health effects associated with individual sexual behaviors.
+
+### EXTENDING THE MODEL
+
+Like all computer simulations of human behaviors, this model has
+necessarily simplified its subject area substantially. The model
+therefore provides numerous opportunities for extension:
+
+The model depicts sexual activity as two people standing next to each
+other. This suggests that all couples have sex and that abstinence is
+only practiced in singlehood. The model could be changed to reflect a
+more realistic view of what couples are. Individuals could be in couples
+without having sex. To show sex, then, a new graphical representation
+would have to be employed. Perhaps sex could be symbolized by having the
+patches beneath the couple flash briefly to a different color.
+
+The model does not distinguish between genders. This is an obvious
+over-simplification chosen because making an exclusively heterosexual
+model was untenable while making one that included a variety of sexual
+preferences might have distracted from the public health issues which it
+was designed to explore. However, extending the model by adding genders
+would make the model more realistic.
+
+The model assumes that individuals who are aware that they are infected
+always practice safe sex. This portrayal of human behavior is clearly
+not entirely realistic, but it does create interesting emergent behavior
+that has genuine relevance to certain public health debate. However, an
+interesting extension of the model would be to change individuals’
+reactions to knowledge of HIV status.
+
+The model assumes that condom use is always 100% effective. In fact,
+responsible condom use is actually slightly less than ideal protection
+from the transmission of HIV. Add a line of code to the INFECT procedure
+to check for a slight random chance that a particular episode of
+condom-use is not effective. Another change that can be made in the
+INFECT procedure regards a couple’s choice of condom-use. In this model,
+when the two partners of a couple “disagree” about whether or not to use
+a condom, the partner that doesn’t wish to use a condom makes the
+choice. The opposite possibility is also valid.
+
+Finally, certain significant changes can easily be made in the model by
+simply changing the value of certain global variables in the procedure
+SETUP-GLOBALS. Two variables set in this procedure that are especially
+worthy of investigation are INFECTION-CHANCE and SYMPTOMS-SHOW. The
+former controls what chance an infection has of spreading from an
+infected to an uninfected partner if no protection is used. The variable
+is currently set to 50, meaning that in a week of sexual relations, the
+chance of infection occurring is 50%. It is not clear at this time how
+realistic that figure is. SYMPTOMS-SHOW is the variable that controls
+how long, on average, a person will have the HIV virus before symptoms
+begin to appear, alerting that person to the presence of some health
+problem. It is currently set to 200 (weeks) in this model.
+
+### NETLOGO FEATURES
+
+Notice that the four procedures that assign the different tendencies
+generate many small random numbers and add them together. This produces
+a normal distribution of tendency values. A random number between 0 and
+100 is as likely to be 1 as it is to be 99. However, the sum of 20
+numbers between 0 and 5 is much more likely to be 50 than it is to be
+99.
+
+Notice that the global variables SLIDER-CHECK-1, SLIDER-CHECK-2, and so
+on are assigned with the values of the various sliders so that the model
+can check the sliders against the variables while the model is running.
+Every time-step, a slider’s value is checked against a global variable
+that holds the value of what the slider’s value was the time-step
+before. If the slider’s current value is different than the global
+variable, NetLogo knows to call procedures that adjust the population’s
+tendencies. Otherwise, those adjustment procedures are not called.
+
+### CREDITS AND REFERENCES
+
+Special thanks to Steve Longenecker for model development.
+
+### HOW TO CITE
+
+If you mention this model or the NetLogo software in a publication, we
+ask that you include the citations below.
+
+For the model itself:
+
+- Wilensky, U. (1997). NetLogo HIV model.
+  http://ccl.northwestern.edu/netlogo/models/HIV. Center for Connected
+  Learning and Computer-Based Modeling, Northwestern University,
+  Evanston, IL.
+
+Please cite the NetLogo software as:
+
+- Wilensky, U. (1999). NetLogo. http://ccl.northwestern.edu/netlogo/.
+  Center for Connected Learning and Computer-Based Modeling,
+  Northwestern University, Evanston, IL.
+
+### COPYRIGHT AND LICENSE
+
+Copyright 1997 Uri Wilensky.
+
+![CC BY-NC-SA
+3.0](http://ccl.northwestern.edu/images/creativecommons/byncsa.png)
+
+This model is licensed under the Creative Commons
+Attribution-NonCommercial-ShareAlike 3.0 License. To view a copy of this
+license, visit https://creativecommons.org/licenses/by-nc-sa/3.0/ or
+send a letter to Creative Commons, 559 Nathan Abbott Way, Stanford,
+California 94305, USA.
+
+NetLogo itself is free software for non-commercial use under the terms
+of the GNU General Public License ([see full license information
+here](https://ccl.northwestern.edu/netlogo/docs/copyright.html)).
+
+To inquire about commercial licenses for either NetLogo or specific
+models from the models library, please contact
+netlogo-commercial-admin@ccl.northwestern.edu.
+
+This model was created as part of the project: CONNECTED MATHEMATICS:
+MAKING SENSE OF COMPLEX PHENOMENA THROUGH BUILDING OBJECT-BASED PARALLEL
+MODELS (OBPML). The project gratefully acknowledges the support of the
+National Science Foundation (Applications of Advanced Technologies
+Program) – grant numbers RED \#9552950 and REC \#9632612.
+
+This model was converted to NetLogo as part of the projects:
+PARTICIPATORY SIMULATIONS: NETWORK-BASED DESIGN FOR SYSTEMS LEARNING IN
+CLASSROOMS and/or INTEGRATED SIMULATION AND MODELING ENVIRONMENT. The
+project gratefully acknowledges the support of the National Science
+Foundation (REPP & ROLE programs) – grant numbers REC \#9814682 and
+REC-0126227. Converted from StarLogoT to NetLogo, 2001.
+
+<!-- 1997 2001 -->
+
+## Parameters
+
+| Parameter | Type | Default | Description |
+|----|----|----|----|
+| `condom_use` | `Bool` | `false` | condom use |
+| `infection_rate` | `Float64` | `1.0` | 1.0 = 100%, reduced to 0.2 with condom use |
+| `pop_scale` | `Int` | `100000` | divide population by this for agent count |
+| `grid_width` | `Int` | `401` | grid width |
+| `grid_height` | `Int` | `401` | grid height |
+| `max_ticks` | `Int` | `100` | max ticks |
+
+## Source Code
+
+The Julia code to run this model:
+
+``` julia
+using ArkModelZoo
+_, trajectory = run_diffusionofhiv()
+```
+
+## Time Series
+
+<img src="plot_timeseries.png" style="width:100.0%"
+alt="DiffusionOfHIV time series" />
+
+## Ensemble Runs
+
+Ten replicates with different random seeds, showing mean ± standard
+deviation.
+
+<img src="plot_ensemble.png" style="width:100.0%"
+alt="DiffusionOfHIV ensemble" />
+
+## Parameter Sensitivity
+
+Varying `infection_rate`.
+
+<img src="plot_sensitivity.png" style="width:100.0%"
+alt="DiffusionOfHIV sensitivity" />
+
+## Appendix: Source Code
+
+This model is implemented in the
+[Ark.jl](https://github.com/sdwfrost/Ark.jl) Entity-Component-System
+(ECS) framework. The code is split into five files, each with a distinct
+role:
+
+- **Parameters**: a mutable struct holding all configurable values.
+- **Components**: lightweight data types attached to individual entities
+  (agents).
+- **Resources**: world-level shared state accessible to all systems.
+- **Systems**: functions that operate on entities each tick, defining
+  model behavior.
+- **Model**: wiring that assembles the world, registers resources and
+  systems, and provides the run entry point.
+
+### Parameters (`parameters.jl`)
+
+The parameter struct uses `@kwdef` so that every field has a default
+value and can be overridden by keyword. These defaults match the
+original NetLogo model’s slider settings.
+
+``` julia
+Base.@kwdef mutable struct HIVParams
+    condom_use::Bool = false
+    infection_rate::Float64 = 1.0   # 1.0 = 100%, reduced to 0.2 with condom use
+    pop_scale::Int = 100000         # divide population by this for agent count
+    grid_width::Int = 401
+    grid_height::Int = 401
+    max_ticks::Int = 100
+    seed::Int = 42
+end
+```
+
+### Components (`components.jl`)
+
+Components are lightweight data types attached to individual entities
+(agents). Mutable structs hold per-entity state, while empty tag structs
+act as markers for the ECS query system to efficiently filter entities.
+
+``` julia
+struct HIVDummy end
+```
+
+### Resources (`resources.jl`)
+
+Resources are world-level singletons shared across all systems, used for
+global state and aggregate statistics.
+
+``` julia
+# US state data: (id, centroid_x, centroid_y, population, pctHIV, minticket, maxticket)
+const HIV_STATE_DATA = [
+    (1, -122.01, 47.12, 6897012, 0.0022, 1, 20),
+    (2, -112.9, 45.82, 1005141, 0.0006, 21, 40),
+    (3, -69.21, 44.71, 1329192, 0.0014, 41, 60),
+    (4, -97.77, 47.63, 699628, 0.0005, 61, 80),
+    (5, -98.04, 43.59, 833354, 0.0006, 81, 100),
+    (6, -107.4, 43.02, 576412, 0.0006, 101, 120),
+    (7, -89.65, 44.94, 5726398, 0.0011, 121, 140),
+    (8, -114.51, 45.41, 1595728, 0.0007, 141, 160),
+    (9, -72.57, 43.95, 626011, 0.0013, 161, 180),
+    (10, -94.69, 46.74, 5379139, 0.0016, 181, 200),
+    (11, -120.13, 44.96, 3899353, 0.0022, 201, 220),
+    (12, -71.7, 43.76, 1320718, 0.0012, 221, 240),
+    (13, -93.59, 41.91, 3074186, 0.0009, 241, 260),
+    (14, -71.1, 41.95, 6646144, 0.0041, 261, 280),
+    (15, -97.46, 41.55, 1855525, 0.0012, 281, 300),
+    (16, -74.63, 42.27, 19570261, 0.009, 301, 340),
+    (17, -76.22, 40.8, 12763536, 0.0032, 341, 360),
+    (18, -72.65, 41.62, 3590347, 0.0038, 361, 380),
+    (19, -71.45, 41.65, 1050292, 0.0024, 381, 400),
+    (20, -74.82, 40.28, 8864590, 0.0049, 401, 420),
+    (21, -86.79, 38.78, 6537334, 0.0017, 421, 440),
+    (22, -115.73, 37.44, 2758931, 0.0035, 441, 490),
+    (23, -111.38, 39.28, 2855287, 0.001, 491, 510),
+    (24, -119.03, 35.81, 38041430, 0.0048, 511, 570),
+    (25, -82.46, 39.58, 11544225, 0.002, 571, 590),
+    (26, -89.33, 39.2, 12875255, 0.0035, 591, 610),
+    (27, -77.04, 38.89, 632323, 0.0343, 611, 630),
+    (28, -75.51, 39.26, 917092, 0.0047, 631, 650),
+    (29, -80.2, 38.83, 1855413, 0.0012, 651, 670),
+    (30, -77.15, 39.09, 5884563, 0.0074, 671, 690),
+    (31, -105.08, 38.97, 5187582, 0.0024, 691, 710),
+    (32, -85.75, 37.76, 4380415, 0.0019, 711, 730),
+    (33, -96.91, 38.85, 2885905, 0.0013, 731, 750),
+    (34, -78.54, 37.68, 8185867, 0.0031, 751, 770),
+    (35, -91.77, 38.32, 6021988, 0.0022, 771, 790),
+    (36, -113.95, 34.47, 6553255, 0.0025, 791, 810),
+    (37, -96.97, 34.38, 3814820, 0.0018, 811, 830),
+    (38, -78.96, 35.61, 9752073, 0.0033, 831, 850),
+    (39, -86.76, 35.85, 6456243, 0.003, 851, 870),
+    (40, -97.2, 31.02, 26059203, 0.004, 871, 915),
+    (41, -105.66, 34.06, 2085538, 0.0017, 916, 935),
+    (42, -86.31, 32.28, 4822023, 0.003, 936, 955),
+    (43, -90.59, 32.69, 2984926, 0.0035, 956, 975),
+    (44, -82.87, 32.57, 9919945, 0.0058, 976, 995),
+    (45, -81.53, 33.64, 4723723, 0.0041, 996, 1015),
+    (46, -91.21, 34.6, 2949131, 0.002, 1016, 1035),
+    (47, -91.48, 30.78, 4601893, 0.0049, 1036, 1055),
+    (48, -83.18, 28.89, 19317568, 0.0066, 1056, 1110),
+    (49, -86.25, 45.38, 9883360, 0.0018, 1111, 1130),
+]
+
+mutable struct HIVAgent
+    x::Int
+    y::Int
+    home_state::Int       # state index (1-49)
+    infected::Bool
+    coupled::Bool
+    partner_idx::Int      # 0 = no partner
+    age::Int              # ticks since birth, die at 6
+    traveling::Bool
+    home_x::Int
+    home_y::Int
+end
+
+mutable struct HIVState
+    width::Int
+    height::Int
+    state_id::Matrix{Int}     # Voronoi: patch → nearest state (1-49)
+    agents::Vector{HIVAgent}
+    alive::Vector{Bool}
+    # State patch lists for fast random placement
+    state_patches::Vector{Vector{Tuple{Int,Int}}}
+end
+
+function HIVState(w::Int, h::Int)
+    HIVState(w, h,
+        zeros(Int, w, h),
+        HIVAgent[],
+        Bool[],
+        [Tuple{Int,Int}[] for _ in 1:49])
+end
+
+mutable struct HIVStats
+    pct_infected::Float64
+    total_agents::Int
+    total_infected::Int
+end
+HIVStats() = HIVStats(0.0, 0, 0)
+```
+
+### Systems (`systems.jl`)
+
+Systems contain the model logic and execute in a defined order each
+tick. Each system struct implements either `initialize!` (run once at
+setup) or `update!` (run every tick).
+
+``` julia
+# --- Initialization ---
+
+struct InitHIVSystem <: System end
+
+function _gis_to_grid(gis_x::Float64, gis_y::Float64, w::Int, h::Int)
+    # Map GIS coords (-125..-65 lon, 28..48 lat) to grid (1..w, 1..h)
+    gx = round(Int, (gis_x - (-125.0)) / ((-65.0) - (-125.0)) * (w - 1)) + 1
+    gy = round(Int, (gis_y - 28.0) / (48.0 - 28.0) * (h - 1)) + 1
+    return (clamp(gx, 1, w), clamp(gy, 1, h))
+end
+
+function initialize!(::InitHIVSystem, world::World)
+    params = get_resource(world, HIVParams)
+    rng = get_resource(world, RNGResource).rng
+    st = get_resource(world, HIVState)
+    stats = get_resource(world, HIVStats)
+    w, h = st.width, st.height
+
+    # Build grid centroids in grid coordinates
+    centroids = Vector{Tuple{Int,Int}}(undef, 49)
+    for i in 1:49
+        _, cx, cy = HIV_STATE_DATA[i][1], HIV_STATE_DATA[i][2], HIV_STATE_DATA[i][3]
+        centroids[i] = _gis_to_grid(Float64(cx), Float64(cy), w, h)
+    end
+
+    # Voronoi tessellation: assign each patch to nearest state centroid
+    for x in 1:w, y in 1:h
+        best_d = Inf
+        best_s = 1
+        for s in 1:49
+            cx, cy = centroids[s]
+            d = (x - cx)^2 + (y - cy)^2
+            if d < best_d
+                best_d = d
+                best_s = s
+            end
+        end
+        st.state_id[x, y] = best_s
+        push!(st.state_patches[best_s], (x, y))
+    end
+
+    # Create agents proportional to population
+    for i in 1:49
+        pop = HIV_STATE_DATA[i][4]
+        pct = HIV_STATE_DATA[i][5]
+        n_agents = max(1, div(pop, params.pop_scale))
+        n_infected = round(Int, n_agents * pct)
+        patches = st.state_patches[i]
+        isempty(patches) && continue
+
+        for j in 1:n_agents
+            px, py = patches[rand(rng, 1:length(patches))]
+            is_inf = j <= n_infected
+            agent = HIVAgent(px, py, i, is_inf, false, 0,
+                             rand(rng, 0:5), false, px, py)
+            push!(st.agents, agent)
+            push!(st.alive, true)
+        end
+    end
+
+    _update_hiv_stats!(st, stats)
+    return nothing
+end
+
+function _update_hiv_stats!(st::HIVState, stats::HIVStats)
+    total = 0
+    infected = 0
+    for i in eachindex(st.agents)
+        if st.alive[i]
+            total += 1
+            if st.agents[i].infected
+                infected += 1
+            end
+        end
+    end
+    stats.total_agents = total
+    stats.total_infected = infected
+    stats.pct_infected = total > 0 ? infected / total : 0.0
+    return nothing
+end
+
+# Ticket-based state lookup
+function _ticket_to_state(ticket::Int)
+    for i in 1:49
+        if HIV_STATE_DATA[i][6] <= ticket <= HIV_STATE_DATA[i][7]
+            return i
+        end
+    end
+    return 1
+end
+
+# Wrapping helper
+function _hiv_wrap(v::Int, sz::Int)
+    return mod1(v, sz)
+end
+
+# --- Aging & Reproduction ---
+
+struct HIVAgingSystem <: System end
+
+function update!(::HIVAgingSystem, world::World)
+    rng = get_resource(world, RNGResource).rng
+    st = get_resource(world, HIVState)
+
+    new_agents = HIVAgent[]
+    for i in eachindex(st.agents)
+        !st.alive[i] && continue
+        a = st.agents[i]
+        a.age += 1
+        if a.age >= 6
+            # Reproduce: new agent at same position
+            child_inf = a.infected && rand(rng) < 0.01
+            push!(new_agents, HIVAgent(a.x, a.y, a.home_state, child_inf,
+                                       false, 0, 0, false, a.x, a.y))
+            # Uncouple partner
+            if a.coupled && a.partner_idx > 0 && a.partner_idx <= length(st.agents) && st.alive[a.partner_idx]
+                st.agents[a.partner_idx].coupled = false
+                st.agents[a.partner_idx].partner_idx = 0
+            end
+            st.alive[i] = false
+        end
+    end
+
+    for na in new_agents
+        push!(st.agents, na)
+        push!(st.alive, true)
+    end
+    return nothing
+end
+
+# --- Movement ---
+
+struct HIVMovementSystem <: System end
+
+function update!(::HIVMovementSystem, world::World)
+    rng = get_resource(world, RNGResource).rng
+    st = get_resource(world, HIVState)
+    w, h = st.width, st.height
+
+    for i in eachindex(st.agents)
+        !st.alive[i] && continue
+        a = st.agents[i]
+
+        if rand(rng) < 0.66
+            # Long-distance travel
+            ticket = rand(rng, 1:1130)
+            dest_state = _ticket_to_state(ticket)
+            patches = st.state_patches[dest_state]
+            if !isempty(patches)
+                px, py = patches[rand(rng, 1:length(patches))]
+                a.traveling = true
+                a.home_x = a.x
+                a.home_y = a.y
+                a.x = px
+                a.y = py
+            end
+        else
+            # Local move within radius 5 in same state
+            dx = rand(rng, -5:5)
+            dy = rand(rng, -5:5)
+            nx = _hiv_wrap(a.x + dx, w)
+            ny = _hiv_wrap(a.y + dy, h)
+            if st.state_id[nx, ny] == a.home_state
+                a.x = nx
+                a.y = ny
+            end
+        end
+    end
+    return nothing
+end
+
+# --- Coupling & Infection ---
+
+struct HIVCouplingSystem <: System end
+
+function update!(::HIVCouplingSystem, world::World)
+    params = get_resource(world, HIVParams)
+    rng = get_resource(world, RNGResource).rng
+    st = get_resource(world, HIVState)
+    w, h = st.width, st.height
+
+    inf_rate = params.condom_use ? 0.2 : params.infection_rate
+
+    # Build spatial grid index (cell size 11 covers radius 5 from center)
+    cell_sz = 11
+    gw = div(w, cell_sz) + 1
+    gh = div(h, cell_sz) + 1
+    spatial = [Int[] for _ in 1:(gw*gh)]
+    n_agents = length(st.agents)
+    for i in 1:n_agents
+        !st.alive[i] && continue
+        a = st.agents[i]
+        a.coupled && continue
+        cx = div(a.x - 1, cell_sz) + 1
+        cy = div(a.y - 1, cell_sz) + 1
+        push!(spatial[(cy-1)*gw + cx], i)
+    end
+
+    for i in 1:n_agents
+        !st.alive[i] && continue
+        a = st.agents[i]
+        a.coupled && continue
+
+        ax_cell = div(a.x - 1, cell_sz) + 1
+        ay_cell = div(a.y - 1, cell_sz) + 1
+
+        found = false
+        for dcx in -1:1, dcy in -1:1
+            found && break
+            ncx = ax_cell + dcx
+            ncy = ay_cell + dcy
+            (ncx < 1 || ncx > gw || ncy < 1 || ncy > gh) && continue
+            cell_agents = spatial[(ncy-1)*gw + ncx]
+            for j in cell_agents
+                j == i && continue
+                !st.alive[j] && continue
+                b = st.agents[j]
+                b.coupled && continue
+
+                dx = abs(a.x - b.x)
+                dy = abs(a.y - b.y)
+                dx = min(dx, w - dx)
+                dy = min(dy, h - dy)
+                if dx <= 5 && dy <= 5
+                    a.coupled = true
+                    b.coupled = true
+                    a.partner_idx = j
+                    b.partner_idx = i
+
+                    if a.infected && !b.infected
+                        if rand(rng) < inf_rate
+                            b.infected = true
+                        end
+                    elseif b.infected && !a.infected
+                        if rand(rng) < inf_rate
+                            a.infected = true
+                        end
+                    end
+                    found = true
+                    break
+                end
+            end
+        end
+    end
+    return nothing
+end
+
+# --- Return Home ---
+
+struct HIVReturnSystem <: System end
+
+function update!(::HIVReturnSystem, world::World)
+    st = get_resource(world, HIVState)
+    for i in eachindex(st.agents)
+        !st.alive[i] && continue
+        a = st.agents[i]
+        if a.traveling
+            a.x = a.home_x
+            a.y = a.home_y
+            a.traveling = false
+        end
+        # Uncouple after each tick
+        if a.coupled
+            if a.partner_idx > 0 && a.partner_idx <= length(st.agents) && st.alive[a.partner_idx]
+                st.agents[a.partner_idx].coupled = false
+                st.agents[a.partner_idx].partner_idx = 0
+            end
+            a.coupled = false
+            a.partner_idx = 0
+        end
+    end
+    return nothing
+end
+
+# --- Stats ---
+
+struct HIVStatsSystem <: System end
+
+function update!(::HIVStatsSystem, world::World)
+    st = get_resource(world, HIVState)
+    stats = get_resource(world, HIVStats)
+    _update_hiv_stats!(st, stats)
+    return nothing
+end
+
+# --- Termination ---
+
+struct HIVTerminationSystem <: System end
+
+function update!(::HIVTerminationSystem, world::World)
+    params = get_resource(world, HIVParams)
+    tick = get_resource(world, Tick)
+    if tick.tick + 1 >= params.max_ticks
+        get_resource(world, Terminate).stop = true
+    end
+    return nothing
+end
+```
+
+### Model (`model.jl`)
+
+The model file assembles all pieces: it creates the ECS `World` with the
+required component types, registers resources, builds the `Scheduler`
+with systems in execution order, and exposes the public `run` entry
+point. The observer pattern records the trajectory each tick.
+
+``` julia
+function diffusionofhiv_world(; initial_capacity::Int = 128)
+    return World(
+        HIVDummy;
+        initial_capacity = initial_capacity,
+        allow_mutable = true,
+    )
+end
+
+function diffusionofhiv_systems()
+    return (
+        InitHIVSystem(),
+        HIVAgingSystem(),
+        HIVMovementSystem(),
+        HIVCouplingSystem(),
+        HIVReturnSystem(),
+        HIVStatsSystem(),
+        HIVTerminationSystem(),
+    )
+end
+
+function diffusionofhiv_model(params::HIVParams = HIVParams())
+    world = diffusionofhiv_world()
+    _add_standard_resources!(world, params)
+    add_resource!(world, HIVState(params.grid_width, params.grid_height))
+    add_resource!(world, HIVStats())
+    scheduler = Scheduler(world, diffusionofhiv_systems())
+    initialize!(scheduler)
+    return scheduler
+end
+
+struct HIVObserver end
+
+function diffusionofhiv_headers(::HIVObserver)
+    return ["PctInfected"]
+end
+
+function diffusionofhiv_values(::HIVObserver, world::World)
+    stats = get_resource(world, HIVStats)
+    return Float64[stats.pct_infected]
+end
+
+function run_diffusionofhiv(; params::HIVParams = HIVParams(), observe::Bool = true)
+    return _run_model(diffusionofhiv_model, HIVObserver(), diffusionofhiv_values; params, observe)
+end
+```

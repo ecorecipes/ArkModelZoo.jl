@@ -20,7 +20,7 @@ using ArkModelZoo
 
 # Run Schelling's Segregation model
 scheduler, trajectory = run_segregation(
-    params = SegregationParams(number=2000, pct_similar_wanted=30.0)
+    params = SegregationParams(density=80.0, pct_similar_wanted=30.0)
 )
 
 # Run Wolf-Sheep Predation
@@ -35,11 +35,41 @@ scheduler, trajectory = run_ants(params = AntsParams(population=125))
 scheduler, trajectory = run_daisyworld(params = DaisyworldParams(solar_luminosity=0.8))
 
 # Run Virus (SIR with movement)
-scheduler, trajectory = run_virus(params = VirusParams(infectiousness=65.0))
+scheduler, trajectory = run_virus(params = VirusParams(number_people=200, virus_spread_chance=0.15))
 
 # Run Ethnocentrism
 scheduler, trajectory = run_ethnocentrism(params = EthnocentrismParams(max_ticks=2000))
 ```
+
+To see the full catalog of available model entry points:
+
+```julia
+using ArkModelZoo
+
+available_models()
+```
+
+For richer discovery metadata:
+
+```julia
+using ArkModelZoo
+
+model_categories()
+model_catalog(category="Biology & Ecology")
+model_info("run_rgw")
+model_info("simple_birth_rates")
+run_model("simple_birth_rates"; params = BirthRatesParams(max_ticks=25))
+```
+
+You can also inspect the exported run functions directly:
+
+```julia
+sort(filter(name -> startswith(String(name), "run_"), names(ArkModelZoo)))
+```
+
+NetLogo-style wrapper spellings such as `simple_birth_rates`,
+`disinfo_nw_bitstring`, `artificial_economy`, and `search_path` resolve through
+`model_info` and the generic `run_model` entry point.
 
 ## ECS Architecture
 
@@ -60,10 +90,31 @@ World ─┬─ Components (per-entity data)
 
 ```julia
 using Pkg
+
+# Install from a checkout
 Pkg.develop(path="path/to/ArkModelZoo.jl")
+
+# Or install directly from GitHub
+Pkg.add(url="https://github.com/sdwfrost/ArkModelZoo.jl")
 ```
 
 Requires `Ark.jl` v0.4+.
+
+## Optional Dependencies
+
+- **Shapefile-backed GIS models** such as `run_diffusionofhiv` require `Shapefile.jl`:
+
+  ```julia
+  using Pkg
+  Pkg.add("Shapefile")
+  ```
+
+- **Vignette plot pre-rendering** uses the separate `vignettes/` environment:
+
+  ```julia
+  julia --project=vignettes -e 'using Pkg; Pkg.instantiate()'
+  julia --project=vignettes vignettes/prerender.jl
+  ```
 
 ## Testing
 
@@ -71,3 +122,11 @@ Requires `Ark.jl` v0.4+.
 using Pkg
 Pkg.test("ArkModelZoo")
 ```
+
+Some GIS fixture tests depend on external NetLogo ClassModels data. Set
+`NETLOGO_CLASSMODELS_DIR` to enable those tests in addition to the default suite.
+
+GitHub Actions includes:
+
+- `.github/workflows/ci.yml` for the portable default suite
+- `.github/workflows/external-validation.yml` for manual GIS fixture and NetLogo calibration runs on a runner that already has the required paths available

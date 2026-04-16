@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.28">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Heatbugs</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="heatbugs_files/libs/clipboard/clipboard.min.js"></script>
+<script src="heatbugs_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="heatbugs_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="heatbugs_files/libs/quarto-html/popper.min.js"></script>
+<script src="heatbugs_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="heatbugs_files/libs/quarto-html/anchor.min.js"></script>
+<link href="heatbugs_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="heatbugs_files/libs/quarto-html/quarto-syntax-highlighting-49e51e44f424ea8c7044b429bdbbbfe2.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="heatbugs_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="heatbugs_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="heatbugs_files/libs/bootstrap/bootstrap-8ffd5f67044e5306d9846f29df41dda5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a>
+  <ul class="collapse">
+  <li><a href="#what-is-it" id="toc-what-is-it" class="nav-link" data-scroll-target="#what-is-it">WHAT IS IT?</a></li>
+  <li><a href="#how-it-works" id="toc-how-it-works" class="nav-link" data-scroll-target="#how-it-works">HOW IT WORKS</a></li>
+  <li><a href="#things-to-notice" id="toc-things-to-notice" class="nav-link" data-scroll-target="#things-to-notice">THINGS TO NOTICE</a></li>
+  <li><a href="#things-to-try" id="toc-things-to-try" class="nav-link" data-scroll-target="#things-to-try">THINGS TO TRY</a></li>
+  <li><a href="#extending-the-model" id="toc-extending-the-model" class="nav-link" data-scroll-target="#extending-the-model">EXTENDING THE MODEL</a></li>
+  <li><a href="#netlogo-features" id="toc-netlogo-features" class="nav-link" data-scroll-target="#netlogo-features">NETLOGO FEATURES</a></li>
+  <li><a href="#related-models" id="toc-related-models" class="nav-link" data-scroll-target="#related-models">RELATED MODELS</a></li>
+  <li><a href="#credits-and-references" id="toc-credits-and-references" class="nav-link" data-scroll-target="#credits-and-references">CREDITS AND REFERENCES</a></li>
+  <li><a href="#how-to-cite" id="toc-how-to-cite" class="nav-link" data-scroll-target="#how-to-cite">HOW TO CITE</a></li>
+  <li><a href="#copyright-and-license" id="toc-copyright-and-license" class="nav-link" data-scroll-target="#copyright-and-license">COPYRIGHT AND LICENSE</a></li>
+  </ul></li>
+  <li><a href="#parameters" id="toc-parameters" class="nav-link" data-scroll-target="#parameters">Parameters</a></li>
+  <li><a href="#source-code" id="toc-source-code" class="nav-link" data-scroll-target="#source-code">Source Code</a></li>
+  <li><a href="#time-series" id="toc-time-series" class="nav-link" data-scroll-target="#time-series">Time Series</a></li>
+  <li><a href="#ensemble-runs" id="toc-ensemble-runs" class="nav-link" data-scroll-target="#ensemble-runs">Ensemble Runs</a></li>
+  <li><a href="#parameter-sensitivity" id="toc-parameter-sensitivity" class="nav-link" data-scroll-target="#parameter-sensitivity">Parameter Sensitivity</a></li>
+  <li><a href="#appendix-source-code" id="toc-appendix-source-code" class="nav-link" data-scroll-target="#appendix-source-code">Appendix: Source Code</a>
+  <ul class="collapse">
+  <li><a href="#parameters-parameters.jl" id="toc-parameters-parameters.jl" class="nav-link" data-scroll-target="#parameters-parameters.jl">Parameters (<code>parameters.jl</code>)</a></li>
+  <li><a href="#components-components.jl" id="toc-components-components.jl" class="nav-link" data-scroll-target="#components-components.jl">Components (<code>components.jl</code>)</a></li>
+  <li><a href="#resources-resources.jl" id="toc-resources-resources.jl" class="nav-link" data-scroll-target="#resources-resources.jl">Resources (<code>resources.jl</code>)</a></li>
+  <li><a href="#systems-systems.jl" id="toc-systems-systems.jl" class="nav-link" data-scroll-target="#systems-systems.jl">Systems (<code>systems.jl</code>)</a></li>
+  <li><a href="#model-model.jl" id="toc-model-model.jl" class="nav-link" data-scroll-target="#model-model.jl">Model (<code>model.jl</code>)</a></li>
+  </ul></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="heatbugs.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li><li><a href="heatbugs.md"><i class="bi bi-file-code"></i>Github (GFM)</a></li></ul></div></nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Heatbugs</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<section id="what-is-it" class="level3">
+<h3 class="anchored" data-anchor-id="what-is-it">WHAT IS IT?</h3>
+<p>Heatbugs is an abstract model of the behavior of biologically-inspired agents that attempt to maintain an optimum temperature around themselves. It demonstrates how simple rules defining the behavior of agents can produce several different kinds of emergent behavior.</p>
+<p>Heatbugs has been used as a demonstration model for many agent-based modeling toolkits. We provide a NetLogo version to assist users in learning and comparing different toolkits. It demonstrates coding techniques in NetLogo and may be useful as a starting point for building other models.</p>
+<p>While this NetLogo model attempts to match the Repast and Swarm versions (see “Credits” below), we haven’t done a rigorous comparative analysis of the different versions, so it is possible that there are small inadvertent differences in the underlying rules and behavior.</p>
+</section>
+<section id="how-it-works" class="level3">
+<h3 class="anchored" data-anchor-id="how-it-works">HOW IT WORKS</h3>
+<p>The bugs move around on a grid of square “patches”. A bug may not move to a patch that already has another bug on it.</p>
+<p>Each bug radiates a small amount of heat. Heat gradually diffuses through the world; some heat is lost to cooling.</p>
+<p>Each bug has an “ideal” temperature it wants to be. The bigger the difference between the temperature of the patch where the bug is and the bug’s ideal temperature, the more “unhappy” the bug is. When a bug is unhappy, it moves. If it is too hot, it moves to the coolest adjacent empty patch. Conversely, if a bug is too cold, it moves to the warmest adjacent empty patch. (Note that these bugs aren’t smart enough to always move to the best available patch.)</p>
+</section>
+<section id="things-to-notice" class="level3">
+<h3 class="anchored" data-anchor-id="things-to-notice">THINGS TO NOTICE</h3>
+<p>Depending on their ideal temperatures, some bugs will tend to clump together, while others will tend to avoid all other bugs, and others still flutter around the edges of clumps. All of these behaviors are affected as well by the evaporation rate.</p>
+<p>The diffusion rate affects the cohesiveness of clumps. If diffusion-rate is slow, many tiny clumps form. Why?</p>
+<p>Most interesting behaviors occur when the number of bugs, how much heat they generate, and how quickly the world cools are balanced such that excessive heat does not build up.</p>
+</section>
+<section id="things-to-try" class="level3">
+<h3 class="anchored" data-anchor-id="things-to-try">THINGS TO TRY</h3>
+<p>Vary DIFFUSION-RATE.</p>
+<p>Vary EVAPORATION-RATE in relation to the output-heat range of the bugs.</p>
+<p>Use the HEAT-UP button to scramble clumped heatbugs and watch as they re-assemble into new clumps.</p>
+</section>
+<section id="extending-the-model" class="level3">
+<h3 class="anchored" data-anchor-id="extending-the-model">EXTENDING THE MODEL</h3>
+<p>Randomize the amount of heat bugs generate each cycle.</p>
+<p>Allow users to introduce heat into the system with the mouse.</p>
+</section>
+<section id="netlogo-features" class="level3">
+<h3 class="anchored" data-anchor-id="netlogo-features">NETLOGO FEATURES</h3>
+<p><code>n-of</code> and <code>sprout</code> together let us initially place each bug on its own patch with a minimum of code.</p>
+<p>Notice how the code does not make any use of X and Y coordinates. The <code>neighbors</code> and <code>move-to</code> primitives take care of sensing and motion on a toroidal grid without the need for any explicit coordinate math.</p>
+<p>The <code>diffuse</code> command is used to diffuse the heat around the patch grid.</p>
+</section>
+<section id="related-models" class="level3">
+<h3 class="anchored" data-anchor-id="related-models">RELATED MODELS</h3>
+<p>Slime</p>
+</section>
+<section id="credits-and-references" class="level3">
+<h3 class="anchored" data-anchor-id="credits-and-references">CREDITS AND REFERENCES</h3>
+<p>Swarm version of Heatbugs – https://web.archive.org/web/20130211011213/http://www.swarm.org/wiki/Examples_of_Swarm_applications</p>
+<p>RePast version of Heatbugs – http://repast.sourceforge.net/repast_3/examples/</p>
+</section>
+<section id="how-to-cite" class="level3">
+<h3 class="anchored" data-anchor-id="how-to-cite">HOW TO CITE</h3>
+<p>If you mention this model or the NetLogo software in a publication, we ask that you include the citations below.</p>
+<p>For the model itself:</p>
+<ul>
+<li>Wilensky, U. (2004). NetLogo Heatbugs model. http://ccl.northwestern.edu/netlogo/models/Heatbugs. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.</li>
+</ul>
+<p>Please cite the NetLogo software as:</p>
+<ul>
+<li>Wilensky, U. (1999). NetLogo. http://ccl.northwestern.edu/netlogo/. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.</li>
+</ul>
+</section>
+<section id="copyright-and-license" class="level3">
+<h3 class="anchored" data-anchor-id="copyright-and-license">COPYRIGHT AND LICENSE</h3>
+<p>Copyright 2004 Uri Wilensky.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="http://ccl.northwestern.edu/images/creativecommons/byncsa.png" class="img-fluid figure-img"></p>
+<figcaption>CC BY-NC-SA 3.0</figcaption>
+</figure>
+</div>
+<p>This model is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License. To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/3.0/ or send a letter to Creative Commons, 559 Nathan Abbott Way, Stanford, California 94305, USA.</p>
+<p>NetLogo itself is free software for non-commercial use under the terms of the GNU General Public License (<a href="https://ccl.northwestern.edu/netlogo/docs/copyright.html">see full license information here</a>).</p>
+<p>To inquire about commercial licenses for either NetLogo or specific models from the models library, please contact netlogo-commercial-admin@ccl.northwestern.edu.</p>
+<p>This model was created as part of the projects: PARTICIPATORY SIMULATIONS: NETWORK-BASED DESIGN FOR SYSTEMS LEARNING IN CLASSROOMS and/or INTEGRATED SIMULATION AND MODELING ENVIRONMENT. The project gratefully acknowledges the support of the National Science Foundation (REPP &amp; ROLE programs) – grant numbers REC #9814682 and REC-0126227.</p>
+<!-- 2004 -->
+</section>
+</section>
+<section id="parameters" class="level2">
+<h2 class="anchored" data-anchor-id="parameters">Parameters</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>bug_count</code></td>
+<td><code>Int</code></td>
+<td><code>100</code></td>
+<td>bug count</td>
+</tr>
+<tr class="even">
+<td><code>min_ideal_temp</code></td>
+<td><code>Float64</code></td>
+<td><code>10.0</code></td>
+<td>min ideal temp</td>
+</tr>
+<tr class="odd">
+<td><code>max_ideal_temp</code></td>
+<td><code>Float64</code></td>
+<td><code>40.0</code></td>
+<td>max ideal temp</td>
+</tr>
+<tr class="even">
+<td><code>min_output_heat</code></td>
+<td><code>Float64</code></td>
+<td><code>5.0</code></td>
+<td>min output heat</td>
+</tr>
+<tr class="odd">
+<td><code>max_output_heat</code></td>
+<td><code>Float64</code></td>
+<td><code>25.0</code></td>
+<td>max output heat</td>
+</tr>
+<tr class="even">
+<td><code>evaporation_rate</code></td>
+<td><code>Float64</code></td>
+<td><code>0.01</code></td>
+<td>evaporation rate</td>
+</tr>
+<tr class="odd">
+<td><code>diffusion_rate</code></td>
+<td><code>Float64</code></td>
+<td><code>0.9</code></td>
+<td>diffusion rate</td>
+</tr>
+<tr class="even">
+<td><code>random_move_chance</code></td>
+<td><code>Float64</code></td>
+<td><code>0.0</code></td>
+<td>percent</td>
+</tr>
+<tr class="odd">
+<td><code>grid_width</code></td>
+<td><code>Int</code></td>
+<td><code>100</code></td>
+<td>grid width</td>
+</tr>
+<tr class="even">
+<td><code>grid_height</code></td>
+<td><code>Int</code></td>
+<td><code>100</code></td>
+<td>grid height</td>
+</tr>
+<tr class="odd">
+<td><code>max_ticks</code></td>
+<td><code>Int</code></td>
+<td><code>500</code></td>
+<td>max ticks</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="source-code" class="level2">
+<h2 class="anchored" data-anchor-id="source-code">Source Code</h2>
+<p>The Julia code to run this model:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">ArkModelZoo</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>_, trajectory <span class="op">=</span> <span class="fu">run_heatbugs</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="time-series" class="level2">
+<h2 class="anchored" data-anchor-id="time-series">Time Series</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="plot_timeseries.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>Heatbugs time series</figcaption>
+</figure>
+</div>
+</section>
+<section id="ensemble-runs" class="level2">
+<h2 class="anchored" data-anchor-id="ensemble-runs">Ensemble Runs</h2>
+<p>Ten replicates with different random seeds, showing mean ± standard deviation.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="plot_ensemble.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>Heatbugs ensemble</figcaption>
+</figure>
+</div>
+</section>
+<section id="parameter-sensitivity" class="level2">
+<h2 class="anchored" data-anchor-id="parameter-sensitivity">Parameter Sensitivity</h2>
+<p>Varying <code>bug_count</code>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="plot_sensitivity.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>Heatbugs sensitivity</figcaption>
+</figure>
+</div>
+</section>
+<section id="appendix-source-code" class="level2">
+<h2 class="anchored" data-anchor-id="appendix-source-code">Appendix: Source Code</h2>
+<p>This model is implemented in the <a href="https://github.com/sdwfrost/Ark.jl">Ark.jl</a> Entity-Component-System (ECS) framework. The code is split into five files, each with a distinct role:</p>
+<ul>
+<li><strong>Parameters</strong>: a mutable struct holding all configurable values.</li>
+<li><strong>Components</strong>: lightweight data types attached to individual entities (agents).</li>
+<li><strong>Resources</strong>: world-level shared state accessible to all systems.</li>
+<li><strong>Systems</strong>: functions that operate on entities each tick, defining model behavior.</li>
+<li><strong>Model</strong>: wiring that assembles the world, registers resources and systems, and provides the run entry point.</li>
+</ul>
+<section id="parameters-parameters.jl" class="level3">
+<h3 class="anchored" data-anchor-id="parameters-parameters.jl">Parameters (<code>parameters.jl</code>)</h3>
+<p>The parameter struct uses <code>@kwdef</code> so that every field has a default value and can be overridden by keyword. These defaults match the original NetLogo model’s slider settings.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">Base</span>.<span class="pp">@kwdef</span> <span class="kw">mutable struct</span> HBParams</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    bug_count<span class="op">::</span><span class="dt">Int </span><span class="op">=</span> <span class="fl">100</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    min_ideal_temp<span class="op">::</span><span class="dt">Float64 </span><span class="op">=</span> <span class="fl">10.0</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    max_ideal_temp<span class="op">::</span><span class="dt">Float64 </span><span class="op">=</span> <span class="fl">40.0</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    min_output_heat<span class="op">::</span><span class="dt">Float64 </span><span class="op">=</span> <span class="fl">5.0</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    max_output_heat<span class="op">::</span><span class="dt">Float64 </span><span class="op">=</span> <span class="fl">25.0</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    evaporation_rate<span class="op">::</span><span class="dt">Float64 </span><span class="op">=</span> <span class="fl">0.01</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    diffusion_rate<span class="op">::</span><span class="dt">Float64 </span><span class="op">=</span> <span class="fl">0.9</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    random_move_chance<span class="op">::</span><span class="dt">Float64 </span><span class="op">=</span> <span class="fl">0.0</span>   <span class="co"># percent</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    grid_width<span class="op">::</span><span class="dt">Int </span><span class="op">=</span> <span class="fl">100</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    grid_height<span class="op">::</span><span class="dt">Int </span><span class="op">=</span> <span class="fl">100</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    max_ticks<span class="op">::</span><span class="dt">Int </span><span class="op">=</span> <span class="fl">500</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    seed<span class="op">::</span><span class="dt">Int </span><span class="op">=</span> <span class="fl">42</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="components-components.jl" class="level3">
+<h3 class="anchored" data-anchor-id="components-components.jl">Components (<code>components.jl</code>)</h3>
+<p>Components are lightweight data types attached to individual entities (agents). Mutable structs hold per-entity state, while empty tag structs act as markers for the ECS query system to efficiently filter entities.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">mutable struct</span> HBPos</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    x<span class="op">::</span><span class="dt">Int</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    y<span class="op">::</span><span class="dt">Int</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">HBPos</span>() <span class="op">=</span> <span class="fu">HBPos</span>(<span class="fl">0</span>, <span class="fl">0</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="kw">mutable struct</span> HBBug</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    ideal_temp<span class="op">::</span><span class="dt">Float64</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    output_heat<span class="op">::</span><span class="dt">Float64</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    unhappiness<span class="op">::</span><span class="dt">Float64</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="fu">HBBug</span>() <span class="op">=</span> <span class="fu">HBBug</span>(<span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="resources-resources.jl" class="level3">
+<h3 class="anchored" data-anchor-id="resources-resources.jl">Resources (<code>resources.jl</code>)</h3>
+<p>Resources are world-level singletons shared across all systems, used for global state and aggregate statistics.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">mutable struct</span> HBGrid</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    width<span class="op">::</span><span class="dt">Int</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    height<span class="op">::</span><span class="dt">Int</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    cells<span class="op">::</span><span class="dt">Matrix{Entity}      </span><span class="co"># bug occupancy</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    temp<span class="op">::</span><span class="dt">Matrix{Float64}      </span><span class="co"># patch temperatures</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">HBGrid</span>(w<span class="op">::</span><span class="dt">Int</span>, h<span class="op">::</span><span class="dt">Int</span>)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">HBGrid</span>(w, h, <span class="fu">fill</span>(zero_entity, w, h), <span class="fu">zeros</span>(<span class="dt">Float64</span>, w, h))</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">hb_is_empty</span>(grid<span class="op">::</span><span class="dt">HBGrid</span>, x<span class="op">::</span><span class="dt">Int</span>, y<span class="op">::</span><span class="dt">Int</span>)</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">is_zero</span>(grid.cells[x, y])</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="kw">mutable struct</span> HBStats</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    mean_unhappiness<span class="op">::</span><span class="dt">Float64</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    max_unhappiness<span class="op">::</span><span class="dt">Float64</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="fu">HBStats</span>() <span class="op">=</span> <span class="fu">HBStats</span>(<span class="fl">0.0</span>, <span class="fl">0.0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="systems-systems.jl" class="level3">
+<h3 class="anchored" data-anchor-id="systems-systems.jl">Systems (<code>systems.jl</code>)</h3>
+<p>Systems contain the model logic and execute in a defined order each tick. Each system struct implements either <code>initialize!</code> (run once at setup) or <code>update!</code> (run every tick).</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Initialization ---</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> InitHBSystem <span class="op">&lt;:</span><span class="dt"> System </span><span class="kw">end</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">initialize!</span>(<span class="op">::</span><span class="dt">InitHBSystem</span>, world<span class="op">::</span><span class="dt">World</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    params <span class="op">=</span> <span class="fu">get_resource</span>(world, HBParams)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    rng <span class="op">=</span> <span class="fu">get_resource</span>(world, RNGResource).rng</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    grid <span class="op">=</span> <span class="fu">get_resource</span>(world, HBGrid)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Place bugs on random unique patches (n-of bug-count patches)</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    all_patches <span class="op">=</span> [(x, y) for x <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span>grid.width for y <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span>grid.height]</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">Random</span>.<span class="fu">shuffle!</span>(rng, all_patches)</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> <span class="fu">min</span>(params.bug_count, <span class="fu">length</span>(all_patches))</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span>n</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>        x, y <span class="op">=</span> all_patches[i]</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>        ideal <span class="op">=</span> params.min_ideal_temp <span class="op">+</span> <span class="fu">Float64</span>(<span class="fu">rand</span>(rng, <span class="fl">0</span><span class="op">:</span><span class="fu">Int</span>(params.max_ideal_temp <span class="op">-</span> params.min_ideal_temp) <span class="op">-</span> <span class="fl">1</span>))</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>        output <span class="op">=</span> params.min_output_heat <span class="op">+</span> <span class="fu">Float64</span>(<span class="fu">rand</span>(rng, <span class="fl">0</span><span class="op">:</span><span class="fu">Int</span>(params.max_output_heat <span class="op">-</span> params.min_output_heat) <span class="op">-</span> <span class="fl">1</span>))</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>        unhappy <span class="op">=</span> <span class="fu">abs</span>(ideal <span class="op">-</span> grid.temp[x, y])</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>        eid <span class="op">=</span> <span class="fu">new_entity!</span>(world, (<span class="fu">HBPos</span>(x, y), <span class="fu">HBBug</span>(ideal, output, unhappy)))</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>        grid.cells[x, y] <span class="op">=</span> eid</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="cn">nothing</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Diffuse and Evaporate ---</span></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> HBDiffuseSystem <span class="op">&lt;:</span><span class="dt"> System </span><span class="kw">end</span></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">update!</span>(<span class="op">::</span><span class="dt">HBDiffuseSystem</span>, world<span class="op">::</span><span class="dt">World</span>)</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>    params <span class="op">=</span> <span class="fu">get_resource</span>(world, HBParams)</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>    grid <span class="op">=</span> <span class="fu">get_resource</span>(world, HBGrid)</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>    w, h <span class="op">=</span> grid.width, grid.height</span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>    <span class="co"># NetLogo diffuse: each patch shares rate/8 of its value with each of 8 neighbors</span></span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>    <span class="fu">diffuse!</span>(grid.temp, params.diffusion_rate, w, h)</span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Evaporation</span></span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>    evap <span class="op">=</span> <span class="fl">1.0</span> <span class="op">-</span> params.evaporation_rate</span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="fu">eachindex</span>(grid.temp)</span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>        grid.temp[i] <span class="op">*=</span> evap</span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="cn">nothing</span></span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Bug Step ---</span></span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> HBGoSystem <span class="op">&lt;:</span><span class="dt"> System </span><span class="kw">end</span></span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">update!</span>(<span class="op">::</span><span class="dt">HBGoSystem</span>, world<span class="op">::</span><span class="dt">World</span>)</span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a>    params <span class="op">=</span> <span class="fu">get_resource</span>(world, HBParams)</span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a>    rng <span class="op">=</span> <span class="fu">get_resource</span>(world, RNGResource).rng</span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a>    grid <span class="op">=</span> <span class="fu">get_resource</span>(world, HBGrid)</span>
+<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a>    stats <span class="op">=</span> <span class="fu">get_resource</span>(world, HBStats)</span>
+<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a>    w, h <span class="op">=</span> grid.width, grid.height</span>
+<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Collect all bugs</span></span>
+<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a>    bugs <span class="op">=</span> <span class="dt">Tuple</span>{Entity, <span class="dt">Int</span>, <span class="dt">Int</span>}[]</span>
+<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (eids, positions, bugdata) <span class="kw">in</span> <span class="fu">Query</span>(world, (HBPos, HBBug))</span>
+<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a>        <span class="pp">@inbounds</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="fu">eachindex</span>(positions)</span>
+<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a>            <span class="fu">push!</span>(bugs, (eids[i], positions[i].x, positions[i].y))</span>
+<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a>    <span class="bu">Random</span>.<span class="fu">shuffle!</span>(rng, bugs)</span>
+<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a>    total_unhappy <span class="op">=</span> <span class="fl">0.0</span></span>
+<span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a>    max_unhappy <span class="op">=</span> <span class="fl">0.0</span></span>
+<span id="cb5-68"><a href="#cb5-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-69"><a href="#cb5-69" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (eid, ox, oy) <span class="kw">in</span> bugs</span>
+<span id="cb5-70"><a href="#cb5-70" aria-hidden="true" tabindex="-1"></a>        bug <span class="op">=</span> <span class="fu">get_components</span>(world, eid, (HBBug,))[<span class="fl">1</span>]</span>
+<span id="cb5-71"><a href="#cb5-71" aria-hidden="true" tabindex="-1"></a>        pos <span class="op">=</span> <span class="fu">get_components</span>(world, eid, (HBPos,))[<span class="fl">1</span>]</span>
+<span id="cb5-72"><a href="#cb5-72" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Compute unhappiness</span></span>
+<span id="cb5-73"><a href="#cb5-73" aria-hidden="true" tabindex="-1"></a>        bug.unhappiness <span class="op">=</span> <span class="fu">abs</span>(bug.ideal_temp <span class="op">-</span> grid.temp[pos.x, pos.y])</span>
+<span id="cb5-74"><a href="#cb5-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-75"><a href="#cb5-75" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> bug.unhappiness <span class="op">&gt;</span> <span class="fl">0</span></span>
+<span id="cb5-76"><a href="#cb5-76" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="fu">rand</span>(rng) <span class="op">*</span> <span class="fl">100.0</span> <span class="op">&lt;</span> params.random_move_chance</span>
+<span id="cb5-77"><a href="#cb5-77" aria-hidden="true" tabindex="-1"></a>                <span class="co"># Random move to any neighbor</span></span>
+<span id="cb5-78"><a href="#cb5-78" aria-hidden="true" tabindex="-1"></a>                target <span class="op">=</span> <span class="fu">_hb_random_neighbor</span>(rng, pos.x, pos.y, w, h)</span>
+<span id="cb5-79"><a href="#cb5-79" aria-hidden="true" tabindex="-1"></a>                <span class="fu">_hb_bug_move!</span>(grid, world, eid, pos, target, rng)</span>
+<span id="cb5-80"><a href="#cb5-80" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span></span>
+<span id="cb5-81"><a href="#cb5-81" aria-hidden="true" tabindex="-1"></a>                <span class="co"># Move to best patch</span></span>
+<span id="cb5-82"><a href="#cb5-82" aria-hidden="true" tabindex="-1"></a>                target <span class="op">=</span> <span class="fu">_hb_best_patch</span>(bug, grid, pos.x, pos.y, w, h)</span>
+<span id="cb5-83"><a href="#cb5-83" aria-hidden="true" tabindex="-1"></a>                <span class="fu">_hb_bug_move!</span>(grid, world, eid, pos, target, rng)</span>
+<span id="cb5-84"><a href="#cb5-84" aria-hidden="true" tabindex="-1"></a>            <span class="cf">end</span></span>
+<span id="cb5-85"><a href="#cb5-85" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb5-86"><a href="#cb5-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-87"><a href="#cb5-87" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Output heat</span></span>
+<span id="cb5-88"><a href="#cb5-88" aria-hidden="true" tabindex="-1"></a>        grid.temp[pos.x, pos.y] <span class="op">+=</span> bug.output_heat</span>
+<span id="cb5-89"><a href="#cb5-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-90"><a href="#cb5-90" aria-hidden="true" tabindex="-1"></a>        total_unhappy <span class="op">+=</span> bug.unhappiness</span>
+<span id="cb5-91"><a href="#cb5-91" aria-hidden="true" tabindex="-1"></a>        max_unhappy <span class="op">=</span> <span class="fu">max</span>(max_unhappy, bug.unhappiness)</span>
+<span id="cb5-92"><a href="#cb5-92" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-93"><a href="#cb5-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-94"><a href="#cb5-94" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> <span class="fu">length</span>(bugs)</span>
+<span id="cb5-95"><a href="#cb5-95" aria-hidden="true" tabindex="-1"></a>    stats.mean_unhappiness <span class="op">=</span> n <span class="op">&gt;</span> <span class="fl">0</span> ? total_unhappy <span class="op">/</span> n <span class="op">:</span> <span class="fl">0.0</span></span>
+<span id="cb5-96"><a href="#cb5-96" aria-hidden="true" tabindex="-1"></a>    stats.max_unhappiness <span class="op">=</span> max_unhappy</span>
+<span id="cb5-97"><a href="#cb5-97" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="cn">nothing</span></span>
+<span id="cb5-98"><a href="#cb5-98" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb5-99"><a href="#cb5-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-100"><a href="#cb5-100" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">_hb_random_neighbor</span>(rng, x<span class="op">::</span><span class="dt">Int</span>, y<span class="op">::</span><span class="dt">Int</span>, w<span class="op">::</span><span class="dt">Int</span>, h<span class="op">::</span><span class="dt">Int</span>)</span>
+<span id="cb5-101"><a href="#cb5-101" aria-hidden="true" tabindex="-1"></a>    offsets <span class="op">=</span> ((<span class="op">-</span><span class="fl">1</span>,<span class="op">-</span><span class="fl">1</span>),(<span class="op">-</span><span class="fl">1</span>,<span class="fl">0</span>),(<span class="op">-</span><span class="fl">1</span>,<span class="fl">1</span>),(<span class="fl">0</span>,<span class="op">-</span><span class="fl">1</span>),(<span class="fl">0</span>,<span class="fl">1</span>),(<span class="fl">1</span>,<span class="op">-</span><span class="fl">1</span>),(<span class="fl">1</span>,<span class="fl">0</span>),(<span class="fl">1</span>,<span class="fl">1</span>))</span>
+<span id="cb5-102"><a href="#cb5-102" aria-hidden="true" tabindex="-1"></a>    dx, dy <span class="op">=</span> offsets[<span class="fu">rand</span>(rng, <span class="fl">1</span><span class="op">:</span><span class="fl">8</span>)]</span>
+<span id="cb5-103"><a href="#cb5-103" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (<span class="fu">mod1</span>(x <span class="op">+</span> dx, w), <span class="fu">mod1</span>(y <span class="op">+</span> dy, h))</span>
+<span id="cb5-104"><a href="#cb5-104" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb5-105"><a href="#cb5-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-106"><a href="#cb5-106" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">_hb_best_patch</span>(bug<span class="op">::</span><span class="dt">HBBug</span>, grid<span class="op">::</span><span class="dt">HBGrid</span>, x<span class="op">::</span><span class="dt">Int</span>, y<span class="op">::</span><span class="dt">Int</span>, w<span class="op">::</span><span class="dt">Int</span>, h<span class="op">::</span><span class="dt">Int</span>)</span>
+<span id="cb5-107"><a href="#cb5-107" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> grid.temp[x, y] <span class="op">&lt;</span> bug.ideal_temp</span>
+<span id="cb5-108"><a href="#cb5-108" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Want hotter: find hottest neighbor</span></span>
+<span id="cb5-109"><a href="#cb5-109" aria-hidden="true" tabindex="-1"></a>        best <span class="op">=</span> (x, y)</span>
+<span id="cb5-110"><a href="#cb5-110" aria-hidden="true" tabindex="-1"></a>        best_temp <span class="op">=</span> grid.temp[x, y]</span>
+<span id="cb5-111"><a href="#cb5-111" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> dx <span class="kw">in</span> <span class="op">-</span><span class="fl">1</span><span class="op">:</span><span class="fl">1</span>, dy <span class="kw">in</span> <span class="op">-</span><span class="fl">1</span><span class="op">:</span><span class="fl">1</span></span>
+<span id="cb5-112"><a href="#cb5-112" aria-hidden="true" tabindex="-1"></a>            (dx <span class="op">==</span> <span class="fl">0</span> <span class="op">&amp;&amp;</span> dy <span class="op">==</span> <span class="fl">0</span>) <span class="op">&amp;&amp;</span> <span class="cf">continue</span></span>
+<span id="cb5-113"><a href="#cb5-113" aria-hidden="true" tabindex="-1"></a>            nx <span class="op">=</span> <span class="fu">mod1</span>(x <span class="op">+</span> dx, w)</span>
+<span id="cb5-114"><a href="#cb5-114" aria-hidden="true" tabindex="-1"></a>            ny <span class="op">=</span> <span class="fu">mod1</span>(y <span class="op">+</span> dy, h)</span>
+<span id="cb5-115"><a href="#cb5-115" aria-hidden="true" tabindex="-1"></a>            t <span class="op">=</span> grid.temp[nx, ny]</span>
+<span id="cb5-116"><a href="#cb5-116" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> t <span class="op">&gt;</span> best_temp</span>
+<span id="cb5-117"><a href="#cb5-117" aria-hidden="true" tabindex="-1"></a>                best_temp <span class="op">=</span> t</span>
+<span id="cb5-118"><a href="#cb5-118" aria-hidden="true" tabindex="-1"></a>                best <span class="op">=</span> (nx, ny)</span>
+<span id="cb5-119"><a href="#cb5-119" aria-hidden="true" tabindex="-1"></a>            <span class="cf">end</span></span>
+<span id="cb5-120"><a href="#cb5-120" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb5-121"><a href="#cb5-121" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> best</span>
+<span id="cb5-122"><a href="#cb5-122" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span></span>
+<span id="cb5-123"><a href="#cb5-123" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Want cooler: find coolest neighbor</span></span>
+<span id="cb5-124"><a href="#cb5-124" aria-hidden="true" tabindex="-1"></a>        best <span class="op">=</span> (x, y)</span>
+<span id="cb5-125"><a href="#cb5-125" aria-hidden="true" tabindex="-1"></a>        best_temp <span class="op">=</span> grid.temp[x, y]</span>
+<span id="cb5-126"><a href="#cb5-126" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> dx <span class="kw">in</span> <span class="op">-</span><span class="fl">1</span><span class="op">:</span><span class="fl">1</span>, dy <span class="kw">in</span> <span class="op">-</span><span class="fl">1</span><span class="op">:</span><span class="fl">1</span></span>
+<span id="cb5-127"><a href="#cb5-127" aria-hidden="true" tabindex="-1"></a>            (dx <span class="op">==</span> <span class="fl">0</span> <span class="op">&amp;&amp;</span> dy <span class="op">==</span> <span class="fl">0</span>) <span class="op">&amp;&amp;</span> <span class="cf">continue</span></span>
+<span id="cb5-128"><a href="#cb5-128" aria-hidden="true" tabindex="-1"></a>            nx <span class="op">=</span> <span class="fu">mod1</span>(x <span class="op">+</span> dx, w)</span>
+<span id="cb5-129"><a href="#cb5-129" aria-hidden="true" tabindex="-1"></a>            ny <span class="op">=</span> <span class="fu">mod1</span>(y <span class="op">+</span> dy, h)</span>
+<span id="cb5-130"><a href="#cb5-130" aria-hidden="true" tabindex="-1"></a>            t <span class="op">=</span> grid.temp[nx, ny]</span>
+<span id="cb5-131"><a href="#cb5-131" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> t <span class="op">&lt;</span> best_temp</span>
+<span id="cb5-132"><a href="#cb5-132" aria-hidden="true" tabindex="-1"></a>                best_temp <span class="op">=</span> t</span>
+<span id="cb5-133"><a href="#cb5-133" aria-hidden="true" tabindex="-1"></a>                best <span class="op">=</span> (nx, ny)</span>
+<span id="cb5-134"><a href="#cb5-134" aria-hidden="true" tabindex="-1"></a>            <span class="cf">end</span></span>
+<span id="cb5-135"><a href="#cb5-135" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb5-136"><a href="#cb5-136" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> best</span>
+<span id="cb5-137"><a href="#cb5-137" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-138"><a href="#cb5-138" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb5-139"><a href="#cb5-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-140"><a href="#cb5-140" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">_hb_bug_move!</span>(grid<span class="op">::</span><span class="dt">HBGrid</span>, world<span class="op">::</span><span class="dt">World</span>, eid<span class="op">::</span><span class="dt">Entity</span>, pos<span class="op">::</span><span class="dt">HBPos</span>, target<span class="op">::</span><span class="dt">Tuple{Int,Int}</span>, rng)</span>
+<span id="cb5-141"><a href="#cb5-141" aria-hidden="true" tabindex="-1"></a>    tx, ty <span class="op">=</span> target</span>
+<span id="cb5-142"><a href="#cb5-142" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Already here?</span></span>
+<span id="cb5-143"><a href="#cb5-143" aria-hidden="true" tabindex="-1"></a>    (tx <span class="op">==</span> pos.x <span class="op">&amp;&amp;</span> ty <span class="op">==</span> pos.y) <span class="op">&amp;&amp;</span> <span class="cf">return</span></span>
+<span id="cb5-144"><a href="#cb5-144" aria-hidden="true" tabindex="-1"></a>    w, h <span class="op">=</span> grid.width, grid.height</span>
+<span id="cb5-145"><a href="#cb5-145" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Target not occupied?</span></span>
+<span id="cb5-146"><a href="#cb5-146" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="fu">hb_is_empty</span>(grid, tx, ty)</span>
+<span id="cb5-147"><a href="#cb5-147" aria-hidden="true" tabindex="-1"></a>        grid.cells[pos.x, pos.y] <span class="op">=</span> zero_entity</span>
+<span id="cb5-148"><a href="#cb5-148" aria-hidden="true" tabindex="-1"></a>        grid.cells[tx, ty] <span class="op">=</span> eid</span>
+<span id="cb5-149"><a href="#cb5-149" aria-hidden="true" tabindex="-1"></a>        pos.x <span class="op">=</span> tx</span>
+<span id="cb5-150"><a href="#cb5-150" aria-hidden="true" tabindex="-1"></a>        pos.y <span class="op">=</span> ty</span>
+<span id="cb5-151"><a href="#cb5-151" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span></span>
+<span id="cb5-152"><a href="#cb5-152" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-153"><a href="#cb5-153" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Try any empty neighbor</span></span>
+<span id="cb5-154"><a href="#cb5-154" aria-hidden="true" tabindex="-1"></a>    neighbors <span class="op">=</span> <span class="dt">Tuple</span>{<span class="dt">Int</span>,<span class="dt">Int</span>}[]</span>
+<span id="cb5-155"><a href="#cb5-155" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> dx <span class="kw">in</span> <span class="op">-</span><span class="fl">1</span><span class="op">:</span><span class="fl">1</span>, dy <span class="kw">in</span> <span class="op">-</span><span class="fl">1</span><span class="op">:</span><span class="fl">1</span></span>
+<span id="cb5-156"><a href="#cb5-156" aria-hidden="true" tabindex="-1"></a>        (dx <span class="op">==</span> <span class="fl">0</span> <span class="op">&amp;&amp;</span> dy <span class="op">==</span> <span class="fl">0</span>) <span class="op">&amp;&amp;</span> <span class="cf">continue</span></span>
+<span id="cb5-157"><a href="#cb5-157" aria-hidden="true" tabindex="-1"></a>        nx <span class="op">=</span> <span class="fu">mod1</span>(pos.x <span class="op">+</span> dx, w)</span>
+<span id="cb5-158"><a href="#cb5-158" aria-hidden="true" tabindex="-1"></a>        ny <span class="op">=</span> <span class="fu">mod1</span>(pos.y <span class="op">+</span> dy, h)</span>
+<span id="cb5-159"><a href="#cb5-159" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="fu">hb_is_empty</span>(grid, nx, ny)</span>
+<span id="cb5-160"><a href="#cb5-160" aria-hidden="true" tabindex="-1"></a>            <span class="fu">push!</span>(neighbors, (nx, ny))</span>
+<span id="cb5-161"><a href="#cb5-161" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb5-162"><a href="#cb5-162" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-163"><a href="#cb5-163" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> !<span class="fu">isempty</span>(neighbors)</span>
+<span id="cb5-164"><a href="#cb5-164" aria-hidden="true" tabindex="-1"></a>        nx, ny <span class="op">=</span> neighbors[<span class="fu">rand</span>(rng, <span class="fl">1</span><span class="op">:</span><span class="fu">length</span>(neighbors))]</span>
+<span id="cb5-165"><a href="#cb5-165" aria-hidden="true" tabindex="-1"></a>        grid.cells[pos.x, pos.y] <span class="op">=</span> zero_entity</span>
+<span id="cb5-166"><a href="#cb5-166" aria-hidden="true" tabindex="-1"></a>        grid.cells[nx, ny] <span class="op">=</span> eid</span>
+<span id="cb5-167"><a href="#cb5-167" aria-hidden="true" tabindex="-1"></a>        pos.x <span class="op">=</span> nx</span>
+<span id="cb5-168"><a href="#cb5-168" aria-hidden="true" tabindex="-1"></a>        pos.y <span class="op">=</span> ny</span>
+<span id="cb5-169"><a href="#cb5-169" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-170"><a href="#cb5-170" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb5-171"><a href="#cb5-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-172"><a href="#cb5-172" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Termination ---</span></span>
+<span id="cb5-173"><a href="#cb5-173" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-174"><a href="#cb5-174" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> HBTerminationSystem <span class="op">&lt;:</span><span class="dt"> System </span><span class="kw">end</span></span>
+<span id="cb5-175"><a href="#cb5-175" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-176"><a href="#cb5-176" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">update!</span>(<span class="op">::</span><span class="dt">HBTerminationSystem</span>, world<span class="op">::</span><span class="dt">World</span>)</span>
+<span id="cb5-177"><a href="#cb5-177" aria-hidden="true" tabindex="-1"></a>    params <span class="op">=</span> <span class="fu">get_resource</span>(world, HBParams)</span>
+<span id="cb5-178"><a href="#cb5-178" aria-hidden="true" tabindex="-1"></a>    tick <span class="op">=</span> <span class="fu">get_resource</span>(world, Tick)</span>
+<span id="cb5-179"><a href="#cb5-179" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> tick.tick <span class="op">+</span> <span class="fl">1</span> <span class="op">&gt;=</span> params.max_ticks</span>
+<span id="cb5-180"><a href="#cb5-180" aria-hidden="true" tabindex="-1"></a>        <span class="fu">get_resource</span>(world, Terminate).stop <span class="op">=</span> <span class="cn">true</span></span>
+<span id="cb5-181"><a href="#cb5-181" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-182"><a href="#cb5-182" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="cn">nothing</span></span>
+<span id="cb5-183"><a href="#cb5-183" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="model-model.jl" class="level3">
+<h3 class="anchored" data-anchor-id="model-model.jl">Model (<code>model.jl</code>)</h3>
+<p>The model file assembles all pieces: it creates the ECS <code>World</code> with the required component types, registers resources, builds the <code>Scheduler</code> with systems in execution order, and exposes the public <code>run</code> entry point. The observer pattern records the trajectory each tick.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">heatbugs_world</span>(; initial_capacity<span class="op">::</span><span class="dt">Int </span><span class="op">=</span> <span class="fl">4096</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fu">World</span>(HBPos, HBBug; initial_capacity <span class="op">=</span> initial_capacity, allow_mutable <span class="op">=</span> <span class="cn">true</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">heatbugs_systems</span>()</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (<span class="fu">InitHBSystem</span>(), <span class="fu">HBDiffuseSystem</span>(), <span class="fu">HBGoSystem</span>(), <span class="fu">HBTerminationSystem</span>())</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">heatbugs_model</span>(params<span class="op">::</span><span class="dt">HBParams </span><span class="op">=</span> <span class="fu">HBParams</span>())</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    world <span class="op">=</span> <span class="fu">heatbugs_world</span>()</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">_add_standard_resources!</span>(world, params)</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_resource!</span>(world, <span class="fu">HBGrid</span>(params.grid_width, params.grid_height))</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_resource!</span>(world, <span class="fu">HBStats</span>())</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    scheduler <span class="op">=</span> <span class="fu">Scheduler</span>(world, <span class="fu">heatbugs_systems</span>())</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">initialize!</span>(scheduler)</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> scheduler</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> HBObserver <span class="kw">end</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">heatbugs_headers</span>(<span class="op">::</span><span class="dt">HBObserver</span>)</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [<span class="st">"MeanUnhappiness"</span>, <span class="st">"MaxUnhappiness"</span>]</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">heatbugs_values</span>(<span class="op">::</span><span class="dt">HBObserver</span>, world<span class="op">::</span><span class="dt">World</span>)</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>    stats <span class="op">=</span> <span class="fu">get_resource</span>(world, HBStats)</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dt">Float64</span>[stats.mean_unhappiness, stats.max_unhappiness]</span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">run_heatbugs</span>(; params<span class="op">::</span><span class="dt">HBParams </span><span class="op">=</span> <span class="fu">HBParams</span>(), observe<span class="op">::</span><span class="dt">Bool </span><span class="op">=</span> <span class="cn">true</span>)</span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fu">_run_model</span>(heatbugs_model, <span class="fu">HBObserver</span>(), heatbugs_values; params, observe)</span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

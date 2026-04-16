@@ -8,10 +8,7 @@ end
 
 function ca1d_model(params::CA1DParams = CA1DParams())
     world = ca1d_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, CA1DGrid(params.grid_width, params.grid_height))
     add_resource!(world, CA1DStats())
     scheduler = Scheduler(world, ca1d_systems())
@@ -34,16 +31,5 @@ function ca1d_values(::CA1DObserver, world::World)
 end
 
 function run_ca_1d_elementary(; params::CA1DParams = CA1DParams(), observe::Bool = true)
-    scheduler = ca1d_model(params)
-    obs = CA1DObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, ca1d_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, ca1d_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(ca1d_model, CA1DObserver(), ca1d_values; params, observe)
 end

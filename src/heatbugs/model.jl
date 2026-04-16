@@ -8,10 +8,7 @@ end
 
 function heatbugs_model(params::HBParams = HBParams())
     world = heatbugs_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, HBGrid(params.grid_width, params.grid_height))
     add_resource!(world, HBStats())
     scheduler = Scheduler(world, heatbugs_systems())
@@ -31,16 +28,5 @@ function heatbugs_values(::HBObserver, world::World)
 end
 
 function run_heatbugs(; params::HBParams = HBParams(), observe::Bool = true)
-    scheduler = heatbugs_model(params)
-    obs = HBObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, heatbugs_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, heatbugs_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(heatbugs_model, HBObserver(), heatbugs_values; params, observe)
 end

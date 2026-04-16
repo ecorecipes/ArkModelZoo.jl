@@ -23,10 +23,7 @@ end
 
 function daisyworld_model(params::DaisyworldParams = DaisyworldParams())
     world = daisyworld_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, TemperatureGrid(params.grid_size, params.grid_size))
     add_resource!(world, DaisyStats())
     scheduler = Scheduler(world, daisyworld_systems())
@@ -47,16 +44,5 @@ function daisyworld_values(::DaisyworldObserver, world::World)
 end
 
 function run_daisyworld(; params::DaisyworldParams = DaisyworldParams(), observe::Bool = true)
-    scheduler = daisyworld_model(params)
-    obs = DaisyworldObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, daisyworld_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, daisyworld_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(daisyworld_model, DaisyworldObserver(), daisyworld_values; params, observe)
 end

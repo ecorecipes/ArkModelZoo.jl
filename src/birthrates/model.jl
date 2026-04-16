@@ -21,10 +21,7 @@ end
 
 function birthrates_model(params::BirthRatesParams = BirthRatesParams())
     world = birthrates_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, BirthRatesStats())
     scheduler = Scheduler(world, birthrates_systems())
     initialize!(scheduler)
@@ -43,16 +40,5 @@ function birthrates_values(::BirthRatesObserver, world::World)
 end
 
 function run_birthrates(; params::BirthRatesParams = BirthRatesParams(), observe::Bool = true)
-    scheduler = birthrates_model(params)
-    obs = BirthRatesObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, birthrates_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, birthrates_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(birthrates_model, BirthRatesObserver(), birthrates_values; params, observe)
 end

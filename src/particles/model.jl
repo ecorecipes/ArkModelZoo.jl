@@ -17,10 +17,7 @@ end
 
 function particles_model(params::ParticlesParams = ParticlesParams())
     world = particles_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, ParticleStats())
     scheduler = Scheduler(world, particles_systems())
     initialize!(scheduler)
@@ -39,16 +36,5 @@ function particles_values(::ParticlesObserver, world::World)
 end
 
 function run_particles(; params::ParticlesParams = ParticlesParams(), observe::Bool = true)
-    scheduler = particles_model(params)
-    obs = ParticlesObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, particles_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, particles_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(particles_model, ParticlesObserver(), particles_values; params, observe)
 end

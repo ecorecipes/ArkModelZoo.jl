@@ -13,10 +13,7 @@ end
 
 function pdsimple_model(params::PDSimpleParams = PDSimpleParams())
     world = pdsimple_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, PDSGrid(params.grid_size, params.grid_size))
     add_resource!(world, PDSStats())
     scheduler = Scheduler(world, pdsimple_systems())
@@ -36,16 +33,5 @@ function pdsimple_values(::PDSimpleObserver, world::World)
 end
 
 function run_pdsimple(; params::PDSimpleParams = PDSimpleParams(), observe::Bool = true)
-    scheduler = pdsimple_model(params)
-    obs = PDSimpleObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, pdsimple_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, pdsimple_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(pdsimple_model, PDSimpleObserver(), pdsimple_values; params, observe)
 end

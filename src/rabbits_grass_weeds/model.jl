@@ -18,10 +18,7 @@ end
 
 function rgw_model(params::RGWParams = RGWParams())
     world = rgw_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, RGWPatchGrid(params.grid_width, params.grid_height))
     add_resource!(world, RGWStats())
     scheduler = Scheduler(world, rgw_systems())
@@ -41,16 +38,5 @@ function rgw_values(::RGWObserver, world::World)
 end
 
 function run_rgw(; params::RGWParams = RGWParams(), observe::Bool = true)
-    scheduler = rgw_model(params)
-    obs = RGWObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, rgw_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, rgw_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(rgw_model, RGWObserver(), rgw_values; params, observe)
 end

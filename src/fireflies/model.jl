@@ -8,10 +8,7 @@ end
 
 function ff_model(params::FFParams = FFParams())
     world = ff_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, FFStats())
     scheduler = Scheduler(world, ff_systems())
     initialize!(scheduler)
@@ -30,16 +27,5 @@ function ff_values(::FFObserver, world::World)
 end
 
 function run_fireflies(; params::FFParams = FFParams(), observe::Bool = true)
-    scheduler = ff_model(params)
-    obs = FFObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, ff_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, ff_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(ff_model, FFObserver(), ff_values; params, observe)
 end

@@ -1,0 +1,141 @@
+name: External validation
+
+on:
+  workflow_dispatch:
+    inputs:
+      runner_label:
+        description: Runner label to use for external validation
+        required: true
+        default: ubuntu-latest
+        type: string
+      run_gis_tests:
+        description: Run the GIS fixture-backed package tests
+        required: true
+        default: false
+        type: boolean
+      classmodels_dir:
+        description: Absolute path to the NetLogo ClassModels fixtures on the selected runner
+        required: false
+        default: ""
+        type: string
+      run_calibration:
+        description: Run Java NetLogo calibration checks via NetLogo.jl
+        required: true
+        default: false
+        type: boolean
+      netlogo_jl_dir:
+        description: Absolute path to a NetLogo.jl checkout on the selected runner
+        required: false
+        default: ""
+        type: string
+      calibration_models:
+        description: Comma-separated calibration targets; leave blank to run the full suite
+        required: false
+        default: "segregation,fire,virus"
+        type: string
+
+concurrency:
+  group: external-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-inputs:
+    name: Validate external inputs
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check dispatch inputs
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [ "${{ inputs.run_gis_tests }}" != "true" ] && [ "${{ inputs.run_calibration }}" != "true" ]; then
+            echo "::error::Select at least one external validation path."
+            exit 1
+          fi
+
+          if [ "${{ inputs.run_gis_tests }}" = "true" ] && [ -z "${{ inputs.classmodels_dir }}" ]; then
+            echo "::error::classmodels_dir is required when run_gis_tests=true."
+            exit 1
+          fi
+
+          if [ "${{ inputs.run_calibration }}" = "true" ] && [ -z "${{ inputs.netlogo_jl_dir }}" ]; then
+            echo "::error::netlogo_jl_dir is required when run_calibration=true."
+            exit 1
+          fi
+
+  gis-tests:
+    name: GIS fixture tests
+    needs: validate-inputs
+    if: ${{ inputs.run_gis_tests }}
+    runs-on: ${{ inputs.runner_label }}
+
+    env:
+      NETLOGO_CLASSMODELS_DIR: ${{ inputs.classmodels_dir }}
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Julia
+        uses: julia-actions/setup-julia@v2
+        with:
+          version: "1.10"
+
+      - name: Cache Julia artifacts
+        uses: julia-actions/cache@v2
+
+      - name: Verify fixture path
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -d "$NETLOGO_CLASSMODELS_DIR"
+
+      - name: Build package
+        uses: julia-actions/julia-buildpkg@v1
+
+      - name: Run tests with GIS fixtures
+        shell: bash
+        run: julia --project=. -e 'using Pkg; Pkg.test()'
+
+  netlogo-calibration:
+    name: NetLogo calibration
+    needs: validate-inputs
+    if: ${{ inputs.run_calibration }}
+    runs-on: ${{ inputs.runner_label }}
+
+    env:
+      NETLOGO_JL_DIR: ${{ inputs.netlogo_jl_dir }}
+      CALIBRATION_MODELS: ${{ inputs.calibration_models }}
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Julia
+        uses: julia-actions/setup-julia@v2
+        with:
+          version: "1.10"
+
+      - name: Cache Julia artifacts
+        uses: julia-actions/cache@v2
+
+      - name: Verify NetLogo.jl path
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -d "$NETLOGO_JL_DIR"
+          test -f "$NETLOGO_JL_DIR/eval/NetLogoCompare.jl"
+
+      - name: Build package
+        uses: julia-actions/julia-buildpkg@v1
+
+      - name: Run calibration targets
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ -n "$CALIBRATION_MODELS" ]; then
+            julia --project=. test/calibrate.jl "$CALIBRATION_MODELS"
+          else
+            julia --project=. test/calibrate.jl
+          fi

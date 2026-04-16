@@ -12,6 +12,9 @@
 #   julia --project=. compare/compare.jl [model] [n_per_batch]
 #   julia --project=. compare/compare.jl segregation 20
 #   julia --project=. compare/compare.jl all 10
+#
+# Set NETLOGO_DIR to a NetLogo distribution containing netlogo-headless.sh
+# if it is not discoverable from the local checkout layout.
 
 using Printf
 using Statistics
@@ -19,8 +22,22 @@ using Random
 
 # ── Configuration ─────────────────────────────────────────────────────
 
-const NETLOGO_DIR = get(ENV, "NETLOGO_DIR",
-    "/Users/username/Projects/netlogo/NetLogo-dist/NetLogo-6.4.0-64")
+const REPO_ROOT = normpath(joinpath(@__DIR__, ".."))
+
+function _find_netlogo_dir()
+    env_path = get(ENV, "NETLOGO_DIR", "")
+    candidates = filter(!isempty, [
+        env_path,
+        normpath(joinpath(REPO_ROOT, "..", "..", "netlogo", "NetLogo-dist", "NetLogo-6.4.0-64")),
+        normpath(joinpath(REPO_ROOT, "..", "NetLogo-dist", "NetLogo-6.4.0-64")),
+    ])
+    for candidate in candidates
+        isdir(candidate) && return candidate
+    end
+    return nothing
+end
+
+const NETLOGO_DIR = _find_netlogo_dir()
 
 # ── Data types ────────────────────────────────────────────────────────
 
@@ -401,6 +418,8 @@ function parse_behaviorsearch_csv(path::String, globals::Vector{String})
 end
 
 function run_java_trajectories(nlogo_src::String, seeds::Vector{Int}, globals::Vector{String})
+    NETLOGO_DIR === nothing &&
+        error("NetLogo not found. Set NETLOGO_DIR to a NetLogo distribution containing netlogo-headless.sh.")
     headless = joinpath(NETLOGO_DIR, "netlogo-headless.sh")
     isfile(headless) || error("netlogo-headless.sh not found at $headless")
     tmpdir = mktempdir()
@@ -429,7 +448,7 @@ end
 
 # Load ArkModelZoo
 using Pkg
-Pkg.activate(joinpath(@__DIR__, ".."); io=devnull)
+Pkg.activate(REPO_ROOT; io=devnull)
 using ArkModelZoo
 using Ark
 

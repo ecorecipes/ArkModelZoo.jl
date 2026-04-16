@@ -8,10 +8,7 @@ end
 
 function superdiffuser_model(params::SDiffParams = SDiffParams())
     world = superdiffuser_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, SDiffNetwork())
     add_resource!(world, SDiffStats())
     scheduler = Scheduler(world, superdiffuser_systems())

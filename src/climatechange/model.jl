@@ -19,10 +19,7 @@ end
 
 function climatechange_model(params::ClimateChangeParams = ClimateChangeParams())
     world = climatechange_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, ClimateStats())
     scheduler = Scheduler(world, climatechange_systems())
     initialize!(scheduler)
@@ -41,16 +38,5 @@ function climatechange_values(::ClimateChangeObserver, world::World)
 end
 
 function run_climatechange(; params::ClimateChangeParams = ClimateChangeParams(), observe::Bool = true)
-    scheduler = climatechange_model(params)
-    obs = ClimateChangeObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, climatechange_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, climatechange_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(climatechange_model, ClimateChangeObserver(), climatechange_values; params, observe)
 end

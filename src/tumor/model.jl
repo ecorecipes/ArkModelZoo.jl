@@ -21,10 +21,7 @@ end
 
 function tumor_model(params::TumorParams = TumorParams())
     world = tumor_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, TumorStats())
     scheduler = Scheduler(world, tumor_systems())
     initialize!(scheduler)
@@ -43,16 +40,5 @@ function tumor_values(::TumorObserver, world::World)
 end
 
 function run_tumor(; params::TumorParams = TumorParams(), observe::Bool = true)
-    scheduler = tumor_model(params)
-    obs = TumorObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, tumor_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, tumor_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(tumor_model, TumorObserver(), tumor_values; params, observe)
 end

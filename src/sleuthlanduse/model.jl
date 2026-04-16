@@ -17,10 +17,7 @@ end
 
 function sleuthlanduse_model(params::SleuthParams = SleuthParams())
     world = sleuthlanduse_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, SleuthGrid(params.grid_width, params.grid_height))
     add_resource!(world, SleuthStats())
     scheduler = Scheduler(world, sleuthlanduse_systems())
@@ -40,16 +37,5 @@ function sleuthlanduse_values(::SleuthObserver, world::World)
 end
 
 function run_sleuthlanduse(; params::SleuthParams = SleuthParams(), observe::Bool = true)
-    scheduler = sleuthlanduse_model(params)
-    obs = SleuthObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, sleuthlanduse_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, sleuthlanduse_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(sleuthlanduse_model, SleuthObserver(), sleuthlanduse_values; params, observe)
 end

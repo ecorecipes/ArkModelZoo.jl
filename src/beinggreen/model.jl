@@ -21,10 +21,7 @@ end
 
 function beinggreen_model(params::BeingGreenParams = BeingGreenParams())
     world = beinggreen_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, BeingGreenGrid(params.grid_width, params.grid_height))
     add_resource!(world, BeingGreenStats())
     scheduler = Scheduler(world, beinggreen_systems())
@@ -44,16 +41,5 @@ function beinggreen_values(::BeingGreenObserver, world::World)
 end
 
 function run_beinggreen(; params::BeingGreenParams = BeingGreenParams(), observe::Bool = true)
-    scheduler = beinggreen_model(params)
-    obs = BeingGreenObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, beinggreen_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, beinggreen_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(beinggreen_model, BeingGreenObserver(), beinggreen_values; params, observe)
 end

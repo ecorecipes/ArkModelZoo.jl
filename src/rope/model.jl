@@ -17,9 +17,7 @@ end
 
 function rope_model(params::RopeParams = RopeParams())
     world = rope_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, RopeState(params.world_width))
     add_resource!(world, RopeStats())
     scheduler = Scheduler(world, rope_systems())
@@ -39,16 +37,5 @@ function rope_values(::RopeObserver, world::World)
 end
 
 function run_rope(; params::RopeParams = RopeParams(), observe::Bool = true)
-    scheduler = rope_model(params)
-    obs = RopeObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, rope_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, rope_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(rope_model, RopeObserver(), rope_values; params, observe)
 end

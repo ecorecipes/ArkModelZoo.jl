@@ -30,15 +30,7 @@ function update!(::PDEGoSystem, world::World)
 
     # interact: compute scores
     for x in 1:w, y in 1:h
-        total_cooperators = 0
-        for dx in -1:1, dy in -1:1
-            (dx == 0 && dy == 0) && continue
-            nx = mod1(x + dx, w)
-            ny = mod1(y + dy, h)
-            if grid.cooperate[nx, ny]
-                total_cooperators += 1
-            end
-        end
+        total_cooperators = moore_neighbor_count(identity, grid.cooperate, x, y, w, h)
         if grid.cooperate[x, y]
             grid.score[x, y] = Float64(total_cooperators)
         else

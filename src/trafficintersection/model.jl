@@ -8,10 +8,7 @@ end
 
 function trafficintersection_model(params::TIParams = TIParams())
     world = trafficintersection_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, TIRoad(params.grid_size))
     add_resource!(world, TIStats())
     scheduler = Scheduler(world, trafficintersection_systems())
@@ -31,16 +28,5 @@ function trafficintersection_values(::TIObserver, world::World)
 end
 
 function run_trafficintersection(; params::TIParams = TIParams(), observe::Bool = true)
-    scheduler = trafficintersection_model(params)
-    obs = TIObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, trafficintersection_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, trafficintersection_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(trafficintersection_model, TIObserver(), trafficintersection_values; params, observe)
 end

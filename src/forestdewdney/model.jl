@@ -16,10 +16,7 @@ end
 
 function forestdewdney_model(params::FDParams = FDParams())
     world = forestdewdney_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, FDForest(params.grid_width, params.grid_height))
     add_resource!(world, FDStats())
     scheduler = Scheduler(world, forestdewdney_systems())
@@ -39,16 +36,5 @@ function forestdewdney_values(::FDObserver, world::World)
 end
 
 function run_forestdewdney(; params::FDParams = FDParams(), observe::Bool = true)
-    scheduler = forestdewdney_model(params)
-    obs = FDObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, forestdewdney_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, forestdewdney_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(forestdewdney_model, FDObserver(), forestdewdney_values; params, observe)
 end

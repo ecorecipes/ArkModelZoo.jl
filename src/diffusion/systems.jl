@@ -37,18 +37,9 @@ struct DiffusionUpdateSystem <: System end
 function update!(::DiffusionUpdateSystem, world::World)
     grid = get_resource(world, DiffusionGrid)
     w, h = grid.width, grid.height
-    old = copy(grid.temp)
 
     # Diffuse temp 0.5
-    for x in 1:w, y in 1:h
-        s = 0.0
-        for (dx, dy) in ((-1,-1), (-1,0), (-1,1), (0,-1), (0,1), (1,-1), (1,0), (1,1))
-            nx = mod1(x + dx, w)
-            ny = mod1(y + dy, h)
-            s += old[nx, ny]
-        end
-        grid.temp[x, y] = 0.5 * old[x, y] + 0.0625 * s
-    end
+    diffuse!(grid.temp, 0.5, w, h)
 
     # Decay: temp * 0.99
     for x in 1:w, y in 1:h

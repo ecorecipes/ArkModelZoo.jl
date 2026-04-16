@@ -26,18 +26,9 @@ struct BoilingUpdateSystem <: System end
 function update!(::BoilingUpdateSystem, world::World)
     grid = get_resource(world, BoilingGrid)
     w, h = grid.width, grid.height
-    old = copy(grid.heat)
 
-    # Full diffusion: each patch's new value = average of its 8 Moore neighbors
-    for x in 1:w, y in 1:h
-        s = 0.0
-        for (dx, dy) in ((-1,-1), (-1,0), (-1,1), (0,-1), (0,1), (1,-1), (1,0), (1,1))
-            nx = mod1(x + dx, w)
-            ny = mod1(y + dy, h)
-            s += old[nx, ny]
-        end
-        grid.heat[x, y] = s / 8.0
-    end
+    # Full diffusion: diffuse heat 1
+    diffuse!(grid.heat, 1.0, w, h)
 
     # Phase transition: (heat + 5) mod 212
     for x in 1:w, y in 1:h

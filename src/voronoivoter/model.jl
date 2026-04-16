@@ -17,10 +17,7 @@ end
 
 function voronoivoter_model(params::VoronoiVoterParams = VoronoiVoterParams())
     world = voronoivoter_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, VoronoiGrid(params.grid_size, params.grid_size))
     add_resource!(world, VoronoiNetwork())
     add_resource!(world, VoronoiStats())
@@ -41,16 +38,5 @@ function voronoivoter_values(::VoronoiVoterObserver, world::World)
 end
 
 function run_voronoivoter(; params::VoronoiVoterParams = VoronoiVoterParams(), observe::Bool = true)
-    scheduler = voronoivoter_model(params)
-    obs = VoronoiVoterObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, voronoivoter_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, voronoivoter_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(voronoivoter_model, VoronoiVoterObserver(), voronoivoter_values; params, observe)
 end

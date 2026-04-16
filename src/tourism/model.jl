@@ -17,10 +17,7 @@ end
 
 function tourism_model(params::TourismParams = TourismParams())
     world = tourism_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, TourismStats())
     add_resource!(world, TourismState())
     scheduler = Scheduler(world, tourism_systems())
@@ -40,16 +37,5 @@ function tourism_values(::TourismObserver, world::World)
 end
 
 function run_tourism(; params::TourismParams = TourismParams(), observe::Bool = true)
-    scheduler = tourism_model(params)
-    obs = TourismObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, tourism_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, tourism_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(tourism_model, TourismObserver(), tourism_values; params, observe)
 end

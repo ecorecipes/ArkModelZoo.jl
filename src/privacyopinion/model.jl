@@ -17,10 +17,7 @@ end
 function privacyopinion_model(params::PrvParams = PrvParams())
     world = privacyopinion_world()
     n = params.rows * params.cols
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, PrvNetwork(n))
     add_resource!(world, PrvCounters(params.hr_minimum_tick_interval, params.privacy_minimum_tick_interval))
     add_resource!(world, PrvStats())
@@ -41,16 +38,5 @@ function privacyopinion_values(::PrvObserver, world::World)
 end
 
 function run_privacyopinion(; params::PrvParams = PrvParams(), observe::Bool = true)
-    scheduler = privacyopinion_model(params)
-    obs = PrvObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, privacyopinion_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, privacyopinion_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(privacyopinion_model, PrvObserver(), privacyopinion_values; params, observe)
 end

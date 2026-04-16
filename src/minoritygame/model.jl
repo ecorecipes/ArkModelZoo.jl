@@ -8,10 +8,7 @@ end
 
 function minoritygame_model(params::MGParams = MGParams())
     world = minoritygame_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, MGState())
     add_resource!(world, MGStats())
     scheduler = Scheduler(world, minoritygame_systems())
@@ -31,16 +28,5 @@ function minoritygame_values(::MGObserver, world::World)
 end
 
 function run_minoritygame(; params::MGParams = MGParams(), observe::Bool = true)
-    scheduler = minoritygame_model(params)
-    obs = MGObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, minoritygame_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, minoritygame_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(minoritygame_model, MGObserver(), minoritygame_values; params, observe)
 end

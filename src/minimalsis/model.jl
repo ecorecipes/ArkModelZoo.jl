@@ -8,10 +8,7 @@ end
 
 function minimalsis_model(params::MinimalSISParams = MinimalSISParams())
     world = minimalsis_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, MSISState())
     add_resource!(world, MSISStats())
     scheduler = Scheduler(world, minimalsis_systems())
@@ -31,16 +28,5 @@ function minimalsis_values(::MSISObserver, world::World)
 end
 
 function run_minimalsis(; params::MinimalSISParams = MinimalSISParams(), observe::Bool = true)
-    scheduler = minimalsis_model(params)
-    obs = MSISObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, minimalsis_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, minimalsis_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(minimalsis_model, MSISObserver(), minimalsis_values; params, observe)
 end

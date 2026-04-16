@@ -97,22 +97,7 @@ struct DiffuseTemperatureSystem <: System end
 function update!(::DiffuseTemperatureSystem, world::World)
     grid = get_resource(world, TemperatureGrid)
     w = grid.width
-    temp = grid.temperature
-    # 50% diffusion to neighbors
-    buf = copy(temp)
-
-    @inbounds for x in 1:w, y in 1:w
-        share = temp[x, y] * 0.5 / 8.0
-        buf[x, y] -= temp[x, y] * 0.5
-        for dx in -1:1, dy in -1:1
-            (dx == 0 && dy == 0) && continue
-            nx = mod1(x + dx, w)
-            ny = mod1(y + dy, w)
-            buf[nx, ny] += share
-        end
-    end
-
-    copyto!(temp, buf)
+    diffuse!(grid.temperature, 0.5, w, w)
     return nothing
 end
 

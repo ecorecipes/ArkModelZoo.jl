@@ -19,10 +19,7 @@ end
 
 function coordination2groups_model(params::Coordination2GroupsParams = Coordination2GroupsParams())
     world = coordination2groups_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, Coordination2GroupsStats())
     scheduler = Scheduler(world, coordination2groups_systems())
     initialize!(scheduler)
@@ -41,16 +38,5 @@ function coordination2groups_values(::Coordination2GroupsObserver, world::World)
 end
 
 function run_coordination2groups(; params::Coordination2GroupsParams = Coordination2GroupsParams(), observe::Bool = true)
-    scheduler = coordination2groups_model(params)
-    obs = Coordination2GroupsObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, coordination2groups_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, coordination2groups_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(coordination2groups_model, Coordination2GroupsObserver(), coordination2groups_values; params, observe)
 end

@@ -12,10 +12,7 @@ end
 
 function sand_model(params::SandParams = SandParams())
     world = sand_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, SandGrid(params.grid_width, params.grid_height))
     add_resource!(world, SandStats())
     scheduler = Scheduler(world, sand_systems())
@@ -35,16 +32,5 @@ function sand_values(::SandObserver, world::World)
 end
 
 function run_sand(; params::SandParams = SandParams(), observe::Bool = true)
-    scheduler = sand_model(params)
-    obs = SandObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, sand_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, sand_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(sand_model, SandObserver(), sand_values; params, observe)
 end

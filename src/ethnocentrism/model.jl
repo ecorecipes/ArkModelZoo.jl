@@ -23,10 +23,7 @@ end
 
 function ethnocentrism_model(params::EthnocentrismParams = EthnocentrismParams())
     world = ethnocentrism_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, EthnoGrid(params.grid_size, params.grid_size))
     add_resource!(world, EthnoStats())
     scheduler = Scheduler(world, ethnocentrism_systems())
@@ -50,16 +47,5 @@ function ethnocentrism_values(::EthnocentrismObserver, world::World)
 end
 
 function run_ethnocentrism(; params::EthnocentrismParams = EthnocentrismParams(), observe::Bool = true)
-    scheduler = ethnocentrism_model(params)
-    obs = EthnocentrismObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, ethnocentrism_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, ethnocentrism_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(ethnocentrism_model, EthnocentrismObserver(), ethnocentrism_values; params, observe)
 end

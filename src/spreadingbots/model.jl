@@ -8,10 +8,7 @@ end
 
 function spreadingbots_model(params::SBotParams = SBotParams())
     world = spreadingbots_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, SBotNetwork())
     add_resource!(world, SBotStats())
     scheduler = Scheduler(world, spreadingbots_systems())
@@ -31,16 +28,5 @@ function spreadingbots_values(::SBotObserver, world::World)
 end
 
 function run_spreadingbots(; params::SBotParams = SBotParams(), observe::Bool = true)
-    scheduler = spreadingbots_model(params)
-    obs = SBotObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, spreadingbots_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, spreadingbots_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(spreadingbots_model, SBotObserver(), spreadingbots_values; params, observe)
 end

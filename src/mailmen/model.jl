@@ -21,10 +21,7 @@ end
 
 function mailmen_model(params::MailmenParams = MailmenParams())
     world = mailmen_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, MailmenStats())
     add_resource!(world, MailmenRegistry())
     scheduler = Scheduler(world, mailmen_systems())
@@ -44,16 +41,5 @@ function mailmen_values(::MailmenObserver, world::World)
 end
 
 function run_mailmen(; params::MailmenParams = MailmenParams(), observe::Bool = true)
-    scheduler = mailmen_model(params)
-    obs = MailmenObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, mailmen_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, mailmen_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(mailmen_model, MailmenObserver(), mailmen_values; params, observe)
 end

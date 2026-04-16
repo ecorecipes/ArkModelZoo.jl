@@ -16,10 +16,7 @@ end
 
 function paretolearn_model(params::ParetoLearnParams = ParetoLearnParams())
     world = paretolearn_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, ParetoLearnerState(params.exploration_rate))
     add_resource!(world, ParetoStats())
     scheduler = Scheduler(world, paretolearn_systems())
@@ -39,16 +36,5 @@ function paretolearn_values(::ParetoLearnObserver, world::World)
 end
 
 function run_paretolearn(; params::ParetoLearnParams = ParetoLearnParams(), observe::Bool = true)
-    scheduler = paretolearn_model(params)
-    obs = ParetoLearnObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, paretolearn_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, paretolearn_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(paretolearn_model, ParetoLearnObserver(), paretolearn_values; params, observe)
 end

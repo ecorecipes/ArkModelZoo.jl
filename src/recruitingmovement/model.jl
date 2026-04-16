@@ -12,10 +12,7 @@ end
 
 function recruitingmovement_model(params::RecMovParams = RecMovParams())
     world = recruitingmovement_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, RecMovState())
     add_resource!(world, RecMovStats())
     scheduler = Scheduler(world, recruitingmovement_systems())
@@ -35,16 +32,5 @@ function recruitingmovement_values(::RecMovObserver, world::World)
 end
 
 function run_recruitingmovement(; params::RecMovParams = RecMovParams(), observe::Bool = true)
-    scheduler = recruitingmovement_model(params)
-    obs = RecMovObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, recruitingmovement_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, recruitingmovement_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(recruitingmovement_model, RecMovObserver(), recruitingmovement_values; params, observe)
 end

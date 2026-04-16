@@ -12,10 +12,7 @@ end
 
 function babysittingcoop_model(params::BSitParams = BSitParams())
     world = babysittingcoop_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, BSitState())
     add_resource!(world, BSitStats())
     scheduler = Scheduler(world, babysittingcoop_systems())
@@ -35,16 +32,5 @@ function babysittingcoop_values(::BabysittingCoopObserver, world::World)
 end
 
 function run_babysittingcoop(; params::BSitParams = BSitParams(), observe::Bool = true)
-    scheduler = babysittingcoop_model(params)
-    obs = BabysittingCoopObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, babysittingcoop_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, babysittingcoop_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(babysittingcoop_model, BabysittingCoopObserver(), babysittingcoop_values; params, observe)
 end

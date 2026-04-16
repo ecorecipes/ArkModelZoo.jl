@@ -20,10 +20,7 @@ end
 
 function hikingelevation_model(params::HikeParams = HikeParams())
     world = hikingelevation_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, HikeGrid(262, 184))
     add_resource!(world, HikeStats())
     scheduler = Scheduler(world, hikingelevation_systems())
@@ -43,16 +40,5 @@ function hikingelevation_values(::HikeObserver, world::World)
 end
 
 function run_hikingelevation(; params::HikeParams = HikeParams(), observe::Bool = true)
-    scheduler = hikingelevation_model(params)
-    obs = HikeObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, hikingelevation_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, hikingelevation_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(hikingelevation_model, HikeObserver(), hikingelevation_values; params, observe)
 end

@@ -18,10 +18,7 @@ end
 
 function druguse_model(params::DrugUseParams = DrugUseParams())
     world = druguse_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, DrugGrid(params.grid_size, params.grid_size))
     add_resource!(world, DrugNetwork())
     add_resource!(world, DrugStats())
@@ -42,16 +39,5 @@ function druguse_values(::DrugUseObserver, world::World)
 end
 
 function run_druguse(; params::DrugUseParams = DrugUseParams(), observe::Bool = true)
-    scheduler = druguse_model(params)
-    obs = DrugUseObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, druguse_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, druguse_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(druguse_model, DrugUseObserver(), druguse_values; params, observe)
 end

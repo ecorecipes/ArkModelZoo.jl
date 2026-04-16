@@ -12,10 +12,7 @@ end
 
 function bb_model(params::BBParams = BBParams())
     world = bb_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, BBGrid(params.grid_width, params.grid_height))
     add_resource!(world, BBStats())
     scheduler = Scheduler(world, bb_systems())
@@ -36,16 +33,5 @@ function bb_values(::BBObserver, world::World)
 end
 
 function run_brians_brain(; params::BBParams = BBParams(), observe::Bool = true)
-    scheduler = bb_model(params)
-    obs = BBObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, bb_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, bb_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(bb_model, BBObserver(), bb_values; params, observe)
 end

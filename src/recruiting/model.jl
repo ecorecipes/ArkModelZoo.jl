@@ -12,10 +12,7 @@ end
 
 function recruiting_model(params::RecParams = RecParams())
     world = recruiting_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, RecState())
     add_resource!(world, RecStats())
     scheduler = Scheduler(world, recruiting_systems())
@@ -35,16 +32,5 @@ function recruiting_values(::RecruitingObserver, world::World)
 end
 
 function run_recruiting(; params::RecParams = RecParams(), observe::Bool = true)
-    scheduler = recruiting_model(params)
-    obs = RecruitingObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, recruiting_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, recruiting_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(recruiting_model, RecruitingObserver(), recruiting_values; params, observe)
 end

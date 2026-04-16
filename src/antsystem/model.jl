@@ -13,10 +13,7 @@ end
 
 function antsystem_model(params::AntSystemParams = AntSystemParams())
     world = antsystem_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, TSPGraph(params.num_nodes))
     add_resource!(world, TSPState())
     add_resource!(world, TSPStats())
@@ -37,16 +34,5 @@ function antsystem_values(::AntSystemObserver, world::World)
 end
 
 function run_antsystem(; params::AntSystemParams = AntSystemParams(), observe::Bool = true)
-    scheduler = antsystem_model(params)
-    obs = AntSystemObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, antsystem_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, antsystem_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(antsystem_model, AntSystemObserver(), antsystem_values; params, observe)
 end

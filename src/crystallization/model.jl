@@ -14,10 +14,7 @@ end
 
 function crystallization_model(params::CrystallizationParams = CrystallizationParams())
     world = crystallization_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, CrystGrid(params.metal_size))
     add_resource!(world, CrystStats())
     scheduler = Scheduler(world, crystallization_systems())
@@ -37,16 +34,5 @@ function crystallization_values(::CrystallizationObserver, world::World)
 end
 
 function run_crystallization(; params::CrystallizationParams = CrystallizationParams(), observe::Bool = true)
-    scheduler = crystallization_model(params)
-    obs = CrystallizationObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, crystallization_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, crystallization_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(crystallization_model, CrystallizationObserver(), crystallization_values; params, observe)
 end

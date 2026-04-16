@@ -8,10 +8,7 @@ end
 
 function socialnetworkdiffusion_model(params::SocialNetDiffParams = SocialNetDiffParams())
     world = socialnetworkdiffusion_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, SNDNetwork())
     add_resource!(world, SNDStats())
     scheduler = Scheduler(world, socialnetworkdiffusion_systems())
@@ -31,16 +28,5 @@ function socialnetworkdiffusion_values(::SNDObserver, world::World)
 end
 
 function run_socialnetworkdiffusion(; params::SocialNetDiffParams = SocialNetDiffParams(), observe::Bool = true)
-    scheduler = socialnetworkdiffusion_model(params)
-    obs = SNDObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, socialnetworkdiffusion_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, socialnetworkdiffusion_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(socialnetworkdiffusion_model, SNDObserver(), socialnetworkdiffusion_values; params, observe)
 end

@@ -8,15 +8,35 @@ Usage:
     julia --project=. test/calibrate.jl                  # run all
     julia --project=. test/calibrate.jl fire              # run one
     julia --project=. test/calibrate.jl fire,decay,ising  # run several
+
+Set `NETLOGO_JL_DIR` to a NetLogo.jl checkout before running calibration.
 """
 
 # ── Load comparison framework ────────────────────────────────────────
-const NETLOGO_JL_DIR = "/Users/username/Projects/netlogo/NetLogo.jl"
+const REPO_ROOT = normpath(joinpath(@__DIR__, ".."))
+
+function _find_netlogo_jl_dir()
+    env_path = get(ENV, "NETLOGO_JL_DIR", "")
+    candidates = filter(!isempty, [
+        env_path,
+        normpath(joinpath(REPO_ROOT, "..", "..", "netlogo", "NetLogo.jl")),
+        normpath(joinpath(REPO_ROOT, "..", "NetLogo.jl")),
+    ])
+    for candidate in candidates
+        isdir(candidate) && return candidate
+    end
+    return nothing
+end
+
+const NETLOGO_JL_DIR = _find_netlogo_jl_dir()
+NETLOGO_JL_DIR === nothing &&
+    error("NetLogo.jl not found. Set NETLOGO_JL_DIR to the NetLogo.jl checkout before running calibration.")
+
 include(joinpath(NETLOGO_JL_DIR, "eval", "NetLogoCompare.jl"))
 using .NetLogoCompare
 
 using Pkg
-Pkg.activate("/Users/username/Projects/ecs/ArkModelZoo.jl")
+Pkg.activate(REPO_ROOT)
 using ArkModelZoo, Ark
 
 # ── Registry: map NetLogo model names to Ark run functions ───────────
@@ -66,7 +86,7 @@ function calibrate(netlogo_file::String; n_per_batch::Int=30)
     # Get the model instance — use explicit type if provided, else auto-discover
     model = nothing
     if reg.nl_model_type !== nothing
-        model = getfield(NetLogoCompare, reg.nl_model_type)()
+        model = Base.invokelatest(getfield(NetLogoCompare, reg.nl_model_type))
     else
         # Auto-discover: look in Main for the struct just included from the model file
         fn_norm = lowercase(replace(netlogo_file, "_"=>""))
@@ -99,6 +119,11 @@ function calibrate(netlogo_file::String; n_per_batch::Int=30)
 
     model === nothing && error("Could not find model struct for '$netlogo_file'")
 
+    # Use invokelatest for the main body since the model type was just defined
+    return Base.invokelatest(_calibrate_body, model, reg, n_per_batch, netlogo_file)
+end
+
+function _calibrate_body(model, reg, n_per_batch, netlogo_file)
     nticks = n_ticks(model)
     mname = model_name(model)
     seeds_a = collect(1:n_per_batch)
@@ -690,6 +715,12 @@ register_model!("disinfo_nw_bitstring";
     params_fn=(s,t)->DisBitParams(max_ticks=t, seed=s),
     mapping=Dict("times-heard-from-elites"=>1, "times-heard-from-social"=>2, "times-traded-up"=>3, "times-created-rumor"=>4))
 
+# Search Path (numbercaught, time)
+register_model!("search_path";
+    run_fn=run_search_path,
+    params_fn=(s,t)->SearchPathParams(total_time=t, max_ticks=t, seed=s),
+    mapping=Dict("numbercaught"=>1, "time"=>2))
+
 # Participatory Disinfo (times-heard-from-elites, times-heard-from-social, times-traded-up, times-created-rumor)
 register_model!("participatory_disinfo";
     run_fn=run_participatorydisinfo,
@@ -811,6 +842,238 @@ register_model!("recruiting_movement";
     params_fn=(s,t)->RecMovParams(max_ticks=t, seed=s),
     mapping=Dict("recruitpct"=>1, "resistpct"=>2, "neutralpct"=>3),
     nl_model_type=:RecruitingMovementModel)
+
+# ── Classic models (Batch A: emergence & ecology) ────────────────────
+
+# Termites (num-chip-patches, num-carrying)
+register_model!("termites";
+    run_fn=run_termites,
+    params_fn=(s,t)->TMParams(max_ticks=t, seed=s),
+    mapping=Dict("num-chip-patches"=>1, "num-carrying"=>2),
+    nl_model_type=:TermitesModel)
+
+# Slime (total-chemical, max-chemical, mean-chemical)
+register_model!("slime";
+    run_fn=run_slime,
+    params_fn=(s,t)->SLParams(max_ticks=t, seed=s),
+    mapping=Dict("total-chemical"=>1, "max-chemical"=>2, "mean-chemical"=>3),
+    nl_model_type=:SlimeModel)
+
+# Life / Conway's Game of Life (living-count, density)
+register_model!("life";
+    run_fn=run_life,
+    params_fn=(s,t)->LFParams(max_ticks=t, seed=s),
+    mapping=Dict("living-count"=>1, "density"=>2),
+    nl_model_type=:LifeModel)
+
+# Bank Reserves (rich, poor, middle-class, money-total)
+register_model!("bank_reserves";
+    run_fn=run_bank_reserves,
+    params_fn=(s,t)->BRESParams(max_ticks=t, seed=s),
+    mapping=Dict("rich"=>1, "poor"=>2, "middle-class"=>3, "money-total"=>4),
+    nl_model_type=:BankReservesModel)
+
+# Altruism (num-altruists, num-selfish, num-harsh)
+register_model!("altruism";
+    run_fn=run_altruism,
+    params_fn=(s,t)->ALTParams(max_ticks=t, seed=s),
+    mapping=Dict("num-altruists"=>1, "num-selfish"=>2, "num-harsh"=>3),
+    nl_model_type=:AltruismModel)
+
+# Cooperation (num-cooperative, num-greedy)
+register_model!("cooperation";
+    run_fn=run_cooperation,
+    params_fn=(s,t)->COOPParams(max_ticks=t, seed=s),
+    mapping=Dict("num-cooperative"=>1, "num-greedy"=>2),
+    nl_model_type=:CooperationModel)
+
+# Giant Component (giant-component-size, num-edges, fraction-in-giant, num-components)
+register_model!("giant_component";
+    run_fn=run_giant_component,
+    params_fn=(s,t)->GCParams(max_ticks=t, seed=s),
+    mapping=Dict("giant-component-size"=>1, "num-edges"=>2, "fraction-in-giant"=>3, "num-components"=>4),
+    nl_model_type=:GiantComponentModel)
+
+# Rabbits Grass Weeds (num-rabbits, num-grass, num-weeds)
+register_model!("rabbits_grass_weeds";
+    run_fn=run_rgw,
+    params_fn=(s,t)->RGWParams(max_ticks=t, seed=s),
+    mapping=Dict("num-rabbits"=>1, "num-grass"=>2, "num-weeds"=>3),
+    nl_model_type=:RabbitsGrassWeedsModel)
+
+# ── Classic models (Batch B: traffic & social) ──────────────────────
+
+# Heatbugs (mean-unhappiness, max-unhappiness)
+register_model!("heatbugs";
+    run_fn=run_heatbugs,
+    params_fn=(s,t)->HBParams(max_ticks=t, seed=s),
+    mapping=Dict("mean-unhappiness"=>1, "max-unhappiness"=>2),
+    nl_model_type=:HeatbugsModel)
+
+# Shepherds (herding-efficiency, num-sheep-visible)
+register_model!("shepherds";
+    run_fn=run_shepherds,
+    params_fn=(s,t)->SHParams(max_ticks=t, seed=s),
+    mapping=Dict("herding-efficiency"=>1, "num-sheep-visible"=>2),
+    nl_model_type=:ShepherdsModel)
+
+# Minority Game (avg-score, stdev-score, num-picking-zero)
+register_model!("minority_game";
+    run_fn=run_minoritygame,
+    params_fn=(s,t)->MGParams(max_ticks=t, seed=s),
+    mapping=Dict("avg-score"=>1, "stdev-score"=>2, "num-picking-zero"=>3),
+    nl_model_type=:MinorityGameModel)
+
+# Percolation (leading-edge-count, total-oil)
+register_model!("percolation";
+    run_fn=run_percolation,
+    params_fn=(s,t)->PERCParams(max_ticks=t, seed=s),
+    mapping=Dict("leading-edge-count"=>1, "total-oil"=>2),
+    nl_model_type=:PercolationModel)
+
+# Language Change (mean-state, num-grammar-0, num-grammar-1)
+register_model!("language_change";
+    run_fn=run_languagechange,
+    params_fn=(s,t)->LCParams(max_ticks=t, seed=s),
+    mapping=Dict("mean-state"=>1, "num-grammar-0"=>2, "num-grammar-1"=>3),
+    nl_model_type=:LanguageChangeModel)
+
+# Traffic Grid (num-cars-stopped, mean-speed, mean-wait-time)
+register_model!("traffic_grid";
+    run_fn=run_trafficgrid,
+    params_fn=(s,t)->TGParams(max_ticks=t, seed=s),
+    mapping=Dict("num-cars-stopped"=>1, "mean-speed"=>2, "mean-wait-time"=>3),
+    nl_model_type=:TrafficGridModel)
+
+# Traffic 2 Lanes (mean-speed, num-lane-changes)
+register_model!("traffic_2_lanes";
+    run_fn=run_traffic2lanes,
+    params_fn=(s,t)->T2LParams(max_ticks=t, seed=s),
+    mapping=Dict("mean-speed"=>1, "num-lane-changes"=>2),
+    nl_model_type=:Traffic2LanesModel)
+
+# Traffic Intersection (waiting-overall, waiting-eastbound, waiting-northbound)
+register_model!("traffic_intersection";
+    run_fn=run_trafficintersection,
+    params_fn=(s,t)->TIParams(max_ticks=t, seed=s),
+    mapping=Dict("waiting-overall"=>1, "waiting-eastbound"=>2, "waiting-northbound"=>3),
+    nl_model_type=:TrafficIntersectionModel)
+
+# ── Classic models (Batch C: networks & epidemiology) ───────────────
+
+# Erosion (mean-elevation, total-water)
+register_model!("erosion";
+    run_fn=run_erosion,
+    params_fn=(s,t)->ERParams(max_ticks=t, seed=s),
+    mapping=Dict("mean-elevation"=>1, "total-water"=>2),
+    nl_model_type=:ErosionModel)
+
+# CA 1D Elementary (current-row, density-on)
+register_model!("ca_1d_elementary";
+    run_fn=run_ca_1d_elementary,
+    params_fn=(s,t)->CA1DParams(max_ticks=t, seed=s),
+    mapping=Dict("current-row"=>1, "density-on"=>2),
+    nl_model_type=:Ca1dElementaryModel)
+
+# Virus on Network (num-susceptible, num-infected, num-resistant)
+register_model!("virus_on_network";
+    run_fn=run_virus_on_network,
+    params_fn=(s,t)->VONParams(max_ticks=t, seed=s),
+    mapping=Dict("num-susceptible"=>1, "num-infected"=>2, "num-resistant"=>3),
+    nl_model_type=:VirusOnNetworkModel)
+
+# Preferential Attachment (num-nodes, num-edges, max-degree)
+register_model!("preferential_attachment";
+    run_fn=run_preferential_attachment,
+    params_fn=(s,t)->PAParams(max_ticks=t, seed=s),
+    mapping=Dict("num-nodes"=>1, "num-edges"=>2, "max-degree"=>3),
+    nl_model_type=:PreferentialAttachmentModel)
+
+# Small Worlds (clustering-coefficient, average-path-length, num-rewired)
+register_model!("small_worlds";
+    run_fn=run_small_worlds,
+    params_fn=(s,t)->SWParams(max_ticks=t, seed=s),
+    mapping=Dict("clustering-coefficient"=>1, "average-path-length"=>2, "num-rewired"=>3),
+    nl_model_type=:SmallWorldsModel)
+
+# Rebellion (quiet, active, jailed)
+register_model!("rebellion";
+    run_fn=run_rebellion,
+    params_fn=(s,t)->REBParams(max_ticks=t, seed=s),
+    mapping=Dict("quiet"=>1, "active"=>2, "jailed"=>3),
+    nl_model_type=:RebellionModel)
+
+# Fireflies (num-flashing)
+register_model!("fireflies";
+    run_fn=run_fireflies,
+    params_fn=(s,t)->FFParams(max_ticks=t, seed=s),
+    mapping=Dict("num-flashing"=>1),
+    nl_model_type=:FirefliesModel)
+
+# AIDS (num-uninfected, num-infected-unknown, num-infected-known, pct-infected)
+register_model!("aids";
+    run_fn=run_aids,
+    params_fn=(s,t)->AIDSParams(max_ticks=t, seed=s),
+    mapping=Dict("num-uninfected"=>1, "num-infected-unknown"=>2, "num-infected-known"=>3, "pct-infected"=>4),
+    nl_model_type=:AidsModel)
+
+# ── Classic models (Batch D: game theory & CAs) ─────────────────────
+
+# PD Basic Evolutionary (cooperators, defectors, cc, dd)
+register_model!("pd_basic_evolutionary";
+    run_fn=run_pd_basic_evolutionary,
+    params_fn=(s,t)->PDEParams(max_ticks=t, seed=s),
+    mapping=Dict("cooperators"=>1, "defectors"=>2, "cc"=>3, "dd"=>4),
+    nl_model_type=:PdBasicEvolutionaryModel)
+
+# Simple Genetic Algorithm (best-fitness, mean-fitness, diversity)
+register_model!("simple_genetic_algorithm";
+    run_fn=run_simple_genetic_algorithm,
+    params_fn=(s,t)->SGAParams(max_ticks=t, seed=s),
+    mapping=Dict("best-fitness"=>1, "mean-fitness"=>2, "diversity"=>3),
+    nl_model_type=:SimpleGeneticAlgorithmModel)
+
+# Sugarscape 1 Immediate Growback (population, mean-sugar, max-sugar, min-sugar)
+register_model!("sugarscape_1_growback";
+    run_fn=run_sugarscape_1_growback,
+    params_fn=(s,t)->S1GParams(max_ticks=t, seed=s),
+    mapping=Dict("population"=>1, "mean-sugar"=>2, "max-sugar"=>3, "min-sugar"=>4),
+    nl_model_type=:Sugarscape1GrowbackModel)
+
+# Granovetter threshold model (percent-rioting, num-rioting)
+register_model!("granovetter";
+    run_fn=run_granovetter,
+    params_fn=(s,t)->GRANParams(max_ticks=t, seed=s),
+    mapping=Dict("percent-rioting"=>1, "num-rioting"=>2),
+    nl_model_type=:GranovetterModel)
+
+# Logistic Growth (stock)
+register_model!("logistic_growth";
+    run_fn=run_logistic_growth,
+    params_fn=(s,t)->LGParams(max_ticks=t, seed=s),
+    mapping=Dict("stock"=>1),
+    nl_model_type=:LogisticGrowthModel)
+
+# Voting (blue-count, green-count)
+register_model!("voting";
+    run_fn=run_voting,
+    params_fn=(s,t)->VOTParams(max_ticks=t, seed=s),
+    mapping=Dict("blue-count"=>1, "green-count"=>2),
+    nl_model_type=:VotingModel)
+
+# Public Good (mean-money, mean-investment, bank)
+register_model!("public_good";
+    run_fn=run_public_good,
+    params_fn=(s,t)->PGParams(max_ticks=t, seed=s),
+    mapping=Dict("mean-money"=>1, "mean-investment"=>2, "bank"=>3),
+    nl_model_type=:PublicGoodModel)
+
+# Brian's Brain (firing, refractory, dead)
+register_model!("brians_brain";
+    run_fn=run_brians_brain,
+    params_fn=(s,t)->BBParams(max_ticks=t, seed=s),
+    mapping=Dict("firing"=>1, "refractory"=>2, "dead"=>3),
+    nl_model_type=:BriansBrainModel)
 
 # ══════════════════════════════════════════════════════════════════════
 # MAIN

@@ -10,10 +10,7 @@ function spatialattitude_model(params::SAttParams = SAttParams())
     w = params.grid_xmax - params.grid_xmin + 1
     h = params.grid_ymax - params.grid_ymin + 1
     world = spatialattitude_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, SAttGrid(w, h))
     add_resource!(world, SAttStats())
     scheduler = Scheduler(world, spatialattitude_systems())
@@ -33,16 +30,5 @@ function spatialattitude_values(::SAttObserver, world::World)
 end
 
 function run_spatialattitude(; params::SAttParams = SAttParams(), observe::Bool = true)
-    scheduler = spatialattitude_model(params)
-    obs = SAttObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, spatialattitude_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, spatialattitude_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(spatialattitude_model, SAttObserver(), spatialattitude_values; params, observe)
 end

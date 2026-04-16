@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.28">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Mimicry</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="mimicry_files/libs/clipboard/clipboard.min.js"></script>
+<script src="mimicry_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="mimicry_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="mimicry_files/libs/quarto-html/popper.min.js"></script>
+<script src="mimicry_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="mimicry_files/libs/quarto-html/anchor.min.js"></script>
+<link href="mimicry_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="mimicry_files/libs/quarto-html/quarto-syntax-highlighting-49e51e44f424ea8c7044b429bdbbbfe2.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="mimicry_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="mimicry_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="mimicry_files/libs/bootstrap/bootstrap-8ffd5f67044e5306d9846f29df41dda5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a>
+  <ul class="collapse">
+  <li><a href="#what-is-it" id="toc-what-is-it" class="nav-link" data-scroll-target="#what-is-it">WHAT IS IT?</a></li>
+  <li><a href="#how-it-works" id="toc-how-it-works" class="nav-link" data-scroll-target="#how-it-works">HOW IT WORKS</a></li>
+  <li><a href="#things-to-notice" id="toc-things-to-notice" class="nav-link" data-scroll-target="#things-to-notice">THINGS TO NOTICE</a></li>
+  <li><a href="#things-to-try" id="toc-things-to-try" class="nav-link" data-scroll-target="#things-to-try">THINGS TO TRY</a></li>
+  <li><a href="#extending-the-model" id="toc-extending-the-model" class="nav-link" data-scroll-target="#extending-the-model">EXTENDING THE MODEL</a></li>
+  <li><a href="#how-to-cite" id="toc-how-to-cite" class="nav-link" data-scroll-target="#how-to-cite">HOW TO CITE</a></li>
+  <li><a href="#copyright-and-license" id="toc-copyright-and-license" class="nav-link" data-scroll-target="#copyright-and-license">COPYRIGHT AND LICENSE</a></li>
+  </ul></li>
+  <li><a href="#parameters" id="toc-parameters" class="nav-link" data-scroll-target="#parameters">Parameters</a></li>
+  <li><a href="#source-code" id="toc-source-code" class="nav-link" data-scroll-target="#source-code">Source Code</a></li>
+  <li><a href="#time-series" id="toc-time-series" class="nav-link" data-scroll-target="#time-series">Time Series</a></li>
+  <li><a href="#ensemble-runs" id="toc-ensemble-runs" class="nav-link" data-scroll-target="#ensemble-runs">Ensemble Runs</a></li>
+  <li><a href="#parameter-sensitivity" id="toc-parameter-sensitivity" class="nav-link" data-scroll-target="#parameter-sensitivity">Parameter Sensitivity</a></li>
+  <li><a href="#appendix-source-code" id="toc-appendix-source-code" class="nav-link" data-scroll-target="#appendix-source-code">Appendix: Source Code</a>
+  <ul class="collapse">
+  <li><a href="#parameters-parameters.jl" id="toc-parameters-parameters.jl" class="nav-link" data-scroll-target="#parameters-parameters.jl">Parameters (<code>parameters.jl</code>)</a></li>
+  <li><a href="#components-components.jl" id="toc-components-components.jl" class="nav-link" data-scroll-target="#components-components.jl">Components (<code>components.jl</code>)</a></li>
+  <li><a href="#resources-resources.jl" id="toc-resources-resources.jl" class="nav-link" data-scroll-target="#resources-resources.jl">Resources (<code>resources.jl</code>)</a></li>
+  <li><a href="#systems-systems.jl" id="toc-systems-systems.jl" class="nav-link" data-scroll-target="#systems-systems.jl">Systems (<code>systems.jl</code>)</a></li>
+  <li><a href="#model-model.jl" id="toc-model-model.jl" class="nav-link" data-scroll-target="#model-model.jl">Model (<code>model.jl</code>)</a></li>
+  </ul></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="mimicry.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li><li><a href="mimicry.md"><i class="bi bi-file-code"></i>Github (GFM)</a></li></ul></div></nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Mimicry</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<section id="what-is-it" class="level3">
+<h3 class="anchored" data-anchor-id="what-is-it">WHAT IS IT?</h3>
+<p>Batesian mimicry is an evolutionary relationship in which a harmless species (the mimic) has evolved so that it looks very similar to a completely different species that isn’t harmless (the model). A classic example of Batesian mimicry is the similar appearance of monarch butterflies and viceroy moths. Monarchs and viceroys are unrelated species that are both colored similarly — bright orange with black patterns. Their colorations are so similar, in fact, that the two species are virtually indistinguishable from one another.</p>
+<p>The classic explanation for this phenomenon is that monarchs taste yucky. Because monarchs eat milkweed, a plant full of toxins, they become essentially inedible to birds. Researchers have documented birds vomiting within minutes of eating monarch butterflies. The birds then remember the experience and avoid brightly colored orange butterfly/moth species. Viceroys, although perfectly edible, avoid predation if they are colored bright orange because birds can’t tell the difference.</p>
+<p>Recent research now suggests that viceroys might also be unpalatable to bird predators, confusing this elegant explanation. However, we have modeled the relationship anyway. Batesian mimicry occurs in enough other situations (snakes, for example) that the explanation’s general truth is unquestionable. The monarch-viceroy story is so accessible — and historically relevant — that we believe it to be instructive even if its accuracy is now questioned.</p>
+</section>
+<section id="how-it-works" class="level3">
+<h3 class="anchored" data-anchor-id="how-it-works">HOW IT WORKS</h3>
+<p>This model simulates the evolution of monarchs and viceroys from distinguishable, differently colored species to indistinguishable mimics and models. At the simulation’s beginning there are 450 monarchs and viceroys distributed randomly across the world. The monarchs are all colored red, while the viceroys are all colored blue. They are also distinguishable (to the human observer only) by their shape: the letter “x” represents monarchs while the letter “o” represents viceroys. Seventy-five birds are also randomly distributed across the world.</p>
+<p>When the model runs, the birds and butterflies (for the remainder of this description “butterfly” will be used as a general term for monarchs and viceroys, even though viceroys are technically moths) move randomly across the world. When a bird encounters a butterfly it eats the butterfly, unless it has a memory that the butterfly’s color is “yucky.” If a bird eats a monarch, it acquires a memory of the butterfly’s color as yucky.</p>
+<p>As butterflies are eaten, they regenerate through asexual reproduction. Each turn, every butterfly must pass two “tests” in order to reproduce. The first test is based on how many butterflies of that species already exist in the world. The carrying capacity of the world for each species is 225. The chances of reproducing are smaller the closer to 225 each population gets. The second test is simply a random test to keep reproduction in check (set to a 4% chance in this model). When a butterfly does reproduce it either creates an offspring identical to itself or it creates a mutant. Mutant offspring are the same species but have a random color between blue and red, but ending in five (e.g.&nbsp;color equals 15, 25, 35, 45, 55, 65, 75, 85, 95, 105). Both monarchs and Viceroys have equal opportunities to reproduce mutants.</p>
+<p>Birds can remember up to MEMORY-SIZE yucky colors at a time. The default value is three. If a bird has memories of three yucky colors and it eats a monarch with a new yucky color, the bird “forgets” its oldest memory and replaces it with the new one. Birds also forget yucky colors after a certain amount of time.</p>
+</section>
+<section id="things-to-notice" class="level3">
+<h3 class="anchored" data-anchor-id="things-to-notice">THINGS TO NOTICE</h3>
+<p>Initially, the birds don’t have any memory, so both monarchs and viceroys are eaten equally. However, soon the birds “learn” that red is a yucky color and this protects most of the monarchs. As a result, the monarch population makes a comeback toward carrying capacity while the viceroy population continues to decline. Notice also that as reproduction begins to replace eaten butterflies, some of the replacements are mutants and therefore randomly colored.</p>
+<p>As the simulation progresses, birds continue to eat mostly butterflies that aren’t red. Occasionally, of course, a bird “forgets” that red is yucky, but a forgetful bird is immediately reminded when it eats another red monarch. For the unlucky monarch that did the reminding, being red was no advantage, but every other red butterfly is safe from that bird for a while longer. Monarch (non-red) mutants are therefore apt to be eaten. Notice that throughout the simulation the average color of monarchs continues to be very close to its original value of 15. A few mutant monarchs are always being born with random colors, but they never become dominant, as they and their offspring have a slim chance for survival.</p>
+<p>Meanwhile, as the simulation continues, viceroys continue to be eaten, but as enough time passes, the chances are good that some viceroys will give birth to red mutants. These butterflies and their offspring are likely to survive longer because they resemble the red monarchs. With a mutation rate of 5%, it is likely that their offspring will be red too. Soon most of the viceroy population is red. With its protected coloration, the viceroy population will return to carrying capacity.</p>
+</section>
+<section id="things-to-try" class="level3">
+<h3 class="anchored" data-anchor-id="things-to-try">THINGS TO TRY</h3>
+<p>If the MUTATION-RATE is high, advantageous color genes do not reproduce themselves. Conversely, if MUTATION-RATE is too low, the chances of an advantageous mutant (red) viceroy being born are so slim that it may not happen enough, and the population may go extinct. What is the most ideal setting for the MUTATION-RATE slider so that a stable state emerges most quickly in which there are red monarchs and viceroys co-existing in the world? Why?</p>
+<p>If the MEMORY-LENGTH slider is set too low, birds are unable to remember that certain colors are yucky. How low can the MEMORY-LENGTH slider be set so that a stable state of co-existing red monarchs and viceroys emerges?</p>
+<p>If you set MUTATION-RATE to 100 and MEMORY to 0, you will soon have two completely randomly colored populations. Once the average color of both species is about 55, return the sliders to MUTATION-RATE equals 16 and MEMORY equals 30 without resetting the model. Does a stable mimicry state emerge? What is the “safe” color?</p>
+</section>
+<section id="extending-the-model" class="level3">
+<h3 class="anchored" data-anchor-id="extending-the-model">EXTENDING THE MODEL</h3>
+<p>One very simple extension to this model is to add a RANDOM-COLOR button. This button would give every butterfly in the world a random color. The advantage of red would be gone, but some color (which could be red, or any other color) would eventually emerge as the advantageous color. This models the evolutionary process from an earlier starting place, presumably when even monarchs had different colors.</p>
+<p>It would be interesting to see what would happen if birds were made smarter than they are in this model. A smart bird should probably continue to experiment with yucky colors a few times before being “convinced” that all butterflies of that color are indeed distasteful.</p>
+<p>You could try to add variables that kept track of how many yucky individuals of the same color a bird ate. Presumably if a bird has eaten several monarchs that are all the same color, it will be especially attentive to avoiding that color as compared to if it had just eaten one butterfly of that color. Making changes of this nature would presumably make the proportion of models and mimics more in keeping with the predictions of theorists that there are generally more models than mimics. In the current model, birds aren’t smart enough to learn that most butterflies may be harmless in a given situation.</p>
+<p>In a real world situation, the birds would also reproduce. Young birds would not have the experiences necessary to know which colors to avoid. Reproduction of birds, depending on how it happened and how often, might change the dynamics of this model considerably.</p>
+<p>One could also refine the mutation-making procedures of the model so that a butterfly is more likely to reproduce a mutant that is only slightly differently colored than to reproduce a mutant that is completely differently colored. In the current model, mutants’ colors are simply random.</p>
+</section>
+<section id="how-to-cite" class="level3">
+<h3 class="anchored" data-anchor-id="how-to-cite">HOW TO CITE</h3>
+<p>If you mention this model or the NetLogo software in a publication, we ask that you include the citations below.</p>
+<p>For the model itself:</p>
+<ul>
+<li>Wilensky, U. (1997). NetLogo Mimicry model. http://ccl.northwestern.edu/netlogo/models/Mimicry. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.</li>
+</ul>
+<p>Please cite the NetLogo software as:</p>
+<ul>
+<li>Wilensky, U. (1999). NetLogo. http://ccl.northwestern.edu/netlogo/. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.</li>
+</ul>
+</section>
+<section id="copyright-and-license" class="level3">
+<h3 class="anchored" data-anchor-id="copyright-and-license">COPYRIGHT AND LICENSE</h3>
+<p>Copyright 1997 Uri Wilensky.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="http://ccl.northwestern.edu/images/creativecommons/byncsa.png" class="img-fluid figure-img"></p>
+<figcaption>CC BY-NC-SA 3.0</figcaption>
+</figure>
+</div>
+<p>This model is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License. To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/3.0/ or send a letter to Creative Commons, 559 Nathan Abbott Way, Stanford, California 94305, USA.</p>
+<p>NetLogo itself is free software for non-commercial use under the terms of the GNU General Public License (<a href="https://ccl.northwestern.edu/netlogo/docs/copyright.html">see full license information here</a>).</p>
+<p>To inquire about commercial licenses for either NetLogo or specific models from the models library, please contact netlogo-commercial-admin@ccl.northwestern.edu.</p>
+<p>This model was created as part of the project: CONNECTED MATHEMATICS: MAKING SENSE OF COMPLEX PHENOMENA THROUGH BUILDING OBJECT-BASED PARALLEL MODELS (OBPML). The project gratefully acknowledges the support of the National Science Foundation (Applications of Advanced Technologies Program) – grant numbers RED #9552950 and REC #9632612.</p>
+<p>This model was converted to NetLogo as part of the projects: PARTICIPATORY SIMULATIONS: NETWORK-BASED DESIGN FOR SYSTEMS LEARNING IN CLASSROOMS and/or INTEGRATED SIMULATION AND MODELING ENVIRONMENT. The project gratefully acknowledges the support of the National Science Foundation (REPP &amp; ROLE programs) – grant numbers REC #9814682 and REC-0126227. Converted from StarLogoT to NetLogo, 2001.</p>
+<!-- 1997 2001 -->
+</section>
+</section>
+<section id="parameters" class="level2">
+<h2 class="anchored" data-anchor-id="parameters">Parameters</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 28%">
+<col style="width: 15%">
+<col style="width: 23%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>n_monarchs_init</code></td>
+<td><code>Int</code></td>
+<td><code>225</code></td>
+<td>n monarchs init</td>
+</tr>
+<tr class="even">
+<td><code>n_viceroys_init</code></td>
+<td><code>Int</code></td>
+<td><code>225</code></td>
+<td>n viceroys init</td>
+</tr>
+<tr class="odd">
+<td><code>n_birds_init</code></td>
+<td><code>Int</code></td>
+<td><code>75</code></td>
+<td>n birds init</td>
+</tr>
+<tr class="even">
+<td><code>carrying_capacity_monarchs</code></td>
+<td><code>Int</code></td>
+<td><code>225</code></td>
+<td>carrying capacity monarchs</td>
+</tr>
+<tr class="odd">
+<td><code>carrying_capacity_viceroys</code></td>
+<td><code>Int</code></td>
+<td><code>225</code></td>
+<td>carrying capacity viceroys</td>
+</tr>
+<tr class="even">
+<td><code>memory_duration</code></td>
+<td><code>Int</code></td>
+<td><code>30</code></td>
+<td>memory duration</td>
+</tr>
+<tr class="odd">
+<td><code>mutation_rate</code></td>
+<td><code>Float64</code></td>
+<td><code>5.0</code></td>
+<td>percent</td>
+</tr>
+<tr class="even">
+<td><code>memory_size</code></td>
+<td><code>Int</code></td>
+<td><code>3</code></td>
+<td>memory size</td>
+</tr>
+<tr class="odd">
+<td><code>reproduction_chance</code></td>
+<td><code>Float64</code></td>
+<td><code>4.0</code></td>
+<td>percent</td>
+</tr>
+<tr class="even">
+<td><code>grid_width</code></td>
+<td><code>Int</code></td>
+<td><code>41</code></td>
+<td>-20..20</td>
+</tr>
+<tr class="odd">
+<td><code>grid_height</code></td>
+<td><code>Int</code></td>
+<td><code>41</code></td>
+<td>grid height</td>
+</tr>
+<tr class="even">
+<td><code>max_ticks</code></td>
+<td><code>Int</code></td>
+<td><code>1000</code></td>
+<td>max ticks</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="source-code" class="level2">
+<h2 class="anchored" data-anchor-id="source-code">Source Code</h2>
+<p>The Julia code to run this model:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">ArkModelZoo</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>_, trajectory <span class="op">=</span> <span class="fu">run_mimicry</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="time-series" class="level2">
+<h2 class="anchored" data-anchor-id="time-series">Time Series</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="plot_timeseries.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>Mimicry time series</figcaption>
+</figure>
+</div>
+</section>
+<section id="ensemble-runs" class="level2">
+<h2 class="anchored" data-anchor-id="ensemble-runs">Ensemble Runs</h2>
+<p>Ten replicates with different random seeds, showing mean ± standard deviation.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="plot_ensemble.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>Mimicry ensemble</figcaption>
+</figure>
+</div>
+</section>
+<section id="parameter-sensitivity" class="level2">
+<h2 class="anchored" data-anchor-id="parameter-sensitivity">Parameter Sensitivity</h2>
+<p>Varying <code>n_monarchs_init</code>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="plot_sensitivity.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>Mimicry sensitivity</figcaption>
+</figure>
+</div>
+</section>
+<section id="appendix-source-code" class="level2">
+<h2 class="anchored" data-anchor-id="appendix-source-code">Appendix: Source Code</h2>
+<p>This model is implemented in the <a href="https://github.com/sdwfrost/Ark.jl">Ark.jl</a> Entity-Component-System (ECS) framework. The code is split into five files, each with a distinct role:</p>
+<ul>
+<li><strong>Parameters</strong>: a mutable struct holding all configurable values.</li>
+<li><strong>Components</strong>: lightweight data types attached to individual entities (agents).</li>
+<li><strong>Resources</strong>: world-level shared state accessible to all systems.</li>
+<li><strong>Systems</strong>: functions that operate on entities each tick, defining model behavior.</li>
+<li><strong>Model</strong>: wiring that assembles the world, registers resources and systems, and provides the run entry point.</li>
+</ul>
+<section id="parameters-parameters.jl" class="level3">
+<h3 class="anchored" data-anchor-id="parameters-parameters.jl">Parameters (<code>parameters.jl</code>)</h3>
+<p>The parameter struct uses <code>@kwdef</code> so that every field has a default value and can be overridden by keyword. These defaults match the original NetLogo model’s slider settings.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">Base</span>.<span class="pp">@kwdef</span> <span class="kw">mutable struct</span> MimicryParams</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    n_monarchs_init<span class="op">::</span><span class="dt">Int </span><span class="op">=</span> <span class="fl">225</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    n_viceroys_init<span class="op">::</span><span class="dt">Int </span><span class="op">=</span> <span class="fl">225</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    n_birds_init<span class="op">::</span><span class="dt">Int </span><span class="op">=</span> <span class="fl">75</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    carrying_capacity_monarchs<span class="op">::</span><span class="dt">Int </span><span class="op">=</span> <span class="fl">225</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    carrying_capacity_viceroys<span class="op">::</span><span class="dt">Int </span><span class="op">=</span> <span class="fl">225</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    memory_duration<span class="op">::</span><span class="dt">Int </span><span class="op">=</span> <span class="fl">30</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    mutation_rate<span class="op">::</span><span class="dt">Float64 </span><span class="op">=</span> <span class="fl">5.0</span>        <span class="co"># percent</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    memory_size<span class="op">::</span><span class="dt">Int </span><span class="op">=</span> <span class="fl">3</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    reproduction_chance<span class="op">::</span><span class="dt">Float64 </span><span class="op">=</span> <span class="fl">4.0</span>  <span class="co"># percent</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    grid_width<span class="op">::</span><span class="dt">Int </span><span class="op">=</span> <span class="fl">41</span>                <span class="co"># -20..20</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    grid_height<span class="op">::</span><span class="dt">Int </span><span class="op">=</span> <span class="fl">41</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    max_ticks<span class="op">::</span><span class="dt">Int </span><span class="op">=</span> <span class="fl">1000</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    seed<span class="op">::</span><span class="dt">Int </span><span class="op">=</span> <span class="fl">42</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="components-components.jl" class="level3">
+<h3 class="anchored" data-anchor-id="components-components.jl">Components (<code>components.jl</code>)</h3>
+<p>Components are lightweight data types attached to individual entities (agents). Mutable structs hold per-entity state, while empty tag structs act as markers for the ECS query system to efficiently filter entities.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Butterfly / bird position (continuous, toroidal wrapping)</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">mutable struct</span> MimicryPosition</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    x<span class="op">::</span><span class="dt">Float64</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    y<span class="op">::</span><span class="dt">Float64</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Persistent heading (degrees, 0=north, clockwise)</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="kw">mutable struct</span> MimicryHeading</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    angle<span class="op">::</span><span class="dt">Float64</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co"># NetLogo color value (used for mimicry matching)</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="kw">mutable struct</span> MimicryColor</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    color<span class="op">::</span><span class="dt">Float64</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Bird memory: list of (color, age) pairs</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="kw">mutable struct</span> BirdMemory</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    memory<span class="op">::</span><span class="dt">Vector{Tuple{Float64, Int}}</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="fu">BirdMemory</span>() <span class="op">=</span> <span class="fu">BirdMemory</span>(<span class="dt">Tuple</span>{<span class="dt">Float64</span>, <span class="dt">Int</span>}[])</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Breed tags</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> MonarchTag <span class="kw">end</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> ViceroyTag <span class="kw">end</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> BirdTag <span class="kw">end</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="resources-resources.jl" class="level3">
+<h3 class="anchored" data-anchor-id="resources-resources.jl">Resources (<code>resources.jl</code>)</h3>
+<p>Resources are world-level singletons shared across all systems, used for global state and aggregate statistics.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">mutable struct</span> MimicryStats</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    n_monarchs<span class="op">::</span><span class="dt">Int</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    n_viceroys<span class="op">::</span><span class="dt">Int</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    n_birds<span class="op">::</span><span class="dt">Int</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">MimicryStats</span>() <span class="op">=</span> <span class="fu">MimicryStats</span>(<span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="systems-systems.jl" class="level3">
+<h3 class="anchored" data-anchor-id="systems-systems.jl">Systems (<code>systems.jl</code>)</h3>
+<p>Systems contain the model logic and execute in a defined order each tick. Each system struct implements either <code>initialize!</code> (run once at setup) or <code>update!</code> (run every tick).</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># NetLogo base-colors sublist 1 10 = [15,25,35,45,55,65,75,85,95]</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> MIMICRY_MUTATION_COLORS <span class="op">=</span> <span class="dt">Float64</span>[<span class="fl">15</span>, <span class="fl">25</span>, <span class="fl">35</span>, <span class="fl">45</span>, <span class="fl">55</span>, <span class="fl">65</span>, <span class="fl">75</span>, <span class="fl">85</span>, <span class="fl">95</span>]</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Initialization ---</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> InitMimicrySystem <span class="op">&lt;:</span><span class="dt"> System </span><span class="kw">end</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">initialize!</span>(<span class="op">::</span><span class="dt">InitMimicrySystem</span>, world<span class="op">::</span><span class="dt">World</span>)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    params <span class="op">=</span> <span class="fu">get_resource</span>(world, MimicryParams)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    rng <span class="op">=</span> <span class="fu">get_resource</span>(world, RNGResource).rng</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    stats <span class="op">=</span> <span class="fu">get_resource</span>(world, MimicryStats)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    wf <span class="op">=</span> <span class="fu">Float64</span>(params.grid_width)</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    hf <span class="op">=</span> <span class="fu">Float64</span>(params.grid_height)</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Monarchs (red = 15.0 in NetLogo)</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span>params.n_monarchs_init</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> <span class="fu">rand</span>(rng) <span class="op">*</span> wf</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>        y <span class="op">=</span> <span class="fu">rand</span>(rng) <span class="op">*</span> hf</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>        heading <span class="op">=</span> <span class="fu">Float64</span>(<span class="fu">rand</span>(rng, <span class="fl">0</span><span class="op">:</span><span class="fl">359</span>))</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>        <span class="fu">new_entity!</span>(world, (<span class="fu">MimicryPosition</span>(x, y), <span class="fu">MimicryHeading</span>(heading),</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>                            <span class="fu">MimicryColor</span>(<span class="fl">15.0</span>), <span class="fu">MonarchTag</span>()))</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Viceroys (blue = 105.0 in NetLogo)</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span>params.n_viceroys_init</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> <span class="fu">rand</span>(rng) <span class="op">*</span> wf</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>        y <span class="op">=</span> <span class="fu">rand</span>(rng) <span class="op">*</span> hf</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>        heading <span class="op">=</span> <span class="fu">Float64</span>(<span class="fu">rand</span>(rng, <span class="fl">0</span><span class="op">:</span><span class="fl">359</span>))</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>        <span class="fu">new_entity!</span>(world, (<span class="fu">MimicryPosition</span>(x, y), <span class="fu">MimicryHeading</span>(heading),</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>                            <span class="fu">MimicryColor</span>(<span class="fl">105.0</span>), <span class="fu">ViceroyTag</span>()))</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Birds (black = 0.0)</span></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span>params.n_birds_init</span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> <span class="fu">rand</span>(rng) <span class="op">*</span> wf</span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>        y <span class="op">=</span> <span class="fu">rand</span>(rng) <span class="op">*</span> hf</span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>        heading <span class="op">=</span> <span class="fu">Float64</span>(<span class="fu">rand</span>(rng, <span class="fl">0</span><span class="op">:</span><span class="fl">359</span>))</span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>        <span class="fu">new_entity!</span>(world, (<span class="fu">MimicryPosition</span>(x, y), <span class="fu">MimicryHeading</span>(heading),</span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>                            <span class="fu">MimicryColor</span>(<span class="fl">0.0</span>), <span class="fu">BirdTag</span>(), <span class="fu">BirdMemory</span>()))</span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>    <span class="co"># NetLogo doesn't set n-monarchs/n-viceroys/n-birds in setup;</span></span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>    <span class="co"># they default to 0 until the first go sets them via count.</span></span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>    stats.n_monarchs <span class="op">=</span> <span class="fl">0</span></span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>    stats.n_viceroys <span class="op">=</span> <span class="fl">0</span></span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>    stats.n_birds <span class="op">=</span> <span class="fl">0</span></span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="cn">nothing</span></span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Bird movement ---</span></span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a><span class="co"># NetLogo: set heading 180 + random 180; fd 1</span></span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> MimicryBirdMoveSystem <span class="op">&lt;:</span><span class="dt"> System </span><span class="kw">end</span></span>
+<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">update!</span>(<span class="op">::</span><span class="dt">MimicryBirdMoveSystem</span>, world<span class="op">::</span><span class="dt">World</span>)</span>
+<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a>    rng <span class="op">=</span> <span class="fu">get_resource</span>(world, RNGResource).rng</span>
+<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a>    params <span class="op">=</span> <span class="fu">get_resource</span>(world, MimicryParams)</span>
+<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a>    wf <span class="op">=</span> <span class="fu">Float64</span>(params.grid_width)</span>
+<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a>    hf <span class="op">=</span> <span class="fu">Float64</span>(params.grid_height)</span>
+<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (_, positions, headings) <span class="kw">in</span> <span class="fu">Query</span>(world, (MimicryPosition, MimicryHeading); with<span class="op">=</span>(BirdTag,))</span>
+<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a>        <span class="pp">@inbounds</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="fu">eachindex</span>(positions)</span>
+<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a>            headings[i].angle <span class="op">=</span> <span class="fu">Float64</span>(<span class="fl">180</span> <span class="op">+</span> <span class="fu">rand</span>(rng, <span class="fl">0</span><span class="op">:</span><span class="fl">179</span>))</span>
+<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a>            θ <span class="op">=</span> <span class="fu">deg2rad</span>(headings[i].angle)</span>
+<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a>            positions[i].x <span class="op">=</span> <span class="fu">mod</span>(positions[i].x <span class="op">+</span> <span class="fu">sin</span>(θ), wf)</span>
+<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a>            positions[i].y <span class="op">=</span> <span class="fu">mod</span>(positions[i].y <span class="op">+</span> <span class="fu">cos</span>(θ), hf)</span>
+<span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb5-68"><a href="#cb5-68" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-69"><a href="#cb5-69" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="cn">nothing</span></span>
+<span id="cb5-70"><a href="#cb5-70" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb5-71"><a href="#cb5-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-72"><a href="#cb5-72" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Butterfly movement ---</span></span>
+<span id="cb5-73"><a href="#cb5-73" aria-hidden="true" tabindex="-1"></a><span class="co"># NetLogo: rt random 100; lt random 100; fd 1</span></span>
+<span id="cb5-74"><a href="#cb5-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-75"><a href="#cb5-75" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> MimicryButterflyMoveSystem <span class="op">&lt;:</span><span class="dt"> System </span><span class="kw">end</span></span>
+<span id="cb5-76"><a href="#cb5-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-77"><a href="#cb5-77" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">update!</span>(<span class="op">::</span><span class="dt">MimicryButterflyMoveSystem</span>, world<span class="op">::</span><span class="dt">World</span>)</span>
+<span id="cb5-78"><a href="#cb5-78" aria-hidden="true" tabindex="-1"></a>    rng <span class="op">=</span> <span class="fu">get_resource</span>(world, RNGResource).rng</span>
+<span id="cb5-79"><a href="#cb5-79" aria-hidden="true" tabindex="-1"></a>    params <span class="op">=</span> <span class="fu">get_resource</span>(world, MimicryParams)</span>
+<span id="cb5-80"><a href="#cb5-80" aria-hidden="true" tabindex="-1"></a>    wf <span class="op">=</span> <span class="fu">Float64</span>(params.grid_width)</span>
+<span id="cb5-81"><a href="#cb5-81" aria-hidden="true" tabindex="-1"></a>    hf <span class="op">=</span> <span class="fu">Float64</span>(params.grid_height)</span>
+<span id="cb5-82"><a href="#cb5-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-83"><a href="#cb5-83" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (_, positions, headings) <span class="kw">in</span> <span class="fu">Query</span>(world, (MimicryPosition, MimicryHeading); without<span class="op">=</span>(BirdTag,))</span>
+<span id="cb5-84"><a href="#cb5-84" aria-hidden="true" tabindex="-1"></a>        <span class="pp">@inbounds</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="fu">eachindex</span>(positions)</span>
+<span id="cb5-85"><a href="#cb5-85" aria-hidden="true" tabindex="-1"></a>            headings[i].angle <span class="op">+=</span> <span class="fu">Float64</span>(<span class="fu">rand</span>(rng, <span class="fl">0</span><span class="op">:</span><span class="fl">99</span>) <span class="op">-</span> <span class="fu">rand</span>(rng, <span class="fl">0</span><span class="op">:</span><span class="fl">99</span>))</span>
+<span id="cb5-86"><a href="#cb5-86" aria-hidden="true" tabindex="-1"></a>            θ <span class="op">=</span> <span class="fu">deg2rad</span>(headings[i].angle)</span>
+<span id="cb5-87"><a href="#cb5-87" aria-hidden="true" tabindex="-1"></a>            positions[i].x <span class="op">=</span> <span class="fu">mod</span>(positions[i].x <span class="op">+</span> <span class="fu">sin</span>(θ), wf)</span>
+<span id="cb5-88"><a href="#cb5-88" aria-hidden="true" tabindex="-1"></a>            positions[i].y <span class="op">=</span> <span class="fu">mod</span>(positions[i].y <span class="op">+</span> <span class="fu">cos</span>(θ), hf)</span>
+<span id="cb5-89"><a href="#cb5-89" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb5-90"><a href="#cb5-90" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-91"><a href="#cb5-91" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="cn">nothing</span></span>
+<span id="cb5-92"><a href="#cb5-92" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb5-93"><a href="#cb5-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-94"><a href="#cb5-94" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Eating ---</span></span>
+<span id="cb5-95"><a href="#cb5-95" aria-hidden="true" tabindex="-1"></a><span class="co"># Butterflies check for bird on same patch. If bird doesn't remember color, butterfly dies.</span></span>
+<span id="cb5-96"><a href="#cb5-96" aria-hidden="true" tabindex="-1"></a><span class="co"># If butterfly is monarch, bird learns the color.</span></span>
+<span id="cb5-97"><a href="#cb5-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-98"><a href="#cb5-98" aria-hidden="true" tabindex="-1"></a><span class="kw">mutable struct</span> MimicryEatingSystem <span class="op">&lt;:</span><span class="dt"> System</span></span>
+<span id="cb5-99"><a href="#cb5-99" aria-hidden="true" tabindex="-1"></a>    to_remove<span class="op">::</span><span class="dt">Vector{Entity}</span></span>
+<span id="cb5-100"><a href="#cb5-100" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb5-101"><a href="#cb5-101" aria-hidden="true" tabindex="-1"></a><span class="fu">MimicryEatingSystem</span>() <span class="op">=</span> <span class="fu">MimicryEatingSystem</span>(Entity[])</span>
+<span id="cb5-102"><a href="#cb5-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-103"><a href="#cb5-103" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">_mimicry_color_in_memory</span>(mem<span class="op">::</span><span class="dt">BirdMemory</span>, c<span class="op">::</span><span class="dt">Float64</span>)</span>
+<span id="cb5-104"><a href="#cb5-104" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (mc, _) <span class="kw">in</span> mem.memory</span>
+<span id="cb5-105"><a href="#cb5-105" aria-hidden="true" tabindex="-1"></a>        mc <span class="op">==</span> c <span class="op">&amp;&amp;</span> <span class="cf">return</span> <span class="cn">true</span></span>
+<span id="cb5-106"><a href="#cb5-106" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-107"><a href="#cb5-107" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="cn">false</span></span>
+<span id="cb5-108"><a href="#cb5-108" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb5-109"><a href="#cb5-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-110"><a href="#cb5-110" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">update!</span>(system<span class="op">::</span><span class="dt">MimicryEatingSystem</span>, world<span class="op">::</span><span class="dt">World</span>)</span>
+<span id="cb5-111"><a href="#cb5-111" aria-hidden="true" tabindex="-1"></a>    params <span class="op">=</span> <span class="fu">get_resource</span>(world, MimicryParams)</span>
+<span id="cb5-112"><a href="#cb5-112" aria-hidden="true" tabindex="-1"></a>    rng <span class="op">=</span> <span class="fu">get_resource</span>(world, RNGResource).rng</span>
+<span id="cb5-113"><a href="#cb5-113" aria-hidden="true" tabindex="-1"></a>    wf <span class="op">=</span> <span class="fu">Float64</span>(params.grid_width)</span>
+<span id="cb5-114"><a href="#cb5-114" aria-hidden="true" tabindex="-1"></a>    hf <span class="op">=</span> <span class="fu">Float64</span>(params.grid_height)</span>
+<span id="cb5-115"><a href="#cb5-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-116"><a href="#cb5-116" aria-hidden="true" tabindex="-1"></a>    <span class="fu">empty!</span>(system.to_remove)</span>
+<span id="cb5-117"><a href="#cb5-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-118"><a href="#cb5-118" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Build spatial index: patch → list of (bird_eid)</span></span>
+<span id="cb5-119"><a href="#cb5-119" aria-hidden="true" tabindex="-1"></a>    bird_cells <span class="op">=</span> <span class="fu">Dict</span><span class="dt">{Tuple{Int,Int}, Vector{Entity}}</span>()</span>
+<span id="cb5-120"><a href="#cb5-120" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (eids, positions) <span class="kw">in</span> <span class="fu">Query</span>(world, (MimicryPosition,); with<span class="op">=</span>(BirdTag,))</span>
+<span id="cb5-121"><a href="#cb5-121" aria-hidden="true" tabindex="-1"></a>        <span class="pp">@inbounds</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="fu">eachindex</span>(positions)</span>
+<span id="cb5-122"><a href="#cb5-122" aria-hidden="true" tabindex="-1"></a>            px <span class="op">=</span> <span class="fu">mod</span>(<span class="fu">floor</span>(<span class="dt">Int</span>, positions[i].x), params.grid_width) <span class="op">+</span> <span class="fl">1</span></span>
+<span id="cb5-123"><a href="#cb5-123" aria-hidden="true" tabindex="-1"></a>            py <span class="op">=</span> <span class="fu">mod</span>(<span class="fu">floor</span>(<span class="dt">Int</span>, positions[i].y), params.grid_height) <span class="op">+</span> <span class="fl">1</span></span>
+<span id="cb5-124"><a href="#cb5-124" aria-hidden="true" tabindex="-1"></a>            key <span class="op">=</span> (px, py)</span>
+<span id="cb5-125"><a href="#cb5-125" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> !<span class="fu">haskey</span>(bird_cells, key)</span>
+<span id="cb5-126"><a href="#cb5-126" aria-hidden="true" tabindex="-1"></a>                bird_cells[key] <span class="op">=</span> Entity[]</span>
+<span id="cb5-127"><a href="#cb5-127" aria-hidden="true" tabindex="-1"></a>            <span class="cf">end</span></span>
+<span id="cb5-128"><a href="#cb5-128" aria-hidden="true" tabindex="-1"></a>            <span class="fu">push!</span>(bird_cells[key], eids[i])</span>
+<span id="cb5-129"><a href="#cb5-129" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb5-130"><a href="#cb5-130" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-131"><a href="#cb5-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-132"><a href="#cb5-132" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Collect all butterflies and shuffle (ask turtles with [breed != birds])</span></span>
+<span id="cb5-133"><a href="#cb5-133" aria-hidden="true" tabindex="-1"></a>    butterflies <span class="op">=</span> <span class="dt">Tuple</span>{Entity, <span class="dt">Bool</span>}[]  <span class="co"># (eid, is_monarch)</span></span>
+<span id="cb5-134"><a href="#cb5-134" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (eids, _) <span class="kw">in</span> <span class="fu">Query</span>(world, (MimicryPosition,); with<span class="op">=</span>(MonarchTag,))</span>
+<span id="cb5-135"><a href="#cb5-135" aria-hidden="true" tabindex="-1"></a>        <span class="pp">@inbounds</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="fu">eachindex</span>(eids)</span>
+<span id="cb5-136"><a href="#cb5-136" aria-hidden="true" tabindex="-1"></a>            <span class="fu">push!</span>(butterflies, (eids[i], <span class="cn">true</span>))</span>
+<span id="cb5-137"><a href="#cb5-137" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb5-138"><a href="#cb5-138" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-139"><a href="#cb5-139" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (eids, _) <span class="kw">in</span> <span class="fu">Query</span>(world, (MimicryPosition,); with<span class="op">=</span>(ViceroyTag,))</span>
+<span id="cb5-140"><a href="#cb5-140" aria-hidden="true" tabindex="-1"></a>        <span class="pp">@inbounds</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="fu">eachindex</span>(eids)</span>
+<span id="cb5-141"><a href="#cb5-141" aria-hidden="true" tabindex="-1"></a>            <span class="fu">push!</span>(butterflies, (eids[i], <span class="cn">false</span>))</span>
+<span id="cb5-142"><a href="#cb5-142" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb5-143"><a href="#cb5-143" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-144"><a href="#cb5-144" aria-hidden="true" tabindex="-1"></a>    <span class="fu">shuffle!</span>(rng, butterflies)</span>
+<span id="cb5-145"><a href="#cb5-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-146"><a href="#cb5-146" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (bfly_eid, is_monarch) <span class="kw">in</span> butterflies</span>
+<span id="cb5-147"><a href="#cb5-147" aria-hidden="true" tabindex="-1"></a>        <span class="fu">is_alive</span>(world, bfly_eid) <span class="op">||</span> <span class="cf">continue</span></span>
+<span id="cb5-148"><a href="#cb5-148" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-149"><a href="#cb5-149" aria-hidden="true" tabindex="-1"></a>        pos <span class="op">=</span> <span class="fu">get_components</span>(world, bfly_eid, (MimicryPosition,))[<span class="fl">1</span>]</span>
+<span id="cb5-150"><a href="#cb5-150" aria-hidden="true" tabindex="-1"></a>        col <span class="op">=</span> <span class="fu">get_components</span>(world, bfly_eid, (MimicryColor,))[<span class="fl">1</span>]</span>
+<span id="cb5-151"><a href="#cb5-151" aria-hidden="true" tabindex="-1"></a>        px <span class="op">=</span> <span class="fu">mod</span>(<span class="fu">floor</span>(<span class="dt">Int</span>, pos.x), params.grid_width) <span class="op">+</span> <span class="fl">1</span></span>
+<span id="cb5-152"><a href="#cb5-152" aria-hidden="true" tabindex="-1"></a>        py <span class="op">=</span> <span class="fu">mod</span>(<span class="fu">floor</span>(<span class="dt">Int</span>, pos.y), params.grid_height) <span class="op">+</span> <span class="fl">1</span></span>
+<span id="cb5-153"><a href="#cb5-153" aria-hidden="true" tabindex="-1"></a>        key <span class="op">=</span> (px, py)</span>
+<span id="cb5-154"><a href="#cb5-154" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-155"><a href="#cb5-155" aria-hidden="true" tabindex="-1"></a>        birds_here <span class="op">=</span> <span class="fu">get</span>(bird_cells, key, <span class="cn">nothing</span>)</span>
+<span id="cb5-156"><a href="#cb5-156" aria-hidden="true" tabindex="-1"></a>        birds_here <span class="op">===</span> <span class="cn">nothing</span> <span class="op">&amp;&amp;</span> <span class="cf">continue</span></span>
+<span id="cb5-157"><a href="#cb5-157" aria-hidden="true" tabindex="-1"></a>        <span class="fu">isempty</span>(birds_here) <span class="op">&amp;&amp;</span> <span class="cf">continue</span></span>
+<span id="cb5-158"><a href="#cb5-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-159"><a href="#cb5-159" aria-hidden="true" tabindex="-1"></a>        <span class="co"># one-of birds-here</span></span>
+<span id="cb5-160"><a href="#cb5-160" aria-hidden="true" tabindex="-1"></a>        bird_eid <span class="op">=</span> birds_here[<span class="fu">rand</span>(rng, <span class="fl">1</span><span class="op">:</span><span class="fu">length</span>(birds_here))]</span>
+<span id="cb5-161"><a href="#cb5-161" aria-hidden="true" tabindex="-1"></a>        <span class="fu">is_alive</span>(world, bird_eid) <span class="op">||</span> <span class="cf">continue</span></span>
+<span id="cb5-162"><a href="#cb5-162" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-163"><a href="#cb5-163" aria-hidden="true" tabindex="-1"></a>        bird_mem <span class="op">=</span> <span class="fu">get_components</span>(world, bird_eid, (BirdMemory,))[<span class="fl">1</span>]</span>
+<span id="cb5-164"><a href="#cb5-164" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-165"><a href="#cb5-165" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> !<span class="fu">_mimicry_color_in_memory</span>(bird_mem, col.color)</span>
+<span id="cb5-166"><a href="#cb5-166" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Monarch teaches bird the color</span></span>
+<span id="cb5-167"><a href="#cb5-167" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> is_monarch</span>
+<span id="cb5-168"><a href="#cb5-168" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> <span class="fu">length</span>(bird_mem.memory) <span class="op">&gt;=</span> params.memory_size</span>
+<span id="cb5-169"><a href="#cb5-169" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">popfirst!</span>(bird_mem.memory)</span>
+<span id="cb5-170"><a href="#cb5-170" aria-hidden="true" tabindex="-1"></a>                <span class="cf">end</span></span>
+<span id="cb5-171"><a href="#cb5-171" aria-hidden="true" tabindex="-1"></a>                <span class="fu">push!</span>(bird_mem.memory, (col.color, <span class="fl">0</span>))</span>
+<span id="cb5-172"><a href="#cb5-172" aria-hidden="true" tabindex="-1"></a>            <span class="cf">end</span></span>
+<span id="cb5-173"><a href="#cb5-173" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Butterfly dies</span></span>
+<span id="cb5-174"><a href="#cb5-174" aria-hidden="true" tabindex="-1"></a>            <span class="fu">push!</span>(system.to_remove, bfly_eid)</span>
+<span id="cb5-175"><a href="#cb5-175" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb5-176"><a href="#cb5-176" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-177"><a href="#cb5-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-178"><a href="#cb5-178" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="cn">e</span> <span class="kw">in</span> system.to_remove</span>
+<span id="cb5-179"><a href="#cb5-179" aria-hidden="true" tabindex="-1"></a>        <span class="fu">is_alive</span>(world, <span class="cn">e</span>) <span class="op">&amp;&amp;</span> <span class="fu">remove_entity!</span>(world, <span class="cn">e</span>)</span>
+<span id="cb5-180"><a href="#cb5-180" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-181"><a href="#cb5-181" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="cn">nothing</span></span>
+<span id="cb5-182"><a href="#cb5-182" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb5-183"><a href="#cb5-183" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-184"><a href="#cb5-184" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Bird forgetting ---</span></span>
+<span id="cb5-185"><a href="#cb5-185" aria-hidden="true" tabindex="-1"></a><span class="co"># Age all memories +1, remove those &gt; memory_duration</span></span>
+<span id="cb5-186"><a href="#cb5-186" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-187"><a href="#cb5-187" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> MimicryForgetSystem <span class="op">&lt;:</span><span class="dt"> System </span><span class="kw">end</span></span>
+<span id="cb5-188"><a href="#cb5-188" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-189"><a href="#cb5-189" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">update!</span>(<span class="op">::</span><span class="dt">MimicryForgetSystem</span>, world<span class="op">::</span><span class="dt">World</span>)</span>
+<span id="cb5-190"><a href="#cb5-190" aria-hidden="true" tabindex="-1"></a>    params <span class="op">=</span> <span class="fu">get_resource</span>(world, MimicryParams)</span>
+<span id="cb5-191"><a href="#cb5-191" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-192"><a href="#cb5-192" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (_, mems) <span class="kw">in</span> <span class="fu">Query</span>(world, (BirdMemory,))</span>
+<span id="cb5-193"><a href="#cb5-193" aria-hidden="true" tabindex="-1"></a>        <span class="pp">@inbounds</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="fu">eachindex</span>(mems)</span>
+<span id="cb5-194"><a href="#cb5-194" aria-hidden="true" tabindex="-1"></a>            mem <span class="op">=</span> mems[i]</span>
+<span id="cb5-195"><a href="#cb5-195" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Age all memories</span></span>
+<span id="cb5-196"><a href="#cb5-196" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> j <span class="kw">in</span> <span class="fu">eachindex</span>(mem.memory)</span>
+<span id="cb5-197"><a href="#cb5-197" aria-hidden="true" tabindex="-1"></a>                c, a <span class="op">=</span> mem.memory[j]</span>
+<span id="cb5-198"><a href="#cb5-198" aria-hidden="true" tabindex="-1"></a>                mem.memory[j] <span class="op">=</span> (c, a <span class="op">+</span> <span class="fl">1</span>)</span>
+<span id="cb5-199"><a href="#cb5-199" aria-hidden="true" tabindex="-1"></a>            <span class="cf">end</span></span>
+<span id="cb5-200"><a href="#cb5-200" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Remove expired</span></span>
+<span id="cb5-201"><a href="#cb5-201" aria-hidden="true" tabindex="-1"></a>            <span class="fu">filter!</span>(x <span class="op">-&gt;</span> x[<span class="fl">2</span>] <span class="op">&lt;=</span> params.memory_duration, mem.memory)</span>
+<span id="cb5-202"><a href="#cb5-202" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb5-203"><a href="#cb5-203" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-204"><a href="#cb5-204" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="cn">nothing</span></span>
+<span id="cb5-205"><a href="#cb5-205" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb5-206"><a href="#cb5-206" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-207"><a href="#cb5-207" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Butterfly reproduction ---</span></span>
+<span id="cb5-208"><a href="#cb5-208" aria-hidden="true" tabindex="-1"></a><span class="co"># Density-dependent: if random count_breed &lt; cap - count_breed, attempt hatch.</span></span>
+<span id="cb5-209"><a href="#cb5-209" aria-hidden="true" tabindex="-1"></a><span class="co"># hatch-butterfly: 4% reproduction chance, 5% mutation.</span></span>
+<span id="cb5-210"><a href="#cb5-210" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-211"><a href="#cb5-211" aria-hidden="true" tabindex="-1"></a><span class="kw">mutable struct</span> MimicryReproductionSystem <span class="op">&lt;:</span><span class="dt"> System</span></span>
+<span id="cb5-212"><a href="#cb5-212" aria-hidden="true" tabindex="-1"></a>    to_spawn<span class="op">::</span><span class="dt">Vector{Tuple{Float64, Float64, Float64, Float64, Bool}}  </span><span class="co"># (x, y, heading, color, is_monarch)</span></span>
+<span id="cb5-213"><a href="#cb5-213" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb5-214"><a href="#cb5-214" aria-hidden="true" tabindex="-1"></a><span class="fu">MimicryReproductionSystem</span>() <span class="op">=</span> <span class="fu">MimicryReproductionSystem</span>(<span class="dt">Tuple</span>{<span class="dt">Float64</span>, <span class="dt">Float64</span>, <span class="dt">Float64</span>, <span class="dt">Float64</span>, <span class="dt">Bool</span>}[])</span>
+<span id="cb5-215"><a href="#cb5-215" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-216"><a href="#cb5-216" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">update!</span>(system<span class="op">::</span><span class="dt">MimicryReproductionSystem</span>, world<span class="op">::</span><span class="dt">World</span>)</span>
+<span id="cb5-217"><a href="#cb5-217" aria-hidden="true" tabindex="-1"></a>    params <span class="op">=</span> <span class="fu">get_resource</span>(world, MimicryParams)</span>
+<span id="cb5-218"><a href="#cb5-218" aria-hidden="true" tabindex="-1"></a>    rng <span class="op">=</span> <span class="fu">get_resource</span>(world, RNGResource).rng</span>
+<span id="cb5-219"><a href="#cb5-219" aria-hidden="true" tabindex="-1"></a>    wf <span class="op">=</span> <span class="fu">Float64</span>(params.grid_width)</span>
+<span id="cb5-220"><a href="#cb5-220" aria-hidden="true" tabindex="-1"></a>    hf <span class="op">=</span> <span class="fu">Float64</span>(params.grid_height)</span>
+<span id="cb5-221"><a href="#cb5-221" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-222"><a href="#cb5-222" aria-hidden="true" tabindex="-1"></a>    <span class="fu">empty!</span>(system.to_spawn)</span>
+<span id="cb5-223"><a href="#cb5-223" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-224"><a href="#cb5-224" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Count current populations</span></span>
+<span id="cb5-225"><a href="#cb5-225" aria-hidden="true" tabindex="-1"></a>    n_monarchs <span class="op">=</span> <span class="fl">0</span></span>
+<span id="cb5-226"><a href="#cb5-226" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (eids, _) <span class="kw">in</span> <span class="fu">Query</span>(world, (MimicryPosition,); with<span class="op">=</span>(MonarchTag,))</span>
+<span id="cb5-227"><a href="#cb5-227" aria-hidden="true" tabindex="-1"></a>        n_monarchs <span class="op">+=</span> <span class="fu">length</span>(eids)</span>
+<span id="cb5-228"><a href="#cb5-228" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-229"><a href="#cb5-229" aria-hidden="true" tabindex="-1"></a>    n_viceroys <span class="op">=</span> <span class="fl">0</span></span>
+<span id="cb5-230"><a href="#cb5-230" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (eids, _) <span class="kw">in</span> <span class="fu">Query</span>(world, (MimicryPosition,); with<span class="op">=</span>(ViceroyTag,))</span>
+<span id="cb5-231"><a href="#cb5-231" aria-hidden="true" tabindex="-1"></a>        n_viceroys <span class="op">+=</span> <span class="fu">length</span>(eids)</span>
+<span id="cb5-232"><a href="#cb5-232" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-233"><a href="#cb5-233" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-234"><a href="#cb5-234" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Collect butterflies and shuffle</span></span>
+<span id="cb5-235"><a href="#cb5-235" aria-hidden="true" tabindex="-1"></a>    butterflies <span class="op">=</span> <span class="dt">Tuple</span>{Entity, <span class="dt">Bool</span>}[]</span>
+<span id="cb5-236"><a href="#cb5-236" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (eids, _) <span class="kw">in</span> <span class="fu">Query</span>(world, (MimicryPosition,); with<span class="op">=</span>(MonarchTag,))</span>
+<span id="cb5-237"><a href="#cb5-237" aria-hidden="true" tabindex="-1"></a>        <span class="pp">@inbounds</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="fu">eachindex</span>(eids)</span>
+<span id="cb5-238"><a href="#cb5-238" aria-hidden="true" tabindex="-1"></a>            <span class="fu">push!</span>(butterflies, (eids[i], <span class="cn">true</span>))</span>
+<span id="cb5-239"><a href="#cb5-239" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb5-240"><a href="#cb5-240" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-241"><a href="#cb5-241" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (eids, _) <span class="kw">in</span> <span class="fu">Query</span>(world, (MimicryPosition,); with<span class="op">=</span>(ViceroyTag,))</span>
+<span id="cb5-242"><a href="#cb5-242" aria-hidden="true" tabindex="-1"></a>        <span class="pp">@inbounds</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="fu">eachindex</span>(eids)</span>
+<span id="cb5-243"><a href="#cb5-243" aria-hidden="true" tabindex="-1"></a>            <span class="fu">push!</span>(butterflies, (eids[i], <span class="cn">false</span>))</span>
+<span id="cb5-244"><a href="#cb5-244" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb5-245"><a href="#cb5-245" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-246"><a href="#cb5-246" aria-hidden="true" tabindex="-1"></a>    <span class="fu">shuffle!</span>(rng, butterflies)</span>
+<span id="cb5-247"><a href="#cb5-247" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-248"><a href="#cb5-248" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (bfly_eid, is_monarch) <span class="kw">in</span> butterflies</span>
+<span id="cb5-249"><a href="#cb5-249" aria-hidden="true" tabindex="-1"></a>        <span class="fu">is_alive</span>(world, bfly_eid) <span class="op">||</span> <span class="cf">continue</span></span>
+<span id="cb5-250"><a href="#cb5-250" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-251"><a href="#cb5-251" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> is_monarch</span>
+<span id="cb5-252"><a href="#cb5-252" aria-hidden="true" tabindex="-1"></a>            count_breed <span class="op">=</span> n_monarchs</span>
+<span id="cb5-253"><a href="#cb5-253" aria-hidden="true" tabindex="-1"></a>            cap <span class="op">=</span> params.carrying_capacity_monarchs</span>
+<span id="cb5-254"><a href="#cb5-254" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span></span>
+<span id="cb5-255"><a href="#cb5-255" aria-hidden="true" tabindex="-1"></a>            count_breed <span class="op">=</span> n_viceroys</span>
+<span id="cb5-256"><a href="#cb5-256" aria-hidden="true" tabindex="-1"></a>            cap <span class="op">=</span> params.carrying_capacity_viceroys</span>
+<span id="cb5-257"><a href="#cb5-257" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb5-258"><a href="#cb5-258" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-259"><a href="#cb5-259" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Density check: random count_breed &lt; cap - count_breed</span></span>
+<span id="cb5-260"><a href="#cb5-260" aria-hidden="true" tabindex="-1"></a>        count_breed <span class="op">&lt;=</span> <span class="fl">0</span> <span class="op">&amp;&amp;</span> <span class="cf">continue</span></span>
+<span id="cb5-261"><a href="#cb5-261" aria-hidden="true" tabindex="-1"></a>        deficit <span class="op">=</span> cap <span class="op">-</span> count_breed</span>
+<span id="cb5-262"><a href="#cb5-262" aria-hidden="true" tabindex="-1"></a>        deficit <span class="op">&lt;=</span> <span class="fl">0</span> <span class="op">&amp;&amp;</span> <span class="cf">continue</span></span>
+<span id="cb5-263"><a href="#cb5-263" aria-hidden="true" tabindex="-1"></a>        <span class="fu">rand</span>(rng, <span class="fl">0</span><span class="op">:</span>count_breed<span class="op">-</span><span class="fl">1</span>) <span class="op">&lt;</span> deficit <span class="op">||</span> <span class="cf">continue</span></span>
+<span id="cb5-264"><a href="#cb5-264" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-265"><a href="#cb5-265" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Reproduction chance (4%)</span></span>
+<span id="cb5-266"><a href="#cb5-266" aria-hidden="true" tabindex="-1"></a>        <span class="fu">rand</span>(rng) <span class="op">*</span> <span class="fl">100.0</span> <span class="op">&gt;=</span> params.reproduction_chance <span class="op">&amp;&amp;</span> <span class="cf">continue</span></span>
+<span id="cb5-267"><a href="#cb5-267" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-268"><a href="#cb5-268" aria-hidden="true" tabindex="-1"></a>        pos <span class="op">=</span> <span class="fu">get_components</span>(world, bfly_eid, (MimicryPosition,))[<span class="fl">1</span>]</span>
+<span id="cb5-269"><a href="#cb5-269" aria-hidden="true" tabindex="-1"></a>        hdg <span class="op">=</span> <span class="fu">get_components</span>(world, bfly_eid, (MimicryHeading,))[<span class="fl">1</span>]</span>
+<span id="cb5-270"><a href="#cb5-270" aria-hidden="true" tabindex="-1"></a>        col <span class="op">=</span> <span class="fu">get_components</span>(world, bfly_eid, (MimicryColor,))[<span class="fl">1</span>]</span>
+<span id="cb5-271"><a href="#cb5-271" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-272"><a href="#cb5-272" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Hatch: inherit position/heading, fd 1</span></span>
+<span id="cb5-273"><a href="#cb5-273" aria-hidden="true" tabindex="-1"></a>        θ <span class="op">=</span> <span class="fu">deg2rad</span>(hdg.angle)</span>
+<span id="cb5-274"><a href="#cb5-274" aria-hidden="true" tabindex="-1"></a>        nx <span class="op">=</span> <span class="fu">mod</span>(pos.x <span class="op">+</span> <span class="fu">sin</span>(θ), wf)</span>
+<span id="cb5-275"><a href="#cb5-275" aria-hidden="true" tabindex="-1"></a>        ny <span class="op">=</span> <span class="fu">mod</span>(pos.y <span class="op">+</span> <span class="fu">cos</span>(θ), hf)</span>
+<span id="cb5-276"><a href="#cb5-276" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-277"><a href="#cb5-277" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Mutation: 5% chance to change color</span></span>
+<span id="cb5-278"><a href="#cb5-278" aria-hidden="true" tabindex="-1"></a>        new_color <span class="op">=</span> col.color</span>
+<span id="cb5-279"><a href="#cb5-279" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="fu">rand</span>(rng) <span class="op">*</span> <span class="fl">100.0</span> <span class="op">&lt;</span> params.mutation_rate</span>
+<span id="cb5-280"><a href="#cb5-280" aria-hidden="true" tabindex="-1"></a>            new_color <span class="op">=</span> MIMICRY_MUTATION_COLORS[<span class="fu">rand</span>(rng, <span class="fl">1</span><span class="op">:</span><span class="fu">length</span>(MIMICRY_MUTATION_COLORS))]</span>
+<span id="cb5-281"><a href="#cb5-281" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb5-282"><a href="#cb5-282" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-283"><a href="#cb5-283" aria-hidden="true" tabindex="-1"></a>        <span class="fu">push!</span>(system.to_spawn, (nx, ny, hdg.angle, new_color, is_monarch))</span>
+<span id="cb5-284"><a href="#cb5-284" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-285"><a href="#cb5-285" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Update running count for density check</span></span>
+<span id="cb5-286"><a href="#cb5-286" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> is_monarch</span>
+<span id="cb5-287"><a href="#cb5-287" aria-hidden="true" tabindex="-1"></a>            n_monarchs <span class="op">+=</span> <span class="fl">1</span></span>
+<span id="cb5-288"><a href="#cb5-288" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span></span>
+<span id="cb5-289"><a href="#cb5-289" aria-hidden="true" tabindex="-1"></a>            n_viceroys <span class="op">+=</span> <span class="fl">1</span></span>
+<span id="cb5-290"><a href="#cb5-290" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb5-291"><a href="#cb5-291" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-292"><a href="#cb5-292" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-293"><a href="#cb5-293" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (x, y, heading, color, is_monarch) <span class="kw">in</span> system.to_spawn</span>
+<span id="cb5-294"><a href="#cb5-294" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> is_monarch</span>
+<span id="cb5-295"><a href="#cb5-295" aria-hidden="true" tabindex="-1"></a>            <span class="fu">new_entity!</span>(world, (<span class="fu">MimicryPosition</span>(x, y), <span class="fu">MimicryHeading</span>(heading),</span>
+<span id="cb5-296"><a href="#cb5-296" aria-hidden="true" tabindex="-1"></a>                                <span class="fu">MimicryColor</span>(color), <span class="fu">MonarchTag</span>()))</span>
+<span id="cb5-297"><a href="#cb5-297" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span></span>
+<span id="cb5-298"><a href="#cb5-298" aria-hidden="true" tabindex="-1"></a>            <span class="fu">new_entity!</span>(world, (<span class="fu">MimicryPosition</span>(x, y), <span class="fu">MimicryHeading</span>(heading),</span>
+<span id="cb5-299"><a href="#cb5-299" aria-hidden="true" tabindex="-1"></a>                                <span class="fu">MimicryColor</span>(color), <span class="fu">ViceroyTag</span>()))</span>
+<span id="cb5-300"><a href="#cb5-300" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb5-301"><a href="#cb5-301" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-302"><a href="#cb5-302" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="cn">nothing</span></span>
+<span id="cb5-303"><a href="#cb5-303" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb5-304"><a href="#cb5-304" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-305"><a href="#cb5-305" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Stats ---</span></span>
+<span id="cb5-306"><a href="#cb5-306" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-307"><a href="#cb5-307" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> MimicryStatsSystem <span class="op">&lt;:</span><span class="dt"> System </span><span class="kw">end</span></span>
+<span id="cb5-308"><a href="#cb5-308" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-309"><a href="#cb5-309" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">update!</span>(<span class="op">::</span><span class="dt">MimicryStatsSystem</span>, world<span class="op">::</span><span class="dt">World</span>)</span>
+<span id="cb5-310"><a href="#cb5-310" aria-hidden="true" tabindex="-1"></a>    stats <span class="op">=</span> <span class="fu">get_resource</span>(world, MimicryStats)</span>
+<span id="cb5-311"><a href="#cb5-311" aria-hidden="true" tabindex="-1"></a>    nm <span class="op">=</span> <span class="fl">0</span></span>
+<span id="cb5-312"><a href="#cb5-312" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (eids, _) <span class="kw">in</span> <span class="fu">Query</span>(world, (MimicryPosition,); with<span class="op">=</span>(MonarchTag,))</span>
+<span id="cb5-313"><a href="#cb5-313" aria-hidden="true" tabindex="-1"></a>        nm <span class="op">+=</span> <span class="fu">length</span>(eids)</span>
+<span id="cb5-314"><a href="#cb5-314" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-315"><a href="#cb5-315" aria-hidden="true" tabindex="-1"></a>    nv <span class="op">=</span> <span class="fl">0</span></span>
+<span id="cb5-316"><a href="#cb5-316" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (eids, _) <span class="kw">in</span> <span class="fu">Query</span>(world, (MimicryPosition,); with<span class="op">=</span>(ViceroyTag,))</span>
+<span id="cb5-317"><a href="#cb5-317" aria-hidden="true" tabindex="-1"></a>        nv <span class="op">+=</span> <span class="fu">length</span>(eids)</span>
+<span id="cb5-318"><a href="#cb5-318" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-319"><a href="#cb5-319" aria-hidden="true" tabindex="-1"></a>    nb <span class="op">=</span> <span class="fl">0</span></span>
+<span id="cb5-320"><a href="#cb5-320" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (eids, _) <span class="kw">in</span> <span class="fu">Query</span>(world, (MimicryPosition,); with<span class="op">=</span>(BirdTag,))</span>
+<span id="cb5-321"><a href="#cb5-321" aria-hidden="true" tabindex="-1"></a>        nb <span class="op">+=</span> <span class="fu">length</span>(eids)</span>
+<span id="cb5-322"><a href="#cb5-322" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-323"><a href="#cb5-323" aria-hidden="true" tabindex="-1"></a>    stats.n_monarchs <span class="op">=</span> nm</span>
+<span id="cb5-324"><a href="#cb5-324" aria-hidden="true" tabindex="-1"></a>    stats.n_viceroys <span class="op">=</span> nv</span>
+<span id="cb5-325"><a href="#cb5-325" aria-hidden="true" tabindex="-1"></a>    stats.n_birds <span class="op">=</span> nb</span>
+<span id="cb5-326"><a href="#cb5-326" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="cn">nothing</span></span>
+<span id="cb5-327"><a href="#cb5-327" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb5-328"><a href="#cb5-328" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-329"><a href="#cb5-329" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Termination ---</span></span>
+<span id="cb5-330"><a href="#cb5-330" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-331"><a href="#cb5-331" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> MimicryTerminationSystem <span class="op">&lt;:</span><span class="dt"> System </span><span class="kw">end</span></span>
+<span id="cb5-332"><a href="#cb5-332" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-333"><a href="#cb5-333" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">update!</span>(<span class="op">::</span><span class="dt">MimicryTerminationSystem</span>, world<span class="op">::</span><span class="dt">World</span>)</span>
+<span id="cb5-334"><a href="#cb5-334" aria-hidden="true" tabindex="-1"></a>    params <span class="op">=</span> <span class="fu">get_resource</span>(world, MimicryParams)</span>
+<span id="cb5-335"><a href="#cb5-335" aria-hidden="true" tabindex="-1"></a>    tick <span class="op">=</span> <span class="fu">get_resource</span>(world, Tick)</span>
+<span id="cb5-336"><a href="#cb5-336" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> tick.tick <span class="op">+</span> <span class="fl">1</span> <span class="op">&gt;=</span> params.max_ticks</span>
+<span id="cb5-337"><a href="#cb5-337" aria-hidden="true" tabindex="-1"></a>        <span class="fu">get_resource</span>(world, Terminate).stop <span class="op">=</span> <span class="cn">true</span></span>
+<span id="cb5-338"><a href="#cb5-338" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-339"><a href="#cb5-339" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="cn">nothing</span></span>
+<span id="cb5-340"><a href="#cb5-340" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="model-model.jl" class="level3">
+<h3 class="anchored" data-anchor-id="model-model.jl">Model (<code>model.jl</code>)</h3>
+<p>The model file assembles all pieces: it creates the ECS <code>World</code> with the required component types, registers resources, builds the <code>Scheduler</code> with systems in execution order, and exposes the public <code>run</code> entry point. The observer pattern records the trajectory each tick.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">mimicry_world</span>(; initial_capacity<span class="op">::</span><span class="dt">Int </span><span class="op">=</span> <span class="fl">2048</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fu">World</span>(</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>        MimicryPosition,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>        MimicryHeading,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>        MimicryColor,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>        BirdMemory,</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>        MonarchTag,</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>        ViceroyTag,</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>        BirdTag;</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>        initial_capacity <span class="op">=</span> initial_capacity,</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>        allow_mutable <span class="op">=</span> <span class="cn">true</span>,</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">mimicry_systems</span>()</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>        <span class="fu">InitMimicrySystem</span>(),</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>        <span class="fu">MimicryBirdMoveSystem</span>(),</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>        <span class="fu">MimicryButterflyMoveSystem</span>(),</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>        <span class="fu">MimicryEatingSystem</span>(),</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>        <span class="fu">MimicryForgetSystem</span>(),</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>        <span class="fu">MimicryReproductionSystem</span>(),</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>        <span class="fu">MimicryStatsSystem</span>(),</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>        <span class="fu">MimicryTerminationSystem</span>(),</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">mimicry_model</span>(params<span class="op">::</span><span class="dt">MimicryParams </span><span class="op">=</span> <span class="fu">MimicryParams</span>())</span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>    world <span class="op">=</span> <span class="fu">mimicry_world</span>()</span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>    <span class="fu">_add_standard_resources!</span>(world, params)</span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_resource!</span>(world, <span class="fu">MimicryStats</span>())</span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>    scheduler <span class="op">=</span> <span class="fu">Scheduler</span>(world, <span class="fu">mimicry_systems</span>())</span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>    <span class="fu">initialize!</span>(scheduler)</span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> scheduler</span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> MimicryObserver <span class="kw">end</span></span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">mimicry_headers</span>(<span class="op">::</span><span class="dt">MimicryObserver</span>)</span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [<span class="st">"Monarchs"</span>, <span class="st">"Viceroys"</span>, <span class="st">"Birds"</span>]</span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">mimicry_values</span>(<span class="op">::</span><span class="dt">MimicryObserver</span>, world<span class="op">::</span><span class="dt">World</span>)</span>
+<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a>    stats <span class="op">=</span> <span class="fu">get_resource</span>(world, MimicryStats)</span>
+<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dt">Float64</span>[stats.n_monarchs, stats.n_viceroys, stats.n_birds]</span>
+<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">run_mimicry</span>(; params<span class="op">::</span><span class="dt">MimicryParams </span><span class="op">=</span> <span class="fu">MimicryParams</span>(), observe<span class="op">::</span><span class="dt">Bool </span><span class="op">=</span> <span class="cn">true</span>)</span>
+<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fu">_run_model</span>(mimicry_model, <span class="fu">MimicryObserver</span>(), mimicry_values; params, observe)</span>
+<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

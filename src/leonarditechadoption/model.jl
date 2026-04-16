@@ -12,10 +12,7 @@ end
 
 function leonarditechadoption_model(params::LTechParams = LTechParams())
     world = leonarditechadoption_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, LTechState())
     add_resource!(world, LTechStats())
     scheduler = Scheduler(world, leonarditechadoption_systems())
@@ -35,16 +32,5 @@ function leonarditechadoption_values(::LTechObserver, world::World)
 end
 
 function run_leonarditechadoption(; params::LTechParams = LTechParams(), observe::Bool = true)
-    scheduler = leonarditechadoption_model(params)
-    obs = LTechObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, leonarditechadoption_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, leonarditechadoption_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(leonarditechadoption_model, LTechObserver(), leonarditechadoption_values; params, observe)
 end

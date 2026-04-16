@@ -8,10 +8,7 @@ end
 
 function pa_model(params::PAParams = PAParams())
     world = pa_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, PANetwork())
     add_resource!(world, PAStats())
     scheduler = Scheduler(world, pa_systems())
@@ -31,16 +28,5 @@ function pa_values(::PAObserver, world::World)
 end
 
 function run_preferential_attachment(; params::PAParams = PAParams(), observe::Bool = true)
-    scheduler = pa_model(params)
-    obs = PAObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, pa_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, pa_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(pa_model, PAObserver(), pa_values; params, observe)
 end

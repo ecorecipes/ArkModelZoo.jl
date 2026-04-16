@@ -16,10 +16,7 @@ end
 
 function languageborders_model(params::LanguageBordersParams = LanguageBordersParams())
     world = languageborders_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, LanguageBordersGrid(params.grid_width, params.grid_height))
     add_resource!(world, LanguageBordersStats())
     scheduler = Scheduler(world, languageborders_systems())
@@ -39,16 +36,5 @@ function languageborders_values(::LanguageBordersObserver, world::World)
 end
 
 function run_languageborders(; params::LanguageBordersParams = LanguageBordersParams(), observe::Bool = true)
-    scheduler = languageborders_model(params)
-    obs = LanguageBordersObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, languageborders_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, languageborders_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(languageborders_model, LanguageBordersObserver(), languageborders_values; params, observe)
 end

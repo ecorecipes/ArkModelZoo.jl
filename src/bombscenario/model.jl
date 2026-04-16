@@ -22,10 +22,7 @@ end
 
 function bombscenario_model(params::BombParams = BombParams())
     world = bombscenario_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, BombGrid(93, 535))
     add_resource!(world, BombStats())
     scheduler = Scheduler(world, bombscenario_systems())
@@ -45,16 +42,5 @@ function bombscenario_values(::BombObserver, world::World)
 end
 
 function run_bombscenario(; params::BombParams = BombParams(), observe::Bool = true)
-    scheduler = bombscenario_model(params)
-    obs = BombObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, bombscenario_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, bombscenario_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(bombscenario_model, BombObserver(), bombscenario_values; params, observe)
 end

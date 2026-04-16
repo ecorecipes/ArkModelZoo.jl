@@ -11,10 +11,7 @@ end
 
 function modsocsegregation_model(params::ModsocSegParams = ModsocSegParams())
     world = modsocsegregation_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, ModsocGrid(params.grid_width, params.grid_height))
     add_resource!(world, ModsocStats())
     scheduler = Scheduler(world, modsocsegregation_systems())
@@ -34,16 +31,5 @@ function modsocsegregation_values(::ModsocSegObserver, world::World)
 end
 
 function run_modsocsegregation(; params::ModsocSegParams = ModsocSegParams(), observe::Bool = true)
-    scheduler = modsocsegregation_model(params)
-    obs = ModsocSegObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, modsocsegregation_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, modsocsegregation_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(modsocsegregation_model, ModsocSegObserver(), modsocsegregation_values; params, observe)
 end

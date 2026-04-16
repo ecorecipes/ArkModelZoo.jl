@@ -12,10 +12,7 @@ end
 
 function simplemarkettable_model(params::SMktTParams = SMktTParams())
     world = simplemarkettable_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, SMktTState())
     add_resource!(world, SMktTStats())
     scheduler = Scheduler(world, simplemarkettable_systems())
@@ -35,16 +32,5 @@ function simplemarkettable_values(::SMktTObserver, world::World)
 end
 
 function run_simplemarkettable(; params::SMktTParams = SMktTParams(), observe::Bool = true)
-    scheduler = simplemarkettable_model(params)
-    obs = SMktTObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, simplemarkettable_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, simplemarkettable_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(simplemarkettable_model, SMktTObserver(), simplemarkettable_values; params, observe)
 end

@@ -17,10 +17,7 @@ end
 
 function voter_model(params::VoterParams = VoterParams())
     world = voter_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, VoterGrid(params.grid_width, params.grid_height))
     add_resource!(world, VoterStats())
     scheduler = Scheduler(world, voter_systems())
@@ -40,16 +37,5 @@ function voter_values(::VoterObserver, world::World)
 end
 
 function run_voter(; params::VoterParams = VoterParams(), observe::Bool = true)
-    scheduler = voter_model(params)
-    obs = VoterObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, voter_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, voter_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(voter_model, VoterObserver(), voter_values; params, observe)
 end

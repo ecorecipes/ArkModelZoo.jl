@@ -8,10 +8,7 @@ end
 
 function rebellion_model(params::REBParams = REBParams())
     world = rebellion_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, REBGrid(params.grid_width, params.grid_height, params.vision))
     add_resource!(world, REBStats())
     scheduler = Scheduler(world, rebellion_systems())
@@ -31,16 +28,5 @@ function reb_values(::REBObserver, world::World)
 end
 
 function run_rebellion(; params::REBParams = REBParams(), observe::Bool = true)
-    scheduler = rebellion_model(params)
-    obs = REBObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, reb_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, reb_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(rebellion_model, REBObserver(), reb_values; params, observe)
 end

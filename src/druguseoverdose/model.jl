@@ -11,10 +11,7 @@ end
 
 function druguseoverdose_model(params::DrugUseOverdoseParams = DrugUseOverdoseParams())
     world = druguseoverdose_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, DUOGrid())
     add_resource!(world, DUONetwork())
     add_resource!(world, DUOStats())
@@ -35,16 +32,5 @@ function druguseoverdose_values(::DUOObserver, world::World)
 end
 
 function run_druguseoverdose(; params::DrugUseOverdoseParams = DrugUseOverdoseParams(), observe::Bool = true)
-    scheduler = druguseoverdose_model(params)
-    obs = DUOObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, druguseoverdose_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, druguseoverdose_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(druguseoverdose_model, DUOObserver(), druguseoverdose_values; params, observe)
 end

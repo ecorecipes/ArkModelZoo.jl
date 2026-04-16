@@ -12,10 +12,7 @@ end
 
 function infinitelife_model(params::InfLifeParams = InfLifeParams())
     world = infinitelife_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, InfLifeGrid())
     add_resource!(world, InfLifeStats())
     scheduler = Scheduler(world, infinitelife_systems())
@@ -35,16 +32,5 @@ function infinitelife_values(::InfLifeObserver, world::World)
 end
 
 function run_infinitelife(; params::InfLifeParams = InfLifeParams(), observe::Bool = true)
-    scheduler = infinitelife_model(params)
-    obs = InfLifeObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, infinitelife_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, infinitelife_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(infinitelife_model, InfLifeObserver(), infinitelife_values; params, observe)
 end

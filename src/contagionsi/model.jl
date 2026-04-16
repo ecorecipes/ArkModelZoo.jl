@@ -21,10 +21,7 @@ end
 
 function contagionsi_model(params::ContagionSIParams = ContagionSIParams())
     world = contagionsi_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, CIStats())
     scheduler = Scheduler(world, contagionsi_systems())
     initialize!(scheduler)
@@ -43,16 +40,5 @@ function contagionsi_values(::ContagionSIObserver, world::World)
 end
 
 function run_contagionsi(; params::ContagionSIParams = ContagionSIParams(), observe::Bool = true)
-    scheduler = contagionsi_model(params)
-    obs = ContagionSIObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, contagionsi_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, contagionsi_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(contagionsi_model, ContagionSIObserver(), contagionsi_values; params, observe)
 end

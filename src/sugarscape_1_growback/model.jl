@@ -12,10 +12,7 @@ end
 
 function s1g_model(params::S1GParams = S1GParams())
     world = s1g_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, S1GGrid(params.grid_width, params.grid_height))
     add_resource!(world, S1GStats())
     scheduler = Scheduler(world, s1g_systems())
@@ -35,16 +32,5 @@ function s1g_values(::S1GObserver, world::World)
 end
 
 function run_sugarscape_1_growback(; params::S1GParams = S1GParams(), observe::Bool = true)
-    scheduler = s1g_model(params)
-    obs = S1GObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, s1g_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, s1g_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(s1g_model, S1GObserver(), s1g_values; params, observe)
 end

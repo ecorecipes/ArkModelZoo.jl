@@ -10,25 +10,6 @@
     clamp(round(Int, v) + (size ÷ 2 + 1), 1, size)
 end
 
-# Diffuse a matrix: share `rate` of each cell's value equally among 8 neighbours
-function _fbr_diffuse!(mat::Matrix{Float64}, rate::Float64)
-    h, w = size(mat)
-    buf = copy(mat)
-    share = rate / 8.0
-    @inbounds for y in 1:h, x in 1:w
-        give = buf[x, y] * share
-        for dy in -1:1, dx in -1:1
-            (dx == 0 && dy == 0) && continue
-            nx = x + dx
-            ny = y + dy
-            (nx < 1 || nx > w || ny < 1 || ny > h) && continue
-            mat[nx, ny] += give
-        end
-        mat[x, y] -= buf[x, y] * rate
-    end
-    return nothing
-end
-
 # Boundary-reflecting heading-based movement (NetLogo style)
 function _fbr_move!(x::Ref{Float64}, y::Ref{Float64}, heading::Ref{Float64},
                     rng, half::Float64)
@@ -160,8 +141,8 @@ function update!(::FBRGoSystem, world::World)
     end
 
     # --- diffuse glucose & O2 ---
-    _fbr_diffuse!(grid.glucose, 0.5)
-    _fbr_diffuse!(grid.O2, 0.5)
+    diffuse_bounded!(grid.glucose, 0.5, w, h)
+    diffuse_bounded!(grid.O2, 0.5, w, h)
 
     # --- update adjusters ---
     fbr.adjuster_enzymes = max(round(Int, n_enzymes > 0 ? n_enzymes^(1/4) : 1.0), 1)

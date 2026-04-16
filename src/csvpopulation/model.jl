@@ -10,10 +10,7 @@ function csvpopulation_model(params::CsvPopParams = CsvPopParams())
     w = params.grid_xmax - params.grid_xmin + 1
     h = params.grid_ymax - params.grid_ymin + 1
     world = csvpopulation_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, CsvPopGrid(w, h))
     add_resource!(world, CsvPopState())
     add_resource!(world, CsvPopStats())
@@ -34,16 +31,5 @@ function csvpopulation_values(::CsvPopObserver, world::World)
 end
 
 function run_csvpopulation(; params::CsvPopParams = CsvPopParams(), observe::Bool = true)
-    scheduler = csvpopulation_model(params)
-    obs = CsvPopObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, csvpopulation_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, csvpopulation_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(csvpopulation_model, CsvPopObserver(), csvpopulation_values; params, observe)
 end

@@ -81,16 +81,5 @@ function aecon_values(::AEconObserver, world::World)
 end
 
 function run_artificialeconomy(; params::AEconParams = AEconParams(), observe::Bool = true)
-    scheduler = artificialeconomy_model(params)
-    obs = AEconObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, aecon_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, aecon_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(artificialeconomy_model, AEconObserver(), aecon_values; params, observe)
 end

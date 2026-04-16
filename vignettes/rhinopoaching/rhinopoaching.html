@@ -1,0 +1,1298 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.28">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Rhino Poaching</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="rhinopoaching_files/libs/clipboard/clipboard.min.js"></script>
+<script src="rhinopoaching_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="rhinopoaching_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="rhinopoaching_files/libs/quarto-html/popper.min.js"></script>
+<script src="rhinopoaching_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="rhinopoaching_files/libs/quarto-html/anchor.min.js"></script>
+<link href="rhinopoaching_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="rhinopoaching_files/libs/quarto-html/quarto-syntax-highlighting-49e51e44f424ea8c7044b429bdbbbfe2.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="rhinopoaching_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="rhinopoaching_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="rhinopoaching_files/libs/bootstrap/bootstrap-8ffd5f67044e5306d9846f29df41dda5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a>
+  <ul class="collapse">
+  <li><a href="#what-is-it" id="toc-what-is-it" class="nav-link" data-scroll-target="#what-is-it">WHAT IS IT?</a></li>
+  <li><a href="#how-it-works" id="toc-how-it-works" class="nav-link" data-scroll-target="#how-it-works">HOW IT WORKS</a></li>
+  <li><a href="#things-to-notice" id="toc-things-to-notice" class="nav-link" data-scroll-target="#things-to-notice">THINGS TO NOTICE</a></li>
+  <li><a href="#things-to-try" id="toc-things-to-try" class="nav-link" data-scroll-target="#things-to-try">THINGS TO TRY</a></li>
+  <li><a href="#extending-the-model" id="toc-extending-the-model" class="nav-link" data-scroll-target="#extending-the-model">EXTENDING THE MODEL</a></li>
+  <li><a href="#netlogo-features" id="toc-netlogo-features" class="nav-link" data-scroll-target="#netlogo-features">NETLOGO FEATURES</a></li>
+  <li><a href="#related-models" id="toc-related-models" class="nav-link" data-scroll-target="#related-models">RELATED MODELS</a></li>
+  <li><a href="#credits-and-references" id="toc-credits-and-references" class="nav-link" data-scroll-target="#credits-and-references">CREDITS AND REFERENCES</a></li>
+  </ul></li>
+  <li><a href="#parameters" id="toc-parameters" class="nav-link" data-scroll-target="#parameters">Parameters</a></li>
+  <li><a href="#source-code" id="toc-source-code" class="nav-link" data-scroll-target="#source-code">Source Code</a></li>
+  <li><a href="#time-series" id="toc-time-series" class="nav-link" data-scroll-target="#time-series">Time Series</a></li>
+  <li><a href="#ensemble-runs" id="toc-ensemble-runs" class="nav-link" data-scroll-target="#ensemble-runs">Ensemble Runs</a></li>
+  <li><a href="#parameter-sensitivity" id="toc-parameter-sensitivity" class="nav-link" data-scroll-target="#parameter-sensitivity">Parameter Sensitivity</a></li>
+  <li><a href="#appendix-source-code" id="toc-appendix-source-code" class="nav-link" data-scroll-target="#appendix-source-code">Appendix: Source Code</a>
+  <ul class="collapse">
+  <li><a href="#parameters-parameters.jl" id="toc-parameters-parameters.jl" class="nav-link" data-scroll-target="#parameters-parameters.jl">Parameters (<code>parameters.jl</code>)</a></li>
+  <li><a href="#components-components.jl" id="toc-components-components.jl" class="nav-link" data-scroll-target="#components-components.jl">Components (<code>components.jl</code>)</a></li>
+  <li><a href="#resources-resources.jl" id="toc-resources-resources.jl" class="nav-link" data-scroll-target="#resources-resources.jl">Resources (<code>resources.jl</code>)</a></li>
+  <li><a href="#systems-systems.jl" id="toc-systems-systems.jl" class="nav-link" data-scroll-target="#systems-systems.jl">Systems (<code>systems.jl</code>)</a></li>
+  <li><a href="#model-model.jl" id="toc-model-model.jl" class="nav-link" data-scroll-target="#model-model.jl">Model (<code>model.jl</code>)</a></li>
+  </ul></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="rhinopoaching.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li><li><a href="rhinopoaching.md"><i class="bi bi-file-code"></i>Github (GFM)</a></li></ul></div></nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Rhino Poaching</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<section id="what-is-it" class="level3">
+<h3 class="anchored" data-anchor-id="what-is-it">WHAT IS IT?</h3>
+<p>This model explores the dynamic interaction between three agents involved in rhino poaching: rhinos, poachers, and rangers. The agents make decisions based on their environment and are also influenced by other agents. A population of rhino agents live inside a protected area and are moving around. Poachers try to find these rhino’s in order to kill them. Rangers try to find the poachers in order to capture them and ultimately prevent the rhino population from going extinct. The model can be used to identify optimal ranger strategies under varying environmental conditions, but also for studying various strategies that poachers may use to avoid detection or for successfully finding rhinos.</p>
+</section>
+<section id="how-it-works" class="level3">
+<h3 class="anchored" data-anchor-id="how-it-works">HOW IT WORKS</h3>
+<p><strong>The world</strong> The world is created by the “SETUP-PARK” button. The patches at the border of the world are colored black and represent the area outside the reserve. All other patches represent the protected area where a population of rhinos live. These patches contain a varying amount of resources (ranged from 0-1), roughness (ranged from 1-5), home range information (to which rhino does this patch belongs to) and finally signs of recent rhino, poacher and ranger activity. Resources can represent food, water or other features that are relevant to your species of interest. These resources are diffused to create more natural and realistic gradients. All patches have a resource regrowth rate. Some patches do not contain any resources, here called ‘sandy areas’. The slider “SANDY-AREAS” gives you control over the percentage of patches with no resources. Roughness is also an umbrella term for features that may make an area less desirable or more difficult to move through (for example, mountains or dense vegetation). Agents moving through rough areas results the agent waiting an extra tick (slowing them down).By default all patches are equally “easy” to traverse with a roughness value of 1. Adding rough areas with the “ROUGH-AREAS” slider creates the specified amount of rough patches with the maximum value of 5 and a radius around it to smooth out the effect. All this information was combined into one variable named “patch attractiveness”. This value is used to direct each agent’s movement and described in more detail for each agent.</p>
+<p>There are several visualization options available from the “VISUALIZATION” drop-menu. The option RESOURCE_COLOURS visualizes the amount of resources available in each patch, colored by a shade of green. The higher the amount of resources, the more darker the shade of green. The patches with a resources value of 0 (the sandy patches) are colored brown. The option ROUGHNESS_COLORS visualizes all patches with a roughness value larger than 1 along a shade of red. Patches with a roughness value equal to 1 are visualized based on their resources. The option RHINO_HOME-RANGES shows how the rhino territories are distributed. The color of the patch is the same as the color of the rhino it belongs to. Please note that the rhino colors are randomly distributed so it may occur that two rhinos have the same color. The next section describes how home ranges are formed.</p>
+<p><strong>Rhinos</strong> The rhino agents are created and put in place by the “SETUP-RHINOS” button. The number of rhino agents is determined by the NUM-RHINOS slider. Rhinos are randomly placed in the world. If another agent is within a radius of 10 patches, the rhino is moved to a random different patch without any agents within that radius. If none of the patches can for-fill that condition, the rhino will be placed on a random patch that is has not been taken yet. Each 1.5 patch in the rhino’s radius is added to its home range, and it expands when the rhino is moving. If a rhino was killed by poachers, all of its home range patches become unoccupied. The rhinos move by making a weighted decisions by based on the variables of its neighboring patches. The variables involved are the amount of resources, the roughness, and the distance to other rhinos. Each of these variables were scaled from 0 to 1 with 1 indicating the high preference. The variables are then summed and the divided by the sum of weights. The weights for the rhinos are “RESOURCE-WEIGHT”, “ROUGHNESS-WEIGHT”, “RHINO-AVOID-WEIGHT”, and “GOAL-WEIGHT”, and are adjustable in the interface. This information was stored in the variable ‘patch attractiveness’ that describes the overall attractiveness and hence the likelihood that the rhino will go to that patch. This was done by using the rnd:weighted-one-of function. To reduce the likelihood that rhinos will enter territories of other rhinos, the patch attractiveness of neighbors that belong to one of the other rhinos, are divided by 10. Once the rhino moved to one of the neighboring cells, it will consume 1% of the available resources. After moving to a new patch, the rhino will consume 1% of the resources (specified by the FORAGE-AMOUNT slider), add the patch to its territory and a 50% chance of leaving signs in that patch. The rhino will also remember and avoid the last 3 visited patches.</p>
+<p><strong>Poachers</strong> Poachers are added by the SETUP-HUMANS procedure and placed at a random patch on one of the black border patches. The number of poachers in the world can be changed by using the “NUM-POACHERS” slider. The time available for hunting is specified by the “POACHER-TIME” slider. When time has run out, they will leave the park. The variables involved in poacher movement are signs of recent rhino activity, signs of ranger activity, roughness, resources, and distance to goal. The weights for poacher decision-making are “RANGER-AVOID-WEIGHT”, “HUNT-RHINO-WEIGHT”, “ROUGHNESS-WEIGHT”, “RESOURCE-WEIGHT”, and “GOAL-WEIGHT”. Poachers check if there are rhinos within the “POACHER-VISION” radius. If so, the poacher will kill it, remove it from the world and move towards the nearest border patch. Poachers will lay low after successfully escaping the reserve (regardless if a rhino was killed or not). The lay low time was defined as twice the “POACHER-TIME” plus random 100. Poachers also have a 50% chance of leaving signs, whereas killing a rhino will leave permanent signs. Poachers remember patches where they killed rhinos as success sites, patches with recent-rhino-activity as good-sites, and patches with ranger activity as failure sites. The success and failure sites are used to plan new poaching trips and to determine where the poacher will enter the park next.</p>
+<p><strong>Rangers</strong> The SETUP-HUMANS procedure also builds ranger camps and create rangers. The number of camps and rangers can be specified with the “NUM-CAMPS” and “NUM-RANGERS” slider respectively. Camps are put either randomly, at fixed locations or manually. This can be set from the “CAMP-PLACEMENT” drop-down menu (where “WE-DECIDE” is the manual option). Rangers sprout from camps and start their first patrol there. Rangers use movement rules similar to poachers, only their aim is to find poachers. Their movement is directed by goal distance and weight, rhino signs, poacher signs and roughness. This again accumulates into a patch attractiveness, allowing rangers to pick the highest relative attractiveness with a degree of randomness. The duration of each patrol is specified by the “PATROL-LENGTH” slider. When a ranger detects a poacher within the “RANGER-RADIUS” slider, the poacher was caught and removed from the world. Patches with poacher signs are remembered as risky areas whereas non-poaching sites are remembered as safe-areas. This information is used in the planning of the next patrols. Rangers also have a 50% chance of leaving signs. When the patrol-time ends, rangers move to the nearest camp or border patch and wait a number of ticks before going out again. Ranger agents have two strategies that can be specified from the “PATROL-TYPE” drop-down-menu. The “STANDARD-PATROL” is the weighted decision-making as described above. The “FENCE-PATROL” lets the ranger team moves along the border of the reserve and do not make weighted decisions. If the ranger enters a patch with poacher signs, the PATROL-LENGTH will be reset to 0, and from here makes weighted decisions similar to the STANDARD-PATROL strategy. This represents a so-called ‘response time’ that will take over when an illegal entry was detected.</p>
+<p>The signs of rhinos, poachers, and rangers will decrease in value over time. When it reaches 0, the signs are not visible for the agents.</p>
+</section>
+<section id="things-to-notice" class="level3">
+<h3 class="anchored" data-anchor-id="things-to-notice">THINGS TO NOTICE</h3>
+<p>This is an abstract representation of a protected area. The units (patches and ticks) are an arbitrary measurement and don’t map directly to real world time or space. This can only be done when this model is applied to a specific context or setting where one can define what one tick or patch means in the real world.</p>
+</section>
+<section id="things-to-try" class="level3">
+<h3 class="anchored" data-anchor-id="things-to-try">THINGS TO TRY</h3>
+<p>The aim is to find ranger strategies that match the existing or realistic anti-poaching strategies, in order to keep as many rhinos alive as possible. It is important to make these ranger strategies realistic and practically feasible. How does adding more teams, longer patrols, influence the number of surviving rhinos? Is one strategy more effective than the other? What will happen if the rangers or poachers know better the whereabouts of the rhinos?</p>
+</section>
+<section id="extending-the-model" class="level3">
+<h3 class="anchored" data-anchor-id="extending-the-model">EXTENDING THE MODEL</h3>
+<p>The strength of this general model and the behavioral rules is that they can be applied to any park or reserve and that one can make additional assumptions to better fit their specific setting. The model should be regarded as a first step to understand the wildlife crime and would only benefit from further improvements and extensions. Additional ranger strategies can be developed, added and tested in this model. This model focuses on active poaching (searching and shooting an animal), but passive poaching such as traps and snares can also be implemented and subsequently test which anti-poaching strategies work best for this poaching activity. Also rangers and poachers may start learning more from one another (communication can lead to success and failure sites being shared), or the effect of corruption. One may also try to change the environment to better represent a real-life national park or reserve by, for example, creating rivers or different types of habits.</p>
+</section>
+<section id="netlogo-features" class="level3">
+<h3 class="anchored" data-anchor-id="netlogo-features">NETLOGO FEATURES</h3>
+<p>To allow for the random weighted decision rules for agent movement use: extensions [rnd] Allowing the use of: rnd:weighted-one-of</p>
+</section>
+<section id="related-models" class="level3">
+<h3 class="anchored" data-anchor-id="related-models">RELATED MODELS</h3>
+<p>The wolf-sheep predation model and the mammoths model are similar as they look the dynamic interactions between two types of agents. Tuskless elephants is another model related to poaching.</p>
+</section>
+<section id="credits-and-references" class="level3">
+<h3 class="anchored" data-anchor-id="credits-and-references">CREDITS AND REFERENCES</h3>
+<p>We would like to thank Michael Mäs and Andrew Lemieux for their support and help in building the model.</p>
+</section>
+</section>
+<section id="parameters" class="level2">
+<h2 class="anchored" data-anchor-id="parameters">Parameters</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 28%">
+<col style="width: 15%">
+<col style="width: 23%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>width</code></td>
+<td><code>Int</code></td>
+<td><code>101</code></td>
+<td>width</td>
+</tr>
+<tr class="even">
+<td><code>height</code></td>
+<td><code>Int</code></td>
+<td><code>101</code></td>
+<td>height</td>
+</tr>
+<tr class="odd">
+<td><code>num_rhinos</code></td>
+<td><code>Int</code></td>
+<td><code>20</code></td>
+<td>num rhinos</td>
+</tr>
+<tr class="even">
+<td><code>num_poachers</code></td>
+<td><code>Int</code></td>
+<td><code>10</code></td>
+<td>num poachers</td>
+</tr>
+<tr class="odd">
+<td><code>num_rangers</code></td>
+<td><code>Int</code></td>
+<td><code>4</code></td>
+<td>num rangers</td>
+</tr>
+<tr class="even">
+<td><code>max_roughness</code></td>
+<td><code>Float64</code></td>
+<td><code>0.6</code></td>
+<td>fraction of rough terrain</td>
+</tr>
+<tr class="odd">
+<td><code>sprout_delay_time</code></td>
+<td><code>Int</code></td>
+<td><code>500</code></td>
+<td>ticks before resource sprouts in rough cells</td>
+</tr>
+<tr class="even">
+<td><code>resource_regrow_rate</code></td>
+<td><code>Float64</code></td>
+<td><code>0.01</code></td>
+<td>logistic regrowth rate</td>
+</tr>
+<tr class="odd">
+<td><code>rhino_reproduce_prob</code></td>
+<td><code>Float64</code></td>
+<td><code>0.01</code></td>
+<td>per-tick reproduction probability</td>
+</tr>
+<tr class="even">
+<td><code>poacher_detect_range</code></td>
+<td><code>Float64</code></td>
+<td><code>5.0</code></td>
+<td>poacher search radius for rhino signs</td>
+</tr>
+<tr class="odd">
+<td><code>ranger_detect_range</code></td>
+<td><code>Float64</code></td>
+<td><code>3.0</code></td>
+<td>ranger detection radius for poachers</td>
+</tr>
+<tr class="even">
+<td><code>poacher_kill_range</code></td>
+<td><code>Float64</code></td>
+<td><code>2.0</code></td>
+<td>poacher kill radius for rhinos</td>
+</tr>
+<tr class="odd">
+<td><code>rhino_forage_radius</code></td>
+<td><code>Int</code></td>
+<td><code>3</code></td>
+<td>neighbourhood search for foraging</td>
+</tr>
+<tr class="even">
+<td><code>activity_decay</code></td>
+<td><code>Float64</code></td>
+<td><code>0.99</code></td>
+<td>per-tick decay of rhino activity signs</td>
+</tr>
+<tr class="odd">
+<td><code>home_weight</code></td>
+<td><code>Float64</code></td>
+<td><code>0.3</code></td>
+<td>weight of home-range fidelity</td>
+</tr>
+<tr class="even">
+<td><code>resource_weight</code></td>
+<td><code>Float64</code></td>
+<td><code>0.7</code></td>
+<td>weight of resource attraction</td>
+</tr>
+<tr class="odd">
+<td><code>max_rhinos</code></td>
+<td><code>Int</code></td>
+<td><code>100</code></td>
+<td>pre-allocated capacity</td>
+</tr>
+<tr class="even">
+<td><code>max_ticks</code></td>
+<td><code>Int</code></td>
+<td><code>200</code></td>
+<td>max ticks</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="source-code" class="level2">
+<h2 class="anchored" data-anchor-id="source-code">Source Code</h2>
+<p>The Julia code to run this model:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">ArkModelZoo</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>_, trajectory <span class="op">=</span> <span class="fu">run_rhinopoaching</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="time-series" class="level2">
+<h2 class="anchored" data-anchor-id="time-series">Time Series</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="plot_timeseries.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>Rhino Poaching time series</figcaption>
+</figure>
+</div>
+</section>
+<section id="ensemble-runs" class="level2">
+<h2 class="anchored" data-anchor-id="ensemble-runs">Ensemble Runs</h2>
+<p>Ten replicates with different random seeds, showing mean ± standard deviation.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="plot_ensemble.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>Rhino Poaching ensemble</figcaption>
+</figure>
+</div>
+</section>
+<section id="parameter-sensitivity" class="level2">
+<h2 class="anchored" data-anchor-id="parameter-sensitivity">Parameter Sensitivity</h2>
+<p>Varying <code>width</code>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="plot_sensitivity.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>Rhino Poaching sensitivity</figcaption>
+</figure>
+</div>
+</section>
+<section id="appendix-source-code" class="level2">
+<h2 class="anchored" data-anchor-id="appendix-source-code">Appendix: Source Code</h2>
+<p>This model is implemented in the <a href="https://github.com/sdwfrost/Ark.jl">Ark.jl</a> Entity-Component-System (ECS) framework. The code is split into five files, each with a distinct role:</p>
+<ul>
+<li><strong>Parameters</strong>: a mutable struct holding all configurable values.</li>
+<li><strong>Components</strong>: lightweight data types attached to individual entities (agents).</li>
+<li><strong>Resources</strong>: world-level shared state accessible to all systems.</li>
+<li><strong>Systems</strong>: functions that operate on entities each tick, defining model behavior.</li>
+<li><strong>Model</strong>: wiring that assembles the world, registers resources and systems, and provides the run entry point.</li>
+</ul>
+<section id="parameters-parameters.jl" class="level3">
+<h3 class="anchored" data-anchor-id="parameters-parameters.jl">Parameters (<code>parameters.jl</code>)</h3>
+<p>The parameter struct uses <code>@kwdef</code> so that every field has a default value and can be overridden by keyword. These defaults match the original NetLogo model’s slider settings.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">Base</span>.<span class="pp">@kwdef</span> <span class="kw">mutable struct</span> RhinoParams</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    width<span class="op">::</span><span class="dt">Int </span><span class="op">=</span> <span class="fl">101</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    height<span class="op">::</span><span class="dt">Int </span><span class="op">=</span> <span class="fl">101</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    num_rhinos<span class="op">::</span><span class="dt">Int </span><span class="op">=</span> <span class="fl">20</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    num_poachers<span class="op">::</span><span class="dt">Int </span><span class="op">=</span> <span class="fl">10</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    num_rangers<span class="op">::</span><span class="dt">Int </span><span class="op">=</span> <span class="fl">4</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    max_roughness<span class="op">::</span><span class="dt">Float64 </span><span class="op">=</span> <span class="fl">0.6</span>             <span class="co"># fraction of rough terrain</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    sprout_delay_time<span class="op">::</span><span class="dt">Int </span><span class="op">=</span> <span class="fl">500</span>             <span class="co"># ticks before resource sprouts in rough cells</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    resource_regrow_rate<span class="op">::</span><span class="dt">Float64 </span><span class="op">=</span> <span class="fl">0.01</span>     <span class="co"># logistic regrowth rate</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    rhino_reproduce_prob<span class="op">::</span><span class="dt">Float64 </span><span class="op">=</span> <span class="fl">0.01</span>     <span class="co"># per-tick reproduction probability</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    poacher_detect_range<span class="op">::</span><span class="dt">Float64 </span><span class="op">=</span> <span class="fl">5.0</span>      <span class="co"># poacher search radius for rhino signs</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    ranger_detect_range<span class="op">::</span><span class="dt">Float64 </span><span class="op">=</span> <span class="fl">3.0</span>       <span class="co"># ranger detection radius for poachers</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    poacher_kill_range<span class="op">::</span><span class="dt">Float64 </span><span class="op">=</span> <span class="fl">2.0</span>        <span class="co"># poacher kill radius for rhinos</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    rhino_forage_radius<span class="op">::</span><span class="dt">Int </span><span class="op">=</span> <span class="fl">3</span>             <span class="co"># neighbourhood search for foraging</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    activity_decay<span class="op">::</span><span class="dt">Float64 </span><span class="op">=</span> <span class="fl">0.99</span>           <span class="co"># per-tick decay of rhino activity signs</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    home_weight<span class="op">::</span><span class="dt">Float64 </span><span class="op">=</span> <span class="fl">0.3</span>               <span class="co"># weight of home-range fidelity</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    resource_weight<span class="op">::</span><span class="dt">Float64 </span><span class="op">=</span> <span class="fl">0.7</span>           <span class="co"># weight of resource attraction</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    max_rhinos<span class="op">::</span><span class="dt">Int </span><span class="op">=</span> <span class="fl">100</span>                    <span class="co"># pre-allocated capacity</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    max_ticks<span class="op">::</span><span class="dt">Int </span><span class="op">=</span> <span class="fl">200</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    seed<span class="op">::</span><span class="dt">Int </span><span class="op">=</span> <span class="fl">42</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="components-components.jl" class="level3">
+<h3 class="anchored" data-anchor-id="components-components.jl">Components (<code>components.jl</code>)</h3>
+<p>Components are lightweight data types attached to individual entities (agents). Mutable structs hold per-entity state, while empty tag structs act as markers for the ECS query system to efficiently filter entities.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> RhinoDummy <span class="kw">end</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="resources-resources.jl" class="level3">
+<h3 class="anchored" data-anchor-id="resources-resources.jl">Resources (<code>resources.jl</code>)</h3>
+<p>Resources are world-level singletons shared across all systems, used for global state and aggregate statistics.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">mutable struct</span> RhinoState</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Rhinos (pre-allocated to max_rhinos)</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    n_rhinos<span class="op">::</span><span class="dt">Int</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    rhino_x<span class="op">::</span><span class="dt">Vector{Float64}</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    rhino_y<span class="op">::</span><span class="dt">Vector{Float64}</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    rhino_heading<span class="op">::</span><span class="dt">Vector{Float64}</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    rhino_alive<span class="op">::</span><span class="dt">Vector{Bool}</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    rhino_home_x<span class="op">::</span><span class="dt">Vector{Float64}</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    rhino_home_y<span class="op">::</span><span class="dt">Vector{Float64}</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    rhino_ticks_alive<span class="op">::</span><span class="dt">Vector{Int}</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Poachers</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    n_poachers<span class="op">::</span><span class="dt">Int</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    poacher_x<span class="op">::</span><span class="dt">Vector{Float64}</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    poacher_y<span class="op">::</span><span class="dt">Vector{Float64}</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    poacher_heading<span class="op">::</span><span class="dt">Vector{Float64}</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    poacher_alive<span class="op">::</span><span class="dt">Vector{Bool}</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    poacher_goal<span class="op">::</span><span class="dt">Vector{Int}   </span><span class="co"># 0=journey-to, 1=hunting, 2=journey-after</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    poacher_caught<span class="op">::</span><span class="dt">Vector{Bool}</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Rangers</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    n_rangers<span class="op">::</span><span class="dt">Int</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>    ranger_x<span class="op">::</span><span class="dt">Vector{Float64}</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>    ranger_y<span class="op">::</span><span class="dt">Vector{Float64}</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    ranger_heading<span class="op">::</span><span class="dt">Vector{Float64}</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Grid</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>    width<span class="op">::</span><span class="dt">Int</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>    height<span class="op">::</span><span class="dt">Int</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>    resources<span class="op">::</span><span class="dt">Matrix{Float64}</span></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>    max_resources<span class="op">::</span><span class="dt">Matrix{Float64}</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>    roughness<span class="op">::</span><span class="dt">Matrix{Float64}</span></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>    rhino_activity<span class="op">::</span><span class="dt">Matrix{Float64}</span></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Stats</span></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>    total_killed<span class="op">::</span><span class="dt">Int</span></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a><span class="kw">mutable struct</span> RhinoStats</span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>    n_rhinos<span class="op">::</span><span class="dt">Int</span></span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>    n_poachers<span class="op">::</span><span class="dt">Int</span></span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>    total_killed<span class="op">::</span><span class="dt">Int</span></span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a><span class="fu">RhinoStats</span>() <span class="op">=</span> <span class="fu">RhinoStats</span>(<span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="systems-systems.jl" class="level3">
+<h3 class="anchored" data-anchor-id="systems-systems.jl">Systems (<code>systems.jl</code>)</h3>
+<p>Systems contain the model logic and execute in a defined order each tick. Each system struct implements either <code>initialize!</code> (run once at setup) or <code>update!</code> (run every tick).</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Helpers ---</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">_rhino_weighted_choice</span>(rng, items, weights)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    total <span class="op">=</span> <span class="fu">sum</span>(weights)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> total <span class="op">&lt;=</span> <span class="fl">0.0</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> items[<span class="fu">rand</span>(rng, <span class="fl">1</span><span class="op">:</span><span class="fu">length</span>(items))]</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    r <span class="op">=</span> <span class="fu">rand</span>(rng) <span class="op">*</span> total</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    cumul <span class="op">=</span> <span class="fl">0.0</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (item, w) <span class="kw">in</span> <span class="fu">zip</span>(items, weights)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>        cumul <span class="op">+=</span> w</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> cumul <span class="op">&gt;=</span> r</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> item</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> items[<span class="kw">end</span>]</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="pp">@inline</span> <span class="kw">function</span> <span class="fu">_rhino_dist</span>(x1, y1, x2, y2)</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fu">sqrt</span>((x1 <span class="op">-</span> x2)<span class="op">^</span><span class="fl">2</span> <span class="op">+</span> (y1 <span class="op">-</span> y2)<span class="op">^</span><span class="fl">2</span>)</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Initialization ---</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> InitRhinoSystem <span class="op">&lt;:</span><span class="dt"> System </span><span class="kw">end</span></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">initialize!</span>(<span class="op">::</span><span class="dt">InitRhinoSystem</span>, world<span class="op">::</span><span class="dt">World</span>)</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>    state <span class="op">=</span> <span class="fu">get_resource</span>(world, RhinoState)</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>    stats <span class="op">=</span> <span class="fu">get_resource</span>(world, RhinoStats)</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>    stats.n_rhinos <span class="op">=</span> <span class="fu">sum</span>(state.rhino_alive)</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>    stats.n_poachers <span class="op">=</span> <span class="fu">sum</span>(state.poacher_alive)</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>    stats.total_killed <span class="op">=</span> state.total_killed</span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="cn">nothing</span></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Resource Regrowth ---</span></span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> RhinoResourceGrowSystem <span class="op">&lt;:</span><span class="dt"> System </span><span class="kw">end</span></span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">update!</span>(<span class="op">::</span><span class="dt">RhinoResourceGrowSystem</span>, world<span class="op">::</span><span class="dt">World</span>)</span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>    params <span class="op">=</span> <span class="fu">get_resource</span>(world, RhinoParams)</span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>    state <span class="op">=</span> <span class="fu">get_resource</span>(world, RhinoState)</span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> x <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span>state.width, y <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span>state.height</span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> state.roughness[x, y] <span class="op">&lt;</span> <span class="fl">1.0</span></span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>            state.resources[x, y] <span class="op">+=</span> params.resource_regrow_rate <span class="op">*</span></span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>                (state.max_resources[x, y] <span class="op">-</span> state.resources[x, y])</span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="cn">nothing</span></span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Activity Decay ---</span></span>
+<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> RhinoActivityDecaySystem <span class="op">&lt;:</span><span class="dt"> System </span><span class="kw">end</span></span>
+<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">update!</span>(<span class="op">::</span><span class="dt">RhinoActivityDecaySystem</span>, world<span class="op">::</span><span class="dt">World</span>)</span>
+<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a>    params <span class="op">=</span> <span class="fu">get_resource</span>(world, RhinoParams)</span>
+<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a>    state <span class="op">=</span> <span class="fu">get_resource</span>(world, RhinoState)</span>
+<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a>    state.rhino_activity <span class="op">.*=</span> params.activity_decay</span>
+<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="cn">nothing</span></span>
+<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Rhino Forage ---</span></span>
+<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> RhinoForageSystem <span class="op">&lt;:</span><span class="dt"> System </span><span class="kw">end</span></span>
+<span id="cb5-68"><a href="#cb5-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-69"><a href="#cb5-69" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">update!</span>(<span class="op">::</span><span class="dt">RhinoForageSystem</span>, world<span class="op">::</span><span class="dt">World</span>)</span>
+<span id="cb5-70"><a href="#cb5-70" aria-hidden="true" tabindex="-1"></a>    params <span class="op">=</span> <span class="fu">get_resource</span>(world, RhinoParams)</span>
+<span id="cb5-71"><a href="#cb5-71" aria-hidden="true" tabindex="-1"></a>    rng <span class="op">=</span> <span class="fu">get_resource</span>(world, RNGResource).rng</span>
+<span id="cb5-72"><a href="#cb5-72" aria-hidden="true" tabindex="-1"></a>    state <span class="op">=</span> <span class="fu">get_resource</span>(world, RhinoState)</span>
+<span id="cb5-73"><a href="#cb5-73" aria-hidden="true" tabindex="-1"></a>    w, h <span class="op">=</span> state.width, state.height</span>
+<span id="cb5-74"><a href="#cb5-74" aria-hidden="true" tabindex="-1"></a>    radius <span class="op">=</span> params.rhino_forage_radius</span>
+<span id="cb5-75"><a href="#cb5-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-76"><a href="#cb5-76" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu">length</span>(state.rhino_alive)</span>
+<span id="cb5-77"><a href="#cb5-77" aria-hidden="true" tabindex="-1"></a>        !state.rhino_alive[i] <span class="op">&amp;&amp;</span> <span class="cf">continue</span></span>
+<span id="cb5-78"><a href="#cb5-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-79"><a href="#cb5-79" aria-hidden="true" tabindex="-1"></a>        gx <span class="op">=</span> <span class="fu">clamp</span>(<span class="fu">round</span>(<span class="dt">Int</span>, state.rhino_x[i]), <span class="fl">1</span>, w)</span>
+<span id="cb5-80"><a href="#cb5-80" aria-hidden="true" tabindex="-1"></a>        gy <span class="op">=</span> <span class="fu">clamp</span>(<span class="fu">round</span>(<span class="dt">Int</span>, state.rhino_y[i]), <span class="fl">1</span>, h)</span>
+<span id="cb5-81"><a href="#cb5-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-82"><a href="#cb5-82" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Leave activity at current location</span></span>
+<span id="cb5-83"><a href="#cb5-83" aria-hidden="true" tabindex="-1"></a>        state.rhino_activity[gx, gy] <span class="op">+=</span> <span class="fl">1.0</span></span>
+<span id="cb5-84"><a href="#cb5-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-85"><a href="#cb5-85" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Forage: weighted random choice of neighboring cell</span></span>
+<span id="cb5-86"><a href="#cb5-86" aria-hidden="true" tabindex="-1"></a>        candidates <span class="op">=</span> <span class="dt">Tuple</span>{<span class="dt">Int</span>,<span class="dt">Int</span>}[]</span>
+<span id="cb5-87"><a href="#cb5-87" aria-hidden="true" tabindex="-1"></a>        weights <span class="op">=</span> <span class="dt">Float64</span>[]</span>
+<span id="cb5-88"><a href="#cb5-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-89"><a href="#cb5-89" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> dx <span class="kw">in</span> <span class="op">-</span>radius<span class="op">:</span>radius, dy <span class="kw">in</span> <span class="op">-</span>radius<span class="op">:</span>radius</span>
+<span id="cb5-90"><a href="#cb5-90" aria-hidden="true" tabindex="-1"></a>            (dx <span class="op">==</span> <span class="fl">0</span> <span class="op">&amp;&amp;</span> dy <span class="op">==</span> <span class="fl">0</span>) <span class="op">&amp;&amp;</span> <span class="cf">continue</span></span>
+<span id="cb5-91"><a href="#cb5-91" aria-hidden="true" tabindex="-1"></a>            nx <span class="op">=</span> gx <span class="op">+</span> dx</span>
+<span id="cb5-92"><a href="#cb5-92" aria-hidden="true" tabindex="-1"></a>            ny <span class="op">=</span> gy <span class="op">+</span> dy</span>
+<span id="cb5-93"><a href="#cb5-93" aria-hidden="true" tabindex="-1"></a>            (nx <span class="op">&lt;</span> <span class="fl">1</span> <span class="op">||</span> nx <span class="op">&gt;</span> w <span class="op">||</span> ny <span class="op">&lt;</span> <span class="fl">1</span> <span class="op">||</span> ny <span class="op">&gt;</span> h) <span class="op">&amp;&amp;</span> <span class="cf">continue</span></span>
+<span id="cb5-94"><a href="#cb5-94" aria-hidden="true" tabindex="-1"></a>            state.roughness[nx, ny] <span class="op">&gt;=</span> <span class="fl">1.0</span> <span class="op">&amp;&amp;</span> <span class="cf">continue</span></span>
+<span id="cb5-95"><a href="#cb5-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-96"><a href="#cb5-96" aria-hidden="true" tabindex="-1"></a>            res_score <span class="op">=</span> state.resources[nx, ny]</span>
+<span id="cb5-97"><a href="#cb5-97" aria-hidden="true" tabindex="-1"></a>            home_dist <span class="op">=</span> <span class="fu">_rhino_dist</span>(<span class="fu">Float64</span>(nx), <span class="fu">Float64</span>(ny),</span>
+<span id="cb5-98"><a href="#cb5-98" aria-hidden="true" tabindex="-1"></a>                                    state.rhino_home_x[i], state.rhino_home_y[i])</span>
+<span id="cb5-99"><a href="#cb5-99" aria-hidden="true" tabindex="-1"></a>            home_score <span class="op">=</span> <span class="fu">max</span>(<span class="fl">0.0</span>, <span class="fl">1.0</span> <span class="op">-</span> home_dist <span class="op">/</span> <span class="fl">50.0</span>)</span>
+<span id="cb5-100"><a href="#cb5-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-101"><a href="#cb5-101" aria-hidden="true" tabindex="-1"></a>            score <span class="op">=</span> params.resource_weight <span class="op">*</span> res_score <span class="op">+</span> params.home_weight <span class="op">*</span> home_score <span class="op">*</span> <span class="fl">10.0</span></span>
+<span id="cb5-102"><a href="#cb5-102" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> score <span class="op">&gt;</span> <span class="fl">0.0</span></span>
+<span id="cb5-103"><a href="#cb5-103" aria-hidden="true" tabindex="-1"></a>                <span class="fu">push!</span>(candidates, (nx, ny))</span>
+<span id="cb5-104"><a href="#cb5-104" aria-hidden="true" tabindex="-1"></a>                <span class="fu">push!</span>(weights, score)</span>
+<span id="cb5-105"><a href="#cb5-105" aria-hidden="true" tabindex="-1"></a>            <span class="cf">end</span></span>
+<span id="cb5-106"><a href="#cb5-106" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb5-107"><a href="#cb5-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-108"><a href="#cb5-108" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> !<span class="fu">isempty</span>(candidates)</span>
+<span id="cb5-109"><a href="#cb5-109" aria-hidden="true" tabindex="-1"></a>            chosen <span class="op">=</span> <span class="fu">_rhino_weighted_choice</span>(rng, candidates, weights)</span>
+<span id="cb5-110"><a href="#cb5-110" aria-hidden="true" tabindex="-1"></a>            state.rhino_x[i] <span class="op">=</span> <span class="fu">Float64</span>(chosen[<span class="fl">1</span>])</span>
+<span id="cb5-111"><a href="#cb5-111" aria-hidden="true" tabindex="-1"></a>            state.rhino_y[i] <span class="op">=</span> <span class="fu">Float64</span>(chosen[<span class="fl">2</span>])</span>
+<span id="cb5-112"><a href="#cb5-112" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span></span>
+<span id="cb5-113"><a href="#cb5-113" aria-hidden="true" tabindex="-1"></a>            angle <span class="op">=</span> <span class="fu">rand</span>(rng) <span class="op">*</span> <span class="fl">2</span>π</span>
+<span id="cb5-114"><a href="#cb5-114" aria-hidden="true" tabindex="-1"></a>            state.rhino_x[i] <span class="op">=</span> <span class="fu">clamp</span>(state.rhino_x[i] <span class="op">+</span> <span class="fu">cos</span>(angle) <span class="op">*</span> <span class="fl">2.0</span>, <span class="fl">1.0</span>, <span class="fu">Float64</span>(w))</span>
+<span id="cb5-115"><a href="#cb5-115" aria-hidden="true" tabindex="-1"></a>            state.rhino_y[i] <span class="op">=</span> <span class="fu">clamp</span>(state.rhino_y[i] <span class="op">+</span> <span class="fu">sin</span>(angle) <span class="op">*</span> <span class="fl">2.0</span>, <span class="fl">1.0</span>, <span class="fu">Float64</span>(h))</span>
+<span id="cb5-116"><a href="#cb5-116" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb5-117"><a href="#cb5-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-118"><a href="#cb5-118" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Consume resources</span></span>
+<span id="cb5-119"><a href="#cb5-119" aria-hidden="true" tabindex="-1"></a>        new_gx <span class="op">=</span> <span class="fu">clamp</span>(<span class="fu">round</span>(<span class="dt">Int</span>, state.rhino_x[i]), <span class="fl">1</span>, w)</span>
+<span id="cb5-120"><a href="#cb5-120" aria-hidden="true" tabindex="-1"></a>        new_gy <span class="op">=</span> <span class="fu">clamp</span>(<span class="fu">round</span>(<span class="dt">Int</span>, state.rhino_y[i]), <span class="fl">1</span>, h)</span>
+<span id="cb5-121"><a href="#cb5-121" aria-hidden="true" tabindex="-1"></a>        consumed <span class="op">=</span> <span class="fu">min</span>(state.resources[new_gx, new_gy], <span class="fl">1.0</span>)</span>
+<span id="cb5-122"><a href="#cb5-122" aria-hidden="true" tabindex="-1"></a>        state.resources[new_gx, new_gy] <span class="op">-=</span> consumed</span>
+<span id="cb5-123"><a href="#cb5-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-124"><a href="#cb5-124" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Slowly drift home range</span></span>
+<span id="cb5-125"><a href="#cb5-125" aria-hidden="true" tabindex="-1"></a>        state.rhino_home_x[i] <span class="op">=</span> <span class="fl">0.99</span> <span class="op">*</span> state.rhino_home_x[i] <span class="op">+</span> <span class="fl">0.01</span> <span class="op">*</span> state.rhino_x[i]</span>
+<span id="cb5-126"><a href="#cb5-126" aria-hidden="true" tabindex="-1"></a>        state.rhino_home_y[i] <span class="op">=</span> <span class="fl">0.99</span> <span class="op">*</span> state.rhino_home_y[i] <span class="op">+</span> <span class="fl">0.01</span> <span class="op">*</span> state.rhino_y[i]</span>
+<span id="cb5-127"><a href="#cb5-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-128"><a href="#cb5-128" aria-hidden="true" tabindex="-1"></a>        state.rhino_ticks_alive[i] <span class="op">+=</span> <span class="fl">1</span></span>
+<span id="cb5-129"><a href="#cb5-129" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-130"><a href="#cb5-130" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="cn">nothing</span></span>
+<span id="cb5-131"><a href="#cb5-131" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb5-132"><a href="#cb5-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-133"><a href="#cb5-133" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Rhino Reproduction ---</span></span>
+<span id="cb5-134"><a href="#cb5-134" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-135"><a href="#cb5-135" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> RhinoReproduceSystem <span class="op">&lt;:</span><span class="dt"> System </span><span class="kw">end</span></span>
+<span id="cb5-136"><a href="#cb5-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-137"><a href="#cb5-137" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">update!</span>(<span class="op">::</span><span class="dt">RhinoReproduceSystem</span>, world<span class="op">::</span><span class="dt">World</span>)</span>
+<span id="cb5-138"><a href="#cb5-138" aria-hidden="true" tabindex="-1"></a>    params <span class="op">=</span> <span class="fu">get_resource</span>(world, RhinoParams)</span>
+<span id="cb5-139"><a href="#cb5-139" aria-hidden="true" tabindex="-1"></a>    rng <span class="op">=</span> <span class="fu">get_resource</span>(world, RNGResource).rng</span>
+<span id="cb5-140"><a href="#cb5-140" aria-hidden="true" tabindex="-1"></a>    state <span class="op">=</span> <span class="fu">get_resource</span>(world, RhinoState)</span>
+<span id="cb5-141"><a href="#cb5-141" aria-hidden="true" tabindex="-1"></a>    w, h <span class="op">=</span> state.width, state.height</span>
+<span id="cb5-142"><a href="#cb5-142" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-143"><a href="#cb5-143" aria-hidden="true" tabindex="-1"></a>    n_alive <span class="op">=</span> <span class="fu">sum</span>(state.rhino_alive)</span>
+<span id="cb5-144"><a href="#cb5-144" aria-hidden="true" tabindex="-1"></a>    n_alive <span class="op">&gt;=</span> params.max_rhinos <span class="op">&amp;&amp;</span> <span class="cf">return</span> <span class="cn">nothing</span></span>
+<span id="cb5-145"><a href="#cb5-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-146"><a href="#cb5-146" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu">length</span>(state.rhino_alive)</span>
+<span id="cb5-147"><a href="#cb5-147" aria-hidden="true" tabindex="-1"></a>        !state.rhino_alive[i] <span class="op">&amp;&amp;</span> <span class="cf">continue</span></span>
+<span id="cb5-148"><a href="#cb5-148" aria-hidden="true" tabindex="-1"></a>        state.rhino_ticks_alive[i] <span class="op">&lt;</span> <span class="fl">50</span> <span class="op">&amp;&amp;</span> <span class="cf">continue</span></span>
+<span id="cb5-149"><a href="#cb5-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-150"><a href="#cb5-150" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="fu">rand</span>(rng) <span class="op">&lt;</span> params.rhino_reproduce_prob</span>
+<span id="cb5-151"><a href="#cb5-151" aria-hidden="true" tabindex="-1"></a>            n_alive <span class="op">&gt;=</span> params.max_rhinos <span class="op">&amp;&amp;</span> <span class="cf">break</span></span>
+<span id="cb5-152"><a href="#cb5-152" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-153"><a href="#cb5-153" aria-hidden="true" tabindex="-1"></a>            slot <span class="op">=</span> <span class="fu">findfirst</span>(x <span class="op">-&gt;</span> !x, state.rhino_alive)</span>
+<span id="cb5-154"><a href="#cb5-154" aria-hidden="true" tabindex="-1"></a>            slot <span class="op">===</span> <span class="cn">nothing</span> <span class="op">&amp;&amp;</span> <span class="cf">break</span></span>
+<span id="cb5-155"><a href="#cb5-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-156"><a href="#cb5-156" aria-hidden="true" tabindex="-1"></a>            state.rhino_alive[slot] <span class="op">=</span> <span class="cn">true</span></span>
+<span id="cb5-157"><a href="#cb5-157" aria-hidden="true" tabindex="-1"></a>            state.rhino_x[slot] <span class="op">=</span> <span class="fu">clamp</span>(state.rhino_x[i] <span class="op">+</span> (<span class="fu">rand</span>(rng) <span class="op">-</span> <span class="fl">0.5</span>) <span class="op">*</span> <span class="fl">2.0</span>, <span class="fl">1.0</span>, <span class="fu">Float64</span>(w))</span>
+<span id="cb5-158"><a href="#cb5-158" aria-hidden="true" tabindex="-1"></a>            state.rhino_y[slot] <span class="op">=</span> <span class="fu">clamp</span>(state.rhino_y[i] <span class="op">+</span> (<span class="fu">rand</span>(rng) <span class="op">-</span> <span class="fl">0.5</span>) <span class="op">*</span> <span class="fl">2.0</span>, <span class="fl">1.0</span>, <span class="fu">Float64</span>(h))</span>
+<span id="cb5-159"><a href="#cb5-159" aria-hidden="true" tabindex="-1"></a>            state.rhino_heading[slot] <span class="op">=</span> <span class="fu">rand</span>(rng) <span class="op">*</span> <span class="fl">360.0</span></span>
+<span id="cb5-160"><a href="#cb5-160" aria-hidden="true" tabindex="-1"></a>            state.rhino_home_x[slot] <span class="op">=</span> state.rhino_x[slot]</span>
+<span id="cb5-161"><a href="#cb5-161" aria-hidden="true" tabindex="-1"></a>            state.rhino_home_y[slot] <span class="op">=</span> state.rhino_y[slot]</span>
+<span id="cb5-162"><a href="#cb5-162" aria-hidden="true" tabindex="-1"></a>            state.rhino_ticks_alive[slot] <span class="op">=</span> <span class="fl">0</span></span>
+<span id="cb5-163"><a href="#cb5-163" aria-hidden="true" tabindex="-1"></a>            n_alive <span class="op">+=</span> <span class="fl">1</span></span>
+<span id="cb5-164"><a href="#cb5-164" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb5-165"><a href="#cb5-165" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-166"><a href="#cb5-166" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="cn">nothing</span></span>
+<span id="cb5-167"><a href="#cb5-167" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb5-168"><a href="#cb5-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-169"><a href="#cb5-169" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Poacher System ---</span></span>
+<span id="cb5-170"><a href="#cb5-170" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-171"><a href="#cb5-171" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> RhinoPoacherSystem <span class="op">&lt;:</span><span class="dt"> System </span><span class="kw">end</span></span>
+<span id="cb5-172"><a href="#cb5-172" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-173"><a href="#cb5-173" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">update!</span>(<span class="op">::</span><span class="dt">RhinoPoacherSystem</span>, world<span class="op">::</span><span class="dt">World</span>)</span>
+<span id="cb5-174"><a href="#cb5-174" aria-hidden="true" tabindex="-1"></a>    params <span class="op">=</span> <span class="fu">get_resource</span>(world, RhinoParams)</span>
+<span id="cb5-175"><a href="#cb5-175" aria-hidden="true" tabindex="-1"></a>    rng <span class="op">=</span> <span class="fu">get_resource</span>(world, RNGResource).rng</span>
+<span id="cb5-176"><a href="#cb5-176" aria-hidden="true" tabindex="-1"></a>    state <span class="op">=</span> <span class="fu">get_resource</span>(world, RhinoState)</span>
+<span id="cb5-177"><a href="#cb5-177" aria-hidden="true" tabindex="-1"></a>    w, h <span class="op">=</span> state.width, state.height</span>
+<span id="cb5-178"><a href="#cb5-178" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-179"><a href="#cb5-179" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span>state.n_poachers</span>
+<span id="cb5-180"><a href="#cb5-180" aria-hidden="true" tabindex="-1"></a>        !state.poacher_alive[i] <span class="op">&amp;&amp;</span> <span class="cf">continue</span></span>
+<span id="cb5-181"><a href="#cb5-181" aria-hidden="true" tabindex="-1"></a>        state.poacher_caught[i] <span class="op">&amp;&amp;</span> <span class="cf">continue</span></span>
+<span id="cb5-182"><a href="#cb5-182" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-183"><a href="#cb5-183" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> state.poacher_goal[i] <span class="op">==</span> <span class="fl">0</span></span>
+<span id="cb5-184"><a href="#cb5-184" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Journey to crime: move toward high rhino activity</span></span>
+<span id="cb5-185"><a href="#cb5-185" aria-hidden="true" tabindex="-1"></a>            gx <span class="op">=</span> <span class="fu">clamp</span>(<span class="fu">round</span>(<span class="dt">Int</span>, state.poacher_x[i]), <span class="fl">1</span>, w)</span>
+<span id="cb5-186"><a href="#cb5-186" aria-hidden="true" tabindex="-1"></a>            gy <span class="op">=</span> <span class="fu">clamp</span>(<span class="fu">round</span>(<span class="dt">Int</span>, state.poacher_y[i]), <span class="fl">1</span>, h)</span>
+<span id="cb5-187"><a href="#cb5-187" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-188"><a href="#cb5-188" aria-hidden="true" tabindex="-1"></a>            best_dx, best_dy <span class="op">=</span> <span class="fl">0.0</span>, <span class="fl">0.0</span></span>
+<span id="cb5-189"><a href="#cb5-189" aria-hidden="true" tabindex="-1"></a>            best_activity <span class="op">=</span> <span class="fl">0.0</span></span>
+<span id="cb5-190"><a href="#cb5-190" aria-hidden="true" tabindex="-1"></a>            search_r <span class="op">=</span> <span class="fu">round</span>(<span class="dt">Int</span>, params.poacher_detect_range)</span>
+<span id="cb5-191"><a href="#cb5-191" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-192"><a href="#cb5-192" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> dx <span class="kw">in</span> <span class="op">-</span>search_r<span class="op">:</span>search_r, dy <span class="kw">in</span> <span class="op">-</span>search_r<span class="op">:</span>search_r</span>
+<span id="cb5-193"><a href="#cb5-193" aria-hidden="true" tabindex="-1"></a>                (dx <span class="op">==</span> <span class="fl">0</span> <span class="op">&amp;&amp;</span> dy <span class="op">==</span> <span class="fl">0</span>) <span class="op">&amp;&amp;</span> <span class="cf">continue</span></span>
+<span id="cb5-194"><a href="#cb5-194" aria-hidden="true" tabindex="-1"></a>                nx <span class="op">=</span> gx <span class="op">+</span> dx</span>
+<span id="cb5-195"><a href="#cb5-195" aria-hidden="true" tabindex="-1"></a>                ny <span class="op">=</span> gy <span class="op">+</span> dy</span>
+<span id="cb5-196"><a href="#cb5-196" aria-hidden="true" tabindex="-1"></a>                (nx <span class="op">&lt;</span> <span class="fl">1</span> <span class="op">||</span> nx <span class="op">&gt;</span> w <span class="op">||</span> ny <span class="op">&lt;</span> <span class="fl">1</span> <span class="op">||</span> ny <span class="op">&gt;</span> h) <span class="op">&amp;&amp;</span> <span class="cf">continue</span></span>
+<span id="cb5-197"><a href="#cb5-197" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> state.rhino_activity[nx, ny] <span class="op">&gt;</span> best_activity</span>
+<span id="cb5-198"><a href="#cb5-198" aria-hidden="true" tabindex="-1"></a>                    best_activity <span class="op">=</span> state.rhino_activity[nx, ny]</span>
+<span id="cb5-199"><a href="#cb5-199" aria-hidden="true" tabindex="-1"></a>                    best_dx <span class="op">=</span> <span class="fu">Float64</span>(dx)</span>
+<span id="cb5-200"><a href="#cb5-200" aria-hidden="true" tabindex="-1"></a>                    best_dy <span class="op">=</span> <span class="fu">Float64</span>(dy)</span>
+<span id="cb5-201"><a href="#cb5-201" aria-hidden="true" tabindex="-1"></a>                <span class="cf">end</span></span>
+<span id="cb5-202"><a href="#cb5-202" aria-hidden="true" tabindex="-1"></a>            <span class="cf">end</span></span>
+<span id="cb5-203"><a href="#cb5-203" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-204"><a href="#cb5-204" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> best_activity <span class="op">&gt;</span> <span class="fl">0.1</span></span>
+<span id="cb5-205"><a href="#cb5-205" aria-hidden="true" tabindex="-1"></a>                dist <span class="op">=</span> <span class="fu">sqrt</span>(best_dx<span class="op">^</span><span class="fl">2</span> <span class="op">+</span> best_dy<span class="op">^</span><span class="fl">2</span>)</span>
+<span id="cb5-206"><a href="#cb5-206" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> dist <span class="op">&gt;</span> <span class="fl">0.0</span></span>
+<span id="cb5-207"><a href="#cb5-207" aria-hidden="true" tabindex="-1"></a>                    state.poacher_x[i] <span class="op">+=</span> best_dx <span class="op">/</span> dist <span class="op">*</span> <span class="fl">1.5</span></span>
+<span id="cb5-208"><a href="#cb5-208" aria-hidden="true" tabindex="-1"></a>                    state.poacher_y[i] <span class="op">+=</span> best_dy <span class="op">/</span> dist <span class="op">*</span> <span class="fl">1.5</span></span>
+<span id="cb5-209"><a href="#cb5-209" aria-hidden="true" tabindex="-1"></a>                <span class="cf">end</span></span>
+<span id="cb5-210"><a href="#cb5-210" aria-hidden="true" tabindex="-1"></a>                state.poacher_goal[i] <span class="op">=</span> <span class="fl">1</span></span>
+<span id="cb5-211"><a href="#cb5-211" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span></span>
+<span id="cb5-212"><a href="#cb5-212" aria-hidden="true" tabindex="-1"></a>                angle <span class="op">=</span> state.poacher_heading[i] <span class="op">+</span> (<span class="fu">rand</span>(rng) <span class="op">-</span> <span class="fl">0.5</span>) <span class="op">*</span> <span class="fl">60.0</span></span>
+<span id="cb5-213"><a href="#cb5-213" aria-hidden="true" tabindex="-1"></a>                state.poacher_heading[i] <span class="op">=</span> angle</span>
+<span id="cb5-214"><a href="#cb5-214" aria-hidden="true" tabindex="-1"></a>                θ <span class="op">=</span> <span class="fu">deg2rad</span>(angle)</span>
+<span id="cb5-215"><a href="#cb5-215" aria-hidden="true" tabindex="-1"></a>                state.poacher_x[i] <span class="op">+=</span> <span class="fu">sin</span>(θ) <span class="op">*</span> <span class="fl">1.5</span></span>
+<span id="cb5-216"><a href="#cb5-216" aria-hidden="true" tabindex="-1"></a>                state.poacher_y[i] <span class="op">+=</span> <span class="fu">cos</span>(θ) <span class="op">*</span> <span class="fl">1.5</span></span>
+<span id="cb5-217"><a href="#cb5-217" aria-hidden="true" tabindex="-1"></a>            <span class="cf">end</span></span>
+<span id="cb5-218"><a href="#cb5-218" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-219"><a href="#cb5-219" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elseif</span> state.poacher_goal[i] <span class="op">==</span> <span class="fl">1</span></span>
+<span id="cb5-220"><a href="#cb5-220" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Hunting: try to kill a rhino</span></span>
+<span id="cb5-221"><a href="#cb5-221" aria-hidden="true" tabindex="-1"></a>            killed_this_step <span class="op">=</span> <span class="cn">false</span></span>
+<span id="cb5-222"><a href="#cb5-222" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> j <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu">length</span>(state.rhino_alive)</span>
+<span id="cb5-223"><a href="#cb5-223" aria-hidden="true" tabindex="-1"></a>                !state.rhino_alive[j] <span class="op">&amp;&amp;</span> <span class="cf">continue</span></span>
+<span id="cb5-224"><a href="#cb5-224" aria-hidden="true" tabindex="-1"></a>                d <span class="op">=</span> <span class="fu">_rhino_dist</span>(state.poacher_x[i], state.poacher_y[i],</span>
+<span id="cb5-225"><a href="#cb5-225" aria-hidden="true" tabindex="-1"></a>                                state.rhino_x[j], state.rhino_y[j])</span>
+<span id="cb5-226"><a href="#cb5-226" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> d <span class="op">&lt;</span> params.poacher_kill_range</span>
+<span id="cb5-227"><a href="#cb5-227" aria-hidden="true" tabindex="-1"></a>                    state.rhino_alive[j] <span class="op">=</span> <span class="cn">false</span></span>
+<span id="cb5-228"><a href="#cb5-228" aria-hidden="true" tabindex="-1"></a>                    state.total_killed <span class="op">+=</span> <span class="fl">1</span></span>
+<span id="cb5-229"><a href="#cb5-229" aria-hidden="true" tabindex="-1"></a>                    killed_this_step <span class="op">=</span> <span class="cn">true</span></span>
+<span id="cb5-230"><a href="#cb5-230" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">break</span></span>
+<span id="cb5-231"><a href="#cb5-231" aria-hidden="true" tabindex="-1"></a>                <span class="cf">end</span></span>
+<span id="cb5-232"><a href="#cb5-232" aria-hidden="true" tabindex="-1"></a>            <span class="cf">end</span></span>
+<span id="cb5-233"><a href="#cb5-233" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-234"><a href="#cb5-234" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> killed_this_step</span>
+<span id="cb5-235"><a href="#cb5-235" aria-hidden="true" tabindex="-1"></a>                state.poacher_goal[i] <span class="op">=</span> <span class="fl">2</span></span>
+<span id="cb5-236"><a href="#cb5-236" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span></span>
+<span id="cb5-237"><a href="#cb5-237" aria-hidden="true" tabindex="-1"></a>                angle <span class="op">=</span> state.poacher_heading[i] <span class="op">+</span> (<span class="fu">rand</span>(rng) <span class="op">-</span> <span class="fl">0.5</span>) <span class="op">*</span> <span class="fl">30.0</span></span>
+<span id="cb5-238"><a href="#cb5-238" aria-hidden="true" tabindex="-1"></a>                state.poacher_heading[i] <span class="op">=</span> angle</span>
+<span id="cb5-239"><a href="#cb5-239" aria-hidden="true" tabindex="-1"></a>                θ <span class="op">=</span> <span class="fu">deg2rad</span>(angle)</span>
+<span id="cb5-240"><a href="#cb5-240" aria-hidden="true" tabindex="-1"></a>                state.poacher_x[i] <span class="op">+=</span> <span class="fu">sin</span>(θ) <span class="op">*</span> <span class="fl">1.0</span></span>
+<span id="cb5-241"><a href="#cb5-241" aria-hidden="true" tabindex="-1"></a>                state.poacher_y[i] <span class="op">+=</span> <span class="fu">cos</span>(θ) <span class="op">*</span> <span class="fl">1.0</span></span>
+<span id="cb5-242"><a href="#cb5-242" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> <span class="fu">rand</span>(rng) <span class="op">&lt;</span> <span class="fl">0.1</span></span>
+<span id="cb5-243"><a href="#cb5-243" aria-hidden="true" tabindex="-1"></a>                    state.poacher_goal[i] <span class="op">=</span> <span class="fl">0</span></span>
+<span id="cb5-244"><a href="#cb5-244" aria-hidden="true" tabindex="-1"></a>                <span class="cf">end</span></span>
+<span id="cb5-245"><a href="#cb5-245" aria-hidden="true" tabindex="-1"></a>            <span class="cf">end</span></span>
+<span id="cb5-246"><a href="#cb5-246" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-247"><a href="#cb5-247" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>  <span class="co"># goal == 2: flee toward nearest edge</span></span>
+<span id="cb5-248"><a href="#cb5-248" aria-hidden="true" tabindex="-1"></a>            edge_dx <span class="op">=</span> state.poacher_x[i] <span class="op">&lt;</span> <span class="fu">Float64</span>(w) <span class="op">/</span> <span class="fl">2.0</span> ? <span class="op">-</span><span class="fl">1.5</span> <span class="op">:</span> <span class="fl">1.5</span></span>
+<span id="cb5-249"><a href="#cb5-249" aria-hidden="true" tabindex="-1"></a>            edge_dy <span class="op">=</span> state.poacher_y[i] <span class="op">&lt;</span> <span class="fu">Float64</span>(h) <span class="op">/</span> <span class="fl">2.0</span> ? <span class="op">-</span><span class="fl">1.5</span> <span class="op">:</span> <span class="fl">1.5</span></span>
+<span id="cb5-250"><a href="#cb5-250" aria-hidden="true" tabindex="-1"></a>            state.poacher_x[i] <span class="op">+=</span> edge_dx <span class="op">+</span> (<span class="fu">rand</span>(rng) <span class="op">-</span> <span class="fl">0.5</span>)</span>
+<span id="cb5-251"><a href="#cb5-251" aria-hidden="true" tabindex="-1"></a>            state.poacher_y[i] <span class="op">+=</span> edge_dy <span class="op">+</span> (<span class="fu">rand</span>(rng) <span class="op">-</span> <span class="fl">0.5</span>)</span>
+<span id="cb5-252"><a href="#cb5-252" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-253"><a href="#cb5-253" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Reached edge → respawn at new edge position</span></span>
+<span id="cb5-254"><a href="#cb5-254" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> state.poacher_x[i] <span class="op">&lt;=</span> <span class="fl">1.0</span> <span class="op">||</span> state.poacher_x[i] <span class="op">&gt;=</span> <span class="fu">Float64</span>(w) <span class="op">||</span></span>
+<span id="cb5-255"><a href="#cb5-255" aria-hidden="true" tabindex="-1"></a>               state.poacher_y[i] <span class="op">&lt;=</span> <span class="fl">1.0</span> <span class="op">||</span> state.poacher_y[i] <span class="op">&gt;=</span> <span class="fu">Float64</span>(h)</span>
+<span id="cb5-256"><a href="#cb5-256" aria-hidden="true" tabindex="-1"></a>                state.poacher_goal[i] <span class="op">=</span> <span class="fl">0</span></span>
+<span id="cb5-257"><a href="#cb5-257" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> <span class="fu">rand</span>(rng) <span class="op">&lt;</span> <span class="fl">0.5</span></span>
+<span id="cb5-258"><a href="#cb5-258" aria-hidden="true" tabindex="-1"></a>                    state.poacher_x[i] <span class="op">=</span> <span class="fu">rand</span>(rng) <span class="op">&lt;</span> <span class="fl">0.5</span> ? <span class="fl">1.0</span> <span class="op">:</span> <span class="fu">Float64</span>(w)</span>
+<span id="cb5-259"><a href="#cb5-259" aria-hidden="true" tabindex="-1"></a>                    state.poacher_y[i] <span class="op">=</span> <span class="fu">rand</span>(rng) <span class="op">*</span> (h <span class="op">-</span> <span class="fl">1</span>) <span class="op">+</span> <span class="fl">1.0</span></span>
+<span id="cb5-260"><a href="#cb5-260" aria-hidden="true" tabindex="-1"></a>                <span class="cf">else</span></span>
+<span id="cb5-261"><a href="#cb5-261" aria-hidden="true" tabindex="-1"></a>                    state.poacher_x[i] <span class="op">=</span> <span class="fu">rand</span>(rng) <span class="op">*</span> (w <span class="op">-</span> <span class="fl">1</span>) <span class="op">+</span> <span class="fl">1.0</span></span>
+<span id="cb5-262"><a href="#cb5-262" aria-hidden="true" tabindex="-1"></a>                    state.poacher_y[i] <span class="op">=</span> <span class="fu">rand</span>(rng) <span class="op">&lt;</span> <span class="fl">0.5</span> ? <span class="fl">1.0</span> <span class="op">:</span> <span class="fu">Float64</span>(h)</span>
+<span id="cb5-263"><a href="#cb5-263" aria-hidden="true" tabindex="-1"></a>                <span class="cf">end</span></span>
+<span id="cb5-264"><a href="#cb5-264" aria-hidden="true" tabindex="-1"></a>            <span class="cf">end</span></span>
+<span id="cb5-265"><a href="#cb5-265" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb5-266"><a href="#cb5-266" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-267"><a href="#cb5-267" aria-hidden="true" tabindex="-1"></a>        state.poacher_x[i] <span class="op">=</span> <span class="fu">clamp</span>(state.poacher_x[i], <span class="fl">1.0</span>, <span class="fu">Float64</span>(w))</span>
+<span id="cb5-268"><a href="#cb5-268" aria-hidden="true" tabindex="-1"></a>        state.poacher_y[i] <span class="op">=</span> <span class="fu">clamp</span>(state.poacher_y[i], <span class="fl">1.0</span>, <span class="fu">Float64</span>(h))</span>
+<span id="cb5-269"><a href="#cb5-269" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-270"><a href="#cb5-270" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="cn">nothing</span></span>
+<span id="cb5-271"><a href="#cb5-271" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb5-272"><a href="#cb5-272" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-273"><a href="#cb5-273" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Ranger System ---</span></span>
+<span id="cb5-274"><a href="#cb5-274" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-275"><a href="#cb5-275" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> RhinoRangerSystem <span class="op">&lt;:</span><span class="dt"> System </span><span class="kw">end</span></span>
+<span id="cb5-276"><a href="#cb5-276" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-277"><a href="#cb5-277" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">update!</span>(<span class="op">::</span><span class="dt">RhinoRangerSystem</span>, world<span class="op">::</span><span class="dt">World</span>)</span>
+<span id="cb5-278"><a href="#cb5-278" aria-hidden="true" tabindex="-1"></a>    params <span class="op">=</span> <span class="fu">get_resource</span>(world, RhinoParams)</span>
+<span id="cb5-279"><a href="#cb5-279" aria-hidden="true" tabindex="-1"></a>    rng <span class="op">=</span> <span class="fu">get_resource</span>(world, RNGResource).rng</span>
+<span id="cb5-280"><a href="#cb5-280" aria-hidden="true" tabindex="-1"></a>    state <span class="op">=</span> <span class="fu">get_resource</span>(world, RhinoState)</span>
+<span id="cb5-281"><a href="#cb5-281" aria-hidden="true" tabindex="-1"></a>    w, h <span class="op">=</span> state.width, state.height</span>
+<span id="cb5-282"><a href="#cb5-282" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-283"><a href="#cb5-283" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span>state.n_rangers</span>
+<span id="cb5-284"><a href="#cb5-284" aria-hidden="true" tabindex="-1"></a>        angle <span class="op">=</span> state.ranger_heading[i] <span class="op">+</span> (<span class="fu">rand</span>(rng) <span class="op">-</span> <span class="fl">0.5</span>) <span class="op">*</span> <span class="fl">90.0</span></span>
+<span id="cb5-285"><a href="#cb5-285" aria-hidden="true" tabindex="-1"></a>        state.ranger_heading[i] <span class="op">=</span> angle</span>
+<span id="cb5-286"><a href="#cb5-286" aria-hidden="true" tabindex="-1"></a>        θ <span class="op">=</span> <span class="fu">deg2rad</span>(angle)</span>
+<span id="cb5-287"><a href="#cb5-287" aria-hidden="true" tabindex="-1"></a>        state.ranger_x[i] <span class="op">=</span> <span class="fu">clamp</span>(state.ranger_x[i] <span class="op">+</span> <span class="fu">sin</span>(θ) <span class="op">*</span> <span class="fl">2.0</span>, <span class="fl">1.0</span>, <span class="fu">Float64</span>(w))</span>
+<span id="cb5-288"><a href="#cb5-288" aria-hidden="true" tabindex="-1"></a>        state.ranger_y[i] <span class="op">=</span> <span class="fu">clamp</span>(state.ranger_y[i] <span class="op">+</span> <span class="fu">cos</span>(θ) <span class="op">*</span> <span class="fl">2.0</span>, <span class="fl">1.0</span>, <span class="fu">Float64</span>(h))</span>
+<span id="cb5-289"><a href="#cb5-289" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-290"><a href="#cb5-290" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> j <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span>state.n_poachers</span>
+<span id="cb5-291"><a href="#cb5-291" aria-hidden="true" tabindex="-1"></a>            !state.poacher_alive[j] <span class="op">&amp;&amp;</span> <span class="cf">continue</span></span>
+<span id="cb5-292"><a href="#cb5-292" aria-hidden="true" tabindex="-1"></a>            state.poacher_caught[j] <span class="op">&amp;&amp;</span> <span class="cf">continue</span></span>
+<span id="cb5-293"><a href="#cb5-293" aria-hidden="true" tabindex="-1"></a>            d <span class="op">=</span> <span class="fu">_rhino_dist</span>(state.ranger_x[i], state.ranger_y[i],</span>
+<span id="cb5-294"><a href="#cb5-294" aria-hidden="true" tabindex="-1"></a>                            state.poacher_x[j], state.poacher_y[j])</span>
+<span id="cb5-295"><a href="#cb5-295" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> d <span class="op">&lt;</span> params.ranger_detect_range</span>
+<span id="cb5-296"><a href="#cb5-296" aria-hidden="true" tabindex="-1"></a>                state.poacher_caught[j] <span class="op">=</span> <span class="cn">true</span></span>
+<span id="cb5-297"><a href="#cb5-297" aria-hidden="true" tabindex="-1"></a>                state.poacher_alive[j] <span class="op">=</span> <span class="cn">false</span></span>
+<span id="cb5-298"><a href="#cb5-298" aria-hidden="true" tabindex="-1"></a>            <span class="cf">end</span></span>
+<span id="cb5-299"><a href="#cb5-299" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb5-300"><a href="#cb5-300" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-301"><a href="#cb5-301" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="cn">nothing</span></span>
+<span id="cb5-302"><a href="#cb5-302" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb5-303"><a href="#cb5-303" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-304"><a href="#cb5-304" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Stats ---</span></span>
+<span id="cb5-305"><a href="#cb5-305" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-306"><a href="#cb5-306" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> RhinoStatsSystem <span class="op">&lt;:</span><span class="dt"> System </span><span class="kw">end</span></span>
+<span id="cb5-307"><a href="#cb5-307" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-308"><a href="#cb5-308" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">update!</span>(<span class="op">::</span><span class="dt">RhinoStatsSystem</span>, world<span class="op">::</span><span class="dt">World</span>)</span>
+<span id="cb5-309"><a href="#cb5-309" aria-hidden="true" tabindex="-1"></a>    state <span class="op">=</span> <span class="fu">get_resource</span>(world, RhinoState)</span>
+<span id="cb5-310"><a href="#cb5-310" aria-hidden="true" tabindex="-1"></a>    stats <span class="op">=</span> <span class="fu">get_resource</span>(world, RhinoStats)</span>
+<span id="cb5-311"><a href="#cb5-311" aria-hidden="true" tabindex="-1"></a>    stats.n_rhinos <span class="op">=</span> <span class="fu">sum</span>(state.rhino_alive)</span>
+<span id="cb5-312"><a href="#cb5-312" aria-hidden="true" tabindex="-1"></a>    stats.n_poachers <span class="op">=</span> <span class="fu">sum</span>(state.poacher_alive)</span>
+<span id="cb5-313"><a href="#cb5-313" aria-hidden="true" tabindex="-1"></a>    stats.total_killed <span class="op">=</span> state.total_killed</span>
+<span id="cb5-314"><a href="#cb5-314" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="cn">nothing</span></span>
+<span id="cb5-315"><a href="#cb5-315" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb5-316"><a href="#cb5-316" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-317"><a href="#cb5-317" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Termination ---</span></span>
+<span id="cb5-318"><a href="#cb5-318" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-319"><a href="#cb5-319" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> RhinoTerminationSystem <span class="op">&lt;:</span><span class="dt"> System </span><span class="kw">end</span></span>
+<span id="cb5-320"><a href="#cb5-320" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-321"><a href="#cb5-321" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">update!</span>(<span class="op">::</span><span class="dt">RhinoTerminationSystem</span>, world<span class="op">::</span><span class="dt">World</span>)</span>
+<span id="cb5-322"><a href="#cb5-322" aria-hidden="true" tabindex="-1"></a>    params <span class="op">=</span> <span class="fu">get_resource</span>(world, RhinoParams)</span>
+<span id="cb5-323"><a href="#cb5-323" aria-hidden="true" tabindex="-1"></a>    tick <span class="op">=</span> <span class="fu">get_resource</span>(world, Tick)</span>
+<span id="cb5-324"><a href="#cb5-324" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> tick.tick <span class="op">+</span> <span class="fl">1</span> <span class="op">&gt;=</span> params.max_ticks</span>
+<span id="cb5-325"><a href="#cb5-325" aria-hidden="true" tabindex="-1"></a>        <span class="fu">get_resource</span>(world, Terminate).stop <span class="op">=</span> <span class="cn">true</span></span>
+<span id="cb5-326"><a href="#cb5-326" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb5-327"><a href="#cb5-327" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="cn">nothing</span></span>
+<span id="cb5-328"><a href="#cb5-328" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="model-model.jl" class="level3">
+<h3 class="anchored" data-anchor-id="model-model.jl">Model (<code>model.jl</code>)</h3>
+<p>The model file assembles all pieces: it creates the ECS <code>World</code> with the required component types, registers resources, builds the <code>Scheduler</code> with systems in execution order, and exposes the public <code>run</code> entry point. The observer pattern records the trajectory each tick.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">_build_rhino_state</span>(params<span class="op">::</span><span class="dt">RhinoParams</span>, rng)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    w, h <span class="op">=</span> params.width, params.height</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    resources <span class="op">=</span> <span class="fu">zeros</span>(<span class="dt">Float64</span>, w, h)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    max_resources <span class="op">=</span> <span class="fu">zeros</span>(<span class="dt">Float64</span>, w, h)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    roughness <span class="op">=</span> <span class="fu">zeros</span>(<span class="dt">Float64</span>, w, h)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> x <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span>w, y <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span>h</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>        resources[x, y] <span class="op">=</span> <span class="fu">-log</span>(<span class="fu">max</span>(<span class="fu">rand</span>(rng), <span class="fl">1e-10</span>)) <span class="op">*</span> <span class="fl">10.0</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>        max_resources[x, y] <span class="op">=</span> resources[x, y]</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>        roughness[x, y] <span class="op">=</span> <span class="fu">rand</span>(rng) <span class="op">&lt;</span> params.max_roughness ? <span class="fl">1.0</span> <span class="op">:</span> <span class="fl">0.0</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    mr <span class="op">=</span> params.max_rhinos</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    rhino_x <span class="op">=</span> <span class="fu">zeros</span>(<span class="dt">Float64</span>, mr)</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    rhino_y <span class="op">=</span> <span class="fu">zeros</span>(<span class="dt">Float64</span>, mr)</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    rhino_heading <span class="op">=</span> <span class="fu">zeros</span>(<span class="dt">Float64</span>, mr)</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    rhino_alive <span class="op">=</span> <span class="fu">fill</span>(<span class="cn">false</span>, mr)</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>    rhino_home_x <span class="op">=</span> <span class="fu">zeros</span>(<span class="dt">Float64</span>, mr)</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>    rhino_home_y <span class="op">=</span> <span class="fu">zeros</span>(<span class="dt">Float64</span>, mr)</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>    rhino_ticks <span class="op">=</span> <span class="fu">zeros</span>(<span class="dt">Int</span>, mr)</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span>params.num_rhinos</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>        rx <span class="op">=</span> <span class="fu">rand</span>(rng) <span class="op">*</span> (w <span class="op">-</span> <span class="fl">1</span>) <span class="op">+</span> <span class="fl">1.0</span></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>        ry <span class="op">=</span> <span class="fu">rand</span>(rng) <span class="op">*</span> (h <span class="op">-</span> <span class="fl">1</span>) <span class="op">+</span> <span class="fl">1.0</span></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>        rhino_x[i] <span class="op">=</span> rx</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>        rhino_y[i] <span class="op">=</span> ry</span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>        rhino_heading[i] <span class="op">=</span> <span class="fu">rand</span>(rng) <span class="op">*</span> <span class="fl">360.0</span></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>        rhino_alive[i] <span class="op">=</span> <span class="cn">true</span></span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>        rhino_home_x[i] <span class="op">=</span> rx</span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>        rhino_home_y[i] <span class="op">=</span> ry</span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>    np <span class="op">=</span> params.num_poachers</span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>    poacher_x <span class="op">=</span> <span class="fu">zeros</span>(<span class="dt">Float64</span>, np)</span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>    poacher_y <span class="op">=</span> <span class="fu">zeros</span>(<span class="dt">Float64</span>, np)</span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a>    poacher_heading <span class="op">=</span> <span class="fu">zeros</span>(<span class="dt">Float64</span>, np)</span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a>    poacher_alive <span class="op">=</span> <span class="fu">fill</span>(<span class="cn">true</span>, np)</span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a>    poacher_goal <span class="op">=</span> <span class="fu">zeros</span>(<span class="dt">Int</span>, np)</span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a>    poacher_caught <span class="op">=</span> <span class="fu">fill</span>(<span class="cn">false</span>, np)</span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span>np</span>
+<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="fu">rand</span>(rng) <span class="op">&lt;</span> <span class="fl">0.5</span></span>
+<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a>            poacher_x[i] <span class="op">=</span> <span class="fu">rand</span>(rng) <span class="op">&lt;</span> <span class="fl">0.5</span> ? <span class="fl">1.0</span> <span class="op">:</span> <span class="fu">Float64</span>(w)</span>
+<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a>            poacher_y[i] <span class="op">=</span> <span class="fu">rand</span>(rng) <span class="op">*</span> (h <span class="op">-</span> <span class="fl">1</span>) <span class="op">+</span> <span class="fl">1.0</span></span>
+<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span></span>
+<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a>            poacher_x[i] <span class="op">=</span> <span class="fu">rand</span>(rng) <span class="op">*</span> (w <span class="op">-</span> <span class="fl">1</span>) <span class="op">+</span> <span class="fl">1.0</span></span>
+<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a>            poacher_y[i] <span class="op">=</span> <span class="fu">rand</span>(rng) <span class="op">&lt;</span> <span class="fl">0.5</span> ? <span class="fl">1.0</span> <span class="op">:</span> <span class="fu">Float64</span>(h)</span>
+<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a>        poacher_heading[i] <span class="op">=</span> <span class="fu">rand</span>(rng) <span class="op">*</span> <span class="fl">360.0</span></span>
+<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a>    nrg <span class="op">=</span> params.num_rangers</span>
+<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a>    ranger_x <span class="op">=</span> <span class="fu">zeros</span>(<span class="dt">Float64</span>, nrg)</span>
+<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a>    ranger_y <span class="op">=</span> <span class="fu">zeros</span>(<span class="dt">Float64</span>, nrg)</span>
+<span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a>    ranger_heading <span class="op">=</span> <span class="fu">zeros</span>(<span class="dt">Float64</span>, nrg)</span>
+<span id="cb6-57"><a href="#cb6-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-58"><a href="#cb6-58" aria-hidden="true" tabindex="-1"></a>    cx, cy <span class="op">=</span> w <span class="op">/</span> <span class="fl">2.0</span>, h <span class="op">/</span> <span class="fl">2.0</span></span>
+<span id="cb6-59"><a href="#cb6-59" aria-hidden="true" tabindex="-1"></a>    offset <span class="op">=</span> <span class="fu">min</span>(w, h) <span class="op">/</span> <span class="fl">4.0</span></span>
+<span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a>    corners <span class="op">=</span> [(cx <span class="op">-</span> offset, cy <span class="op">-</span> offset), (cx <span class="op">+</span> offset, cy <span class="op">-</span> offset),</span>
+<span id="cb6-61"><a href="#cb6-61" aria-hidden="true" tabindex="-1"></a>               (cx <span class="op">-</span> offset, cy <span class="op">+</span> offset), (cx <span class="op">+</span> offset, cy <span class="op">+</span> offset)]</span>
+<span id="cb6-62"><a href="#cb6-62" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu">min</span>(nrg, <span class="fl">4</span>)</span>
+<span id="cb6-63"><a href="#cb6-63" aria-hidden="true" tabindex="-1"></a>        ranger_x[i] <span class="op">=</span> corners[i][<span class="fl">1</span>]</span>
+<span id="cb6-64"><a href="#cb6-64" aria-hidden="true" tabindex="-1"></a>        ranger_y[i] <span class="op">=</span> corners[i][<span class="fl">2</span>]</span>
+<span id="cb6-65"><a href="#cb6-65" aria-hidden="true" tabindex="-1"></a>        ranger_heading[i] <span class="op">=</span> <span class="fu">rand</span>(rng) <span class="op">*</span> <span class="fl">360.0</span></span>
+<span id="cb6-66"><a href="#cb6-66" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb6-67"><a href="#cb6-67" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="fl">5</span><span class="op">:</span>nrg</span>
+<span id="cb6-68"><a href="#cb6-68" aria-hidden="true" tabindex="-1"></a>        ranger_x[i] <span class="op">=</span> cx <span class="op">+</span> (<span class="fu">rand</span>(rng) <span class="op">-</span> <span class="fl">0.5</span>) <span class="op">*</span> offset</span>
+<span id="cb6-69"><a href="#cb6-69" aria-hidden="true" tabindex="-1"></a>        ranger_y[i] <span class="op">=</span> cy <span class="op">+</span> (<span class="fu">rand</span>(rng) <span class="op">-</span> <span class="fl">0.5</span>) <span class="op">*</span> offset</span>
+<span id="cb6-70"><a href="#cb6-70" aria-hidden="true" tabindex="-1"></a>        ranger_heading[i] <span class="op">=</span> <span class="fu">rand</span>(rng) <span class="op">*</span> <span class="fl">360.0</span></span>
+<span id="cb6-71"><a href="#cb6-71" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb6-72"><a href="#cb6-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-73"><a href="#cb6-73" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fu">RhinoState</span>(</span>
+<span id="cb6-74"><a href="#cb6-74" aria-hidden="true" tabindex="-1"></a>        params.num_rhinos, rhino_x, rhino_y, rhino_heading, rhino_alive,</span>
+<span id="cb6-75"><a href="#cb6-75" aria-hidden="true" tabindex="-1"></a>        rhino_home_x, rhino_home_y, rhino_ticks,</span>
+<span id="cb6-76"><a href="#cb6-76" aria-hidden="true" tabindex="-1"></a>        np, poacher_x, poacher_y, poacher_heading, poacher_alive, poacher_goal, poacher_caught,</span>
+<span id="cb6-77"><a href="#cb6-77" aria-hidden="true" tabindex="-1"></a>        nrg, ranger_x, ranger_y, ranger_heading,</span>
+<span id="cb6-78"><a href="#cb6-78" aria-hidden="true" tabindex="-1"></a>        w, h, resources, max_resources, roughness, <span class="fu">zeros</span>(<span class="dt">Float64</span>, w, h),</span>
+<span id="cb6-79"><a href="#cb6-79" aria-hidden="true" tabindex="-1"></a>        <span class="fl">0</span>,</span>
+<span id="cb6-80"><a href="#cb6-80" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb6-81"><a href="#cb6-81" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb6-82"><a href="#cb6-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-83"><a href="#cb6-83" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">rhinopoaching_world</span>(; initial_capacity<span class="op">::</span><span class="dt">Int </span><span class="op">=</span> <span class="fl">128</span>)</span>
+<span id="cb6-84"><a href="#cb6-84" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fu">World</span>(RhinoDummy; initial_capacity <span class="op">=</span> initial_capacity, allow_mutable <span class="op">=</span> <span class="cn">true</span>)</span>
+<span id="cb6-85"><a href="#cb6-85" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb6-86"><a href="#cb6-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-87"><a href="#cb6-87" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">rhinopoaching_systems</span>()</span>
+<span id="cb6-88"><a href="#cb6-88" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (</span>
+<span id="cb6-89"><a href="#cb6-89" aria-hidden="true" tabindex="-1"></a>        <span class="fu">InitRhinoSystem</span>(),</span>
+<span id="cb6-90"><a href="#cb6-90" aria-hidden="true" tabindex="-1"></a>        <span class="fu">RhinoResourceGrowSystem</span>(),</span>
+<span id="cb6-91"><a href="#cb6-91" aria-hidden="true" tabindex="-1"></a>        <span class="fu">RhinoActivityDecaySystem</span>(),</span>
+<span id="cb6-92"><a href="#cb6-92" aria-hidden="true" tabindex="-1"></a>        <span class="fu">RhinoForageSystem</span>(),</span>
+<span id="cb6-93"><a href="#cb6-93" aria-hidden="true" tabindex="-1"></a>        <span class="fu">RhinoReproduceSystem</span>(),</span>
+<span id="cb6-94"><a href="#cb6-94" aria-hidden="true" tabindex="-1"></a>        <span class="fu">RhinoPoacherSystem</span>(),</span>
+<span id="cb6-95"><a href="#cb6-95" aria-hidden="true" tabindex="-1"></a>        <span class="fu">RhinoRangerSystem</span>(),</span>
+<span id="cb6-96"><a href="#cb6-96" aria-hidden="true" tabindex="-1"></a>        <span class="fu">RhinoStatsSystem</span>(),</span>
+<span id="cb6-97"><a href="#cb6-97" aria-hidden="true" tabindex="-1"></a>        <span class="fu">RhinoTerminationSystem</span>(),</span>
+<span id="cb6-98"><a href="#cb6-98" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb6-99"><a href="#cb6-99" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb6-100"><a href="#cb6-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-101"><a href="#cb6-101" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">rhinopoaching_model</span>(params<span class="op">::</span><span class="dt">RhinoParams </span><span class="op">=</span> <span class="fu">RhinoParams</span>())</span>
+<span id="cb6-102"><a href="#cb6-102" aria-hidden="true" tabindex="-1"></a>    world <span class="op">=</span> <span class="fu">rhinopoaching_world</span>()</span>
+<span id="cb6-103"><a href="#cb6-103" aria-hidden="true" tabindex="-1"></a>    rng_resource <span class="op">=</span> <span class="fu">RNGResource</span>(<span class="fu">Xoshiro</span>(params.seed))</span>
+<span id="cb6-104"><a href="#cb6-104" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_resource!</span>(world, <span class="fu">Tick</span>(<span class="fl">0</span>))</span>
+<span id="cb6-105"><a href="#cb6-105" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_resource!</span>(world, <span class="fu">Terminate</span>(<span class="cn">false</span>))</span>
+<span id="cb6-106"><a href="#cb6-106" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_resource!</span>(world, rng_resource)</span>
+<span id="cb6-107"><a href="#cb6-107" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_resource!</span>(world, <span class="fu">deepcopy</span>(params))</span>
+<span id="cb6-108"><a href="#cb6-108" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_resource!</span>(world, <span class="fu">_build_rhino_state</span>(params, rng_resource.rng))</span>
+<span id="cb6-109"><a href="#cb6-109" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_resource!</span>(world, <span class="fu">RhinoStats</span>())</span>
+<span id="cb6-110"><a href="#cb6-110" aria-hidden="true" tabindex="-1"></a>    scheduler <span class="op">=</span> <span class="fu">Scheduler</span>(world, <span class="fu">rhinopoaching_systems</span>())</span>
+<span id="cb6-111"><a href="#cb6-111" aria-hidden="true" tabindex="-1"></a>    <span class="fu">initialize!</span>(scheduler)</span>
+<span id="cb6-112"><a href="#cb6-112" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> scheduler</span>
+<span id="cb6-113"><a href="#cb6-113" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb6-114"><a href="#cb6-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-115"><a href="#cb6-115" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> RhinoObserver <span class="kw">end</span></span>
+<span id="cb6-116"><a href="#cb6-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-117"><a href="#cb6-117" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">rhino_headers</span>(<span class="op">::</span><span class="dt">RhinoObserver</span>)</span>
+<span id="cb6-118"><a href="#cb6-118" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [<span class="st">"Rhinos"</span>, <span class="st">"Poachers"</span>, <span class="st">"TotalKilled"</span>]</span>
+<span id="cb6-119"><a href="#cb6-119" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb6-120"><a href="#cb6-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-121"><a href="#cb6-121" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">rhino_values</span>(<span class="op">::</span><span class="dt">RhinoObserver</span>, world<span class="op">::</span><span class="dt">World</span>)</span>
+<span id="cb6-122"><a href="#cb6-122" aria-hidden="true" tabindex="-1"></a>    stats <span class="op">=</span> <span class="fu">get_resource</span>(world, RhinoStats)</span>
+<span id="cb6-123"><a href="#cb6-123" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dt">Float64</span>[stats.n_rhinos, stats.n_poachers, stats.total_killed]</span>
+<span id="cb6-124"><a href="#cb6-124" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb6-125"><a href="#cb6-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-126"><a href="#cb6-126" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">run_rhinopoaching</span>(; params<span class="op">::</span><span class="dt">RhinoParams </span><span class="op">=</span> <span class="fu">RhinoParams</span>(), observe<span class="op">::</span><span class="dt">Bool </span><span class="op">=</span> <span class="cn">true</span>)</span>
+<span id="cb6-127"><a href="#cb6-127" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fu">_run_model</span>(rhinopoaching_model, <span class="fu">RhinoObserver</span>(), rhino_values; params, observe)</span>
+<span id="cb6-128"><a href="#cb6-128" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

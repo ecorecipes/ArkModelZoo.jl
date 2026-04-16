@@ -8,10 +8,7 @@ end
 
 function participatorydisinformation_model(params::PDisinfoParams = PDisinfoParams())
     world = participatorydisinformation_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, PDisinfoNetwork())
     add_resource!(world, PDisinfoStats())
     scheduler = Scheduler(world, participatorydisinformation_systems())
@@ -32,16 +29,5 @@ function participatorydisinformation_values(::PDisinfoObserver, world::World)
 end
 
 function run_participatorydisinformation(; params::PDisinfoParams = PDisinfoParams(), observe::Bool = true)
-    scheduler = participatorydisinformation_model(params)
-    obs = PDisinfoObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, participatorydisinformation_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, participatorydisinformation_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(participatorydisinformation_model, PDisinfoObserver(), participatorydisinformation_values; params, observe)
 end

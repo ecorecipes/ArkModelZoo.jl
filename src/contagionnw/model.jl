@@ -8,10 +8,7 @@ end
 
 function contagionnw_model(params::ContagionNWParams = ContagionNWParams())
     world = contagionnw_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, CNWNetwork())
     add_resource!(world, CNWStats())
     scheduler = Scheduler(world, contagionnw_systems())
@@ -31,16 +28,5 @@ function contagionnw_values(::ContagionNWObserver, world::World)
 end
 
 function run_contagionnw(; params::ContagionNWParams = ContagionNWParams(), observe::Bool = true)
-    scheduler = contagionnw_model(params)
-    obs = ContagionNWObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, contagionnw_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, contagionnw_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(contagionnw_model, ContagionNWObserver(), contagionnw_values; params, observe)
 end

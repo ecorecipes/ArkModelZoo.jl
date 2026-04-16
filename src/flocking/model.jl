@@ -19,10 +19,7 @@ end
 
 function flocking_model(params::FlockingParams = FlockingParams())
     world = flocking_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, FlockStats())
     scheduler = Scheduler(world, flocking_systems())
     initialize!(scheduler)
@@ -41,16 +38,5 @@ function flocking_values(::FlockingObserver, world::World)
 end
 
 function run_flocking(; params::FlockingParams = FlockingParams(), observe::Bool = true)
-    scheduler = flocking_model(params)
-    obs = FlockingObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, flocking_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, flocking_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(flocking_model, FlockingObserver(), flocking_values; params, observe)
 end

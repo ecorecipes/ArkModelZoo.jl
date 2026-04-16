@@ -17,10 +17,7 @@ end
 
 function diffusion_model(params::DiffusionParams = DiffusionParams())
     world = diffusion_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, DiffusionGrid(params.grid_width, params.grid_height))
     add_resource!(world, DiffusionStats())
     scheduler = Scheduler(world, diffusion_systems())
@@ -40,16 +37,5 @@ function diffusion_values(::DiffusionObserver, world::World)
 end
 
 function run_diffusion(; params::DiffusionParams = DiffusionParams(), observe::Bool = true)
-    scheduler = diffusion_model(params)
-    obs = DiffusionObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, diffusion_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, diffusion_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(diffusion_model, DiffusionObserver(), diffusion_values; params, observe)
 end

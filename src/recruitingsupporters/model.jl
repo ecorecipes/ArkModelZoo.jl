@@ -12,10 +12,7 @@ end
 
 function recruitingsupporters_model(params::RecSupParams = RecSupParams())
     world = recruitingsupporters_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, RecSupState())
     add_resource!(world, RecSupStats())
     scheduler = Scheduler(world, recruitingsupporters_systems())
@@ -35,16 +32,5 @@ function recruitingsupporters_values(::RecSupObserver, world::World)
 end
 
 function run_recruitingsupporters(; params::RecSupParams = RecSupParams(), observe::Bool = true)
-    scheduler = recruitingsupporters_model(params)
-    obs = RecSupObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, recruitingsupporters_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, recruitingsupporters_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(recruitingsupporters_model, RecSupObserver(), recruitingsupporters_values; params, observe)
 end

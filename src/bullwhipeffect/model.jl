@@ -13,10 +13,7 @@ end
 
 function bullwhip_model(params::BullwhipParams = BullwhipParams())
     world = bullwhip_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, BullwhipState())
     add_resource!(world, BullwhipStats())
     scheduler = Scheduler(world, bullwhip_systems())
@@ -36,16 +33,5 @@ function bullwhip_values(::BullwhipObserver, world::World)
 end
 
 function run_bullwhip(; params::BullwhipParams = BullwhipParams(), observe::Bool = true)
-    scheduler = bullwhip_model(params)
-    obs = BullwhipObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, bullwhip_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, bullwhip_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(bullwhip_model, BullwhipObserver(), bullwhip_values; params, observe)
 end

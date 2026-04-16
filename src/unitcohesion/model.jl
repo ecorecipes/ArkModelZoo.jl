@@ -16,10 +16,7 @@ end
 
 function unitcohesion_model(params::UnitCohesionParams = UnitCohesionParams())
     world = unitcohesion_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, UnitCohesionGrid(params.grid_width, params.grid_height, params.initial_lifespan))
     add_resource!(world, UnitCohesionStats())
     scheduler = Scheduler(world, unitcohesion_systems())
@@ -39,16 +36,5 @@ function unitcohesion_values(::UnitCohesionObserver, world::World)
 end
 
 function run_unitcohesion(; params::UnitCohesionParams = UnitCohesionParams(), observe::Bool = true)
-    scheduler = unitcohesion_model(params)
-    obs = UnitCohesionObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, unitcohesion_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, unitcohesion_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(unitcohesion_model, UnitCohesionObserver(), unitcohesion_values; params, observe)
 end

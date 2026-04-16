@@ -8,10 +8,7 @@ end
 
 function misinformationsbfc_model(params::MisSBFCParams = MisSBFCParams())
     world = misinformationsbfc_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, MisSBFCNetwork())
     add_resource!(world, MisSBFCStats())
     scheduler = Scheduler(world, misinformationsbfc_systems())
@@ -31,16 +28,5 @@ function misinformationsbfc_values(::MisSBFCObserver, world::World)
 end
 
 function run_misinformationsbfc(; params::MisSBFCParams = MisSBFCParams(), observe::Bool = true)
-    scheduler = misinformationsbfc_model(params)
-    obs = MisSBFCObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, misinformationsbfc_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, misinformationsbfc_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(misinformationsbfc_model, MisSBFCObserver(), misinformationsbfc_values; params, observe)
 end

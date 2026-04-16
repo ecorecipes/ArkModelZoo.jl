@@ -8,10 +8,7 @@ end
 
 function von_model(params::VONParams = VONParams())
     world = von_world()
-    add_resource!(world, Tick(0))
-    add_resource!(world, Terminate(false))
-    add_resource!(world, RNGResource(Xoshiro(params.seed)))
-    add_resource!(world, deepcopy(params))
+    _add_standard_resources!(world, params)
     add_resource!(world, VONNetwork())
     add_resource!(world, VONStats())
     scheduler = Scheduler(world, von_systems())
@@ -31,16 +28,5 @@ function von_values(::VONObserver, world::World)
 end
 
 function run_virus_on_network(; params::VONParams = VONParams(), observe::Bool = true)
-    scheduler = von_model(params)
-    obs = VONObserver()
-    trajectory = Vector{Vector{Float64}}()
-    if observe
-        push!(trajectory, von_values(obs, scheduler.world))
-    end
-    while step!(scheduler)
-        if observe
-            push!(trajectory, von_values(obs, scheduler.world))
-        end
-    end
-    return scheduler, trajectory
+    return _run_model(von_model, VONObserver(), von_values; params, observe)
 end
