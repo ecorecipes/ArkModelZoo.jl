@@ -1,8 +1,8 @@
 Base.@kwdef mutable struct RhinoParams
     width::Int = 101
     height::Int = 101
-    num_rhinos::Int = 20
-    num_poachers::Int = 10
+    num_rhinos::Int = 70
+    num_poachers::Int = 4
     num_rangers::Int = 4
     max_roughness::Float64 = 0.6             # fraction of rough terrain
     sprout_delay_time::Int = 500             # ticks before resource sprouts in rough cells

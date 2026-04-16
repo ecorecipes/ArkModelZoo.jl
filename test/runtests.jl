@@ -948,6 +948,14 @@ end
 
     @testset "Artificial Economy" begin
         params = AEconParams(max_ticks=200, seed=42)
+        @test params.population == 100
+        @test params.fuel_grow_rate == 5.0
+        @test params.productivity_farmerworld == 5.0
+        @test params.productivity_cityworld == 5.0
+        @test params.depreciation == 0.1
+        @test params.produce_supply_level == 20.0
+        @test params.widget_supply_level == 20.0
+        @test params.markup == 1.0
         scheduler, trajectory = run_artificialeconomy(params=params)
         @test length(trajectory) >= 2
         stats = get_resource(scheduler.world, AEconStats)
@@ -959,6 +967,8 @@ end
 
     @testset "Rhino Poaching" begin
         params = RhinoParams(max_ticks=200, seed=42)
+        @test params.num_rhinos == 70
+        @test params.num_poachers == 4
         scheduler, trajectory = run_rhinopoaching(params=params)
         @test length(trajectory) >= 2
         stats = get_resource(scheduler.world, RhinoStats)
