@@ -366,7 +366,13 @@ function gis_load_shapefile(filepath::String)
             props[name] = getproperty(row, Symbol(name))
         end
 
-        shape_type = length(pts) == 1 ? :point : :polygon
+        shape_type = if hasproperty(geom, :x) && hasproperty(geom, :y)
+            :point
+        elseif geom isa shp_mod.AbstractPolyline
+            :line
+        else
+            :polygon
+        end
         push!(features, GisVectorFeature(shape_type, pts, props, (cx, cy)))
     end
 

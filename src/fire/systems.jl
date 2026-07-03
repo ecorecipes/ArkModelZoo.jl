@@ -21,6 +21,8 @@ function initialize!(::InitFireSystem, world::World)
         end
     end
 
+    stats.initial_trees = count(==(1), grid.state)
+
     # Ignite left column (pxcor = min-pxcor = -125 → grid x=1)
     # NetLogo: ask patches with [pxcor = min-pxcor] [ ignite ]
     # ALL left-column patches are ignited, not just trees
@@ -28,7 +30,6 @@ function initialize!(::InitFireSystem, world::World)
         _ignite!(world, grid, stats, 1, y)
     end
 
-    stats.initial_trees = count(==(1), grid.state)
     # NetLogo: set burned-trees 0 (ignition during setup doesn't count)
     stats.burned_trees = 0
     return nothing

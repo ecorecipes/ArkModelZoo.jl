@@ -1623,4 +1623,92 @@ end
         println("  Brian's Brain: final firing=$(Int(trajectory[end][1])), refractory=$(Int(trajectory[end][2]))")
     end
 
+    @testset "Regression fixes" begin
+        @testset "Daisyworld setup temperatures use local daisy albedo" begin
+            bare_scheduler = ArkModelZoo.daisyworld_model(DaisyworldParams(
+                grid_size = 1,
+                start_pct_whites = 0.0,
+                start_pct_blacks = 0.0,
+                solar_luminosity = 0.8,
+                seed = 1,
+            ))
+            white_scheduler = ArkModelZoo.daisyworld_model(DaisyworldParams(
+                grid_size = 1,
+                start_pct_whites = 100.0,
+                start_pct_blacks = 0.0,
+                solar_luminosity = 0.8,
+                seed = 1,
+            ))
+            bare_grid = get_resource(bare_scheduler.world, TemperatureGrid)
+            white_grid = get_resource(white_scheduler.world, TemperatureGrid)
+            bare_temp = bare_grid.temperature[1, 1]
+            white_temp = white_grid.temperature[1, 1]
+            @test isapprox(bare_temp, ArkModelZoo._local_heating(0.4, 0.8) / 2; atol = 1e-12)
+            @test isapprox(white_temp, ArkModelZoo._local_heating(0.75, 0.8) / 2; atol = 1e-12)
+            @test white_temp < bare_temp
+        end
+
+        @testset "Newman-Girvan modularity includes non-edge expectation term" begin
+            g = NwGraph(6)
+            for (i, j) in ((1, 2), (2, 3), (1, 3), (4, 5), (5, 6), (4, 6))
+                nw_add_edge!(g, i, j)
+            end
+            good = nw_modularity(g, [[1, 2, 3], [4, 5, 6]])
+            bad = nw_modularity(g, [[1, 4], [2, 5], [3, 6]])
+            @test isapprox(good, 0.5; atol = 1e-12)
+            @test bad < good
+        end
+
+        @testset "Fire counts pre-ignition trees in initial_trees" begin
+            scheduler = ArkModelZoo.fire_model(FireParams(
+                density = 100.0,
+                grid_width = 4,
+                grid_height = 3,
+                seed = 7,
+            ))
+            grid = get_resource(scheduler.world, FireGrid)
+            stats = get_resource(scheduler.world, FireStats)
+            @test stats.initial_trees == 12
+            @test count(!=(0), grid.state) == stats.initial_trees
+            @test stats.burned_trees == 0
+        end
+
+        @testset "PageRank conserves mass with dangling nodes" begin
+            g = NwGraph(3)
+            nw_add_edge!(g, 1, 2)
+            pr = nw_page_rank(g)
+            @test isapprox(sum(pr), 1.0; atol = 1e-10)
+            @test all(>(0.0), pr)
+        end
+
+        @testset "GIS shapefile loader tags polylines as lines" begin
+            import Shapefile
+
+            fixture_dir = joinpath(@__DIR__, "generated")
+            mkpath(fixture_dir)
+            base = joinpath(fixture_dir, "line_fixture")
+            for ext in (".shp", ".shx", ".dbf", ".prj")
+                path = base * ext
+                isfile(path) && rm(path)
+            end
+
+            geom = Shapefile.Polyline(
+                Shapefile.Rect(0.0, 0.0, 2.0, 1.0),
+                Int32[0],
+                [Shapefile.Point(0.0, 0.0), Shapefile.Point(1.0, 1.0), Shapefile.Point(2.0, 0.0)],
+            )
+            Shapefile.write(base, Shapefile.Writer([geom], [(; name = "ridge" )]); force = true)
+
+            dataset = gis_load_shapefile(base * ".shp")
+            @test length(dataset.features) == 1
+            @test dataset.features[1].shape_type == :line
+            @test gis_property_value(dataset.features[1], "name") == "ridge"
+
+            for ext in (".shp", ".shx", ".dbf", ".prj")
+                path = base * ext
+                isfile(path) && rm(path)
+            end
+        end
+    end
+
 end

@@ -1,14 +1,14 @@
 # This file is machine-generated - editing it directly is not advised
 
-julia_version = "1.12.5"
+julia_version = "1.11.9"
 manifest_format = "2.0"
-project_hash = "3f597aee82f41c885df7411a127aba076933caa7"
+project_hash = "ed8b3f1d395ca3e607d178b1d9b9cc680e8b3ce4"
 
 [[deps.Accessors]]
 deps = ["CompositionsBase", "ConstructionBase", "Dates", "InverseFunctions", "MacroTools"]
-git-tree-sha1 = "2eeb2c9bef11013efc6f8f97f32ee59b146b09fb"
+git-tree-sha1 = "7063ad1083578215c7c4bf410368150abe8d5524"
 uuid = "7d9f7c33-5ae7-4f3b-8dc6-eff91059b697"
-version = "0.1.44"
+version = "0.1.45"
 
     [deps.Accessors.extensions]
     AxisKeysExt = "AxisKeys"
@@ -30,7 +30,9 @@ version = "0.1.44"
 
 [[deps.Ark]]
 deps = ["FieldViews", "FunctionWrappers", "PrecompileTools", "Preferences", "Random", "StaticArrays"]
-path = "../Ark.jl"
+git-tree-sha1 = "b9e83c4a75f4a218daf487689193c5be29487ea7"
+repo-rev = "v0.4.0"
+repo-url = "https://github.com/ark-ecs/Ark.jl"
 uuid = "56664e29-41e4-4ea5-ab0e-825499acc647"
 version = "0.4.0"
 
@@ -52,12 +54,6 @@ version = "0.4.0"
     UniqueVectors = "2fbcfb34-fd0c-5fbb-b5d7-e826d8f5b0a9"
     oneAPI = "8f75cd03-7ff8-4ecb-9b8f-daf728133b1b"
 
-[[deps.ArkModelZoo]]
-deps = ["Ark", "Random", "Statistics"]
-path = "."
-uuid = "049c65f7-fd94-4f03-8c0a-83602e57dd21"
-version = "0.1.0"
-
 [[deps.Artifacts]]
 uuid = "56f22d72-fd6d-98f1-02f0-08ddc0907c33"
 version = "1.11.0"
@@ -65,7 +61,7 @@ version = "1.11.0"
 [[deps.CompilerSupportLibraries_jll]]
 deps = ["Artifacts", "Libdl"]
 uuid = "e66e0078-7015-5450-92f7-15fbd957f2ae"
-version = "1.3.0+1"
+version = "1.1.1+0"
 
 [[deps.CompositionsBase]]
 git-tree-sha1 = "802bb88cd69dfd1509f6670416bd4434015693ad"
@@ -131,7 +127,7 @@ version = "1.11.0"
 [[deps.LinearAlgebra]]
 deps = ["Libdl", "OpenBLAS_jll", "libblastrampoline_jll"]
 uuid = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
-version = "1.12.0"
+version = "1.11.0"
 
 [[deps.MacroTools]]
 git-tree-sha1 = "1e0228a030642014fe5cfe68c2c0a818f9e3f522"
@@ -141,13 +137,13 @@ version = "0.5.16"
 [[deps.OpenBLAS_jll]]
 deps = ["Artifacts", "CompilerSupportLibraries_jll", "Libdl"]
 uuid = "4536629a-c528-5b80-bd46-f80d51c5b363"
-version = "0.3.29+0"
+version = "0.3.27+1"
 
 [[deps.PrecompileTools]]
 deps = ["Preferences"]
-git-tree-sha1 = "07a921781cab75691315adc645096ed5e370cb77"
+git-tree-sha1 = "5aa36f7049a63a1528fe8f7c3f2113413ffd4e1f"
 uuid = "aea7be01-6a6a-4083-8856-8a6e6704d82a"
-version = "1.3.3"
+version = "1.2.1"
 
 [[deps.Preferences]]
 deps = ["TOML"]
@@ -212,4 +208,4 @@ version = "1.11.0"
 [[deps.libblastrampoline_jll]]
 deps = ["Artifacts", "Libdl"]
 uuid = "8e850b90-86db-534c-a0d3-1478176c7d93"
-version = "5.15.0+0"
+version = "5.11.0+0"

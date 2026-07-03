@@ -32,7 +32,7 @@ function initialize!(::InitDaisyworldSystem, world::World)
     end
 
     # Initialize temperatures
-    _calc_all_temps!(grid, stats, params)
+    _calc_all_temps!(world, grid, stats, params)
     return nothing
 end
 
@@ -46,7 +46,7 @@ function _local_heating(albedo::Float64, luminosity::Float64)
     return 72.0 * log(absorbed) + 80.0
 end
 
-function _calc_all_temps!(grid::TemperatureGrid, stats::DaisyStats, params::DaisyworldParams)
+function _calc_all_temps!(world::World, grid::TemperatureGrid, stats::DaisyStats, params::DaisyworldParams)
     w = grid.width
     lum = stats.solar_luminosity
 
@@ -55,9 +55,7 @@ function _calc_all_temps!(grid::TemperatureGrid, stats::DaisyStats, params::Dais
         if is_zero(eid)
             local_albedo = params.surface_albedo
         else
-            # Get albedo from the entity - we store it in the grid temperature calc
-            # For simplicity, we compute via the occupant tag
-            local_albedo = params.surface_albedo  # will be overridden below
+            local_albedo = get_components(world, eid, (Albedo,))[1].value
         end
         heating = _local_heating(local_albedo, lum)
         grid.temperature[x, y] = (grid.temperature[x, y] + heating) / 2.0

@@ -8,10 +8,13 @@ Ark = "56664e29-41e4-4ea5-ab0e-825499acc647"
 Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
 Statistics = "10745b16-79ce-11e8-11f9-7d13ad32a3b2"
 
+[sources]
+Ark = {url = "https://github.com/ark-ecs/Ark.jl", rev = "v0.4.0"}
+
 [compat]
 Ark = "0.4"
 Shapefile = "0.13.3"
-julia = "1.10"
+julia = "1.11"
 
 [extras]
 Shapefile = "8e980c4a-a4fe-5da2-b3a7-4b4b0353a2f4"

@@ -267,6 +267,7 @@ function nw_page_rank(g::NwGraph; damping::Float64=0.85, max_iter::Int=100, tol:
     pr = fill(1.0 / n, n)
     for _ in 1:max_iter
         pr_new = fill((1.0 - damping) / n, n)
+        dangling_mass = 0.0
         for i in 1:n
             deg = nw_degree(g, i)
             if deg > 0
@@ -274,7 +275,12 @@ function nw_page_rank(g::NwGraph; damping::Float64=0.85, max_iter::Int=100, tol:
                 for j in g.adj[i]
                     pr_new[j] += share
                 end
+            else
+                dangling_mass += pr[i]
             end
+        end
+        if dangling_mass > 0
+            pr_new .+= damping * dangling_mass / n
         end
         if maximum(abs.(pr_new - pr)) < tol
             return pr_new
@@ -459,18 +465,12 @@ Newman-Girvan modularity Q.
 function nw_modularity(g::NwGraph, communities::Vector{Vector{Int}})
     m2 = sum(nw_degree(g, i) for i in 1:g.n)
     m2 == 0 && return 0.0
-    node_comm = zeros(Int, g.n)
-    for (ci, comm) in enumerate(communities)
-        for v in comm
-            node_comm[v] = ci
-        end
-    end
+    deg = [nw_degree(g, i) for i in 1:g.n]
     Q = 0.0
-    for i in 1:g.n
-        for j in g.adj[i]
-            if node_comm[i] == node_comm[j]
-                Q += 1.0 - nw_degree(g, i) * nw_degree(g, j) / m2
-            end
+    for comm in communities
+        for i in comm, j in comm
+            Aij = j in g.adj[i] ? 1.0 : 0.0
+            Q += Aij - (deg[i] * deg[j]) / m2
         end
     end
     return Q / m2
