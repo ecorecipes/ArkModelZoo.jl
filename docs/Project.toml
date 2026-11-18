@@ -1,0 +1,9 @@
+[deps]
+ArkModelZoo = "049c65f7-fd94-4f03-8c0a-83602e57dd21"
+Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
+
+[sources]
+ArkModelZoo = {path = ".."}
+
+[compat]
+Documenter = "1"
