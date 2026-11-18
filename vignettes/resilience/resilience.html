@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.28">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Resilience of agent-based models</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="resilience_files/libs/clipboard/clipboard.min.js"></script>
+<script src="resilience_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="resilience_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="resilience_files/libs/quarto-html/popper.min.js"></script>
+<script src="resilience_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="resilience_files/libs/quarto-html/anchor.min.js"></script>
+<link href="resilience_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="resilience_files/libs/quarto-html/quarto-syntax-highlighting-49e51e44f424ea8c7044b429bdbbbfe2.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="resilience_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="resilience_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="resilience_files/libs/bootstrap/bootstrap-8ffd5f67044e5306d9846f29df41dda5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#daisyworld-how-much-of-the-state-space-leads-to-life" id="toc-daisyworld-how-much-of-the-state-space-leads-to-life" class="nav-link" data-scroll-target="#daisyworld-how-much-of-the-state-space-leads-to-life">Daisyworld: how much of the state space leads to life?</a></li>
+  <li><a href="#daisyworld-warnings-before-the-collapse" id="toc-daisyworld-warnings-before-the-collapse" class="nav-link" data-scroll-target="#daisyworld-warnings-before-the-collapse">Daisyworld: warnings before the collapse</a></li>
+  <li><a href="#wolfsheep-return-after-a-pulse" id="toc-wolfsheep-return-after-a-pulse" class="nav-link" data-scroll-target="#wolfsheep-return-after-a-pulse">Wolf–Sheep: return after a pulse</a></li>
+  <li><a href="#wolfsheep-is-coexistence-a-basin" id="toc-wolfsheep-is-coexistence-a-basin" class="nav-link" data-scroll-target="#wolfsheep-is-coexistence-a-basin">Wolf–Sheep: is coexistence a basin?</a></li>
+  <li><a href="#caveats" id="toc-caveats" class="nav-link" data-scroll-target="#caveats">Caveats</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="resilience.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li><li><a href="resilience.md"><i class="bi bi-file-code"></i>Github (GFM)</a></li></ul></div></nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Resilience of agent-based models</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>Agent-based models have no equations to linearise, so their resilience has to be measured from simulations. This vignette does that for two models in the zoo: Daisyworld and Wolf–Sheep predation. It uses <a href="https://github.com/ecorecipes/DynamicalResilience.jl">DynamicalResilience.jl</a>, whose metrics take a SciML problem and algorithm, exactly as <code>solve</code> does.</p>
+<p>ArkModelZoo wraps the two models as SciML problems, <code>DaisyworldProblem</code> and <code>WolfSheepProblem</code>, advanced one tick at a time by <code>TickStepping()</code>. Each has an integrator with the parts of SciML’s integrator interface that the metrics use:</p>
+<ul>
+<li><code>init</code> and <code>step!(integ, dt, true)</code>;</li>
+<li><code>reinit!</code>, which replays a run exactly, random numbers included;</li>
+<li><code>set_u!</code> to impose a perturbation;</li>
+<li><code>EnsembleProblem</code> for many runs.</li>
+</ul>
+<p>The state <code>u</code> is a short summary of the world:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Model</th>
+<th><code>u</code></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Daisyworld</td>
+<td>mean temperature, white cover, black cover (fractions of cells)</td>
+</tr>
+<tr class="even">
+<td>Wolf–Sheep</td>
+<td>numbers of sheep, wolves and green grass patches</td>
+</tr>
+</tbody>
+</table>
+<p>Setting a new summary moves the world by the smallest random change with that summary. Daisies or animals are removed at random, or added as at initialisation; temperatures are shifted uniformly. Those random choices come from a stream kept apart from the model’s, so a perturbation does not itself change the model’s random numbers.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">ArkModelZoo</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>prob <span class="op">=</span> <span class="fu">DaisyworldProblem</span>(<span class="fu">DaisyworldParams</span>(solar_luminosity <span class="op">=</span> <span class="fl">1.2</span>); tspan <span class="op">=</span> (<span class="fl">0</span>, <span class="fl">300</span>))</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>sol <span class="op">=</span> <span class="fu">solve</span>(prob, <span class="fu">TickStepping</span>())          <span class="co"># sol.u[end] == [T, white cover, black cover]</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>integ <span class="op">=</span> <span class="fu">init</span>(prob)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">step!</span>(integ, <span class="fl">100</span>, <span class="cn">true</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">set_u!</span>(integ, [<span class="cn">NaN</span>, integ.u[<span class="fl">2</span>] <span class="op">/</span> <span class="fl">2</span>, <span class="cn">NaN</span>])  <span class="co"># remove half the white daisies; NaN leaves a component alone</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>All the numbers below come from <code>resilience.jl</code> in this folder, run with <code>julia -t 4 --project=vignettes vignettes/resilience/resilience.jl</code>.</p>
+</section>
+<section id="daisyworld-how-much-of-the-state-space-leads-to-life" class="level2">
+<h2 class="anchored" data-anchor-id="daisyworld-how-much-of-the-state-space-leads-to-life">Daisyworld: how much of the state space leads to life?</h2>
+<p>Basin stability (Menck et al.&nbsp;2013) is the fraction of random perturbations from which a system returns to an attractor. Here the starting white and black covers are drawn uniformly from [0, 0.5]. A run counts as returning if daisies still cover more than 5% of the planet at tick 300.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>covers0 <span class="op">=</span> (u, rng) <span class="op">-&gt;</span> [<span class="cn">NaN</span>, <span class="fl">0.5</span><span class="fu">rand</span>(rng), <span class="fl">0.5</span><span class="fu">rand</span>(rng)]</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>alive <span class="op">=</span> u <span class="op">-&gt;</span> u[<span class="fl">2</span>] <span class="op">+</span> u[<span class="fl">3</span>] <span class="op">&gt;</span> <span class="fl">0.05</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">basin_stability</span>(<span class="fu">DaisyworldProblem</span>(<span class="fu">DaisyworldParams</span>(solar_luminosity <span class="op">=</span> L); u0 <span class="op">=</span> [<span class="cn">NaN</span>, <span class="fl">0.2</span>, <span class="fl">0.2</span>],</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>                                  tspan <span class="op">=</span> (<span class="fl">0</span>, <span class="fl">300</span>)), <span class="fu">TickStepping</span>();</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>                sample_perturbation <span class="op">=</span> covers0, returned <span class="op">=</span> alive, trajectories <span class="op">=</span> <span class="fl">100</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>                ensemble <span class="op">=</span> <span class="fu">EnsembleThreads</span>(), seed <span class="op">=</span> <span class="fl">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="fig_basin.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>Basin stability of a living Daisyworld against solar luminosity</figcaption>
+</figure>
+</div>
+<ul>
+<li><strong>Below 0.6 every start freezes.</strong> Even a planet half covered in black daisies cannot warm itself enough at a luminosity of 0.4–0.5.</li>
+<li><strong>From 0.6 to 1.4 every start survives</strong> (0.99 at 0.6).</li>
+<li><strong>Above 1.4 the basin shrinks steadily:</strong> 0.96 at 1.5, 0.86 at 1.6, 0.67 at 1.8, 0.34 at 1.9, 0.05 at 2.0 and none at 2.1.</li>
+</ul>
+<p>On the hot side, whether the daisies survive depends more and more on where the planet starts. Each luminosity uses one model seed, so the trajectories share the model’s random numbers and differ only in their starting covers.</p>
+</section>
+<section id="daisyworld-warnings-before-the-collapse" class="level2">
+<h2 class="anchored" data-anchor-id="daisyworld-warnings-before-the-collapse">Daisyworld: warnings before the collapse</h2>
+<p>A slowly forced system approaching a tipping point should recover more slowly from small fluctuations. Its fluctuations then grow more variable and more autocorrelated (Scheffer et al. 2009).</p>
+<ul>
+<li><strong>The ramp:</strong> solar luminosity rises from 1.0 by 0.0005 per tick (<code>ramped_series</code> with a <code>ramp</code> that reassigns <code>integ.p</code>).</li>
+<li><strong>The analysis:</strong> <code>early_warning</code> takes the series of mean temperature and of white cover from tick 500 to 100 ticks before the daisies vanish. It removes a Gaussian trend, computes the rolling variance and lag-1 autocorrelation over windows of half the series, and measures their trend with Kendall’s τ.</li>
+<li><strong>The null:</strong> the same window from runs at a constant luminosity of 1.0.</li>
+<li><strong>Replication:</strong> ten seeds of each.</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>ramp <span class="op">=</span> (p, t) <span class="op">-&gt;</span> (q <span class="op">=</span> <span class="fu">deepcopy</span>(p); q.solar_luminosity <span class="op">=</span> <span class="fl">1.0</span> <span class="op">+</span> <span class="fl">0.0005</span>t; q)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> <span class="fu">ramped_series</span>(prob, <span class="fu">TickStepping</span>(); saveat <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">2</span><span class="op">:</span><span class="fl">2400</span>, ramp <span class="op">=</span> ramp, observe <span class="op">=</span> copy)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">early_warning</span>(temperature[window]; t <span class="op">=</span> s.t[window], window <span class="op">=</span> <span class="fl">0.5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="fig_ews.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>One ramped run (top left), its rolling variance and lag-1 autocorrelation, and Kendall’s τ for temperature across ten seeds (bottom right)</figcaption>
+</figure>
+</div>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Indicator, Kendall τ (mean over 10 seeds; number positive)</th>
+<th>ramped</th>
+<th>constant</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>lag-1 autocorrelation, white cover</td>
+<td><strong>0.68</strong> (10/10)</td>
+<td>−0.24 (3/10)</td>
+</tr>
+<tr class="even">
+<td>lag-1 autocorrelation, temperature</td>
+<td><strong>0.45</strong> (9/10)</td>
+<td>−0.08 (6/10)</td>
+</tr>
+<tr class="odd">
+<td>variance, white cover</td>
+<td>−0.93 (0/10)</td>
+<td>−0.55 (1/10)</td>
+</tr>
+<tr class="even">
+<td>variance, temperature</td>
+<td>−0.63 (0/10)</td>
+<td>−0.38 (3/10)</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Lag-1 autocorrelation is a usable warning here.</strong> It rises before the collapse in every ramped run for white cover, and in nine of ten for temperature. At constant luminosity it has no consistent trend.</li>
+<li><strong>Variance is not a warning: it falls.</strong> A likely reason is that white cover approaches saturation (above 0.9) as the planet heats, and a bounded share fluctuates less as it fills the grid. The collapse comes when even a nearly white planet cannot cool itself, not through growing fluctuations.</li>
+<li><strong>One series is not enough.</strong> At constant luminosity, single-series τ ranges from −0.9 to 0.5, so a trend in one run is weak evidence on its own.</li>
+<li><strong>The ramped planet holds on longer than a planet at fixed luminosity.</strong> The daisies vanish at luminosities of 2.14–2.15 (ticks 2280–2304), where the basin above is empty. The ramped planet inherits a high white cover from the cooler past; a planet started from random covers at that luminosity does not get one. This is path dependence: hysteresis in the sense the original model asks about.</li>
+</ul>
+</section>
+<section id="wolfsheep-return-after-a-pulse" class="level2">
+<h2 class="anchored" data-anchor-id="wolfsheep-return-after-a-pulse">Wolf–Sheep: return after a pulse</h2>
+<ul>
+<li><strong>The pulse:</strong> at tick 300 half the sheep are removed (<code>set_u!</code>).</li>
+<li><strong>The comparison:</strong> <code>recovery</code> compares that run with the unperturbed control, replayed from the same seed by <code>reinit!</code>, measuring the distance in (sheep, wolves) every 5 ticks.</li>
+<li><strong>The limit:</strong> in an agent-based model the two runs cannot stay paired. After the pulse they have different numbers of animals, so they draw different random numbers and decorrelate.</li>
+<li><strong>The noise floor:</strong> to separate return from decorrelation, the distance is compared with that between two independent runs with no pulse (<code>recovery</code> with different <code>seed</code> and <code>perturbed_seed</code>).</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>halve_sheep <span class="op">=</span> (u, rng) <span class="op">-&gt;</span> [u[<span class="fl">1</span>] <span class="op">/</span> <span class="fl">2</span>, u[<span class="fl">2</span>], u[<span class="fl">3</span>]]</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">recovery</span>(prob, <span class="fu">TickStepping</span>(); perturb <span class="op">=</span> halve_sheep, observe <span class="op">=</span> u <span class="op">-&gt;</span> u[<span class="fl">1</span><span class="op">:</span><span class="fl">2</span>],</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>         t_pulse <span class="op">=</span> <span class="fl">300</span>, horizon <span class="op">=</span> <span class="fl">600</span>, interval <span class="op">=</span> <span class="fl">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="fig_recovery.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>Distance between control and pulsed runs (blue; thin lines are seeds) and between independent runs (orange)</figcaption>
+</figure>
+</div>
+<ul>
+<li><strong>The pulse effect dies away within about 20–40 ticks.</strong> The paired runs then sit closer together than independent runs: they share the past.</li>
+<li><strong>They then decorrelate.</strong> By about 350 ticks after the pulse, they are as different as two independent realisations.</li>
+<li><strong>Return time</strong> is measured as the time until the paired distance first falls to the median distance between independent runs. Its median is 10 ticks over ten seeds (range 0–285).</li>
+<li><strong>Often the pulse makes no measurable difference.</strong> Halving the sheep moves the system by 43–117 animals, while two independent runs typically differ by 17–117. In three seeds the pulse was already within that noise.</li>
+</ul>
+</section>
+<section id="wolfsheep-is-coexistence-a-basin" class="level2">
+<h2 class="anchored" data-anchor-id="wolfsheep-is-coexistence-a-basin">Wolf–Sheep: is coexistence a basin?</h2>
+<p>Here the starting numbers of sheep (0–300) and wolves (0–150) are drawn at random. A run counts as coexisting if both species are still present at tick 1000.</p>
+<ul>
+<li><strong>With grass:</strong> 41% ± 5% of starts coexist.</li>
+<li><strong>Without grass:</strong> none do.</li>
+</ul>
+<p>Coexistence here is a property of only part of the state space: most random starts lose one species within 1000 ticks, through the large predator–prey oscillations that the default parameters produce. As in the Daisyworld basin, the trajectories share the model seed.</p>
+</section>
+<section id="caveats" class="level2">
+<h2 class="anchored" data-anchor-id="caveats">Caveats</h2>
+<ul>
+<li><strong>A summary is not a state.</strong> Setting <code>u</code> picks one of many microstates with that summary. A perturbation is therefore a family of possible changes, and its outcome can depend on which one is drawn.</li>
+<li><strong>Paired runs decorrelate.</strong> A distance that stops shrinking may mean noise has taken over, not that the system has failed to return. Always compare with the noise floor.</li>
+<li><strong>Kendall τ of one series is noisy.</strong> Report its distribution over seeds, against a null without forcing.</li>
+<li><strong>Small samples.</strong> Basin fractions use 100 starts each and the warnings use 10 seeds; the standard errors are in <code>results.toml</code>.</li>
+</ul>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

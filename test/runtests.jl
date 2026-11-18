@@ -1711,4 +1711,6 @@ end
         end
     end
 
+    include("test_sciml.jl")
+
 end

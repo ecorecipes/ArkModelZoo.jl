@@ -6,6 +6,12 @@ title: "ArkModelZoo.jl Vignettes"
 
 ArkModelZoo.jl contains **154** agent-based models ported from NetLogo to Julia using the [Ark.jl](https://github.com/sdwfrost/Ark.jl) Entity Component System (ECS) framework. Each vignette provides background information, default parameters, time-series plots, ensemble runs, and parameter sensitivity analysis.
 
+## Resilience
+
+- [Resilience of agent-based models](resilience/resilience.qmd): Daisyworld and Wolf–Sheep as
+  SciML problems; basin stability, return after a pulse, and early-warning indicators with
+  DynamicalResilience.jl
+
 ## Models by Category
 
 ### Biology & Ecology

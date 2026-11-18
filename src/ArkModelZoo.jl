@@ -4,6 +4,14 @@ using Ark
 using Random
 using Statistics
 
+# The scheduler's `step!` is SciML's (CommonSolve's) `step!`, so that ArkModelZoo's
+# `step!(scheduler)` and the integrator interface (`step!(integ, dt, true)`) share one function.
+import SciMLBase
+import SciMLBase: step!
+using SciMLBase: init, solve, solve!, reinit!, remake, set_u!, terminate!, derivative_discontinuity!,
+                 EnsembleProblem, EnsembleSerial, EnsembleThreads, ReturnCode
+using DynamicalResilience: recovery, basin_stability, ramped_series, early_warning
+
 # Extension modules
 include("ext/rnd.jl")
 include("ext/nw.jl")
@@ -60,5 +68,16 @@ export System,
 for spec in MODEL_SPECS
     @eval export $(spec.exports...)
 end
+
+# SciML problems and integrators for simulation-based resilience
+include("sciml/problems.jl")
+include("sciml/daisyworld.jl")
+include("sciml/wolfsheep.jl")
+
+export AbstractArkProblem, DaisyworldProblem, WolfSheepProblem, TickStepping, ArkIntegrator, ArkSolution,
+       seed_trajectory
+export init, solve, solve!, reinit!, remake, set_u!, terminate!, derivative_discontinuity!,
+       EnsembleProblem, EnsembleSerial, EnsembleThreads
+export recovery, basin_stability, ramped_series, early_warning
 
 end
