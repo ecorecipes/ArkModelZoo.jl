@@ -74,15 +74,17 @@ basin_stability(DaisyworldProblem(DaisyworldParams(solar_luminosity = L); u0 = [
 
 ![Basin stability of a living Daisyworld against solar luminosity](fig_basin.png){width=100%}
 
-- **Below 0.6 every start freezes.** Even a planet half covered in black daisies cannot warm
-  itself enough at a luminosity of 0.4–0.5.
+- **Below 0.6 almost every start freezes.** Even a planet half covered in black daisies rarely
+  warms itself enough: none survive at a luminosity of 0.4, and 0.03 at 0.5.
 - **From 0.6 to 1.4 every start survives** (0.99 at 0.6).
-- **Above 1.4 the basin shrinks steadily:** 0.96 at 1.5, 0.86 at 1.6, 0.67 at 1.8, 0.34 at 1.9,
-  0.05 at 2.0 and none at 2.1.
+- **Above 1.4 the basin shrinks steadily:** 0.98 at 1.5, 0.91 at 1.6, 0.72 at 1.8, 0.35 at 1.9,
+  0.06 at 2.0 and none at 2.1.
 
 On the hot side, whether the daisies survive depends more and more on where the planet starts.
-Each luminosity uses one model seed, so the trajectories share the model's random numbers and
-differ only in their starting covers.
+Each start also has its own model noise: `basin_stability` gives every trajectory its own model
+seed, drawn from its `seed` argument. So the fraction reflects both the starting covers and the
+model's chance events. With `noise = :common` all trajectories share one model seed and differ
+only in their starting covers.
 
 ## Daisyworld: warnings before the collapse
 
@@ -163,12 +165,12 @@ recovery(prob, TickStepping(); perturb = halve_sheep, observe = u -> u[1:2],
 Here the starting numbers of sheep (0–300) and wolves (0–150) are drawn at random. A run counts
 as coexisting if both species are still present at tick 1000.
 
-- **With grass:** 41% ± 5% of starts coexist.
+- **With grass:** 39% ± 5% of starts coexist.
 - **Without grass:** none do.
 
 Coexistence here is a property of only part of the state space: most random starts lose one
 species within 1000 ticks, through the large predator–prey oscillations that the default
-parameters produce. As in the Daisyworld basin, the trajectories share the model seed.
+parameters produce. As in the Daisyworld basin, each start has its own model seed.
 
 ## Caveats
 

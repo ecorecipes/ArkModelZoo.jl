@@ -172,11 +172,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </figure>
 </div>
 <ul>
-<li><strong>Below 0.6 every start freezes.</strong> Even a planet half covered in black daisies cannot warm itself enough at a luminosity of 0.4–0.5.</li>
+<li><strong>Below 0.6 almost every start freezes.</strong> Even a planet half covered in black daisies rarely warms itself enough: none survive at a luminosity of 0.4, and 0.03 at 0.5.</li>
 <li><strong>From 0.6 to 1.4 every start survives</strong> (0.99 at 0.6).</li>
-<li><strong>Above 1.4 the basin shrinks steadily:</strong> 0.96 at 1.5, 0.86 at 1.6, 0.67 at 1.8, 0.34 at 1.9, 0.05 at 2.0 and none at 2.1.</li>
+<li><strong>Above 1.4 the basin shrinks steadily:</strong> 0.98 at 1.5, 0.91 at 1.6, 0.72 at 1.8, 0.35 at 1.9, 0.06 at 2.0 and none at 2.1.</li>
 </ul>
-<p>On the hot side, whether the daisies survive depends more and more on where the planet starts. Each luminosity uses one model seed, so the trajectories share the model’s random numbers and differ only in their starting covers.</p>
+<p>On the hot side, whether the daisies survive depends more and more on where the planet starts. Each start also has its own model noise: <code>basin_stability</code> gives every trajectory its own model seed, drawn from its <code>seed</code> argument. So the fraction reflects both the starting covers and the model’s chance events. With <code>noise = :common</code> all trajectories share one model seed and differ only in their starting covers.</p>
 </section>
 <section id="daisyworld-warnings-before-the-collapse" class="level2">
 <h2 class="anchored" data-anchor-id="daisyworld-warnings-before-the-collapse">Daisyworld: warnings before the collapse</h2>
@@ -267,10 +267,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="wolfsheep-is-coexistence-a-basin">Wolf–Sheep: is coexistence a basin?</h2>
 <p>Here the starting numbers of sheep (0–300) and wolves (0–150) are drawn at random. A run counts as coexisting if both species are still present at tick 1000.</p>
 <ul>
-<li><strong>With grass:</strong> 41% ± 5% of starts coexist.</li>
+<li><strong>With grass:</strong> 39% ± 5% of starts coexist.</li>
 <li><strong>Without grass:</strong> none do.</li>
 </ul>
-<p>Coexistence here is a property of only part of the state space: most random starts lose one species within 1000 ticks, through the large predator–prey oscillations that the default parameters produce. As in the Daisyworld basin, the trajectories share the model seed.</p>
+<p>Coexistence here is a property of only part of the state space: most random starts lose one species within 1000 ticks, through the large predator–prey oscillations that the default parameters produce. As in the Daisyworld basin, each start has its own model seed.</p>
 </section>
 <section id="caveats" class="level2">
 <h2 class="anchored" data-anchor-id="caveats">Caveats</h2>

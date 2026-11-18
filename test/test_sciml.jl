@@ -128,6 +128,15 @@ import SciMLBase
         @test bs.trajectories == 6 && bs.failed == 0
         @test 0 ≤ bs.fraction ≤ 1
 
+        # basin_stability gives each start its own model seed (noise = :independent), unless
+        # asked to share one: from an unperturbed start, only shared noise repeats the plain run
+        ref = solve(dprob, TickStepping()).u[end]
+        same_end(noise) = basin_stability(dprob, TickStepping(); trajectories = 6, ensemble = EnsembleSerial(),
+                                          sample_perturbation = (u, rng) -> u, returned = u -> u == ref,
+                                          seed = 3, noise = noise)
+        @test same_end(:common).fraction == 1
+        @test same_end(:independent).fraction < 1
+
         ramp = (p, t) -> (q = deepcopy(p); q.solar_luminosity = 0.8 + 0.002t; q)
         series = ramped_series(DaisyworldProblem(DaisyworldParams(seed = 6); tspan = (0, 200)), TickStepping();
                                saveat = 0:2:200, ramp = ramp, observe = u -> u[1])
