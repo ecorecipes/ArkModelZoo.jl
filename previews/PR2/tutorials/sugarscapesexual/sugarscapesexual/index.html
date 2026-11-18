@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="referrer" content="no-referrer"/><title>Sugarscape Sexual · ArkModelZoo.jl</title><meta name="title" content="Sugarscape Sexual · ArkModelZoo.jl"/><meta property="og:title" content="Sugarscape Sexual · ArkModelZoo.jl"/><meta property="twitter:title" content="Sugarscape Sexual · ArkModelZoo.jl"/><meta name="description" content="Documentation for ArkModelZoo.jl."/><meta property="og:description" content="Documentation for ArkModelZoo.jl."/><meta property="twitter:description" content="Documentation for ArkModelZoo.jl."/><meta property="og:url" content="https://ecorecipes.github.io/ArkModelZoo.jl/tutorials/sugarscapesexual/sugarscapesexual/"/><meta property="twitter:url" content="https://ecorecipes.github.io/ArkModelZoo.jl/tutorials/sugarscapesexual/sugarscapesexual/"/><link rel="canonical" href="https://ecorecipes.github.io/ArkModelZoo.jl/tutorials/sugarscapesexual/sugarscapesexual/"/><script data-outdated-warner src="../../../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.63.2/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../../assets/documenter.js"></script><script src="../../../search_index.js"></script><script src="../../../siteinfo.js"></script><script src="../../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="../../../">ArkModelZoo.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../../../">Home</a></li><li><span class="tocitem">Resilience</span><ul><li><a class="tocitem" href="../../resilience/resilience/">Resilience of agent-based models</a></li></ul></li><li><span class="tocitem">Models</span><ul><li><a class="tocitem" href="../../abtgc/abtgc/">ABTgc</a></li><li><a class="tocitem" href="../../aids/aids/">AIDS</a></li><li><a class="tocitem" href="../../altruism/altruism/">Altruism</a></li><li><a class="tocitem" href="../../antsystem/antsystem/">Ant System TSP</a></li><li><a class="tocitem" href="../../ants/ants/">Ants</a></li><li><a class="tocitem" href="../../artificialeconomy/artificialeconomy/">Artificial Economy</a></li><li><a class="tocitem" href="../../axelrodcultural/axelrodcultural/">AxelrodCultural</a></li><li><a class="tocitem" href="../../babysittingcoop/babysittingcoop/">Baby Sitting Coop</a></li><li><a class="tocitem" href="../../bank_reserves/bank_reserves/">Bank Reserves</a></li><li><a class="tocitem" href="../../bayesian/bayesian/">Bayesian Updating</a></li><li><a class="tocitem" href="../../beinggreen/beinggreen/">Being Green</a></li><li><a class="tocitem" href="../../birthrates/birthrates/">Birthrates</a></li><li><a class="tocitem" href="../../blackbox/blackbox/">BlackBox</a></li><li><a class="tocitem" href="../../boiling/boiling/">Boiling</a></li><li><a class="tocitem" href="../../bombscenario/bombscenario/">BombScenario</a></li><li><a class="tocitem" href="../../brians_brain/brians_brain/">Brian’s Brain</a></li><li><a class="tocitem" href="../../bullwhipeffect/bullwhipeffect/">Bullwhip Effect</a></li><li><a class="tocitem" href="../../ca_1d_elementary/ca_1d_elementary/">CA 1D Elementary</a></li><li><a class="tocitem" href="../../civilizationgrowth/civilizationgrowth/">Civilization Growth</a></li><li><a class="tocitem" href="../../climatechange/climatechange/">Climate Change</a></li><li><a class="tocitem" href="../../coin/coin/">COIN Learning</a></li><li><a class="tocitem" href="../../competitionlearning/competitionlearning/">Competition Learning</a></li><li><a class="tocitem" href="../../contactprocess/contactprocess/">Contact Process 2D</a></li><li><a class="tocitem" href="../../contagionnw/contagionnw/">Contagion NW</a></li><li><a class="tocitem" href="../../contagionsi/contagionsi/">Contagion SI</a></li><li><a class="tocitem" href="../../contagionsir/contagionsir/">Contagion SIR</a></li><li><a class="tocitem" href="../../cooperation/cooperation/">Cooperation</a></li><li><a class="tocitem" href="../../coordination/coordination/">Coordination</a></li><li><a class="tocitem" href="../../coordination2groups/coordination2groups/">Coordination 2 Groups</a></li><li><a class="tocitem" href="../../croprotation/croprotation/">Crop Rotation</a></li><li><a class="tocitem" href="../../crystallization/crystallization/">Crystallization</a></li><li><a class="tocitem" href="../../csvnetworkforaging/csvnetworkforaging/">CSV Network Foraging</a></li><li><a class="tocitem" href="../../csvpopulation/csvpopulation/">CSV Population</a></li><li><a class="tocitem" href="../../culturaldiffusion/culturaldiffusion/">Cultural Diffusion</a></li><li><a class="tocitem" href="../../cyberspaceopinion/cyberspaceopinion/">Cyberspace Opinion</a></li><li><a class="tocitem" href="../../daisyworld/daisyworld/">Daisyworld</a></li><li><a class="tocitem" href="../../dating/dating/">Dating</a></li><li><a class="tocitem" href="../../diffusionnetwork/diffusionnetwork/">Diffusion Network</a></li><li><a class="tocitem" href="../../diffusionofhiv/diffusionofhiv/">DiffusionOfHIV</a></li><li><a class="tocitem" href="../../disinfobitstringnw/disinfobitstringnw/">Disinfobitstringnw</a></li><li><a class="tocitem" href="../../dla/dla/">Dla</a></li><li><a class="tocitem" href="../../dlasimple/dlasimple/">DLA Simple</a></li><li><a class="tocitem" href="../../druguse/druguse/">Drug Use</a></li><li><a class="tocitem" href="../../druguseoverdose/druguseoverdose/">Drug Use Overdose</a></li><li><a class="tocitem" href="../../elfarol/elfarol/">El Farol</a></li><li><a class="tocitem" href="../../erosion/erosion/">Erosion</a></li><li><a class="tocitem" href="../../ethnocentrism/ethnocentrism/">Ethnocentrism</a></li><li><a class="tocitem" href="../../evolutionofnorms/evolutionofnorms/">EvolutionOfNorms</a></li><li><a class="tocitem" href="../../firepercolation/firepercolation/">Fire Percolation</a></li><li><a class="tocitem" href="../../firebenchmark/firebenchmark/">FireBenchmark</a></li><li><a class="tocitem" href="../../fireflies/fireflies/">Fireflies</a></li><li><a class="tocitem" href="../../flocking/flocking/">Flocking</a></li><li><a class="tocitem" href="../../flockingnetwork/flockingnetwork/">Flocking Network</a></li><li><a class="tocitem" href="../../forestdewdney/forestdewdney/">Forest Dewdney</a></li><li><a class="tocitem" href="../../fire/fire/">Forest Fire</a></li><li><a class="tocitem" href="../../fungalbioremediation/fungalbioremediation/">Fungal Bioremediation</a></li><li><a class="tocitem" href="../../giant_component/giant_component/">Giant Component</a></li><li><a class="tocitem" href="../../gishillclimber/gishillclimber/">GIS HillClimber</a></li><li><a class="tocitem" href="../../granovetter/granovetter/">Granovetter</a></li><li><a class="tocitem" href="../../grassbrushtrees/grassbrushtrees/">Grass Brush Trees</a></li><li><a class="tocitem" href="../../diffusion/diffusion/">Heat Diffusion</a></li><li><a class="tocitem" href="../../heatbugs/heatbugs/">Heatbugs</a></li><li><a class="tocitem" href="../../hikingelevation/hikingelevation/">HikingElevation</a></li><li><a class="tocitem" href="../../infinitelife/infinitelife/">Infinite Life</a></li><li><a class="tocitem" href="../../infodiffusion/infodiffusion/">Info Diffusion</a></li><li><a class="tocitem" href="../../ising/ising/">Ising</a></li><li><a class="tocitem" href="../../languageborders/languageborders/">Language Borders</a></li><li><a class="tocitem" href="../../languagechange/languagechange/">Language Change</a></li><li><a class="tocitem" href="../../lassavirus/lassavirus/">LassaVirus</a></li><li><a class="tocitem" href="../../leonarditechadoption/leonarditechadoption/">Leonardi Tech Adoption</a></li><li><a class="tocitem" href="../../life/life/">Life</a></li><li><a class="tocitem" href="../../logistic_growth/logistic_growth/">Logistic Growth</a></li><li><a class="tocitem" href="../../mailmen/mailmen/">Mailmen Delivery</a></li><li><a class="tocitem" href="../../marriage/marriage/">Marriage Problem</a></li><li><a class="tocitem" href="../../mimicry/mimicry/">Mimicry</a></li><li><a class="tocitem" href="../../minimalsis/minimalsis/">Minimal SIS</a></li><li><a class="tocitem" href="../../minoritybelief/minoritybelief/">Minority Belief Spread</a></li><li><a class="tocitem" href="../../minoritygame/minoritygame/">Minority Game</a></li><li><a class="tocitem" href="../../misinformationsbfc/misinformationsbfc/">Misinformation SBFC</a></li><li><a class="tocitem" href="../../modsocsegregation/modsocsegregation/">Modsoc Segregation</a></li><li><a class="tocitem" href="../../mousetraps/mousetraps/">Mousetraps</a></li><li><a class="tocitem" href="../../multidrugresistant/multidrugresistant/">MultidrugResistant</a></li><li><a class="tocitem" href="../../opinionbc/opinionbc/">Opinion Dynamics BC</a></li><li><a class="tocitem" href="../../paretolearn/paretolearn/">Pareto Learning</a></li><li><a class="tocitem" href="../../participatorydisinfo/participatorydisinfo/">Participatory Disinformation</a></li><li><a class="tocitem" href="../../participatorydisinformation/participatorydisinformation/">Participatory Disinformation</a></li><li><a class="tocitem" href="../../particles/particles/">Particles</a></li><li><a class="tocitem" href="../../party/party/">Party</a></li><li><a class="tocitem" href="../../pd_basic_evolutionary/pd_basic_evolutionary/">PD Basic Evolutionary</a></li><li><a class="tocitem" href="../../pdsimple/pdsimple/">PD Simple</a></li><li><a class="tocitem" href="../../percolation/percolation/">Percolation</a></li><li><a class="tocitem" href="../../polymerdynamics/polymerdynamics/">Polymer Dynamics</a></li><li><a class="tocitem" href="../../prefattachhomophily/prefattachhomophily/">Pref Attach Homophily</a></li><li><a class="tocitem" href="../../preferential_attachment/preferential_attachment/">Preferential Attachment</a></li><li><a class="tocitem" href="../../privacyopinion/privacyopinion/">Privacy Opinion</a></li><li><a class="tocitem" href="../../productsmarket/productsmarket/">Products Market</a></li><li><a class="tocitem" href="../../public_good/public_good/">Public Good</a></li><li><a class="tocitem" href="../../cqin/cqin/">Quality Improvement Network</a></li><li><a class="tocitem" href="../../rabbits_grass_weeds/rabbits_grass_weeds/">Rabbits Grass Weeds</a></li><li><a class="tocitem" href="../../decay/decay/">Radioactive Decay</a></li><li><a class="tocitem" href="../../rationalevolvingpd/rationalevolvingpd/">Rational Evolving PD</a></li><li><a class="tocitem" href="../../rebellion/rebellion/">Rebellion</a></li><li><a class="tocitem" href="../../recruitingmovement/recruitingmovement/">Recruiting Movement</a></li><li><a class="tocitem" href="../../recruiting/recruiting/">Recruiting Supporters</a></li><li><a class="tocitem" href="../../recruitingsupporters/recruitingsupporters/">Recruiting Supporters</a></li><li><a class="tocitem" href="../../resilientteam/resilientteam/">Resilient Team</a></li><li><a class="tocitem" href="../../rhinopoaching/rhinopoaching/">Rhino Poaching</a></li><li><a class="tocitem" href="../../riseofradicalism/riseofradicalism/">Rise of Radicalism</a></li><li><a class="tocitem" href="../../rope/rope/">Rope</a></li><li><a class="tocitem" href="../../rumormill/rumormill/">Rumor Mill</a></li><li><a class="tocitem" href="../../sand/sand/">Sand</a></li><li><a class="tocitem" href="../../schelling/schelling/">Schelling Segregation</a></li><li><a class="tocitem" href="../../segregation/segregation/">Segregation</a></li><li><a class="tocitem" href="../../shepherds/shepherds/">Shepherds</a></li><li><a class="tocitem" href="../../simple_genetic_algorithm/simple_genetic_algorithm/">Simple Genetic Algorithm</a></li><li><a class="tocitem" href="../../simplemarket/simplemarket/">Simple Market</a></li><li><a class="tocitem" href="../../simplemarketrandom/simplemarketrandom/">Simple Market Random</a></li><li><a class="tocitem" href="../../simplemarkettable/simplemarkettable/">Simple Market Table</a></li><li><a class="tocitem" href="../../sir/sir/">SIR Epidemic</a></li><li><a class="tocitem" href="../../sleuthlanduse/sleuthlanduse/">Sleuth LandUse</a></li><li><a class="tocitem" href="../../slime/slime/">Slime</a></li><li><a class="tocitem" href="../../slowspread/slowspread/">Slow Spread Env Action</a></li><li><a class="tocitem" href="../../small_worlds/small_worlds/">Small Worlds</a></li><li><a class="tocitem" href="../../socialinfluence/socialinfluence/">Social Influence</a></li><li><a class="tocitem" href="../../socialnetworkdiffusion/socialnetworkdiffusion/">Social Network Diffusion</a></li><li><a class="tocitem" href="../../soliddiffusion/soliddiffusion/">Solid Diffusion</a></li><li><a class="tocitem" href="../../spatialattitude/spatialattitude/">Spatial Attitude</a></li><li><a class="tocitem" href="../../ipd/ipd/">Spatial IPD</a></li><li><a class="tocitem" href="../../spatialopinion/spatialopinion/">Spatial Opinion Dynamics</a></li><li><a class="tocitem" href="../../fakenews/fakenews/">Spread of Fake News</a></li><li><a class="tocitem" href="../../spreadingbots/spreadingbots/">Spreading Bots</a></li><li><a class="tocitem" href="../../spreadinggroups/spreadinggroups/">Spreading Groups</a></li><li><a class="tocitem" href="../../sugarscape_1_growback/sugarscape_1_growback/">Sugarscape 1 Growback</a></li><li><a class="tocitem" href="../../sugarscapeculture/sugarscapeculture/">Sugarscape Culture</a></li><li class="is-active"><a class="tocitem" href>Sugarscape Sexual</a><ul class="internal"><li><a class="tocitem" href="#Overview"><span>Overview</span></a></li><li><a class="tocitem" href="#Parameters"><span>Parameters</span></a></li><li><a class="tocitem" href="#Source-Code"><span>Source Code</span></a></li><li><a class="tocitem" href="#Time-Series"><span>Time Series</span></a></li><li><a class="tocitem" href="#Ensemble-Runs"><span>Ensemble Runs</span></a></li><li><a class="tocitem" href="#Parameter-Sensitivity"><span>Parameter Sensitivity</span></a></li><li><a class="tocitem" href="#Appendix:-Source-Code"><span>Appendix: Source Code</span></a></li></ul></li><li><a class="tocitem" href="../../superdiffuser/superdiffuser/">SuperDiffuser</a></li><li><a class="tocitem" href="../../teamassembly/teamassembly/">Team Assembly</a></li><li><a class="tocitem" href="../../termites/termites/">Termites</a></li><li><a class="tocitem" href="../../thermostat/thermostat/">Thermostat</a></li><li><a class="tocitem" href="../../tourism/tourism/">Tourism</a></li><li><a class="tocitem" href="../../traffic2lanes/traffic2lanes/">Traffic 2 Lanes</a></li><li><a class="tocitem" href="../../trafficbasic/trafficbasic/">Traffic Basic</a></li><li><a class="tocitem" href="../../trafficgrid/trafficgrid/">Traffic Grid</a></li><li><a class="tocitem" href="../../trafficintersection/trafficintersection/">Traffic Intersection</a></li><li><a class="tocitem" href="../../tumor/tumor/">Tumor</a></li><li><a class="tocitem" href="../../unitcohesion/unitcohesion/">Unit Cohesion</a></li><li><a class="tocitem" href="../../virus_on_network/virus_on_network/">Virus on a Network</a></li><li><a class="tocitem" href="../../virus/virus/">Virus on Network</a></li><li><a class="tocitem" href="../../voronoivoter/voronoivoter/">Voronoi Voter</a></li><li><a class="tocitem" href="../../voter/voter/">Voter Model</a></li><li><a class="tocitem" href="../../voting/voting/">Voting</a></li><li><a class="tocitem" href="../../wealthdistribution/wealthdistribution/">Wealth Distribution</a></li><li><a class="tocitem" href="../../wisdomcrowd/wisdomcrowd/">Wisdom of Crowd</a></li><li><a class="tocitem" href="../../wolfsheep/wolfsheep/">Wolf Sheep Predation</a></li></ul></li><li><a class="tocitem" href="../../../api/">API Reference</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Models</a></li><li class="is-active"><a href>Sugarscape Sexual</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Sugarscape Sexual</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/ecorecipes/ArkModelZoo.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/ecorecipes/ArkModelZoo.jl/blob/main/docs/src/tutorials/sugarscapesexual/sugarscapesexual.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Sugarscape-Sexual"><a class="docs-heading-anchor" href="#Sugarscape-Sexual">Sugarscape Sexual</a><a id="Sugarscape-Sexual-1"></a><a class="docs-heading-anchor-permalink" href="#Sugarscape-Sexual" title="Permalink"></a></h1><h2 id="Overview"><a class="docs-heading-anchor" href="#Overview">Overview</a><a id="Overview-1"></a><a class="docs-heading-anchor-permalink" href="#Overview" title="Permalink"></a></h2><h3 id="WHAT-IS-IT?"><a class="docs-heading-anchor" href="#WHAT-IS-IT?">WHAT IS IT?</a><a id="WHAT-IS-IT?-1"></a><a class="docs-heading-anchor-permalink" href="#WHAT-IS-IT?" title="Permalink"></a></h3><p>This model in the NetLogo Sugarscape suite implements Epstein &amp; Axtell’s Sugarscape Sexual reproduction, as described in chapter 3 of their book Growing Artificial Societies: Social Science from the Bottom Up. It simulates a population with limited, spatially-distributed resources available and 2 differents sex distrbuted among population. In order to can reproduce each turtle must be from different sex and have enough amount of sugar and their age must be in the range of fertility variable.</p><h3 id="HOW-IT-WORKS"><a class="docs-heading-anchor" href="#HOW-IT-WORKS">HOW IT WORKS</a><a id="HOW-IT-WORKS-1"></a><a class="docs-heading-anchor-permalink" href="#HOW-IT-WORKS" title="Permalink"></a></h3><p>The rules are similar to Sugarscape constant grow, in adition each individual has a defined sex, that could be female or male. If an individual finds another turtle from different sex and in a reproductive age and with enough amount of sugar and the turtle is near the caller and there is an empty patch near them, then thay can offspring. Vision and metabolism are passed through generations by random chance or the vision from one parent or the metabolism from the other.</p><h3 id="THINGS-TO-NOTICE"><a class="docs-heading-anchor" href="#THINGS-TO-NOTICE">THINGS TO NOTICE</a><a id="THINGS-TO-NOTICE-1"></a><a class="docs-heading-anchor-permalink" href="#THINGS-TO-NOTICE" title="Permalink"></a></h3><p>The world has a carrying capacity, which is lower than the initial population of the world. Agents who are born in sugarless places or who consume more sugar than the land cannot be supported by the world, and die. Other agents die from competition - although some places in the world have enough sugar to support them, the sugar supply is limited and other agents may reach and consume it first.</p><p>As the population stabilizes, the average vision increases while the average metabolism decreases. Agents with lower vision cannot find the better sugar patches, while agents with high metabolism cannot support themselves. The death of these agents causes the attribute averages to change.</p><p>You can watch different demographic regimes going through time; inheritance follows mendelian rules.</p><h3 id="THINGS-TO-TRY"><a class="docs-heading-anchor" href="#THINGS-TO-TRY">THINGS TO TRY</a><a id="THINGS-TO-TRY-1"></a><a class="docs-heading-anchor-permalink" href="#THINGS-TO-TRY" title="Permalink"></a></h3><p>Population grows and shrinks until reach some kind of stable state. You can try with different initial populations and test some hypothesis about the influence of this initial state in the final state.</p><h3 id="EXTENDING-THE-MODEL"><a class="docs-heading-anchor" href="#EXTENDING-THE-MODEL">EXTENDING THE MODEL</a><a id="EXTENDING-THE-MODEL-1"></a><a class="docs-heading-anchor-permalink" href="#EXTENDING-THE-MODEL" title="Permalink"></a></h3><p>As mentiones by Axtell &amp; Epstein you can change the way of agent reproduction and avoid reproduction among members of the same family or you can change the sugar inheritance rule once one of the parents die (in current implementation that amount of sugar is vanished from the board).</p><h3 id="NETLOGO-FEATURES"><a class="docs-heading-anchor" href="#NETLOGO-FEATURES">NETLOGO FEATURES</a><a id="NETLOGO-FEATURES-1"></a><a class="docs-heading-anchor-permalink" href="#NETLOGO-FEATURES" title="Permalink"></a></h3><p>We use here the matrix extension to build the sugar world.</p><h3 id="RELATED-MODELS"><a class="docs-heading-anchor" href="#RELATED-MODELS">RELATED MODELS</a><a id="RELATED-MODELS-1"></a><a class="docs-heading-anchor-permalink" href="#RELATED-MODELS" title="Permalink"></a></h3><p>Other models in the NetLogo Sugarscape suite include:</p><ul><li>Sugarscape 1 Immediate Growback</li><li>Sugarscape 3 Wealth Distribution</li><li>Sugarscape 4 Seasonal Migration</li><li>Sugarscape 5 Cultural Dynamics</li><li>Sugarscape 6 Sexual Reproduction</li></ul><h3 id="CREDITS-AND-REFERENCES"><a class="docs-heading-anchor" href="#CREDITS-AND-REFERENCES">CREDITS AND REFERENCES</a><a id="CREDITS-AND-REFERENCES-1"></a><a class="docs-heading-anchor-permalink" href="#CREDITS-AND-REFERENCES" title="Permalink"></a></h3><p>Epstein, J. and Axtell, R. (1996). Growing Artificial Societies: Social Science from the Bottom Up. Washington, D.C.: Brookings Institution Press.</p><h3 id="HOW-TO-CITE"><a class="docs-heading-anchor" href="#HOW-TO-CITE">HOW TO CITE</a><a id="HOW-TO-CITE-1"></a><a class="docs-heading-anchor-permalink" href="#HOW-TO-CITE" title="Permalink"></a></h3><p>If you mention this model or the NetLogo software in a publication, we ask that you include the citations below.</p><p>For the model itself:</p><ul><li>Diaz Cordova, D, (2023). Netlogo Sugarscape 6. Sexual Reproduction. Universidad Nacional de Lanús. Argentina.</li></ul><p>Please cite the NetLogo software as:</p><ul><li>Wilensky, U. (1999). NetLogo. http://ccl.northwestern.edu/netlogo/. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.</li></ul><h3 id="COPYRIGHT-AND-LICENSE"><a class="docs-heading-anchor" href="#COPYRIGHT-AND-LICENSE">COPYRIGHT AND LICENSE</a><a id="COPYRIGHT-AND-LICENSE-1"></a><a class="docs-heading-anchor-permalink" href="#COPYRIGHT-AND-LICENSE" title="Permalink"></a></h3><p>Copyright 2009 Uri Wilensky.</p><p><img src="http://ccl.northwestern.edu/images/creativecommons/byncsa.png" alt="CC BY-NC-SA 3.0"/></p><p>This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License. To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/3.0/ or send a letter to Creative Commons, 559 Nathan Abbott Way, Stanford, California 94305, USA.</p><p>Commercial licenses are also available. To inquire about commercial licenses, please contact Uri Wilensky at uri@northwestern.edu.</p><h2 id="Parameters"><a class="docs-heading-anchor" href="#Parameters">Parameters</a><a id="Parameters-1"></a><a class="docs-heading-anchor-permalink" href="#Parameters" title="Permalink"></a></h2><table><tr><th style="text-align: right">Parameter</th><th style="text-align: right">Type</th><th style="text-align: right">Default</th><th style="text-align: right">Description</th></tr><tr><td style="text-align: right"><code>initial_population</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>200</code></td><td style="text-align: right">initial population</td></tr><tr><td style="text-align: right"><code>grid_width</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>50</code></td><td style="text-align: right">grid width</td></tr><tr><td style="text-align: right"><code>grid_height</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>50</code></td><td style="text-align: right">grid height</td></tr><tr><td style="text-align: right"><code>max_ticks</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>200</code></td><td style="text-align: right">max ticks</td></tr></table><h2 id="Source-Code"><a class="docs-heading-anchor" href="#Source-Code">Source Code</a><a id="Source-Code-1"></a><a class="docs-heading-anchor-permalink" href="#Source-Code" title="Permalink"></a></h2><p>The Julia code to run this model:</p><pre><code class="language-julia hljs">using ArkModelZoo
+_, trajectory = run_sugarscapesexual()</code></pre><h2 id="Time-Series"><a class="docs-heading-anchor" href="#Time-Series">Time Series</a><a id="Time-Series-1"></a><a class="docs-heading-anchor-permalink" href="#Time-Series" title="Permalink"></a></h2><p><img src="../plot_timeseries.png" alt="Sugarscape Sexual time series"/></p><h2 id="Ensemble-Runs"><a class="docs-heading-anchor" href="#Ensemble-Runs">Ensemble Runs</a><a id="Ensemble-Runs-1"></a><a class="docs-heading-anchor-permalink" href="#Ensemble-Runs" title="Permalink"></a></h2><p>Ten replicates with different random seeds, showing mean ± standard deviation.</p><p><img src="../plot_ensemble.png" alt="Sugarscape Sexual ensemble"/></p><h2 id="Parameter-Sensitivity"><a class="docs-heading-anchor" href="#Parameter-Sensitivity">Parameter Sensitivity</a><a id="Parameter-Sensitivity-1"></a><a class="docs-heading-anchor-permalink" href="#Parameter-Sensitivity" title="Permalink"></a></h2><p>Varying <code>initial_population</code>.</p><p><img src="../plot_sensitivity.png" alt="Sugarscape Sexual sensitivity"/></p><h2 id="Appendix:-Source-Code"><a class="docs-heading-anchor" href="#Appendix:-Source-Code">Appendix: Source Code</a><a id="Appendix:-Source-Code-1"></a><a class="docs-heading-anchor-permalink" href="#Appendix:-Source-Code" title="Permalink"></a></h2><p>This model is implemented in the <a href="https://github.com/sdwfrost/Ark.jl">Ark.jl</a> Entity-Component-System (ECS) framework. The code is split into five files, each with a distinct role:</p><ul><li><strong>Parameters</strong>: a mutable struct holding all configurable values.</li><li><strong>Components</strong>: lightweight data types attached to individual entities (agents).</li><li><strong>Resources</strong>: world-level shared state accessible to all systems.</li><li><strong>Systems</strong>: functions that operate on entities each tick, defining model behavior.</li><li><strong>Model</strong>: wiring that assembles the world, registers resources and systems, and provides the run entry point.</li></ul><h3 id="Parameters-(parameters.jl)"><a class="docs-heading-anchor" href="#Parameters-(parameters.jl)">Parameters (<code>parameters.jl</code>)</a><a id="Parameters-(parameters.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Parameters-(parameters.jl)" title="Permalink"></a></h3><p>The parameter struct uses <code>@kwdef</code> so that every field has a default value and can be overridden by keyword. These defaults match the original NetLogo model’s slider settings.</p><pre><code class="language-julia hljs">Base.@kwdef mutable struct SSParams
+    initial_population::Int = 200
+    grid_width::Int = 50
+    grid_height::Int = 50
+    max_ticks::Int = 200
+    seed::Int = 42
+end</code></pre><h3 id="Components-(components.jl)"><a class="docs-heading-anchor" href="#Components-(components.jl)">Components (<code>components.jl</code>)</a><a id="Components-(components.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Components-(components.jl)" title="Permalink"></a></h3><p>Components are lightweight data types attached to individual entities (agents). Mutable structs hold per-entity state, while empty tag structs act as markers for the ECS query system to efficiently filter entities.</p><pre><code class="language-julia hljs">struct SSDummy end</code></pre><h3 id="Resources-(resources.jl)"><a class="docs-heading-anchor" href="#Resources-(resources.jl)">Resources (<code>resources.jl</code>)</a><a id="Resources-(resources.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Resources-(resources.jl)" title="Permalink"></a></h3><p>Resources are world-level singletons shared across all systems, used for global state and aggregate statistics.</p><pre><code class="language-julia hljs"># Row r of the matrix corresponds to NetLogo y = 50-r (row 1 = top, row 50 = bottom).
+# During init: max_psugar[x, y] = SS_SUGAR_LANDSCAPE[51-y, x]
+const SS_SUGAR_LANDSCAPE = [
+    0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 3 3 3 3 3 3 2 2 2 2 2 2 2 2;
+    0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 3 3 3 3 3 3 3 3 3 3 2 2 2 2 2 2;
+    0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 3 3 3 3 3 3 3 3 3 3 3 3 3 3 2 2 2 2;
+    0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 2 2 2 2 2 2 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 2 2 2;
+    0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 2 2 2 2 2 2 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 2 2;
+    0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 2 2 2 2 2 2 3 3 3 3 3 3 3 4 4 4 4 3 3 3 3 3 3 3 2 2;
+    0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 2 2 2 2 2 3 3 3 3 3 3 4 4 4 4 4 4 4 4 3 3 3 3 3 3 2;
+    0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 2 2 2 2 2 2 3 3 3 3 3 4 4 4 4 4 4 4 4 4 4 3 3 3 3 3 2;
+    0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 2 2 2 2 2 3 3 3 3 3 3 4 4 4 4 4 4 4 4 4 4 3 3 3 3 3 3;
+    0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 3 3 3 3 3 4 4 4 4 4 4 4 4 4 4 4 4 3 3 3 3 3;
+    0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 3 3 3 3 3 4 4 4 4 4 4 4 4 4 4 4 4 3 3 3 3 3;
+    0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 3 3 3 3 3 4 4 4 4 4 4 4 4 4 4 4 4 3 3 3 3 3;
+    0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 3 3 3 3 3 4 4 4 4 4 4 4 4 4 4 4 4 3 3 3 3 3;
+    0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 3 3 3 3 3 3 4 4 4 4 4 4 4 4 4 4 3 3 3 3 3 3;
+    0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 3 3 3 3 3 3 4 4 4 4 4 4 4 4 4 4 3 3 3 3 3 2;
+    0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 3 3 3 3 3 3 3 4 4 4 4 4 4 4 4 3 3 3 3 3 3 2;
+    1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 3 3 3 3 3 3 3 3 3 4 4 4 4 3 3 3 3 3 3 3 2 2;
+    1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 2 2;
+    1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 2 2 2;
+    1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 2 2 2 2;
+    1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 3 3 3 3 3 3 3 3 3 3 3 3 3 2 2 2 2 2 2;
+    1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 3 3 3 3 3 3 3 3 3 2 2 2 2 2 2 2 2;
+    1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1;
+    1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1;
+    1 1 2 2 2 2 2 2 2 2 2 2 3 3 3 3 3 3 3 3 3 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1;
+    1 2 2 2 2 2 2 2 2 2 3 3 3 3 3 3 3 3 3 3 3 3 3 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 1 1;
+    1 2 2 2 2 2 2 2 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 1 1 1 1 1;
+    2 2 2 2 2 2 2 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1;
+    2 2 2 2 2 2 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1;
+    2 2 2 2 2 2 3 3 3 3 3 3 3 4 4 4 4 3 3 3 3 3 3 3 3 3 2 2 2 2 2 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1;
+    2 2 2 2 2 3 3 3 3 3 3 4 4 4 4 4 4 4 4 3 3 3 3 3 3 3 2 2 2 2 2 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 0 0 0;
+    2 2 2 2 2 3 3 3 3 3 4 4 4 4 4 4 4 4 4 4 3 3 3 3 3 3 2 2 2 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0;
+    2 2 2 2 3 3 3 3 3 3 4 4 4 4 4 4 4 4 4 4 3 3 3 3 3 3 2 2 2 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0;
+    2 2 2 2 3 3 3 3 3 4 4 4 4 4 4 4 4 4 4 4 4 3 3 3 3 3 2 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0;
+    2 2 2 2 3 3 3 3 3 4 4 4 4 4 4 4 4 4 4 4 4 3 3 3 3 3 2 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0;
+    2 2 2 2 3 3 3 3 3 4 4 4 4 4 4 4 4 4 4 4 4 3 3 3 3 3 2 2 2 2 2 2 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0;
+    2 2 2 2 3 3 3 3 3 4 4 4 4 4 4 4 4 4 4 4 4 3 3 3 3 3 2 2 2 2 2 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0;
+    2 2 2 2 3 3 3 3 3 3 4 4 4 4 4 4 4 4 4 4 3 3 3 3 3 3 2 2 2 2 2 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0;
+    2 2 2 2 2 3 3 3 3 3 4 4 4 4 4 4 4 4 4 4 3 3 3 3 3 2 2 2 2 2 2 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0;
+    2 2 2 2 2 3 3 3 3 3 3 4 4 4 4 4 4 4 4 3 3 3 3 3 3 2 2 2 2 2 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0;
+    2 2 2 2 2 2 3 3 3 3 3 3 3 4 4 4 4 3 3 3 3 3 3 3 2 2 2 2 2 2 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0;
+    2 2 2 2 2 2 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 2 2 2 2 2 2 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0;
+    2 2 2 2 2 2 2 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 2 2 2 2 2 2 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0;
+    1 2 2 2 2 2 2 2 3 3 3 3 3 3 3 3 3 3 3 3 3 3 2 2 2 2 2 2 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0;
+    1 2 2 2 2 2 2 2 2 2 3 3 3 3 3 3 3 3 3 3 2 2 2 2 2 2 2 2 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0;
+    1 1 2 2 2 2 2 2 2 2 2 2 3 3 3 3 3 3 2 2 2 2 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0;
+    1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+    1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+    1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+    1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+]
+
+mutable struct SSAgent
+    x::Int
+    y::Int
+    sugar::Float64
+    metabolism::Int
+    vision::Int
+    sexo::Int         # 0=female, 1=male
+    edad::Int         # age
+    muerte::Int       # death age
+    fertilidadc::Int  # fertility start
+    fertilidadf::Int  # fertility end
+    dotacion::Float64 # initial endowment
+    alive::Bool
+end
+
+mutable struct SSWorld
+    width::Int
+    height::Int
+    psugar::Matrix{Int}
+    max_psugar::Matrix{Int}
+    agents::Vector{SSAgent}
+    occupant::Matrix{Int}    # 0=empty, positive=agent index
+end
+
+function SSWorld(w::Int, h::Int)
+    SSWorld(w, h, zeros(Int, w, h), zeros(Int, w, h), SSAgent[], zeros(Int, w, h))
+end
+
+mutable struct SSStats
+    num_turtles::Int
+end
+SSStats() = SSStats(0)</code></pre><h3 id="Systems-(systems.jl)"><a class="docs-heading-anchor" href="#Systems-(systems.jl)">Systems (<code>systems.jl</code>)</a><a id="Systems-(systems.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Systems-(systems.jl)" title="Permalink"></a></h3><p>Systems contain the model logic and execute in a defined order each tick. Each system struct implements either <code>initialize!</code> (run once at setup) or <code>update!</code> (run every tick).</p><pre><code class="language-julia hljs"># --- Initialization ---
+
+struct InitSSSystem &lt;: System end
+
+function initialize!(::InitSSSystem, world::World)
+    params = get_resource(world, SSParams)
+    rng = get_resource(world, RNGResource).rng
+    ssworld = get_resource(world, SSWorld)
+    stats = get_resource(world, SSStats)
+    w, h = ssworld.width, ssworld.height
+
+    # Load landscape: row 1 of matrix = top (y=h), row h = bottom (y=1)
+    for x in 1:w, y in 1:h
+        val = SS_SUGAR_LANDSCAPE[h + 1 - y, x]
+        ssworld.max_psugar[x, y] = val
+        ssworld.psugar[x, y] = val
+    end
+
+    # Create agents at random unoccupied patches
+    for _ in 1:params.initial_population
+        # Find an unoccupied patch
+        px, py = rand(rng, 1:w), rand(rng, 1:h)
+        while ssworld.occupant[px, py] != 0
+            px, py = rand(rng, 1:w), rand(rng, 1:h)
+        end
+        sug = Float64(rand(rng, 50:100))
+        met = rand(rng, 1:4)
+        vis = rand(rng, 1:6)
+        sexo = rand(rng, 0:1)
+        muerte = 60 + rand(rng, 0:39)
+        fertilidadc = 12 + rand(rng, 0:2)
+        fertilidadf = sexo == 1 ? 50 + rand(rng, 0:9) : 40 + rand(rng, 0:9)
+        agent = SSAgent(px, py, sug, met, vis, sexo, 0, muerte, fertilidadc, fertilidadf, sug, true)
+        push!(ssworld.agents, agent)
+        ssworld.occupant[px, py] = length(ssworld.agents)
+    end
+
+    stats.num_turtles = length(ssworld.agents)
+    return nothing
+end
+
+# --- Main Go System ---
+
+struct SSGoSystem &lt;: System end
+
+function update!(::SSGoSystem, world::World)
+    rng = get_resource(world, RNGResource).rng
+    ssworld = get_resource(world, SSWorld)
+    stats = get_resource(world, SSStats)
+    w, h = ssworld.width, ssworld.height
+    agents = ssworld.agents
+
+    # If no alive agents → terminate
+    nalive = count(a -&gt; a.alive, agents)
+    if nalive == 0
+        get_resource(world, Terminate).stop = true
+        return nothing
+    end
+
+    # Growback
+    for x in 1:w, y in 1:h
+        if ssworld.psugar[x, y] &lt; ssworld.max_psugar[x, y]
+            ssworld.psugar[x, y] = min(ssworld.max_psugar[x, y], ssworld.psugar[x, y] + 1)
+        end
+    end
+
+    # Process agents in shuffled order (snapshot of current alive agents)
+    alive_indices = [i for i in 1:length(agents) if agents[i].alive]
+    Random.shuffle!(rng, alive_indices)
+
+    for idx in alive_indices
+        agent = agents[idx]
+        !agent.alive &amp;&amp; continue
+
+        # Move
+        _ss_move!(agent, ssworld, rng, idx)
+
+        # Eat
+        agent.sugar = agent.sugar - agent.metabolism + ssworld.psugar[agent.x, agent.y]
+        ssworld.psugar[agent.x, agent.y] = 0
+
+        # Death: sugar
+        if agent.sugar &lt;= 0
+            agent.alive = false
+            ssworld.occupant[agent.x, agent.y] = 0
+            continue
+        end
+
+        # Death: age
+        if agent.edad == agent.muerte
+            agent.alive = false
+            ssworld.occupant[agent.x, agent.y] = 0
+            continue
+        end
+
+        # Age
+        agent.edad += 1
+
+        # Reproduction
+        if agent.edad &gt;= agent.fertilidadc &amp;&amp; agent.edad &lt;= agent.fertilidadf &amp;&amp; agent.sugar &gt;= agent.dotacion
+            _ss_sexear!(agent, ssworld, rng, idx)
+        end
+    end
+
+    # Compact: remove dead agents, rebuild occupant grid
+    filter!(a -&gt; a.alive, agents)
+    _ss_rebuild_occupant!(ssworld)
+
+    stats.num_turtles = length(agents)
+    return nothing
+end
+
+# --- Movement: vision-based cardinal search ---
+
+function _ss_move!(agent::SSAgent, ssworld::SSWorld, rng, agent_idx::Int)
+    w, h = ssworld.width, ssworld.height
+    best_sugar = -1
+    best_dist = w + h
+    candidates = Tuple{Int,Int}[]
+
+    for (dx, dy) in ((0, 1), (1, 0), (0, -1), (-1, 0))
+        for d in 1:agent.vision
+            nx = mod1(agent.x + dx * d, w)
+            ny = mod1(agent.y + dy * d, h)
+            ssworld.occupant[nx, ny] != 0 &amp;&amp; continue
+            s = ssworld.psugar[nx, ny]
+            if s &gt; best_sugar || (s == best_sugar &amp;&amp; d &lt; best_dist)
+                best_sugar = s
+                best_dist = d
+                empty!(candidates)
+                push!(candidates, (nx, ny))
+            elseif s == best_sugar &amp;&amp; d == best_dist
+                push!(candidates, (nx, ny))
+            end
+        end
+    end
+
+    isempty(candidates) &amp;&amp; return
+
+    cx, cy = candidates[rand(rng, 1:length(candidates))]
+    ssworld.occupant[agent.x, agent.y] = 0
+    ssworld.occupant[cx, cy] = agent_idx
+    agent.x = cx
+    agent.y = cy
+end
+
+# --- Reproduction ---
+
+function _ss_sexear!(agent::SSAgent, ssworld::SSWorld, rng, agent_idx::Int)
+    w, h = ssworld.width, ssworld.height
+    agents = ssworld.agents
+    dirs = ((0, 1), (1, 0), (0, -1), (-1, 0))
+
+    # Find neighbor4 agents of opposite sex
+    neighbor_indices = Int[]
+    for (dx, dy) in dirs
+        nx = mod1(agent.x + dx, w)
+        ny = mod1(agent.y + dy, h)
+        occ = ssworld.occupant[nx, ny]
+        if occ &gt; 0 &amp;&amp; agents[occ].alive &amp;&amp; agents[occ].sexo != agent.sexo
+            push!(neighbor_indices, occ)
+        end
+    end
+
+    Random.shuffle!(rng, neighbor_indices)
+
+    for ni in neighbor_indices
+        neighbor = agents[ni]
+
+        # Check neighbor fertility
+        neighbor.alive || continue
+        (neighbor.edad &gt;= neighbor.fertilidadc &amp;&amp; neighbor.edad &lt;= neighbor.fertilidadf &amp;&amp; neighbor.sugar &gt;= neighbor.dotacion) || continue
+
+        # Re-check self fertility (sugar may have dropped from prior birth)
+        (agent.sugar &gt;= agent.dotacion) || return
+
+        born = false
+        birth_x, birth_y = 0, 0
+
+        # Try from neighbor&#39;s side
+        for (dx, dy) in dirs
+            born &amp;&amp; break
+            bx = mod1(neighbor.x + dx, w)
+            by = mod1(neighbor.y + dy, h)
+            if ssworld.occupant[bx, by] == 0
+                birth_x, birth_y = bx, by
+                born = true
+            end
+        end
+
+        # Try from own side
+        if !born
+            for (dx, dy) in dirs
+                born &amp;&amp; break
+                bx = mod1(agent.x + dx, w)
+                by = mod1(agent.y + dy, h)
+                if ssworld.occupant[bx, by] == 0
+                    birth_x, birth_y = bx, by
+                    born = true
+                end
+            end
+        end
+
+        if born
+            child_metabolism = rand(rng, Bool) ? agent.metabolism : neighbor.metabolism
+            child_vision = rand(rng, Bool) ? agent.vision : neighbor.vision
+            child_sexo = rand(rng, 0:1)
+            child_muerte = 60 + rand(rng, 0:39)
+            child_fertilidadc = 12 + rand(rng, 0:2)
+            child_fertilidadf = child_sexo == 1 ? 50 + rand(rng, 0:9) : 40 + rand(rng, 0:9)
+            child_sugar = agent.dotacion / 2.0 + neighbor.dotacion / 2.0
+            child_dotacion = child_sugar
+
+            child = SSAgent(
+                birth_x, birth_y,
+                child_sugar, child_metabolism, child_vision,
+                child_sexo, 0, child_muerte,
+                child_fertilidadc, child_fertilidadf,
+                child_dotacion, true,
+            )
+
+            push!(agents, child)
+            ssworld.occupant[birth_x, birth_y] = length(agents)
+
+            # Parents pay sugar cost
+            agent.sugar -= agent.dotacion / 2.0
+            neighbor.sugar -= neighbor.dotacion / 2.0
+        end
+    end
+end
+
+# --- Rebuild occupant grid ---
+
+function _ss_rebuild_occupant!(ssworld::SSWorld)
+    fill!(ssworld.occupant, 0)
+    for (i, agent) in enumerate(ssworld.agents)
+        if agent.alive
+            ssworld.occupant[agent.x, agent.y] = i
+        end
+    end
+end
+
+# --- Termination ---
+
+struct SSTerminationSystem &lt;: System end
+
+function update!(::SSTerminationSystem, world::World)
+    params = get_resource(world, SSParams)
+    tick = get_resource(world, Tick)
+    ssworld = get_resource(world, SSWorld)
+    nalive = count(a -&gt; a.alive, ssworld.agents)
+    if nalive == 0 || tick.tick + 1 &gt;= params.max_ticks
+        get_resource(world, Terminate).stop = true
+    end
+    return nothing
+end</code></pre><h3 id="Model-(model.jl)"><a class="docs-heading-anchor" href="#Model-(model.jl)">Model (<code>model.jl</code>)</a><a id="Model-(model.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Model-(model.jl)" title="Permalink"></a></h3><p>The model file assembles all pieces: it creates the ECS <code>World</code> with the required component types, registers resources, builds the <code>Scheduler</code> with systems in execution order, and exposes the public <code>run</code> entry point. The observer pattern records the trajectory each tick.</p><pre><code class="language-julia hljs">function sugarscapesexual_world(; initial_capacity::Int = 1024)
+    return World(SSDummy; initial_capacity = initial_capacity, allow_mutable = true)
+end
+
+function sugarscapesexual_systems()
+    return (
+        InitSSSystem(),
+        SSGoSystem(),
+        SSTerminationSystem(),
+    )
+end
+
+function sugarscapesexual_model(params::SSParams = SSParams())
+    world = sugarscapesexual_world()
+    _add_standard_resources!(world, params)
+    add_resource!(world, SSWorld(params.grid_width, params.grid_height))
+    add_resource!(world, SSStats())
+    scheduler = Scheduler(world, sugarscapesexual_systems())
+    initialize!(scheduler)
+    return scheduler
+end
+
+struct SSObserver end
+
+function sugarscapesexual_headers(::SSObserver)
+    return [&quot;NumTurtles&quot;]
+end
+
+function sugarscapesexual_values(::SSObserver, world::World)
+    stats = get_resource(world, SSStats)
+    return Float64[stats.num_turtles]
+end
+
+function run_sugarscapesexual(; params::SSParams = SSParams(), observe::Bool = true)
+    return _run_model(sugarscapesexual_model, SSObserver(), sugarscapesexual_values; params, observe)
+end</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../sugarscapeculture/sugarscapeculture/">« Sugarscape Culture</a><a class="docs-footer-nextpage" href="../../superdiffuser/superdiffuser/">SuperDiffuser »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.20.0 on <span class="colophon-date" title="Wednesday 18 November 2026 18:43">Wednesday 18 November 2026</span>. Using Julia version 1.13.4.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>

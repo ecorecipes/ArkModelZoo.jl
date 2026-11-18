@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="referrer" content="no-referrer"/><title>Rebellion · ArkModelZoo.jl</title><meta name="title" content="Rebellion · ArkModelZoo.jl"/><meta property="og:title" content="Rebellion · ArkModelZoo.jl"/><meta property="twitter:title" content="Rebellion · ArkModelZoo.jl"/><meta name="description" content="Documentation for ArkModelZoo.jl."/><meta property="og:description" content="Documentation for ArkModelZoo.jl."/><meta property="twitter:description" content="Documentation for ArkModelZoo.jl."/><meta property="og:url" content="https://ecorecipes.github.io/ArkModelZoo.jl/tutorials/rebellion/rebellion/"/><meta property="twitter:url" content="https://ecorecipes.github.io/ArkModelZoo.jl/tutorials/rebellion/rebellion/"/><link rel="canonical" href="https://ecorecipes.github.io/ArkModelZoo.jl/tutorials/rebellion/rebellion/"/><script data-outdated-warner src="../../../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.63.2/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../../assets/documenter.js"></script><script src="../../../search_index.js"></script><script src="../../../siteinfo.js"></script><script src="../../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="../../../">ArkModelZoo.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../../../">Home</a></li><li><span class="tocitem">Resilience</span><ul><li><a class="tocitem" href="../../resilience/resilience/">Resilience of agent-based models</a></li></ul></li><li><span class="tocitem">Models</span><ul><li><a class="tocitem" href="../../abtgc/abtgc/">ABTgc</a></li><li><a class="tocitem" href="../../aids/aids/">AIDS</a></li><li><a class="tocitem" href="../../altruism/altruism/">Altruism</a></li><li><a class="tocitem" href="../../antsystem/antsystem/">Ant System TSP</a></li><li><a class="tocitem" href="../../ants/ants/">Ants</a></li><li><a class="tocitem" href="../../artificialeconomy/artificialeconomy/">Artificial Economy</a></li><li><a class="tocitem" href="../../axelrodcultural/axelrodcultural/">AxelrodCultural</a></li><li><a class="tocitem" href="../../babysittingcoop/babysittingcoop/">Baby Sitting Coop</a></li><li><a class="tocitem" href="../../bank_reserves/bank_reserves/">Bank Reserves</a></li><li><a class="tocitem" href="../../bayesian/bayesian/">Bayesian Updating</a></li><li><a class="tocitem" href="../../beinggreen/beinggreen/">Being Green</a></li><li><a class="tocitem" href="../../birthrates/birthrates/">Birthrates</a></li><li><a class="tocitem" href="../../blackbox/blackbox/">BlackBox</a></li><li><a class="tocitem" href="../../boiling/boiling/">Boiling</a></li><li><a class="tocitem" href="../../bombscenario/bombscenario/">BombScenario</a></li><li><a class="tocitem" href="../../brians_brain/brians_brain/">Brian’s Brain</a></li><li><a class="tocitem" href="../../bullwhipeffect/bullwhipeffect/">Bullwhip Effect</a></li><li><a class="tocitem" href="../../ca_1d_elementary/ca_1d_elementary/">CA 1D Elementary</a></li><li><a class="tocitem" href="../../civilizationgrowth/civilizationgrowth/">Civilization Growth</a></li><li><a class="tocitem" href="../../climatechange/climatechange/">Climate Change</a></li><li><a class="tocitem" href="../../coin/coin/">COIN Learning</a></li><li><a class="tocitem" href="../../competitionlearning/competitionlearning/">Competition Learning</a></li><li><a class="tocitem" href="../../contactprocess/contactprocess/">Contact Process 2D</a></li><li><a class="tocitem" href="../../contagionnw/contagionnw/">Contagion NW</a></li><li><a class="tocitem" href="../../contagionsi/contagionsi/">Contagion SI</a></li><li><a class="tocitem" href="../../contagionsir/contagionsir/">Contagion SIR</a></li><li><a class="tocitem" href="../../cooperation/cooperation/">Cooperation</a></li><li><a class="tocitem" href="../../coordination/coordination/">Coordination</a></li><li><a class="tocitem" href="../../coordination2groups/coordination2groups/">Coordination 2 Groups</a></li><li><a class="tocitem" href="../../croprotation/croprotation/">Crop Rotation</a></li><li><a class="tocitem" href="../../crystallization/crystallization/">Crystallization</a></li><li><a class="tocitem" href="../../csvnetworkforaging/csvnetworkforaging/">CSV Network Foraging</a></li><li><a class="tocitem" href="../../csvpopulation/csvpopulation/">CSV Population</a></li><li><a class="tocitem" href="../../culturaldiffusion/culturaldiffusion/">Cultural Diffusion</a></li><li><a class="tocitem" href="../../cyberspaceopinion/cyberspaceopinion/">Cyberspace Opinion</a></li><li><a class="tocitem" href="../../daisyworld/daisyworld/">Daisyworld</a></li><li><a class="tocitem" href="../../dating/dating/">Dating</a></li><li><a class="tocitem" href="../../diffusionnetwork/diffusionnetwork/">Diffusion Network</a></li><li><a class="tocitem" href="../../diffusionofhiv/diffusionofhiv/">DiffusionOfHIV</a></li><li><a class="tocitem" href="../../disinfobitstringnw/disinfobitstringnw/">Disinfobitstringnw</a></li><li><a class="tocitem" href="../../dla/dla/">Dla</a></li><li><a class="tocitem" href="../../dlasimple/dlasimple/">DLA Simple</a></li><li><a class="tocitem" href="../../druguse/druguse/">Drug Use</a></li><li><a class="tocitem" href="../../druguseoverdose/druguseoverdose/">Drug Use Overdose</a></li><li><a class="tocitem" href="../../elfarol/elfarol/">El Farol</a></li><li><a class="tocitem" href="../../erosion/erosion/">Erosion</a></li><li><a class="tocitem" href="../../ethnocentrism/ethnocentrism/">Ethnocentrism</a></li><li><a class="tocitem" href="../../evolutionofnorms/evolutionofnorms/">EvolutionOfNorms</a></li><li><a class="tocitem" href="../../firepercolation/firepercolation/">Fire Percolation</a></li><li><a class="tocitem" href="../../firebenchmark/firebenchmark/">FireBenchmark</a></li><li><a class="tocitem" href="../../fireflies/fireflies/">Fireflies</a></li><li><a class="tocitem" href="../../flocking/flocking/">Flocking</a></li><li><a class="tocitem" href="../../flockingnetwork/flockingnetwork/">Flocking Network</a></li><li><a class="tocitem" href="../../forestdewdney/forestdewdney/">Forest Dewdney</a></li><li><a class="tocitem" href="../../fire/fire/">Forest Fire</a></li><li><a class="tocitem" href="../../fungalbioremediation/fungalbioremediation/">Fungal Bioremediation</a></li><li><a class="tocitem" href="../../giant_component/giant_component/">Giant Component</a></li><li><a class="tocitem" href="../../gishillclimber/gishillclimber/">GIS HillClimber</a></li><li><a class="tocitem" href="../../granovetter/granovetter/">Granovetter</a></li><li><a class="tocitem" href="../../grassbrushtrees/grassbrushtrees/">Grass Brush Trees</a></li><li><a class="tocitem" href="../../diffusion/diffusion/">Heat Diffusion</a></li><li><a class="tocitem" href="../../heatbugs/heatbugs/">Heatbugs</a></li><li><a class="tocitem" href="../../hikingelevation/hikingelevation/">HikingElevation</a></li><li><a class="tocitem" href="../../infinitelife/infinitelife/">Infinite Life</a></li><li><a class="tocitem" href="../../infodiffusion/infodiffusion/">Info Diffusion</a></li><li><a class="tocitem" href="../../ising/ising/">Ising</a></li><li><a class="tocitem" href="../../languageborders/languageborders/">Language Borders</a></li><li><a class="tocitem" href="../../languagechange/languagechange/">Language Change</a></li><li><a class="tocitem" href="../../lassavirus/lassavirus/">LassaVirus</a></li><li><a class="tocitem" href="../../leonarditechadoption/leonarditechadoption/">Leonardi Tech Adoption</a></li><li><a class="tocitem" href="../../life/life/">Life</a></li><li><a class="tocitem" href="../../logistic_growth/logistic_growth/">Logistic Growth</a></li><li><a class="tocitem" href="../../mailmen/mailmen/">Mailmen Delivery</a></li><li><a class="tocitem" href="../../marriage/marriage/">Marriage Problem</a></li><li><a class="tocitem" href="../../mimicry/mimicry/">Mimicry</a></li><li><a class="tocitem" href="../../minimalsis/minimalsis/">Minimal SIS</a></li><li><a class="tocitem" href="../../minoritybelief/minoritybelief/">Minority Belief Spread</a></li><li><a class="tocitem" href="../../minoritygame/minoritygame/">Minority Game</a></li><li><a class="tocitem" href="../../misinformationsbfc/misinformationsbfc/">Misinformation SBFC</a></li><li><a class="tocitem" href="../../modsocsegregation/modsocsegregation/">Modsoc Segregation</a></li><li><a class="tocitem" href="../../mousetraps/mousetraps/">Mousetraps</a></li><li><a class="tocitem" href="../../multidrugresistant/multidrugresistant/">MultidrugResistant</a></li><li><a class="tocitem" href="../../opinionbc/opinionbc/">Opinion Dynamics BC</a></li><li><a class="tocitem" href="../../paretolearn/paretolearn/">Pareto Learning</a></li><li><a class="tocitem" href="../../participatorydisinfo/participatorydisinfo/">Participatory Disinformation</a></li><li><a class="tocitem" href="../../participatorydisinformation/participatorydisinformation/">Participatory Disinformation</a></li><li><a class="tocitem" href="../../particles/particles/">Particles</a></li><li><a class="tocitem" href="../../party/party/">Party</a></li><li><a class="tocitem" href="../../pd_basic_evolutionary/pd_basic_evolutionary/">PD Basic Evolutionary</a></li><li><a class="tocitem" href="../../pdsimple/pdsimple/">PD Simple</a></li><li><a class="tocitem" href="../../percolation/percolation/">Percolation</a></li><li><a class="tocitem" href="../../polymerdynamics/polymerdynamics/">Polymer Dynamics</a></li><li><a class="tocitem" href="../../prefattachhomophily/prefattachhomophily/">Pref Attach Homophily</a></li><li><a class="tocitem" href="../../preferential_attachment/preferential_attachment/">Preferential Attachment</a></li><li><a class="tocitem" href="../../privacyopinion/privacyopinion/">Privacy Opinion</a></li><li><a class="tocitem" href="../../productsmarket/productsmarket/">Products Market</a></li><li><a class="tocitem" href="../../public_good/public_good/">Public Good</a></li><li><a class="tocitem" href="../../cqin/cqin/">Quality Improvement Network</a></li><li><a class="tocitem" href="../../rabbits_grass_weeds/rabbits_grass_weeds/">Rabbits Grass Weeds</a></li><li><a class="tocitem" href="../../decay/decay/">Radioactive Decay</a></li><li><a class="tocitem" href="../../rationalevolvingpd/rationalevolvingpd/">Rational Evolving PD</a></li><li class="is-active"><a class="tocitem" href>Rebellion</a><ul class="internal"><li><a class="tocitem" href="#Overview"><span>Overview</span></a></li><li><a class="tocitem" href="#Parameters"><span>Parameters</span></a></li><li><a class="tocitem" href="#Source-Code"><span>Source Code</span></a></li><li><a class="tocitem" href="#Time-Series"><span>Time Series</span></a></li><li><a class="tocitem" href="#Ensemble-Runs"><span>Ensemble Runs</span></a></li><li><a class="tocitem" href="#Parameter-Sensitivity"><span>Parameter Sensitivity</span></a></li><li><a class="tocitem" href="#Appendix:-Source-Code"><span>Appendix: Source Code</span></a></li></ul></li><li><a class="tocitem" href="../../recruitingmovement/recruitingmovement/">Recruiting Movement</a></li><li><a class="tocitem" href="../../recruiting/recruiting/">Recruiting Supporters</a></li><li><a class="tocitem" href="../../recruitingsupporters/recruitingsupporters/">Recruiting Supporters</a></li><li><a class="tocitem" href="../../resilientteam/resilientteam/">Resilient Team</a></li><li><a class="tocitem" href="../../rhinopoaching/rhinopoaching/">Rhino Poaching</a></li><li><a class="tocitem" href="../../riseofradicalism/riseofradicalism/">Rise of Radicalism</a></li><li><a class="tocitem" href="../../rope/rope/">Rope</a></li><li><a class="tocitem" href="../../rumormill/rumormill/">Rumor Mill</a></li><li><a class="tocitem" href="../../sand/sand/">Sand</a></li><li><a class="tocitem" href="../../schelling/schelling/">Schelling Segregation</a></li><li><a class="tocitem" href="../../segregation/segregation/">Segregation</a></li><li><a class="tocitem" href="../../shepherds/shepherds/">Shepherds</a></li><li><a class="tocitem" href="../../simple_genetic_algorithm/simple_genetic_algorithm/">Simple Genetic Algorithm</a></li><li><a class="tocitem" href="../../simplemarket/simplemarket/">Simple Market</a></li><li><a class="tocitem" href="../../simplemarketrandom/simplemarketrandom/">Simple Market Random</a></li><li><a class="tocitem" href="../../simplemarkettable/simplemarkettable/">Simple Market Table</a></li><li><a class="tocitem" href="../../sir/sir/">SIR Epidemic</a></li><li><a class="tocitem" href="../../sleuthlanduse/sleuthlanduse/">Sleuth LandUse</a></li><li><a class="tocitem" href="../../slime/slime/">Slime</a></li><li><a class="tocitem" href="../../slowspread/slowspread/">Slow Spread Env Action</a></li><li><a class="tocitem" href="../../small_worlds/small_worlds/">Small Worlds</a></li><li><a class="tocitem" href="../../socialinfluence/socialinfluence/">Social Influence</a></li><li><a class="tocitem" href="../../socialnetworkdiffusion/socialnetworkdiffusion/">Social Network Diffusion</a></li><li><a class="tocitem" href="../../soliddiffusion/soliddiffusion/">Solid Diffusion</a></li><li><a class="tocitem" href="../../spatialattitude/spatialattitude/">Spatial Attitude</a></li><li><a class="tocitem" href="../../ipd/ipd/">Spatial IPD</a></li><li><a class="tocitem" href="../../spatialopinion/spatialopinion/">Spatial Opinion Dynamics</a></li><li><a class="tocitem" href="../../fakenews/fakenews/">Spread of Fake News</a></li><li><a class="tocitem" href="../../spreadingbots/spreadingbots/">Spreading Bots</a></li><li><a class="tocitem" href="../../spreadinggroups/spreadinggroups/">Spreading Groups</a></li><li><a class="tocitem" href="../../sugarscape_1_growback/sugarscape_1_growback/">Sugarscape 1 Growback</a></li><li><a class="tocitem" href="../../sugarscapeculture/sugarscapeculture/">Sugarscape Culture</a></li><li><a class="tocitem" href="../../sugarscapesexual/sugarscapesexual/">Sugarscape Sexual</a></li><li><a class="tocitem" href="../../superdiffuser/superdiffuser/">SuperDiffuser</a></li><li><a class="tocitem" href="../../teamassembly/teamassembly/">Team Assembly</a></li><li><a class="tocitem" href="../../termites/termites/">Termites</a></li><li><a class="tocitem" href="../../thermostat/thermostat/">Thermostat</a></li><li><a class="tocitem" href="../../tourism/tourism/">Tourism</a></li><li><a class="tocitem" href="../../traffic2lanes/traffic2lanes/">Traffic 2 Lanes</a></li><li><a class="tocitem" href="../../trafficbasic/trafficbasic/">Traffic Basic</a></li><li><a class="tocitem" href="../../trafficgrid/trafficgrid/">Traffic Grid</a></li><li><a class="tocitem" href="../../trafficintersection/trafficintersection/">Traffic Intersection</a></li><li><a class="tocitem" href="../../tumor/tumor/">Tumor</a></li><li><a class="tocitem" href="../../unitcohesion/unitcohesion/">Unit Cohesion</a></li><li><a class="tocitem" href="../../virus_on_network/virus_on_network/">Virus on a Network</a></li><li><a class="tocitem" href="../../virus/virus/">Virus on Network</a></li><li><a class="tocitem" href="../../voronoivoter/voronoivoter/">Voronoi Voter</a></li><li><a class="tocitem" href="../../voter/voter/">Voter Model</a></li><li><a class="tocitem" href="../../voting/voting/">Voting</a></li><li><a class="tocitem" href="../../wealthdistribution/wealthdistribution/">Wealth Distribution</a></li><li><a class="tocitem" href="../../wisdomcrowd/wisdomcrowd/">Wisdom of Crowd</a></li><li><a class="tocitem" href="../../wolfsheep/wolfsheep/">Wolf Sheep Predation</a></li></ul></li><li><a class="tocitem" href="../../../api/">API Reference</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Models</a></li><li class="is-active"><a href>Rebellion</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Rebellion</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/ecorecipes/ArkModelZoo.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/ecorecipes/ArkModelZoo.jl/blob/main/docs/src/tutorials/rebellion/rebellion.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Rebellion"><a class="docs-heading-anchor" href="#Rebellion">Rebellion</a><a id="Rebellion-1"></a><a class="docs-heading-anchor-permalink" href="#Rebellion" title="Permalink"></a></h1><h2 id="Overview"><a class="docs-heading-anchor" href="#Overview">Overview</a><a id="Overview-1"></a><a class="docs-heading-anchor-permalink" href="#Overview" title="Permalink"></a></h2><h3 id="WHAT-IS-IT?"><a class="docs-heading-anchor" href="#WHAT-IS-IT?">WHAT IS IT?</a><a id="WHAT-IS-IT?-1"></a><a class="docs-heading-anchor-permalink" href="#WHAT-IS-IT?" title="Permalink"></a></h3><p>This project models the rebellion of a subjugated population against a central authority. It is is an adaptation of Joshua Epstein’s model of civil violence (2002).</p><p>The population wanders around randomly. If their level of grievance against the central authority is high enough, and their perception of the risks involved is low enough, they openly rebel. A separate population of police officers (“cops”), acting on behalf of the central authority, seeks to suppress the rebellion. The cops wander around randomly and arrest people who are actively rebelling.</p><h3 id="HOW-IT-WORKS"><a class="docs-heading-anchor" href="#HOW-IT-WORKS">HOW IT WORKS</a><a id="HOW-IT-WORKS-1"></a><a class="docs-heading-anchor-permalink" href="#HOW-IT-WORKS" title="Permalink"></a></h3><p>Each “agent,” or member of the general population, has an individual level of grievance toward the central authority. GRIEVANCE is based on the agent’s PERCEIVED-HARDSHIP, which is assigned randomly at startup, and on GOVERNMENT-LEGITIMACY, which is global across agents and specified by a slider in the interface.</p><p>Each agent also calculates an individual risk of rebelling at the beginning of each turn. This ESTIMATED-ARREST-PROBABILITY, is based on the number of cops and already rebelling agents within VISION patches, namely 1 - exp (- k * (C/A)&lt;sub&gt;v&lt;/sub&gt;) — where (C/A)&lt;sub&gt;v&lt;/sub&gt; is the ratio of cops to active agents, and k is a constant set in “startup” to ensure a reasonable value when there is only one cop and one agent within a particular field of vision. In our implementation, we changed one aspect of Epstein’s description. After dividing by C by A, we take the “floor” of the result (that is, round downwards to an integer). Without this change, the model does not exhibit punctuated equilibrium. The effect of the change is that if there are more rebels than cops in the neighborhood, the probability of arrest is zero, otherwise it is very nearly 1.0. In other words, the rule could be written more simply as:</p><pre><code class="nohighlight hljs">  ifelse a &gt; c [ report 0 ] [ report 0.99 ]</code></pre><p>An agent’s NET-RISK is the product of the calculated ESTIMATED-ARREST-PROBABILITY and RISK-AVERSION randomly set for each agent at birth.</p><p>The model cycles through three different rules, known as M (move), A (agents) and C (cops):</p><ul><li><p>Movement rule M says that each cop and non-imprisoned agent moves to a random unoccupied site within VISION patches.</p></li><li><p>Agent rule A says that if an agent’s GRIEVANCE exceeds the NET-RISK by a small threshold (set by default to 0.1 in “setup”), the agent decides to rebel. This is noted by changing the agent’s border color from blue to red. (It is also possible for the agent to move from rebellion to quiet, in which case the border color changes from red to blue.)</p></li><li><p>Cop rule C says that each cop should look for active agents within VISION patches. If at least one exists, the cop randomly selects one active agent and sends it to jail for a number of turns between 0 and MAX-JAIL-TERM (settable by a slider in the interface) and moves to the patch of the jailed agent. The patch of the jailed agent is considered unoccupied.</p></li></ul><h3 id="THINGS-TO-NOTICE"><a class="docs-heading-anchor" href="#THINGS-TO-NOTICE">THINGS TO NOTICE</a><a id="THINGS-TO-NOTICE-1"></a><a class="docs-heading-anchor-permalink" href="#THINGS-TO-NOTICE" title="Permalink"></a></h3><p>Watch how agents exhibit deceptive behavior by changing their public state when cops are present, despite a constant level of private grievance. To see this press the WATCH ONE button, slow down the model, switch to the 3D view and zoom in on the selected agent. It may be easier to see this phenomenon if you change the sliders, especially reducing the VISION.</p><p>Watch the plot of active agents. Notice that it exhibits “punctuated equilibrium” — periods of quiescence followed by periods of rebellion.</p><h3 id="THINGS-TO-TRY"><a class="docs-heading-anchor" href="#THINGS-TO-TRY">THINGS TO TRY</a><a id="THINGS-TO-TRY-1"></a><a class="docs-heading-anchor-permalink" href="#THINGS-TO-TRY" title="Permalink"></a></h3><p>Epstein claims that movement of the agents causes more frequent episodes of rebellion. Run the model with the MOVEMENT? switch on and off to see if you get this result.</p><p>Compare the effects of a gradual erosion in the perceived legitimacy of the central authority to a smaller, but immediate drop. For example, set GOVERNMENT-LEGITIMACY to 0.9 and reduce it to zero over 250 runs, plotting the legitimacy and the number of active agents. Now do another run, beginning with legitimacy at 0.9. This time, leave the legitimacy constant for 80 runs and then drop it to 0.7 at once. Observe the results. Try to explain them. Think of historical examples of this phenomena. What are the implications of this result for the strategy of revolutionary leaders?</p><p>Epstein quotes de Tocqueville: “It is not always when things are going from bad to worse that revolutions break out. On the contrary, it oftener happens that when a people that has put up with oppressive rule over a long period without protest suddenly finds the government relaxing its pressure, it takes up arms against it.” Test de Tocqueville’s observation in the model by comparing the effects of a gradual erosion in perceived legitimacy with a gradual erosion in the number of cops. Observe the results. Explain the difference.</p><h3 id="EXTENDING-THE-MODEL"><a class="docs-heading-anchor" href="#EXTENDING-THE-MODEL">EXTENDING THE MODEL</a><a id="EXTENDING-THE-MODEL-1"></a><a class="docs-heading-anchor-permalink" href="#EXTENDING-THE-MODEL" title="Permalink"></a></h3><p>Write a reporter procedure that reports <code>true</code> when there is a rebellion, <code>false</code> during quiescent periods.</p><p>Measure the intervals between episodes of rebellion. What is the distribution of these waiting times?</p><p>Try changing some of Epstein’s assumptions as below. Do these changes create qualitative differences in results?</p><p>Change GOVERNMENT-LEGITIMACY such that it increases proportionally with the number of nearby jailed agents.</p><p>Change the model such that each agent’s <code>grievance</code> is influenced by the value of other nearby agents.</p><h3 id="NETLOGO-FEATURES"><a class="docs-heading-anchor" href="#NETLOGO-FEATURES">NETLOGO FEATURES</a><a id="NETLOGO-FEATURES-1"></a><a class="docs-heading-anchor-permalink" href="#NETLOGO-FEATURES" title="Permalink"></a></h3><p>Note the use of a patch variable to store precomputed neighborhood agentsets. This improves performance because the neighborhoods don’t have to be calculated over and over again.</p><h3 id="CREDITS-AND-REFERENCES"><a class="docs-heading-anchor" href="#CREDITS-AND-REFERENCES">CREDITS AND REFERENCES</a><a id="CREDITS-AND-REFERENCES-1"></a><a class="docs-heading-anchor-permalink" href="#CREDITS-AND-REFERENCES" title="Permalink"></a></h3><p>This model, and the preceding explanation, is adapted from Joshua M. Epstein, “Modeling civil violence: An agent-based computational approach”, Proceedings of the National Academy of Sciences, Vol. 99, Suppl. 3, May 14, 2002, and is available at https://www.ncbi.nlm.nih.gov/pmc/articles/PMC128592/.</p><h3 id="HOW-TO-CITE"><a class="docs-heading-anchor" href="#HOW-TO-CITE">HOW TO CITE</a><a id="HOW-TO-CITE-1"></a><a class="docs-heading-anchor-permalink" href="#HOW-TO-CITE" title="Permalink"></a></h3><p>If you mention this model or the NetLogo software in a publication, we ask that you include the citations below.</p><p>For the model itself:</p><ul><li>Wilensky, U. (2004). NetLogo Rebellion model. http://ccl.northwestern.edu/netlogo/models/Rebellion. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.</li></ul><p>Please cite the NetLogo software as:</p><ul><li>Wilensky, U. (1999). NetLogo. http://ccl.northwestern.edu/netlogo/. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.</li></ul><h3 id="COPYRIGHT-AND-LICENSE"><a class="docs-heading-anchor" href="#COPYRIGHT-AND-LICENSE">COPYRIGHT AND LICENSE</a><a id="COPYRIGHT-AND-LICENSE-1"></a><a class="docs-heading-anchor-permalink" href="#COPYRIGHT-AND-LICENSE" title="Permalink"></a></h3><p>Copyright 2004 Uri Wilensky.</p><p><img src="http://ccl.northwestern.edu/images/creativecommons/byncsa.png" alt="CC BY-NC-SA 3.0"/></p><p>This model is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License. To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/3.0/ or send a letter to Creative Commons, 559 Nathan Abbott Way, Stanford, California 94305, USA.</p><p>NetLogo itself is free software for non-commercial use under the terms of the GNU General Public License (<a href="https://ccl.northwestern.edu/netlogo/docs/copyright.html">see full license information here</a>).</p><p>To inquire about commercial licenses for either NetLogo or specific models from the models library, please contact netlogo-commercial-admin@ccl.northwestern.edu.</p><p>This model was created as part of the projects: PARTICIPATORY SIMULATIONS: NETWORK-BASED DESIGN FOR SYSTEMS LEARNING IN CLASSROOMS and/or INTEGRATED SIMULATION AND MODELING ENVIRONMENT. The project gratefully acknowledges the support of the National Science Foundation (REPP &amp; ROLE programs) – grant numbers REC #9814682 and REC-0126227.</p><h2 id="Parameters"><a class="docs-heading-anchor" href="#Parameters">Parameters</a><a id="Parameters-1"></a><a class="docs-heading-anchor-permalink" href="#Parameters" title="Permalink"></a></h2><table><tr><th style="text-align: right">Parameter</th><th style="text-align: right">Type</th><th style="text-align: right">Default</th><th style="text-align: right">Description</th></tr><tr><td style="text-align: right"><code>grid_width</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>40</code></td><td style="text-align: right">NetLogo: 0-39</td></tr><tr><td style="text-align: right"><code>grid_height</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>40</code></td><td style="text-align: right">grid height</td></tr><tr><td style="text-align: right"><code>initial_cop_density</code></td><td style="text-align: right"><code>Float64</code></td><td style="text-align: right"><code>4.0</code></td><td style="text-align: right">percent</td></tr><tr><td style="text-align: right"><code>initial_agent_density</code></td><td style="text-align: right"><code>Float64</code></td><td style="text-align: right"><code>70.0</code></td><td style="text-align: right">percent</td></tr><tr><td style="text-align: right"><code>government_legitimacy</code></td><td style="text-align: right"><code>Float64</code></td><td style="text-align: right"><code>0.82</code></td><td style="text-align: right">government legitimacy</td></tr><tr><td style="text-align: right"><code>max_jail_term</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>30</code></td><td style="text-align: right">max jail term</td></tr><tr><td style="text-align: right"><code>vision</code></td><td style="text-align: right"><code>Float64</code></td><td style="text-align: right"><code>7.0</code></td><td style="text-align: right">vision</td></tr><tr><td style="text-align: right"><code>movement</code></td><td style="text-align: right"><code>Bool</code></td><td style="text-align: right"><code>true</code></td><td style="text-align: right">movement</td></tr><tr><td style="text-align: right"><code>k</code></td><td style="text-align: right"><code>Float64</code></td><td style="text-align: right"><code>2.3</code></td><td style="text-align: right">k</td></tr><tr><td style="text-align: right"><code>threshold</code></td><td style="text-align: right"><code>Float64</code></td><td style="text-align: right"><code>0.1</code></td><td style="text-align: right">threshold</td></tr><tr><td style="text-align: right"><code>max_ticks</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>500</code></td><td style="text-align: right">max ticks</td></tr></table><h2 id="Source-Code"><a class="docs-heading-anchor" href="#Source-Code">Source Code</a><a id="Source-Code-1"></a><a class="docs-heading-anchor-permalink" href="#Source-Code" title="Permalink"></a></h2><p>The Julia code to run this model:</p><pre><code class="language-julia hljs">using ArkModelZoo
+_, trajectory = run_rebellion()</code></pre><h2 id="Time-Series"><a class="docs-heading-anchor" href="#Time-Series">Time Series</a><a id="Time-Series-1"></a><a class="docs-heading-anchor-permalink" href="#Time-Series" title="Permalink"></a></h2><p><img src="../plot_timeseries.png" alt="Rebellion time series"/></p><h2 id="Ensemble-Runs"><a class="docs-heading-anchor" href="#Ensemble-Runs">Ensemble Runs</a><a id="Ensemble-Runs-1"></a><a class="docs-heading-anchor-permalink" href="#Ensemble-Runs" title="Permalink"></a></h2><p>Ten replicates with different random seeds, showing mean ± standard deviation.</p><p><img src="../plot_ensemble.png" alt="Rebellion ensemble"/></p><h2 id="Parameter-Sensitivity"><a class="docs-heading-anchor" href="#Parameter-Sensitivity">Parameter Sensitivity</a><a id="Parameter-Sensitivity-1"></a><a class="docs-heading-anchor-permalink" href="#Parameter-Sensitivity" title="Permalink"></a></h2><p>Varying <code>initial_cop_density</code>.</p><p><img src="../plot_sensitivity.png" alt="Rebellion sensitivity"/></p><h2 id="Appendix:-Source-Code"><a class="docs-heading-anchor" href="#Appendix:-Source-Code">Appendix: Source Code</a><a id="Appendix:-Source-Code-1"></a><a class="docs-heading-anchor-permalink" href="#Appendix:-Source-Code" title="Permalink"></a></h2><p>This model is implemented in the <a href="https://github.com/sdwfrost/Ark.jl">Ark.jl</a> Entity-Component-System (ECS) framework. The code is split into five files, each with a distinct role:</p><ul><li><strong>Parameters</strong>: a mutable struct holding all configurable values.</li><li><strong>Components</strong>: lightweight data types attached to individual entities (agents).</li><li><strong>Resources</strong>: world-level shared state accessible to all systems.</li><li><strong>Systems</strong>: functions that operate on entities each tick, defining model behavior.</li><li><strong>Model</strong>: wiring that assembles the world, registers resources and systems, and provides the run entry point.</li></ul><h3 id="Parameters-(parameters.jl)"><a class="docs-heading-anchor" href="#Parameters-(parameters.jl)">Parameters (<code>parameters.jl</code>)</a><a id="Parameters-(parameters.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Parameters-(parameters.jl)" title="Permalink"></a></h3><p>The parameter struct uses <code>@kwdef</code> so that every field has a default value and can be overridden by keyword. These defaults match the original NetLogo model’s slider settings.</p><pre><code class="language-julia hljs">Base.@kwdef mutable struct REBParams
+    grid_width::Int = 40           # NetLogo: 0-39
+    grid_height::Int = 40
+    initial_cop_density::Float64 = 4.0    # percent
+    initial_agent_density::Float64 = 70.0 # percent
+    government_legitimacy::Float64 = 0.82
+    max_jail_term::Int = 30
+    vision::Float64 = 7.0
+    movement::Bool = true
+    k::Float64 = 2.3
+    threshold::Float64 = 0.1
+    max_ticks::Int = 500
+    seed::Int = 42
+end</code></pre><h3 id="Components-(components.jl)"><a class="docs-heading-anchor" href="#Components-(components.jl)">Components (<code>components.jl</code>)</a><a id="Components-(components.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Components-(components.jl)" title="Permalink"></a></h3><p>Components are lightweight data types attached to individual entities (agents). Mutable structs hold per-entity state, while empty tag structs act as markers for the ECS query system to efficiently filter entities.</p><pre><code class="language-julia hljs">mutable struct REBAgent
+    x::Int
+    y::Int
+    risk_aversion::Float64
+    perceived_hardship::Float64
+    active::Bool
+    jail_term::Int
+end
+REBAgent() = REBAgent(0, 0, 0.0, 0.0, false, 0)
+
+mutable struct REBCop
+    x::Int
+    y::Int
+end
+REBCop() = REBCop(0, 0)</code></pre><h3 id="Resources-(resources.jl)"><a class="docs-heading-anchor" href="#Resources-(resources.jl)">Resources (<code>resources.jl</code>)</a><a id="Resources-(resources.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Resources-(resources.jl)" title="Permalink"></a></h3><p>Resources are world-level singletons shared across all systems, used for global state and aggregate statistics.</p><pre><code class="language-julia hljs">mutable struct REBGrid
+    width::Int
+    height::Int
+    cells::Matrix{Entity}              # agent or cop entity (zero_entity if empty)
+    neighborhoods::Array{Vector{Tuple{Int,Int}}, 2}  # cached
+end
+
+function REBGrid(w::Int, h::Int, vision::Float64)
+    cells = fill(zero_entity, w, h)
+    neighborhoods = Array{Vector{Tuple{Int,Int}}}(undef, w, h)
+    v = floor(Int, vision)
+    for x in 1:w, y in 1:h
+        nb = Tuple{Int,Int}[]
+        for dx in -v:v, dy in -v:v
+            (dx == 0 &amp;&amp; dy == 0) &amp;&amp; continue
+            if sqrt(dx^2 + dy^2) &lt;= vision
+                nx = mod1(x + dx, w)
+                ny = mod1(y + dy, h)
+                push!(nb, (nx, ny))
+            end
+        end
+        neighborhoods[x, y] = nb
+    end
+    REBGrid(w, h, cells, neighborhoods)
+end
+
+mutable struct REBStats
+    num_quiet::Int
+    num_active::Int
+    num_jailed::Int
+end
+REBStats() = REBStats(0, 0, 0)</code></pre><h3 id="Systems-(systems.jl)"><a class="docs-heading-anchor" href="#Systems-(systems.jl)">Systems (<code>systems.jl</code>)</a><a id="Systems-(systems.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Systems-(systems.jl)" title="Permalink"></a></h3><p>Systems contain the model logic and execute in a defined order each tick. Each system struct implements either <code>initialize!</code> (run once at setup) or <code>update!</code> (run every tick).</p><pre><code class="language-julia hljs">struct InitREBSystem &lt;: System end
+
+function initialize!(::InitREBSystem, world::World)
+    params = get_resource(world, REBParams)
+    rng = get_resource(world, RNGResource).rng
+    grid = get_resource(world, REBGrid)
+    w, h = grid.width, grid.height
+
+    # Collect all cells
+    all_cells = [(x, y) for x in 1:w for y in 1:h]
+    Random.shuffle!(rng, all_cells)
+
+    n_patches = w * h
+    n_cops = round(Int, params.initial_cop_density * 0.01 * n_patches)
+    n_agents = round(Int, params.initial_agent_density * 0.01 * n_patches)
+
+    idx = 1
+    for _ in 1:n_cops
+        x, y = all_cells[idx]; idx += 1
+        eid = new_entity!(world, (REBCop(x, y),))
+        grid.cells[x, y] = eid
+    end
+
+    for _ in 1:n_agents
+        x, y = all_cells[idx]; idx += 1
+        ra = rand(rng)
+        ph = rand(rng)
+        eid = new_entity!(world, (REBAgent(x, y, ra, ph, false, 0),))
+        grid.cells[x, y] = eid
+    end
+
+    _reb_update_stats!(world)
+    return nothing
+end
+
+struct REBGoSystem &lt;: System end
+
+function update!(::REBGoSystem, world::World)
+    params = get_resource(world, REBParams)
+    rng = get_resource(world, RNGResource).rng
+    grid = get_resource(world, REBGrid)
+
+    # Collect all turtles (agents + cops) with shuffled ask
+    agents_list = Tuple{Entity, REBAgent}[]
+    cops_list = Tuple{Entity, REBCop}[]
+    for (eids, agents) in Query(world, (REBAgent,))
+        @inbounds for i in eachindex(agents)
+            push!(agents_list, (eids[i], agents[i]))
+        end
+    end
+    for (eids, cops) in Query(world, (REBCop,))
+        @inbounds for i in eachindex(cops)
+            push!(cops_list, (eids[i], cops[i]))
+        end
+    end
+
+    # Build combined list for &quot;ask turtles&quot; — agents and cops interleaved
+    all_turtles = Vector{Tuple{Symbol, Int}}()
+    for i in eachindex(agents_list)
+        push!(all_turtles, (:agent, i))
+    end
+    for i in eachindex(cops_list)
+        push!(all_turtles, (:cop, i))
+    end
+    Random.shuffle!(rng, all_turtles)
+
+    for (kind, idx) in all_turtles
+        if kind == :agent
+            _, ag = agents_list[idx]
+            # Move (if not jailed)
+            if ag.jail_term == 0
+                _reb_move!(rng, ag, grid, params, world)
+            end
+            # Determine behavior
+            if ag.jail_term == 0
+                grievance = ag.perceived_hardship * (1.0 - params.government_legitimacy)
+                # Count cops and active agents in neighborhood
+                nb = grid.neighborhoods[ag.x, ag.y]
+                n_cops = 0; n_active = 0
+                for (nx, ny) in nb
+                    neid = grid.cells[nx, ny]
+                    is_zero(neid) &amp;&amp; continue
+                    if has_components(world, neid, (REBCop,))
+                        n_cops += 1
+                    elseif has_components(world, neid, (REBAgent,))
+                        nag = get_components(world, neid, (REBAgent,))[1]
+                        if nag.active
+                            n_active += 1
+                        end
+                    end
+                end
+                a_count = 1 + n_active
+                arrest_prob = 1.0 - exp(-params.k * floor(n_cops / a_count))
+                ag.active = (grievance - ag.risk_aversion * arrest_prob &gt; params.threshold)
+            end
+        else  # cop
+            _, cop = cops_list[idx]
+            _reb_cop_move!(rng, cop, grid, params, world)
+            # Enforce: arrest a random active agent in vision
+            nb = grid.neighborhoods[cop.x, cop.y]
+            active_in_vision = Tuple{Int,Int}[]
+            for (nx, ny) in nb
+                neid = grid.cells[nx, ny]
+                is_zero(neid) &amp;&amp; continue
+                if has_components(world, neid, (REBAgent,))
+                    nag = get_components(world, neid, (REBAgent,))[1]
+                    if nag.active
+                        push!(active_in_vision, (nx, ny))
+                    end
+                end
+            end
+            if !isempty(active_in_vision)
+                sx, sy = active_in_vision[rand(rng, 1:length(active_in_vision))]
+                seid = grid.cells[sx, sy]
+                suspect = get_components(world, seid, (REBAgent,))[1]
+                suspect.active = false
+                suspect.jail_term = rand(rng, 0:max(params.max_jail_term - 1, 0))
+                # Cop moves to suspect&#39;s patch
+                grid.cells[cop.x, cop.y] = zero_entity
+                cop.x = sx; cop.y = sy
+                # Suspect stays but is jailed (they share cell briefly)
+            end
+        end
+    end
+
+    # Decrement jail terms
+    for (_, ag) in agents_list
+        if ag.jail_term &gt; 0
+            ag.jail_term -= 1
+        end
+    end
+
+    _reb_update_stats!(world)
+    return nothing
+end
+
+function _reb_move!(rng, ag::REBAgent, grid::REBGrid, params::REBParams, world::World)
+    params.movement || return
+    nb = grid.neighborhoods[ag.x, ag.y]
+    targets = Tuple{Int,Int}[]
+    for (nx, ny) in nb
+        eid = grid.cells[nx, ny]
+        if is_zero(eid)
+            push!(targets, (nx, ny))
+        elseif has_components(world, eid, (REBAgent,))
+            nag = get_components(world, eid, (REBAgent,))[1]
+            if nag.jail_term &gt; 0
+                push!(targets, (nx, ny))
+            end
+        end
+    end
+    isempty(targets) &amp;&amp; return
+    tx, ty = targets[rand(rng, 1:length(targets))]
+    # Only move to truly empty cells (not just jailed — simplification for grid)
+    if is_zero(grid.cells[tx, ty])
+        grid.cells[ag.x, ag.y] = zero_entity
+        grid.cells[tx, ty] = _reb_find_entity(world, ag)
+        ag.x = tx; ag.y = ty
+    end
+end
+
+function _reb_cop_move!(rng, cop::REBCop, grid::REBGrid, params::REBParams, world::World)
+    nb = grid.neighborhoods[cop.x, cop.y]
+    targets = Tuple{Int,Int}[]
+    for (nx, ny) in nb
+        eid = grid.cells[nx, ny]
+        if is_zero(eid)
+            push!(targets, (nx, ny))
+        end
+    end
+    isempty(targets) &amp;&amp; return
+    tx, ty = targets[rand(rng, 1:length(targets))]
+    eid_cop = grid.cells[cop.x, cop.y]
+    grid.cells[cop.x, cop.y] = zero_entity
+    grid.cells[tx, ty] = eid_cop
+    cop.x = tx; cop.y = ty
+end
+
+function _reb_find_entity(world::World, ag::REBAgent)
+    # Find the entity for this agent by scanning
+    for (eids, agents) in Query(world, (REBAgent,))
+        @inbounds for i in eachindex(agents)
+            if agents[i] === ag
+                return eids[i]
+            end
+        end
+    end
+    return zero_entity
+end
+
+function _reb_update_stats!(world::World)
+    stats = get_resource(world, REBStats)
+    nq = 0; na = 0; nj = 0
+    for (_, agents) in Query(world, (REBAgent,))
+        @inbounds for i in eachindex(agents)
+            ag = agents[i]
+            if ag.jail_term &gt; 0
+                nj += 1
+            elseif ag.active
+                na += 1
+            else
+                nq += 1
+            end
+        end
+    end
+    stats.num_quiet = nq
+    stats.num_active = na
+    stats.num_jailed = nj
+end
+
+struct REBTerminationSystem &lt;: System end
+
+function update!(::REBTerminationSystem, world::World)
+    params = get_resource(world, REBParams)
+    tick = get_resource(world, Tick)
+    if tick.tick + 1 &gt;= params.max_ticks
+        get_resource(world, Terminate).stop = true
+    end
+    return nothing
+end</code></pre><h3 id="Model-(model.jl)"><a class="docs-heading-anchor" href="#Model-(model.jl)">Model (<code>model.jl</code>)</a><a id="Model-(model.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Model-(model.jl)" title="Permalink"></a></h3><p>The model file assembles all pieces: it creates the ECS <code>World</code> with the required component types, registers resources, builds the <code>Scheduler</code> with systems in execution order, and exposes the public <code>run</code> entry point. The observer pattern records the trajectory each tick.</p><pre><code class="language-julia hljs">function rebellion_world(; initial_capacity::Int = 4096)
+    return World(REBAgent, REBCop; initial_capacity = initial_capacity, allow_mutable = true)
+end
+
+function rebellion_systems()
+    return (InitREBSystem(), REBGoSystem(), REBTerminationSystem())
+end
+
+function rebellion_model(params::REBParams = REBParams())
+    world = rebellion_world()
+    _add_standard_resources!(world, params)
+    add_resource!(world, REBGrid(params.grid_width, params.grid_height, params.vision))
+    add_resource!(world, REBStats())
+    scheduler = Scheduler(world, rebellion_systems())
+    initialize!(scheduler)
+    return scheduler
+end
+
+struct REBObserver end
+
+function reb_headers(::REBObserver)
+    return [&quot;Quiet&quot;, &quot;Active&quot;, &quot;Jailed&quot;]
+end
+
+function reb_values(::REBObserver, world::World)
+    stats = get_resource(world, REBStats)
+    return Float64[stats.num_quiet, stats.num_active, stats.num_jailed]
+end
+
+function run_rebellion(; params::REBParams = REBParams(), observe::Bool = true)
+    return _run_model(rebellion_model, REBObserver(), reb_values; params, observe)
+end</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../rationalevolvingpd/rationalevolvingpd/">« Rational Evolving PD</a><a class="docs-footer-nextpage" href="../../recruitingmovement/recruitingmovement/">Recruiting Movement »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.20.0 on <span class="colophon-date" title="Wednesday 18 November 2026 18:43">Wednesday 18 November 2026</span>. Using Julia version 1.13.4.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>

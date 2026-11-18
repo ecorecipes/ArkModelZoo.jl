@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="referrer" content="no-referrer"/><title>Leonardi Tech Adoption · ArkModelZoo.jl</title><meta name="title" content="Leonardi Tech Adoption · ArkModelZoo.jl"/><meta property="og:title" content="Leonardi Tech Adoption · ArkModelZoo.jl"/><meta property="twitter:title" content="Leonardi Tech Adoption · ArkModelZoo.jl"/><meta name="description" content="Documentation for ArkModelZoo.jl."/><meta property="og:description" content="Documentation for ArkModelZoo.jl."/><meta property="twitter:description" content="Documentation for ArkModelZoo.jl."/><meta property="og:url" content="https://ecorecipes.github.io/ArkModelZoo.jl/tutorials/leonarditechadoption/leonarditechadoption/"/><meta property="twitter:url" content="https://ecorecipes.github.io/ArkModelZoo.jl/tutorials/leonarditechadoption/leonarditechadoption/"/><link rel="canonical" href="https://ecorecipes.github.io/ArkModelZoo.jl/tutorials/leonarditechadoption/leonarditechadoption/"/><script data-outdated-warner src="../../../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.63.2/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../../assets/documenter.js"></script><script src="../../../search_index.js"></script><script src="../../../siteinfo.js"></script><script src="../../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="../../../">ArkModelZoo.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../../../">Home</a></li><li><span class="tocitem">Resilience</span><ul><li><a class="tocitem" href="../../resilience/resilience/">Resilience of agent-based models</a></li></ul></li><li><span class="tocitem">Models</span><ul><li><a class="tocitem" href="../../abtgc/abtgc/">ABTgc</a></li><li><a class="tocitem" href="../../aids/aids/">AIDS</a></li><li><a class="tocitem" href="../../altruism/altruism/">Altruism</a></li><li><a class="tocitem" href="../../antsystem/antsystem/">Ant System TSP</a></li><li><a class="tocitem" href="../../ants/ants/">Ants</a></li><li><a class="tocitem" href="../../artificialeconomy/artificialeconomy/">Artificial Economy</a></li><li><a class="tocitem" href="../../axelrodcultural/axelrodcultural/">AxelrodCultural</a></li><li><a class="tocitem" href="../../babysittingcoop/babysittingcoop/">Baby Sitting Coop</a></li><li><a class="tocitem" href="../../bank_reserves/bank_reserves/">Bank Reserves</a></li><li><a class="tocitem" href="../../bayesian/bayesian/">Bayesian Updating</a></li><li><a class="tocitem" href="../../beinggreen/beinggreen/">Being Green</a></li><li><a class="tocitem" href="../../birthrates/birthrates/">Birthrates</a></li><li><a class="tocitem" href="../../blackbox/blackbox/">BlackBox</a></li><li><a class="tocitem" href="../../boiling/boiling/">Boiling</a></li><li><a class="tocitem" href="../../bombscenario/bombscenario/">BombScenario</a></li><li><a class="tocitem" href="../../brians_brain/brians_brain/">Brian’s Brain</a></li><li><a class="tocitem" href="../../bullwhipeffect/bullwhipeffect/">Bullwhip Effect</a></li><li><a class="tocitem" href="../../ca_1d_elementary/ca_1d_elementary/">CA 1D Elementary</a></li><li><a class="tocitem" href="../../civilizationgrowth/civilizationgrowth/">Civilization Growth</a></li><li><a class="tocitem" href="../../climatechange/climatechange/">Climate Change</a></li><li><a class="tocitem" href="../../coin/coin/">COIN Learning</a></li><li><a class="tocitem" href="../../competitionlearning/competitionlearning/">Competition Learning</a></li><li><a class="tocitem" href="../../contactprocess/contactprocess/">Contact Process 2D</a></li><li><a class="tocitem" href="../../contagionnw/contagionnw/">Contagion NW</a></li><li><a class="tocitem" href="../../contagionsi/contagionsi/">Contagion SI</a></li><li><a class="tocitem" href="../../contagionsir/contagionsir/">Contagion SIR</a></li><li><a class="tocitem" href="../../cooperation/cooperation/">Cooperation</a></li><li><a class="tocitem" href="../../coordination/coordination/">Coordination</a></li><li><a class="tocitem" href="../../coordination2groups/coordination2groups/">Coordination 2 Groups</a></li><li><a class="tocitem" href="../../croprotation/croprotation/">Crop Rotation</a></li><li><a class="tocitem" href="../../crystallization/crystallization/">Crystallization</a></li><li><a class="tocitem" href="../../csvnetworkforaging/csvnetworkforaging/">CSV Network Foraging</a></li><li><a class="tocitem" href="../../csvpopulation/csvpopulation/">CSV Population</a></li><li><a class="tocitem" href="../../culturaldiffusion/culturaldiffusion/">Cultural Diffusion</a></li><li><a class="tocitem" href="../../cyberspaceopinion/cyberspaceopinion/">Cyberspace Opinion</a></li><li><a class="tocitem" href="../../daisyworld/daisyworld/">Daisyworld</a></li><li><a class="tocitem" href="../../dating/dating/">Dating</a></li><li><a class="tocitem" href="../../diffusionnetwork/diffusionnetwork/">Diffusion Network</a></li><li><a class="tocitem" href="../../diffusionofhiv/diffusionofhiv/">DiffusionOfHIV</a></li><li><a class="tocitem" href="../../disinfobitstringnw/disinfobitstringnw/">Disinfobitstringnw</a></li><li><a class="tocitem" href="../../dla/dla/">Dla</a></li><li><a class="tocitem" href="../../dlasimple/dlasimple/">DLA Simple</a></li><li><a class="tocitem" href="../../druguse/druguse/">Drug Use</a></li><li><a class="tocitem" href="../../druguseoverdose/druguseoverdose/">Drug Use Overdose</a></li><li><a class="tocitem" href="../../elfarol/elfarol/">El Farol</a></li><li><a class="tocitem" href="../../erosion/erosion/">Erosion</a></li><li><a class="tocitem" href="../../ethnocentrism/ethnocentrism/">Ethnocentrism</a></li><li><a class="tocitem" href="../../evolutionofnorms/evolutionofnorms/">EvolutionOfNorms</a></li><li><a class="tocitem" href="../../firepercolation/firepercolation/">Fire Percolation</a></li><li><a class="tocitem" href="../../firebenchmark/firebenchmark/">FireBenchmark</a></li><li><a class="tocitem" href="../../fireflies/fireflies/">Fireflies</a></li><li><a class="tocitem" href="../../flocking/flocking/">Flocking</a></li><li><a class="tocitem" href="../../flockingnetwork/flockingnetwork/">Flocking Network</a></li><li><a class="tocitem" href="../../forestdewdney/forestdewdney/">Forest Dewdney</a></li><li><a class="tocitem" href="../../fire/fire/">Forest Fire</a></li><li><a class="tocitem" href="../../fungalbioremediation/fungalbioremediation/">Fungal Bioremediation</a></li><li><a class="tocitem" href="../../giant_component/giant_component/">Giant Component</a></li><li><a class="tocitem" href="../../gishillclimber/gishillclimber/">GIS HillClimber</a></li><li><a class="tocitem" href="../../granovetter/granovetter/">Granovetter</a></li><li><a class="tocitem" href="../../grassbrushtrees/grassbrushtrees/">Grass Brush Trees</a></li><li><a class="tocitem" href="../../diffusion/diffusion/">Heat Diffusion</a></li><li><a class="tocitem" href="../../heatbugs/heatbugs/">Heatbugs</a></li><li><a class="tocitem" href="../../hikingelevation/hikingelevation/">HikingElevation</a></li><li><a class="tocitem" href="../../infinitelife/infinitelife/">Infinite Life</a></li><li><a class="tocitem" href="../../infodiffusion/infodiffusion/">Info Diffusion</a></li><li><a class="tocitem" href="../../ising/ising/">Ising</a></li><li><a class="tocitem" href="../../languageborders/languageborders/">Language Borders</a></li><li><a class="tocitem" href="../../languagechange/languagechange/">Language Change</a></li><li><a class="tocitem" href="../../lassavirus/lassavirus/">LassaVirus</a></li><li class="is-active"><a class="tocitem" href>Leonardi Tech Adoption</a><ul class="internal"><li><a class="tocitem" href="#Overview"><span>Overview</span></a></li><li><a class="tocitem" href="#Parameters"><span>Parameters</span></a></li><li><a class="tocitem" href="#Source-Code"><span>Source Code</span></a></li><li><a class="tocitem" href="#Time-Series"><span>Time Series</span></a></li><li><a class="tocitem" href="#Ensemble-Runs"><span>Ensemble Runs</span></a></li><li><a class="tocitem" href="#Parameter-Sensitivity"><span>Parameter Sensitivity</span></a></li><li><a class="tocitem" href="#Appendix:-Source-Code"><span>Appendix: Source Code</span></a></li></ul></li><li><a class="tocitem" href="../../life/life/">Life</a></li><li><a class="tocitem" href="../../logistic_growth/logistic_growth/">Logistic Growth</a></li><li><a class="tocitem" href="../../mailmen/mailmen/">Mailmen Delivery</a></li><li><a class="tocitem" href="../../marriage/marriage/">Marriage Problem</a></li><li><a class="tocitem" href="../../mimicry/mimicry/">Mimicry</a></li><li><a class="tocitem" href="../../minimalsis/minimalsis/">Minimal SIS</a></li><li><a class="tocitem" href="../../minoritybelief/minoritybelief/">Minority Belief Spread</a></li><li><a class="tocitem" href="../../minoritygame/minoritygame/">Minority Game</a></li><li><a class="tocitem" href="../../misinformationsbfc/misinformationsbfc/">Misinformation SBFC</a></li><li><a class="tocitem" href="../../modsocsegregation/modsocsegregation/">Modsoc Segregation</a></li><li><a class="tocitem" href="../../mousetraps/mousetraps/">Mousetraps</a></li><li><a class="tocitem" href="../../multidrugresistant/multidrugresistant/">MultidrugResistant</a></li><li><a class="tocitem" href="../../opinionbc/opinionbc/">Opinion Dynamics BC</a></li><li><a class="tocitem" href="../../paretolearn/paretolearn/">Pareto Learning</a></li><li><a class="tocitem" href="../../participatorydisinfo/participatorydisinfo/">Participatory Disinformation</a></li><li><a class="tocitem" href="../../participatorydisinformation/participatorydisinformation/">Participatory Disinformation</a></li><li><a class="tocitem" href="../../particles/particles/">Particles</a></li><li><a class="tocitem" href="../../party/party/">Party</a></li><li><a class="tocitem" href="../../pd_basic_evolutionary/pd_basic_evolutionary/">PD Basic Evolutionary</a></li><li><a class="tocitem" href="../../pdsimple/pdsimple/">PD Simple</a></li><li><a class="tocitem" href="../../percolation/percolation/">Percolation</a></li><li><a class="tocitem" href="../../polymerdynamics/polymerdynamics/">Polymer Dynamics</a></li><li><a class="tocitem" href="../../prefattachhomophily/prefattachhomophily/">Pref Attach Homophily</a></li><li><a class="tocitem" href="../../preferential_attachment/preferential_attachment/">Preferential Attachment</a></li><li><a class="tocitem" href="../../privacyopinion/privacyopinion/">Privacy Opinion</a></li><li><a class="tocitem" href="../../productsmarket/productsmarket/">Products Market</a></li><li><a class="tocitem" href="../../public_good/public_good/">Public Good</a></li><li><a class="tocitem" href="../../cqin/cqin/">Quality Improvement Network</a></li><li><a class="tocitem" href="../../rabbits_grass_weeds/rabbits_grass_weeds/">Rabbits Grass Weeds</a></li><li><a class="tocitem" href="../../decay/decay/">Radioactive Decay</a></li><li><a class="tocitem" href="../../rationalevolvingpd/rationalevolvingpd/">Rational Evolving PD</a></li><li><a class="tocitem" href="../../rebellion/rebellion/">Rebellion</a></li><li><a class="tocitem" href="../../recruitingmovement/recruitingmovement/">Recruiting Movement</a></li><li><a class="tocitem" href="../../recruiting/recruiting/">Recruiting Supporters</a></li><li><a class="tocitem" href="../../recruitingsupporters/recruitingsupporters/">Recruiting Supporters</a></li><li><a class="tocitem" href="../../resilientteam/resilientteam/">Resilient Team</a></li><li><a class="tocitem" href="../../rhinopoaching/rhinopoaching/">Rhino Poaching</a></li><li><a class="tocitem" href="../../riseofradicalism/riseofradicalism/">Rise of Radicalism</a></li><li><a class="tocitem" href="../../rope/rope/">Rope</a></li><li><a class="tocitem" href="../../rumormill/rumormill/">Rumor Mill</a></li><li><a class="tocitem" href="../../sand/sand/">Sand</a></li><li><a class="tocitem" href="../../schelling/schelling/">Schelling Segregation</a></li><li><a class="tocitem" href="../../segregation/segregation/">Segregation</a></li><li><a class="tocitem" href="../../shepherds/shepherds/">Shepherds</a></li><li><a class="tocitem" href="../../simple_genetic_algorithm/simple_genetic_algorithm/">Simple Genetic Algorithm</a></li><li><a class="tocitem" href="../../simplemarket/simplemarket/">Simple Market</a></li><li><a class="tocitem" href="../../simplemarketrandom/simplemarketrandom/">Simple Market Random</a></li><li><a class="tocitem" href="../../simplemarkettable/simplemarkettable/">Simple Market Table</a></li><li><a class="tocitem" href="../../sir/sir/">SIR Epidemic</a></li><li><a class="tocitem" href="../../sleuthlanduse/sleuthlanduse/">Sleuth LandUse</a></li><li><a class="tocitem" href="../../slime/slime/">Slime</a></li><li><a class="tocitem" href="../../slowspread/slowspread/">Slow Spread Env Action</a></li><li><a class="tocitem" href="../../small_worlds/small_worlds/">Small Worlds</a></li><li><a class="tocitem" href="../../socialinfluence/socialinfluence/">Social Influence</a></li><li><a class="tocitem" href="../../socialnetworkdiffusion/socialnetworkdiffusion/">Social Network Diffusion</a></li><li><a class="tocitem" href="../../soliddiffusion/soliddiffusion/">Solid Diffusion</a></li><li><a class="tocitem" href="../../spatialattitude/spatialattitude/">Spatial Attitude</a></li><li><a class="tocitem" href="../../ipd/ipd/">Spatial IPD</a></li><li><a class="tocitem" href="../../spatialopinion/spatialopinion/">Spatial Opinion Dynamics</a></li><li><a class="tocitem" href="../../fakenews/fakenews/">Spread of Fake News</a></li><li><a class="tocitem" href="../../spreadingbots/spreadingbots/">Spreading Bots</a></li><li><a class="tocitem" href="../../spreadinggroups/spreadinggroups/">Spreading Groups</a></li><li><a class="tocitem" href="../../sugarscape_1_growback/sugarscape_1_growback/">Sugarscape 1 Growback</a></li><li><a class="tocitem" href="../../sugarscapeculture/sugarscapeculture/">Sugarscape Culture</a></li><li><a class="tocitem" href="../../sugarscapesexual/sugarscapesexual/">Sugarscape Sexual</a></li><li><a class="tocitem" href="../../superdiffuser/superdiffuser/">SuperDiffuser</a></li><li><a class="tocitem" href="../../teamassembly/teamassembly/">Team Assembly</a></li><li><a class="tocitem" href="../../termites/termites/">Termites</a></li><li><a class="tocitem" href="../../thermostat/thermostat/">Thermostat</a></li><li><a class="tocitem" href="../../tourism/tourism/">Tourism</a></li><li><a class="tocitem" href="../../traffic2lanes/traffic2lanes/">Traffic 2 Lanes</a></li><li><a class="tocitem" href="../../trafficbasic/trafficbasic/">Traffic Basic</a></li><li><a class="tocitem" href="../../trafficgrid/trafficgrid/">Traffic Grid</a></li><li><a class="tocitem" href="../../trafficintersection/trafficintersection/">Traffic Intersection</a></li><li><a class="tocitem" href="../../tumor/tumor/">Tumor</a></li><li><a class="tocitem" href="../../unitcohesion/unitcohesion/">Unit Cohesion</a></li><li><a class="tocitem" href="../../virus_on_network/virus_on_network/">Virus on a Network</a></li><li><a class="tocitem" href="../../virus/virus/">Virus on Network</a></li><li><a class="tocitem" href="../../voronoivoter/voronoivoter/">Voronoi Voter</a></li><li><a class="tocitem" href="../../voter/voter/">Voter Model</a></li><li><a class="tocitem" href="../../voting/voting/">Voting</a></li><li><a class="tocitem" href="../../wealthdistribution/wealthdistribution/">Wealth Distribution</a></li><li><a class="tocitem" href="../../wisdomcrowd/wisdomcrowd/">Wisdom of Crowd</a></li><li><a class="tocitem" href="../../wolfsheep/wolfsheep/">Wolf Sheep Predation</a></li></ul></li><li><a class="tocitem" href="../../../api/">API Reference</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Models</a></li><li class="is-active"><a href>Leonardi Tech Adoption</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Leonardi Tech Adoption</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/ecorecipes/ArkModelZoo.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/ecorecipes/ArkModelZoo.jl/blob/main/docs/src/tutorials/leonarditechadoption/leonarditechadoption.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Leonardi-Tech-Adoption"><a class="docs-heading-anchor" href="#Leonardi-Tech-Adoption">Leonardi Tech Adoption</a><a id="Leonardi-Tech-Adoption-1"></a><a class="docs-heading-anchor-permalink" href="#Leonardi-Tech-Adoption" title="Permalink"></a></h1><h2 id="Overview"><a class="docs-heading-anchor" href="#Overview">Overview</a><a id="Overview-1"></a><a class="docs-heading-anchor-permalink" href="#Overview" title="Permalink"></a></h2><p>This vignette demonstrates the <strong>Leonardi Tech Adoption</strong> model implemented in <a href="https://github.com/sdwfrost/ArkModelZoo.jl">ArkModelZoo.jl</a> using the Ark.jl ECS framework.</p><h2 id="Parameters"><a class="docs-heading-anchor" href="#Parameters">Parameters</a><a id="Parameters-1"></a><a class="docs-heading-anchor-permalink" href="#Parameters" title="Permalink"></a></h2><table><tr><th style="text-align: right">Parameter</th><th style="text-align: right">Type</th><th style="text-align: right">Default</th><th style="text-align: right">Description</th></tr><tr><td style="text-align: right"><code>number_expecting_a</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>1</code></td><td style="text-align: right">number expecting a</td></tr><tr><td style="text-align: right"><code>number_expecting_b</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>55</code></td><td style="text-align: right">number expecting b</td></tr><tr><td style="text-align: right"><code>number_expecting_both</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>0</code></td><td style="text-align: right">number expecting both</td></tr><tr><td style="text-align: right"><code>number_no_expectations</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>44</code></td><td style="text-align: right">number no expectations</td></tr><tr><td style="text-align: right"><code>limited_persistence</code></td><td style="text-align: right"><code>Bool</code></td><td style="text-align: right"><code>true</code></td><td style="text-align: right">limited persistence</td></tr><tr><td style="text-align: right"><code>tech_transparency</code></td><td style="text-align: right"><code>Float64</code></td><td style="text-align: right"><code>0.1</code></td><td style="text-align: right">tech transparency</td></tr><tr><td style="text-align: right"><code>can_learn_unexpectedly</code></td><td style="text-align: right"><code>Bool</code></td><td style="text-align: right"><code>true</code></td><td style="text-align: right">can learn unexpectedly</td></tr><tr><td style="text-align: right"><code>use_can_fail</code></td><td style="text-align: right"><code>Bool</code></td><td style="text-align: right"><code>true</code></td><td style="text-align: right">use can fail</td></tr><tr><td style="text-align: right"><code>proportion_material_influence</code></td><td style="text-align: right"><code>Float64</code></td><td style="text-align: right"><code>0.05</code></td><td style="text-align: right">proportion material influence</td></tr><tr><td style="text-align: right"><code>max_ticks</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>200</code></td><td style="text-align: right">max ticks</td></tr></table><h2 id="Source-Code"><a class="docs-heading-anchor" href="#Source-Code">Source Code</a><a id="Source-Code-1"></a><a class="docs-heading-anchor-permalink" href="#Source-Code" title="Permalink"></a></h2><p>The Julia code to run this model:</p><pre><code class="language-julia hljs">using ArkModelZoo
+_, trajectory = run_leonarditechadoption()</code></pre><h2 id="Time-Series"><a class="docs-heading-anchor" href="#Time-Series">Time Series</a><a id="Time-Series-1"></a><a class="docs-heading-anchor-permalink" href="#Time-Series" title="Permalink"></a></h2><p><img src="../plot_timeseries.png" alt="Leonardi Tech Adoption time series"/></p><h2 id="Ensemble-Runs"><a class="docs-heading-anchor" href="#Ensemble-Runs">Ensemble Runs</a><a id="Ensemble-Runs-1"></a><a class="docs-heading-anchor-permalink" href="#Ensemble-Runs" title="Permalink"></a></h2><p>Ten replicates with different random seeds, showing mean ± standard deviation.</p><p><img src="../plot_ensemble.png" alt="Leonardi Tech Adoption ensemble"/></p><h2 id="Parameter-Sensitivity"><a class="docs-heading-anchor" href="#Parameter-Sensitivity">Parameter Sensitivity</a><a id="Parameter-Sensitivity-1"></a><a class="docs-heading-anchor-permalink" href="#Parameter-Sensitivity" title="Permalink"></a></h2><p>Varying <code>number_expecting_a</code>.</p><p><img src="../plot_sensitivity.png" alt="Leonardi Tech Adoption sensitivity"/></p><h2 id="Appendix:-Source-Code"><a class="docs-heading-anchor" href="#Appendix:-Source-Code">Appendix: Source Code</a><a id="Appendix:-Source-Code-1"></a><a class="docs-heading-anchor-permalink" href="#Appendix:-Source-Code" title="Permalink"></a></h2><p>This model is implemented in the <a href="https://github.com/sdwfrost/Ark.jl">Ark.jl</a> Entity-Component-System (ECS) framework. The code is split into five files, each with a distinct role:</p><ul><li><strong>Parameters</strong>: a mutable struct holding all configurable values.</li><li><strong>Components</strong>: lightweight data types attached to individual entities (agents).</li><li><strong>Resources</strong>: world-level shared state accessible to all systems.</li><li><strong>Systems</strong>: functions that operate on entities each tick, defining model behavior.</li><li><strong>Model</strong>: wiring that assembles the world, registers resources and systems, and provides the run entry point.</li></ul><h3 id="Parameters-(parameters.jl)"><a class="docs-heading-anchor" href="#Parameters-(parameters.jl)">Parameters (<code>parameters.jl</code>)</a><a id="Parameters-(parameters.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Parameters-(parameters.jl)" title="Permalink"></a></h3><p>The parameter struct uses <code>@kwdef</code> so that every field has a default value and can be overridden by keyword. These defaults match the original NetLogo model’s slider settings.</p><pre><code class="language-julia hljs">Base.@kwdef mutable struct LTechParams
+    number_expecting_a::Int = 1
+    number_expecting_b::Int = 55
+    number_expecting_both::Int = 0
+    number_no_expectations::Int = 44
+    technology_affordances::Vector{String} = [&quot;a&quot;]
+    limited_persistence::Bool = true
+    tech_transparency::Float64 = 0.1
+    can_learn_unexpectedly::Bool = true
+    use_can_fail::Bool = true
+    proportion_material_influence::Float64 = 0.05
+    max_ticks::Int = 200
+    seed::Int = 42
+end
+
+function _ltech_total_num(params::LTechParams)
+    return params.number_expecting_a + params.number_expecting_b +
+           params.number_expecting_both + params.number_no_expectations
+end</code></pre><h3 id="Components-(components.jl)"><a class="docs-heading-anchor" href="#Components-(components.jl)">Components (<code>components.jl</code>)</a><a id="Components-(components.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Components-(components.jl)" title="Permalink"></a></h3><p>Components are lightweight data types attached to individual entities (agents). Mutable structs hold per-entity state, while empty tag structs act as markers for the ECS query system to efficiently filter entities.</p><pre><code class="language-julia hljs">struct LTechDummy end</code></pre><h3 id="Resources-(resources.jl)"><a class="docs-heading-anchor" href="#Resources-(resources.jl)">Resources (<code>resources.jl</code>)</a><a id="Resources-(resources.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Resources-(resources.jl)" title="Permalink"></a></h3><p>Resources are world-level singletons shared across all systems, used for global state and aggregate statistics.</p><pre><code class="language-julia hljs">mutable struct LTechState
+    n_agents::Int
+    x::Vector{Float64}
+    y::Vector{Float64}
+    usage::Vector{Vector{String}}
+    understanding::Vector{Dict{String,Float64}}
+    persistence::Vector{Int}
+    teams::Vector{Vector{Int}}
+    adj::Vector{Set{Int}}
+    influencer::Vector{Int}  # 0=nobody, -1=technology, &gt;0=person ID
+    affordances::Dict{String,Int}  # single technology resource
+end
+
+function LTechState()
+    LTechState(
+        0,
+        Float64[], Float64[],
+        Vector{String}[],
+        Dict{String,Float64}[],
+        Int[],
+        Vector{Int}[],
+        Set{Int}[],
+        Int[],
+        Dict{String,Int}()
+    )
+end
+
+function _ltech_add_agent!(state::LTechState, x::Float64, y::Float64)
+    state.n_agents += 1
+    push!(state.x, x)
+    push!(state.y, y)
+    push!(state.usage, String[])
+    push!(state.understanding, Dict{String,Float64}())
+    push!(state.persistence, 0)
+    push!(state.teams, Int[])
+    push!(state.adj, Set{Int}())
+    push!(state.influencer, 0)
+    return state.n_agents
+end
+
+mutable struct LTechStats
+    social_influence::Vector{Float64}
+    material_influence::Vector{Float64}
+    n_users::Int
+    n_active::Int
+end
+
+LTechStats() = LTechStats(Float64[], Float64[], 0, 0)</code></pre><h3 id="Systems-(systems.jl)"><a class="docs-heading-anchor" href="#Systems-(systems.jl)">Systems (<code>systems.jl</code>)</a><a id="Systems-(systems.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Systems-(systems.jl)" title="Permalink"></a></h3><p>Systems contain the model logic and execute in a defined order each tick. Each system struct implements either <code>initialize!</code> (run once at setup) or <code>update!</code> (run every tick).</p><pre><code class="language-julia hljs"># ─── Helpers ──────────────────────────────────────────────────────────────────
+
+function _ltech_distance(state::LTechState, i::Int, j::Int)
+    dx = state.x[i] - state.x[j]
+    dy = state.y[i] - state.y[j]
+    return sqrt(dx * dx + dy * dy)
+end
+
+function _ltech_set_team_radius(state::LTechState)
+    r = 1
+    while true
+        all_ok = true
+        for i in 1:state.n_agents
+            cnt = 0
+            for j in 1:state.n_agents
+                if i != j &amp;&amp; _ltech_distance(state, i, j) &lt;= r
+                    cnt += 1
+                end
+            end
+            if cnt &lt; 4
+                all_ok = false
+                break
+            end
+        end
+        all_ok &amp;&amp; return r
+        r += 1
+    end
+end
+
+function _ltech_build_teams!(rng, state::LTechState)
+    n = state.n_agents
+    team_radius = _ltech_set_team_radius(state)
+
+    # Assign teams: while unassigned people exist
+    while true
+        unassigned = Int[]
+        for i in 1:n
+            if isempty(state.teams[i])
+                push!(unassigned, i)
+            end
+        end
+        isempty(unassigned) &amp;&amp; break
+
+        leader = unassigned[rand(rng, 1:length(unassigned))]
+        state.teams[leader] = [leader]
+
+        # Find candidates within radius with &lt; 4 team memberships
+        candidates = Int[]
+        for j in 1:n
+            if j != leader &amp;&amp; _ltech_distance(state, leader, j) &lt;= team_radius &amp;&amp;
+               length(state.teams[j]) &lt; 4
+                push!(candidates, j)
+            end
+        end
+
+        n_members = min(1 + rand(rng, 0:3), length(candidates))
+        if n_members &gt; 0
+            shuffle!(rng, candidates)
+            for k in 1:n_members
+                c = candidates[k]
+                push!(state.teams[c], leader)
+                state.teams[c] = unique(vcat(state.teams[c]))
+            end
+        end
+    end
+end
+
+function _ltech_build_connections!(state::LTechState)
+    n = state.n_agents
+    # For each agent id used as team label, connect all members sharing it
+    for roll_call in 1:n
+        members = Int[]
+        for i in 1:n
+            if roll_call in state.teams[i]
+                push!(members, i)
+            end
+        end
+        for a_idx in 1:length(members)
+            for b_idx in (a_idx+1):length(members)
+                a, b = members[a_idx], members[b_idx]
+                push!(state.adj[a], b)
+                push!(state.adj[b], a)
+            end
+        end
+    end
+end
+
+function _ltech_find_components(state::LTechState)
+    visited = falses(state.n_agents)
+    components = Vector{Vector{Int}}()
+    for i in 1:state.n_agents
+        if !visited[i]
+            comp = Int[]
+            stack = Int[i]
+            visited[i] = true
+            while !isempty(stack)
+                node = pop!(stack)
+                push!(comp, node)
+                for nb in state.adj[node]
+                    if !visited[nb]
+                        visited[nb] = true
+                        push!(stack, nb)
+                    end
+                end
+            end
+            push!(components, comp)
+        end
+    end
+    return components
+end
+
+function _ltech_fix_network!(rng, state::LTechState)
+    while true
+        comps = _ltech_find_components(state)
+        length(comps) &lt;= 1 &amp;&amp; break
+        a = comps[1][rand(rng, 1:length(comps[1]))]
+        b = comps[2][rand(rng, 1:length(comps[2]))]
+        push!(state.adj[a], b)
+        push!(state.adj[b], a)
+    end
+end
+
+function _ltech_make_small!(rng, state::LTechState)
+    n_extra = ceil(Int, state.n_agents / 10)
+    indices = collect(1:state.n_agents)
+    shuffle!(rng, indices)
+    for k in 1:min(n_extra, state.n_agents)
+        i = indices[k]
+        j = rand(rng, 1:state.n_agents)
+        while j == i
+            j = rand(rng, 1:state.n_agents)
+        end
+        push!(state.adj[i], j)
+        push!(state.adj[j], i)
+    end
+end
+
+function _ltech_build_network!(rng, state::LTechState)
+    _ltech_build_teams!(rng, state)
+    _ltech_build_connections!(state)
+    _ltech_fix_network!(rng, state)
+    _ltech_make_small!(rng, state)
+end
+
+# ─── Interaction helpers ──────────────────────────────────────────────────────
+
+function _ltech_learn_from!(rng, understanding::Dict{String,Float64},
+                            source::Dict, chance::Float64, influence::Float64)
+    isempty(source) &amp;&amp; return
+    rand(rng) &gt;= chance &amp;&amp; return
+    keys_src = collect(keys(source))
+    insight = keys_src[rand(rng, 1:length(keys_src))]
+    if !haskey(understanding, insight)
+        understanding[insight] = 0.0
+    end
+    src_val = Float64(source[insight])
+    direction = src_val &gt;= 0 ? 1.0 : -1.0
+    understanding[insight] = understanding[insight] + influence * direction
+    if abs(understanding[insight]) &gt; 1.0
+        understanding[insight] = direction
+    end
+end
+
+function _ltech_use_technology!(rng, state::LTechState, params::LTechParams, i::Int)
+    # Unexpected learning
+    if params.can_learn_unexpectedly &amp;&amp; rand(rng) &lt; 0.05
+        aff_dict = Dict{String,Float64}(k =&gt; Float64(v) for (k, v) in state.affordances)
+        _ltech_learn_from!(rng, state.understanding[i], aff_dict,
+                           params.tech_transparency, 1.0)
+    end
+
+    # Find features with positive expectation (equivalent to out-hold-neighbors with strength &gt; 0)
+    positive_features = String[]
+    for (feat, val) in state.understanding[i]
+        if val &gt; 0
+            push!(positive_features, feat)
+        end
+    end
+    isempty(positive_features) &amp;&amp; return
+
+    use_feat = positive_features[rand(rng, 1:length(positive_features))]
+    chance_works = params.use_can_fail ? 0.95 : 1.0
+
+    if haskey(state.affordances, use_feat) &amp;&amp; rand(rng) &lt; chance_works
+        state.understanding[i][use_feat] = 1.0
+        if !(use_feat in state.usage[i])
+            push!(state.usage[i], use_feat)
+        end
+    else
+        state.understanding[i][use_feat] = -1.0
+        filter!(f -&gt; f != use_feat, state.usage[i])
+    end
+end
+
+function _ltech_interact!(rng, state::LTechState, params::LTechParams, i::Int)
+    state.influencer[i] = 0
+
+    if state.persistence[i] &lt;= 0
+        return
+    end
+
+    # 25% chance of determining influencer
+    if rand(rng) &lt; 0.25
+        if rand(rng) &lt; params.proportion_material_influence
+            state.influencer[i] = -1  # technology
+        else
+            neighbors = collect(state.adj[i])
+            if !isempty(neighbors)
+                state.influencer[i] = neighbors[rand(rng, 1:length(neighbors))]
+            end
+        end
+    end
+
+    inf = state.influencer[i]
+
+    if inf &gt; 0
+        # Social influence: learn from neighbor&#39;s understanding
+        _ltech_learn_from!(rng, state.understanding[i],
+                           state.understanding[inf], 1.0, 0.2)
+    elseif inf == -1
+        # Material influence: interact with technology
+        if !isempty(state.understanding[i])
+            _ltech_use_technology!(rng, state, params, i)
+        else
+            aff_dict = Dict{String,Float64}(k =&gt; Float64(v) for (k, v) in state.affordances)
+            _ltech_learn_from!(rng, state.understanding[i], aff_dict,
+                               params.tech_transparency, 1.0)
+        end
+        state.persistence[i] -= 1
+    end
+end
+
+function _ltech_update_influences!(state::LTechState, stats::LTechStats)
+    n_active = 0
+    n_social = 0
+    n_material = 0
+    for i in 1:state.n_agents
+        if state.persistence[i] &gt; 0
+            n_active += 1
+            if state.influencer[i] &gt; 0
+                n_social += 1
+            elseif state.influencer[i] == -1
+                n_material += 1
+            end
+        end
+    end
+    if n_active &gt; 0
+        push!(stats.social_influence, n_social / n_active)
+        push!(stats.material_influence, n_material / n_active)
+    end
+end
+
+function _ltech_tally!(state::LTechState, stats::LTechStats)
+    stats.n_users = count(i -&gt; !isempty(state.usage[i]), 1:state.n_agents)
+    stats.n_active = count(i -&gt; state.persistence[i] &gt; 0, 1:state.n_agents)
+end
+
+# ─── Systems ──────────────────────────────────────────────────────────────────
+
+struct InitLTechSystem &lt;: System end
+
+function initialize!(::InitLTechSystem, world::World)
+    params = get_resource(world, LTechParams)
+    rng = get_resource(world, RNGResource).rng
+    state = get_resource(world, LTechState)
+    stats = get_resource(world, LTechStats)
+
+    total = _ltech_total_num(params)
+
+    # Create agents at random positions (NetLogo patch coords -16..16)
+    for _ in 1:total
+        x = Float64(rand(rng, -16:16))
+        y = Float64(rand(rng, -16:16))
+        _ltech_add_agent!(state, x, y)
+    end
+
+    # Assign initial understanding
+    unassigned = collect(1:total)
+    shuffle!(rng, unassigned)
+    idx = 1
+    for _ in 1:params.number_expecting_a
+        state.understanding[unassigned[idx]][&quot;a&quot;] = 1.0
+        idx += 1
+    end
+    for _ in 1:params.number_expecting_b
+        state.understanding[unassigned[idx]][&quot;b&quot;] = 1.0
+        idx += 1
+    end
+    for _ in 1:params.number_expecting_both
+        state.understanding[unassigned[idx]][&quot;a&quot;] = 1.0
+        state.understanding[unassigned[idx]][&quot;b&quot;] = 1.0
+        idx += 1
+    end
+    # remaining have no expectations
+
+    # Build network
+    _ltech_build_network!(rng, state)
+
+    # Set persistence
+    pers = params.limited_persistence ? 3 : 1000
+    for i in 1:total
+        state.persistence[i] = pers
+    end
+
+    # Adopt technology: create affordances from params
+    for feat in params.technology_affordances
+        state.affordances[feat] = 1
+    end
+
+    _ltech_tally!(state, stats)
+    return nothing
+end
+
+struct LTechGoSystem &lt;: System end
+
+function update!(::LTechGoSystem, world::World)
+    params = get_resource(world, LTechParams)
+    rng = get_resource(world, RNGResource).rng
+    state = get_resource(world, LTechState)
+    stats = get_resource(world, LTechStats)
+
+    # Check stop: all persistence = 0
+    if all(p -&gt; p &lt;= 0, state.persistence)
+        get_resource(world, Terminate).stop = true
+        return nothing
+    end
+
+    # Shuffle agent order (NetLogo ask randomizes)
+    order = collect(1:state.n_agents)
+    shuffle!(rng, order)
+    for i in order
+        _ltech_interact!(rng, state, params, i)
+    end
+
+    _ltech_update_influences!(state, stats)
+    _ltech_tally!(state, stats)
+    return nothing
+end
+
+struct LTechTerminationSystem &lt;: System end
+
+function update!(::LTechTerminationSystem, world::World)
+    params = get_resource(world, LTechParams)
+    tick = get_resource(world, Tick)
+    if tick.tick + 1 &gt;= params.max_ticks
+        get_resource(world, Terminate).stop = true
+    end
+    return nothing
+end</code></pre><h3 id="Model-(model.jl)"><a class="docs-heading-anchor" href="#Model-(model.jl)">Model (<code>model.jl</code>)</a><a id="Model-(model.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Model-(model.jl)" title="Permalink"></a></h3><p>The model file assembles all pieces: it creates the ECS <code>World</code> with the required component types, registers resources, builds the <code>Scheduler</code> with systems in execution order, and exposes the public <code>run</code> entry point. The observer pattern records the trajectory each tick.</p><pre><code class="language-julia hljs">function leonarditechadoption_world(; initial_capacity::Int = 128)
+    return World(LTechDummy; initial_capacity=initial_capacity, allow_mutable=true)
+end
+
+function leonarditechadoption_systems()
+    return (
+        InitLTechSystem(),
+        LTechGoSystem(),
+        LTechTerminationSystem(),
+    )
+end
+
+function leonarditechadoption_model(params::LTechParams = LTechParams())
+    world = leonarditechadoption_world()
+    _add_standard_resources!(world, params)
+    add_resource!(world, LTechState())
+    add_resource!(world, LTechStats())
+    scheduler = Scheduler(world, leonarditechadoption_systems())
+    initialize!(scheduler)
+    return scheduler
+end
+
+struct LTechObserver end
+
+function leonarditechadoption_headers(::LTechObserver)
+    return [&quot;n_users&quot;, &quot;n_active&quot;]
+end
+
+function leonarditechadoption_values(::LTechObserver, world::World)
+    stats = get_resource(world, LTechStats)
+    return Float64[stats.n_users, stats.n_active]
+end
+
+function run_leonarditechadoption(; params::LTechParams = LTechParams(), observe::Bool = true)
+    return _run_model(leonarditechadoption_model, LTechObserver(), leonarditechadoption_values; params, observe)
+end</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../lassavirus/lassavirus/">« LassaVirus</a><a class="docs-footer-nextpage" href="../../life/life/">Life »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.20.0 on <span class="colophon-date" title="Wednesday 18 November 2026 18:43">Wednesday 18 November 2026</span>. Using Julia version 1.13.4.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>

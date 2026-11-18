@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="referrer" content="no-referrer"/><title>Ethnocentrism · ArkModelZoo.jl</title><meta name="title" content="Ethnocentrism · ArkModelZoo.jl"/><meta property="og:title" content="Ethnocentrism · ArkModelZoo.jl"/><meta property="twitter:title" content="Ethnocentrism · ArkModelZoo.jl"/><meta name="description" content="Documentation for ArkModelZoo.jl."/><meta property="og:description" content="Documentation for ArkModelZoo.jl."/><meta property="twitter:description" content="Documentation for ArkModelZoo.jl."/><meta property="og:url" content="https://ecorecipes.github.io/ArkModelZoo.jl/tutorials/ethnocentrism/ethnocentrism/"/><meta property="twitter:url" content="https://ecorecipes.github.io/ArkModelZoo.jl/tutorials/ethnocentrism/ethnocentrism/"/><link rel="canonical" href="https://ecorecipes.github.io/ArkModelZoo.jl/tutorials/ethnocentrism/ethnocentrism/"/><script data-outdated-warner src="../../../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.63.2/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../../assets/documenter.js"></script><script src="../../../search_index.js"></script><script src="../../../siteinfo.js"></script><script src="../../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="../../../">ArkModelZoo.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../../../">Home</a></li><li><span class="tocitem">Resilience</span><ul><li><a class="tocitem" href="../../resilience/resilience/">Resilience of agent-based models</a></li></ul></li><li><span class="tocitem">Models</span><ul><li><a class="tocitem" href="../../abtgc/abtgc/">ABTgc</a></li><li><a class="tocitem" href="../../aids/aids/">AIDS</a></li><li><a class="tocitem" href="../../altruism/altruism/">Altruism</a></li><li><a class="tocitem" href="../../antsystem/antsystem/">Ant System TSP</a></li><li><a class="tocitem" href="../../ants/ants/">Ants</a></li><li><a class="tocitem" href="../../artificialeconomy/artificialeconomy/">Artificial Economy</a></li><li><a class="tocitem" href="../../axelrodcultural/axelrodcultural/">AxelrodCultural</a></li><li><a class="tocitem" href="../../babysittingcoop/babysittingcoop/">Baby Sitting Coop</a></li><li><a class="tocitem" href="../../bank_reserves/bank_reserves/">Bank Reserves</a></li><li><a class="tocitem" href="../../bayesian/bayesian/">Bayesian Updating</a></li><li><a class="tocitem" href="../../beinggreen/beinggreen/">Being Green</a></li><li><a class="tocitem" href="../../birthrates/birthrates/">Birthrates</a></li><li><a class="tocitem" href="../../blackbox/blackbox/">BlackBox</a></li><li><a class="tocitem" href="../../boiling/boiling/">Boiling</a></li><li><a class="tocitem" href="../../bombscenario/bombscenario/">BombScenario</a></li><li><a class="tocitem" href="../../brians_brain/brians_brain/">Brian’s Brain</a></li><li><a class="tocitem" href="../../bullwhipeffect/bullwhipeffect/">Bullwhip Effect</a></li><li><a class="tocitem" href="../../ca_1d_elementary/ca_1d_elementary/">CA 1D Elementary</a></li><li><a class="tocitem" href="../../civilizationgrowth/civilizationgrowth/">Civilization Growth</a></li><li><a class="tocitem" href="../../climatechange/climatechange/">Climate Change</a></li><li><a class="tocitem" href="../../coin/coin/">COIN Learning</a></li><li><a class="tocitem" href="../../competitionlearning/competitionlearning/">Competition Learning</a></li><li><a class="tocitem" href="../../contactprocess/contactprocess/">Contact Process 2D</a></li><li><a class="tocitem" href="../../contagionnw/contagionnw/">Contagion NW</a></li><li><a class="tocitem" href="../../contagionsi/contagionsi/">Contagion SI</a></li><li><a class="tocitem" href="../../contagionsir/contagionsir/">Contagion SIR</a></li><li><a class="tocitem" href="../../cooperation/cooperation/">Cooperation</a></li><li><a class="tocitem" href="../../coordination/coordination/">Coordination</a></li><li><a class="tocitem" href="../../coordination2groups/coordination2groups/">Coordination 2 Groups</a></li><li><a class="tocitem" href="../../croprotation/croprotation/">Crop Rotation</a></li><li><a class="tocitem" href="../../crystallization/crystallization/">Crystallization</a></li><li><a class="tocitem" href="../../csvnetworkforaging/csvnetworkforaging/">CSV Network Foraging</a></li><li><a class="tocitem" href="../../csvpopulation/csvpopulation/">CSV Population</a></li><li><a class="tocitem" href="../../culturaldiffusion/culturaldiffusion/">Cultural Diffusion</a></li><li><a class="tocitem" href="../../cyberspaceopinion/cyberspaceopinion/">Cyberspace Opinion</a></li><li><a class="tocitem" href="../../daisyworld/daisyworld/">Daisyworld</a></li><li><a class="tocitem" href="../../dating/dating/">Dating</a></li><li><a class="tocitem" href="../../diffusionnetwork/diffusionnetwork/">Diffusion Network</a></li><li><a class="tocitem" href="../../diffusionofhiv/diffusionofhiv/">DiffusionOfHIV</a></li><li><a class="tocitem" href="../../disinfobitstringnw/disinfobitstringnw/">Disinfobitstringnw</a></li><li><a class="tocitem" href="../../dla/dla/">Dla</a></li><li><a class="tocitem" href="../../dlasimple/dlasimple/">DLA Simple</a></li><li><a class="tocitem" href="../../druguse/druguse/">Drug Use</a></li><li><a class="tocitem" href="../../druguseoverdose/druguseoverdose/">Drug Use Overdose</a></li><li><a class="tocitem" href="../../elfarol/elfarol/">El Farol</a></li><li><a class="tocitem" href="../../erosion/erosion/">Erosion</a></li><li class="is-active"><a class="tocitem" href>Ethnocentrism</a><ul class="internal"><li><a class="tocitem" href="#Overview"><span>Overview</span></a></li><li><a class="tocitem" href="#Parameters"><span>Parameters</span></a></li><li><a class="tocitem" href="#Source-Code"><span>Source Code</span></a></li><li><a class="tocitem" href="#Time-Series"><span>Time Series</span></a></li><li><a class="tocitem" href="#Ensemble-Runs"><span>Ensemble Runs</span></a></li><li><a class="tocitem" href="#Parameter-Sensitivity"><span>Parameter Sensitivity</span></a></li><li><a class="tocitem" href="#Appendix:-Source-Code"><span>Appendix: Source Code</span></a></li></ul></li><li><a class="tocitem" href="../../evolutionofnorms/evolutionofnorms/">EvolutionOfNorms</a></li><li><a class="tocitem" href="../../firepercolation/firepercolation/">Fire Percolation</a></li><li><a class="tocitem" href="../../firebenchmark/firebenchmark/">FireBenchmark</a></li><li><a class="tocitem" href="../../fireflies/fireflies/">Fireflies</a></li><li><a class="tocitem" href="../../flocking/flocking/">Flocking</a></li><li><a class="tocitem" href="../../flockingnetwork/flockingnetwork/">Flocking Network</a></li><li><a class="tocitem" href="../../forestdewdney/forestdewdney/">Forest Dewdney</a></li><li><a class="tocitem" href="../../fire/fire/">Forest Fire</a></li><li><a class="tocitem" href="../../fungalbioremediation/fungalbioremediation/">Fungal Bioremediation</a></li><li><a class="tocitem" href="../../giant_component/giant_component/">Giant Component</a></li><li><a class="tocitem" href="../../gishillclimber/gishillclimber/">GIS HillClimber</a></li><li><a class="tocitem" href="../../granovetter/granovetter/">Granovetter</a></li><li><a class="tocitem" href="../../grassbrushtrees/grassbrushtrees/">Grass Brush Trees</a></li><li><a class="tocitem" href="../../diffusion/diffusion/">Heat Diffusion</a></li><li><a class="tocitem" href="../../heatbugs/heatbugs/">Heatbugs</a></li><li><a class="tocitem" href="../../hikingelevation/hikingelevation/">HikingElevation</a></li><li><a class="tocitem" href="../../infinitelife/infinitelife/">Infinite Life</a></li><li><a class="tocitem" href="../../infodiffusion/infodiffusion/">Info Diffusion</a></li><li><a class="tocitem" href="../../ising/ising/">Ising</a></li><li><a class="tocitem" href="../../languageborders/languageborders/">Language Borders</a></li><li><a class="tocitem" href="../../languagechange/languagechange/">Language Change</a></li><li><a class="tocitem" href="../../lassavirus/lassavirus/">LassaVirus</a></li><li><a class="tocitem" href="../../leonarditechadoption/leonarditechadoption/">Leonardi Tech Adoption</a></li><li><a class="tocitem" href="../../life/life/">Life</a></li><li><a class="tocitem" href="../../logistic_growth/logistic_growth/">Logistic Growth</a></li><li><a class="tocitem" href="../../mailmen/mailmen/">Mailmen Delivery</a></li><li><a class="tocitem" href="../../marriage/marriage/">Marriage Problem</a></li><li><a class="tocitem" href="../../mimicry/mimicry/">Mimicry</a></li><li><a class="tocitem" href="../../minimalsis/minimalsis/">Minimal SIS</a></li><li><a class="tocitem" href="../../minoritybelief/minoritybelief/">Minority Belief Spread</a></li><li><a class="tocitem" href="../../minoritygame/minoritygame/">Minority Game</a></li><li><a class="tocitem" href="../../misinformationsbfc/misinformationsbfc/">Misinformation SBFC</a></li><li><a class="tocitem" href="../../modsocsegregation/modsocsegregation/">Modsoc Segregation</a></li><li><a class="tocitem" href="../../mousetraps/mousetraps/">Mousetraps</a></li><li><a class="tocitem" href="../../multidrugresistant/multidrugresistant/">MultidrugResistant</a></li><li><a class="tocitem" href="../../opinionbc/opinionbc/">Opinion Dynamics BC</a></li><li><a class="tocitem" href="../../paretolearn/paretolearn/">Pareto Learning</a></li><li><a class="tocitem" href="../../participatorydisinfo/participatorydisinfo/">Participatory Disinformation</a></li><li><a class="tocitem" href="../../participatorydisinformation/participatorydisinformation/">Participatory Disinformation</a></li><li><a class="tocitem" href="../../particles/particles/">Particles</a></li><li><a class="tocitem" href="../../party/party/">Party</a></li><li><a class="tocitem" href="../../pd_basic_evolutionary/pd_basic_evolutionary/">PD Basic Evolutionary</a></li><li><a class="tocitem" href="../../pdsimple/pdsimple/">PD Simple</a></li><li><a class="tocitem" href="../../percolation/percolation/">Percolation</a></li><li><a class="tocitem" href="../../polymerdynamics/polymerdynamics/">Polymer Dynamics</a></li><li><a class="tocitem" href="../../prefattachhomophily/prefattachhomophily/">Pref Attach Homophily</a></li><li><a class="tocitem" href="../../preferential_attachment/preferential_attachment/">Preferential Attachment</a></li><li><a class="tocitem" href="../../privacyopinion/privacyopinion/">Privacy Opinion</a></li><li><a class="tocitem" href="../../productsmarket/productsmarket/">Products Market</a></li><li><a class="tocitem" href="../../public_good/public_good/">Public Good</a></li><li><a class="tocitem" href="../../cqin/cqin/">Quality Improvement Network</a></li><li><a class="tocitem" href="../../rabbits_grass_weeds/rabbits_grass_weeds/">Rabbits Grass Weeds</a></li><li><a class="tocitem" href="../../decay/decay/">Radioactive Decay</a></li><li><a class="tocitem" href="../../rationalevolvingpd/rationalevolvingpd/">Rational Evolving PD</a></li><li><a class="tocitem" href="../../rebellion/rebellion/">Rebellion</a></li><li><a class="tocitem" href="../../recruitingmovement/recruitingmovement/">Recruiting Movement</a></li><li><a class="tocitem" href="../../recruiting/recruiting/">Recruiting Supporters</a></li><li><a class="tocitem" href="../../recruitingsupporters/recruitingsupporters/">Recruiting Supporters</a></li><li><a class="tocitem" href="../../resilientteam/resilientteam/">Resilient Team</a></li><li><a class="tocitem" href="../../rhinopoaching/rhinopoaching/">Rhino Poaching</a></li><li><a class="tocitem" href="../../riseofradicalism/riseofradicalism/">Rise of Radicalism</a></li><li><a class="tocitem" href="../../rope/rope/">Rope</a></li><li><a class="tocitem" href="../../rumormill/rumormill/">Rumor Mill</a></li><li><a class="tocitem" href="../../sand/sand/">Sand</a></li><li><a class="tocitem" href="../../schelling/schelling/">Schelling Segregation</a></li><li><a class="tocitem" href="../../segregation/segregation/">Segregation</a></li><li><a class="tocitem" href="../../shepherds/shepherds/">Shepherds</a></li><li><a class="tocitem" href="../../simple_genetic_algorithm/simple_genetic_algorithm/">Simple Genetic Algorithm</a></li><li><a class="tocitem" href="../../simplemarket/simplemarket/">Simple Market</a></li><li><a class="tocitem" href="../../simplemarketrandom/simplemarketrandom/">Simple Market Random</a></li><li><a class="tocitem" href="../../simplemarkettable/simplemarkettable/">Simple Market Table</a></li><li><a class="tocitem" href="../../sir/sir/">SIR Epidemic</a></li><li><a class="tocitem" href="../../sleuthlanduse/sleuthlanduse/">Sleuth LandUse</a></li><li><a class="tocitem" href="../../slime/slime/">Slime</a></li><li><a class="tocitem" href="../../slowspread/slowspread/">Slow Spread Env Action</a></li><li><a class="tocitem" href="../../small_worlds/small_worlds/">Small Worlds</a></li><li><a class="tocitem" href="../../socialinfluence/socialinfluence/">Social Influence</a></li><li><a class="tocitem" href="../../socialnetworkdiffusion/socialnetworkdiffusion/">Social Network Diffusion</a></li><li><a class="tocitem" href="../../soliddiffusion/soliddiffusion/">Solid Diffusion</a></li><li><a class="tocitem" href="../../spatialattitude/spatialattitude/">Spatial Attitude</a></li><li><a class="tocitem" href="../../ipd/ipd/">Spatial IPD</a></li><li><a class="tocitem" href="../../spatialopinion/spatialopinion/">Spatial Opinion Dynamics</a></li><li><a class="tocitem" href="../../fakenews/fakenews/">Spread of Fake News</a></li><li><a class="tocitem" href="../../spreadingbots/spreadingbots/">Spreading Bots</a></li><li><a class="tocitem" href="../../spreadinggroups/spreadinggroups/">Spreading Groups</a></li><li><a class="tocitem" href="../../sugarscape_1_growback/sugarscape_1_growback/">Sugarscape 1 Growback</a></li><li><a class="tocitem" href="../../sugarscapeculture/sugarscapeculture/">Sugarscape Culture</a></li><li><a class="tocitem" href="../../sugarscapesexual/sugarscapesexual/">Sugarscape Sexual</a></li><li><a class="tocitem" href="../../superdiffuser/superdiffuser/">SuperDiffuser</a></li><li><a class="tocitem" href="../../teamassembly/teamassembly/">Team Assembly</a></li><li><a class="tocitem" href="../../termites/termites/">Termites</a></li><li><a class="tocitem" href="../../thermostat/thermostat/">Thermostat</a></li><li><a class="tocitem" href="../../tourism/tourism/">Tourism</a></li><li><a class="tocitem" href="../../traffic2lanes/traffic2lanes/">Traffic 2 Lanes</a></li><li><a class="tocitem" href="../../trafficbasic/trafficbasic/">Traffic Basic</a></li><li><a class="tocitem" href="../../trafficgrid/trafficgrid/">Traffic Grid</a></li><li><a class="tocitem" href="../../trafficintersection/trafficintersection/">Traffic Intersection</a></li><li><a class="tocitem" href="../../tumor/tumor/">Tumor</a></li><li><a class="tocitem" href="../../unitcohesion/unitcohesion/">Unit Cohesion</a></li><li><a class="tocitem" href="../../virus_on_network/virus_on_network/">Virus on a Network</a></li><li><a class="tocitem" href="../../virus/virus/">Virus on Network</a></li><li><a class="tocitem" href="../../voronoivoter/voronoivoter/">Voronoi Voter</a></li><li><a class="tocitem" href="../../voter/voter/">Voter Model</a></li><li><a class="tocitem" href="../../voting/voting/">Voting</a></li><li><a class="tocitem" href="../../wealthdistribution/wealthdistribution/">Wealth Distribution</a></li><li><a class="tocitem" href="../../wisdomcrowd/wisdomcrowd/">Wisdom of Crowd</a></li><li><a class="tocitem" href="../../wolfsheep/wolfsheep/">Wolf Sheep Predation</a></li></ul></li><li><a class="tocitem" href="../../../api/">API Reference</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Models</a></li><li class="is-active"><a href>Ethnocentrism</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Ethnocentrism</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/ecorecipes/ArkModelZoo.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/ecorecipes/ArkModelZoo.jl/blob/main/docs/src/tutorials/ethnocentrism/ethnocentrism.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Ethnocentrism"><a class="docs-heading-anchor" href="#Ethnocentrism">Ethnocentrism</a><a id="Ethnocentrism-1"></a><a class="docs-heading-anchor-permalink" href="#Ethnocentrism" title="Permalink"></a></h1><h2 id="Overview"><a class="docs-heading-anchor" href="#Overview">Overview</a><a id="Overview-1"></a><a class="docs-heading-anchor-permalink" href="#Overview" title="Permalink"></a></h2><h3 id="WHAT-IS-IT?"><a class="docs-heading-anchor" href="#WHAT-IS-IT?">WHAT IS IT?</a><a id="WHAT-IS-IT?-1"></a><a class="docs-heading-anchor-permalink" href="#WHAT-IS-IT?" title="Permalink"></a></h3><p>This model, due to Robert Axelrod and Ross A. Hammond, suggests that “ethnocentric” behavior can evolve under a wide variety of conditions, even when there are no native “ethnocentrics” and no way to differentiate between agent types. Agents compete for limited space via Prisoner Dilemma’s type interactions. “Ethnocentric” agents treat agents within their group more beneficially than those outside their group. The model includes a mechanism for inheritance (genetic or cultural) of strategies.</p><h3 id="HOW-IT-WORKS"><a class="docs-heading-anchor" href="#HOW-IT-WORKS">HOW IT WORKS</a><a id="HOW-IT-WORKS-1"></a><a class="docs-heading-anchor-permalink" href="#HOW-IT-WORKS" title="Permalink"></a></h3><p>Each agent has three traits: a) color, b) whether they cooperate with same colored agents, and c) whether they cooperate with different colored agents. An “ethnocentric” agent is one which cooperates with same colored agents, but does not cooperate with different colored agents. An “altruist” cooperates with all agents, while an “egoist” cooperates with no one. A “cosmopolitan” cooperates with agents of a different color but not of their own color.</p><p>At each time step, the following events occur:</p><ol><li><p>Up to IMMIGRANTS-PER-DAY, new agents appear in random locations with  random traits.</p></li><li><p>Agents start with an INITIAL-PTR (Potential-To-Reproduce) chance of  reproducing. Each pair of adjacent agents interact in a one-move  Prisoner’s Dilemma in which each chooses whether or not to help the  other. They either gain, or lose some of their potential to  reproduce.</p></li><li><p>In random order, each agent is given a chance to reproduce.  Offspring have the same traits as their parents, with a  MUTATION-RATE chance of each trait mutating. Agents are only allowed  to reproduce if there is an empty space next to them. Each agent’s  birth-rate is reset to the INITIAL-PTR.</p></li><li><p>The agent has a DEATH-RATE chance of dying, making room for future  offspring and immigrants.</p></li></ol><h3 id="THINGS-TO-NOTICE"><a class="docs-heading-anchor" href="#THINGS-TO-NOTICE">THINGS TO NOTICE</a><a id="THINGS-TO-NOTICE-1"></a><a class="docs-heading-anchor-permalink" href="#THINGS-TO-NOTICE" title="Permalink"></a></h3><p>Agents appear as circles if they cooperate with the same color. They are filled in if they also cooperate with a different color (altruists) or empty if they do not (ethnocentrics). Agents are squares if they do not cooperate with the same color. The agents are filled in if they cooperate with a different color (cosmopolitans) or empty if they do not (egoists).</p><p>Observe the interaction along the edge of a group of ethnocentric agents, and non-ethnocentric agents. What behaviors do you see? Is one more stable? Does one expand into the other group?</p><p>Observer the STRATEGY COUNTS plot. Does one strategy occur more than others? What happens when we change the model?</p><h3 id="THINGS-TO-TRY"><a class="docs-heading-anchor" href="#THINGS-TO-TRY">THINGS TO TRY</a><a id="THINGS-TO-TRY-1"></a><a class="docs-heading-anchor-permalink" href="#THINGS-TO-TRY" title="Permalink"></a></h3><p>Set the IMMIGRANT-CHANCE-COOPERATE sliders both to 1.0. This means there are only altruists created. Do ethnocentrics and other strategies ever evolve? Do they ever out compete the altruists?</p><p>Change the values of COST-OF-GIVING and GAIN-OF-RECEIVING and observe the effects on the model and the level of ethnocentricity.</p><p>This model comes with a group of BehaviorSpace experiments defined. You can access them by choosing BehaviorSpace on the Tools menu. These are the original experiments that Axelrod and Hammond ran to test the robustness of this model. These experiments vary lots of parameters like the size of the world, IMMIGRANTS-PER-DAY and COST-OF-GIVING. These experiments are detailed at http://www-personal.umich.edu/~axe/Shared_Files/Axelrod.Hammond/index.htm</p><h3 id="EXTENDING-THE-MODEL"><a class="docs-heading-anchor" href="#EXTENDING-THE-MODEL">EXTENDING THE MODEL</a><a id="EXTENDING-THE-MODEL-1"></a><a class="docs-heading-anchor-permalink" href="#EXTENDING-THE-MODEL" title="Permalink"></a></h3><p>Add more colors to the model. Does the behavior change?</p><p>Make some patches richer than others, so that agents on them have a higher chance of reproducing. Distribute this advantage across the world in different ways such as randomly, in blobs, or in quarters.</p><p>Tag patches with a color. distribute the colors across the world in different ways: blobs, randomly, in discrete quarters. Agents use the patch color under other agents to determine whether to cooperate with them or not.</p><h3 id="NETLOGO-FEATURES"><a class="docs-heading-anchor" href="#NETLOGO-FEATURES">NETLOGO FEATURES</a><a id="NETLOGO-FEATURES-1"></a><a class="docs-heading-anchor-permalink" href="#NETLOGO-FEATURES" title="Permalink"></a></h3><p>To ensure fairness, the agents should run in random order. Agentsets in NetLogo are always in random order, so no extra code is needed to achieve this.</p><h3 id="RELATED-MODELS"><a class="docs-heading-anchor" href="#RELATED-MODELS">RELATED MODELS</a><a id="RELATED-MODELS-1"></a><a class="docs-heading-anchor-permalink" href="#RELATED-MODELS" title="Permalink"></a></h3><ul><li>Segregation</li><li>PD Basic</li><li>Ethnocentrism - Alternative Visualization</li></ul><h3 id="CREDITS-AND-REFERENCES"><a class="docs-heading-anchor" href="#CREDITS-AND-REFERENCES">CREDITS AND REFERENCES</a><a id="CREDITS-AND-REFERENCES-1"></a><a class="docs-heading-anchor-permalink" href="#CREDITS-AND-REFERENCES" title="Permalink"></a></h3><p>This model is a NetLogo version of the ethnocentrism model presented by Robert Axelrod at Northwestern University at the NICO (Northwestern Institute on Complex Systems) conference on October 25th, 2003.</p><p>See also Ross A. Hammond and Robert Axelrod, The Evolution of Ethnocentrism, http://www-personal.umich.edu/~axe/research/AxHamm_Ethno.pdf</p><h3 id="HOW-TO-CITE"><a class="docs-heading-anchor" href="#HOW-TO-CITE">HOW TO CITE</a><a id="HOW-TO-CITE-1"></a><a class="docs-heading-anchor-permalink" href="#HOW-TO-CITE" title="Permalink"></a></h3><p>If you mention this model or the NetLogo software in a publication, we ask that you include the citations below.</p><p>For the model itself:</p><ul><li>Wilensky, U. (2003). NetLogo Ethnocentrism model. http://ccl.northwestern.edu/netlogo/models/Ethnocentrism. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.</li></ul><p>Please cite the NetLogo software as:</p><ul><li>Wilensky, U. (1999). NetLogo. http://ccl.northwestern.edu/netlogo/. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.</li></ul><h3 id="COPYRIGHT-AND-LICENSE"><a class="docs-heading-anchor" href="#COPYRIGHT-AND-LICENSE">COPYRIGHT AND LICENSE</a><a id="COPYRIGHT-AND-LICENSE-1"></a><a class="docs-heading-anchor-permalink" href="#COPYRIGHT-AND-LICENSE" title="Permalink"></a></h3><p>Copyright 2003 Uri Wilensky.</p><p><img src="http://ccl.northwestern.edu/images/creativecommons/byncsa.png" alt="CC BY-NC-SA 3.0"/></p><p>This model is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License. To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/3.0/ or send a letter to Creative Commons, 559 Nathan Abbott Way, Stanford, California 94305, USA.</p><p>NetLogo itself is free software for non-commercial use under the terms of the GNU General Public License (<a href="https://ccl.northwestern.edu/netlogo/docs/copyright.html">see full license information here</a>).</p><p>To inquire about commercial licenses for either NetLogo or specific models from the models library, please contact netlogo-commercial-admin@ccl.northwestern.edu.</p><p>This model was created as part of the projects: PARTICIPATORY SIMULATIONS: NETWORK-BASED DESIGN FOR SYSTEMS LEARNING IN CLASSROOMS and/or INTEGRATED SIMULATION AND MODELING ENVIRONMENT. The project gratefully acknowledges the support of the National Science Foundation (REPP &amp; ROLE programs) – grant numbers REC #9814682 and REC-0126227.</p><h2 id="Parameters"><a class="docs-heading-anchor" href="#Parameters">Parameters</a><a id="Parameters-1"></a><a class="docs-heading-anchor-permalink" href="#Parameters" title="Permalink"></a></h2><table><tr><th style="text-align: right">Parameter</th><th style="text-align: right">Type</th><th style="text-align: right">Default</th><th style="text-align: right">Description</th></tr><tr><td style="text-align: right"><code>mutation_rate</code></td><td style="text-align: right"><code>Float64</code></td><td style="text-align: right"><code>0.005</code></td><td style="text-align: right">mutation rate</td></tr><tr><td style="text-align: right"><code>death_rate</code></td><td style="text-align: right"><code>Float64</code></td><td style="text-align: right"><code>0.10</code></td><td style="text-align: right">death rate</td></tr><tr><td style="text-align: right"><code>immigrants_per_day</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>1</code></td><td style="text-align: right">immigrants per day</td></tr><tr><td style="text-align: right"><code>initial_ptr</code></td><td style="text-align: right"><code>Float64</code></td><td style="text-align: right"><code>0.12</code></td><td style="text-align: right">initial ptr</td></tr><tr><td style="text-align: right"><code>cost_of_giving</code></td><td style="text-align: right"><code>Float64</code></td><td style="text-align: right"><code>0.01</code></td><td style="text-align: right">cost of giving</td></tr><tr><td style="text-align: right"><code>gain_of_receiving</code></td><td style="text-align: right"><code>Float64</code></td><td style="text-align: right"><code>0.03</code></td><td style="text-align: right">gain of receiving</td></tr><tr><td style="text-align: right"><code>immigrant_chance_cooperate_same</code></td><td style="text-align: right"><code>Float64</code></td><td style="text-align: right"><code>0.5</code></td><td style="text-align: right">immigrant chance cooperate same</td></tr><tr><td style="text-align: right"><code>immigrant_chance_cooperate_different</code></td><td style="text-align: right"><code>Float64</code></td><td style="text-align: right"><code>0.5</code></td><td style="text-align: right">immigrant chance cooperate different</td></tr><tr><td style="text-align: right"><code>grid_size</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>50</code></td><td style="text-align: right">grid size</td></tr><tr><td style="text-align: right"><code>max_ticks</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>2000</code></td><td style="text-align: right">max ticks</td></tr><tr><td style="text-align: right"><code>start_full</code></td><td style="text-align: right"><code>Bool</code></td><td style="text-align: right"><code>false</code></td><td style="text-align: right">if true, fill entire grid at start</td></tr></table><h2 id="Source-Code"><a class="docs-heading-anchor" href="#Source-Code">Source Code</a><a id="Source-Code-1"></a><a class="docs-heading-anchor-permalink" href="#Source-Code" title="Permalink"></a></h2><p>The Julia code to run this model:</p><pre><code class="language-julia hljs">using ArkModelZoo
+_, trajectory = run_ethnocentrism()</code></pre><h2 id="Time-Series"><a class="docs-heading-anchor" href="#Time-Series">Time Series</a><a id="Time-Series-1"></a><a class="docs-heading-anchor-permalink" href="#Time-Series" title="Permalink"></a></h2><p><img src="../plot_timeseries.png" alt="Ethnocentrism time series"/></p><h2 id="Ensemble-Runs"><a class="docs-heading-anchor" href="#Ensemble-Runs">Ensemble Runs</a><a id="Ensemble-Runs-1"></a><a class="docs-heading-anchor-permalink" href="#Ensemble-Runs" title="Permalink"></a></h2><p>Ten replicates with different random seeds, showing mean ± standard deviation.</p><p><img src="../plot_ensemble.png" alt="Ethnocentrism ensemble"/></p><h2 id="Parameter-Sensitivity"><a class="docs-heading-anchor" href="#Parameter-Sensitivity">Parameter Sensitivity</a><a id="Parameter-Sensitivity-1"></a><a class="docs-heading-anchor-permalink" href="#Parameter-Sensitivity" title="Permalink"></a></h2><p>Varying <code>mutation_rate</code>.</p><p><img src="../plot_sensitivity.png" alt="Ethnocentrism sensitivity"/></p><h2 id="Appendix:-Source-Code"><a class="docs-heading-anchor" href="#Appendix:-Source-Code">Appendix: Source Code</a><a id="Appendix:-Source-Code-1"></a><a class="docs-heading-anchor-permalink" href="#Appendix:-Source-Code" title="Permalink"></a></h2><p>This model is implemented in the <a href="https://github.com/sdwfrost/Ark.jl">Ark.jl</a> Entity-Component-System (ECS) framework. The code is split into five files, each with a distinct role:</p><ul><li><strong>Parameters</strong>: a mutable struct holding all configurable values.</li><li><strong>Components</strong>: lightweight data types attached to individual entities (agents).</li><li><strong>Resources</strong>: world-level shared state accessible to all systems.</li><li><strong>Systems</strong>: functions that operate on entities each tick, defining model behavior.</li><li><strong>Model</strong>: wiring that assembles the world, registers resources and systems, and provides the run entry point.</li></ul><h3 id="Parameters-(parameters.jl)"><a class="docs-heading-anchor" href="#Parameters-(parameters.jl)">Parameters (<code>parameters.jl</code>)</a><a id="Parameters-(parameters.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Parameters-(parameters.jl)" title="Permalink"></a></h3><p>The parameter struct uses <code>@kwdef</code> so that every field has a default value and can be overridden by keyword. These defaults match the original NetLogo model’s slider settings.</p><pre><code class="language-julia hljs">Base.@kwdef mutable struct EthnocentrismParams
+    mutation_rate::Float64 = 0.005
+    death_rate::Float64 = 0.10
+    immigrants_per_day::Int = 1
+    initial_ptr::Float64 = 0.12
+    cost_of_giving::Float64 = 0.01
+    gain_of_receiving::Float64 = 0.03
+    immigrant_chance_cooperate_same::Float64 = 0.5
+    immigrant_chance_cooperate_different::Float64 = 0.5
+    grid_size::Int = 50
+    max_ticks::Int = 2000
+    seed::Int = 42
+    start_full::Bool = false  # if true, fill entire grid at start
+end</code></pre><h3 id="Components-(components.jl)"><a class="docs-heading-anchor" href="#Components-(components.jl)">Components (<code>components.jl</code>)</a><a id="Components-(components.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Components-(components.jl)" title="Permalink"></a></h3><p>Components are lightweight data types attached to individual entities (agents). Mutable structs hold per-entity state, while empty tag structs act as markers for the ECS query system to efficiently filter entities.</p><pre><code class="language-julia hljs"># Grid position (integer, Von Neumann neighborhood)
+mutable struct EthnoPosition
+    x::Int
+    y::Int
+end
+EthnoPosition() = EthnoPosition(0, 0)
+
+# Strategy: cooperate-with-same?, cooperate-with-different?
+mutable struct Strategy
+    cooperate_with_same::Bool
+    cooperate_with_different::Bool
+end
+Strategy() = Strategy(false, false)
+
+# Agent color (1-4)
+mutable struct EthnoColor
+    color::Int
+end
+EthnoColor() = EthnoColor(1)
+
+# Potential to reproduce (accumulated through interactions)
+mutable struct PTR
+    value::Float64
+end
+PTR() = PTR(0.0)</code></pre><h3 id="Resources-(resources.jl)"><a class="docs-heading-anchor" href="#Resources-(resources.jl)">Resources (<code>resources.jl</code>)</a><a id="Resources-(resources.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Resources-(resources.jl)" title="Permalink"></a></h3><p>Resources are world-level singletons shared across all systems, used for global state and aggregate statistics.</p><pre><code class="language-julia hljs"># Grid occupancy
+mutable struct EthnoGrid
+    width::Int
+    height::Int
+    cells::Matrix{Entity}
+end
+
+function EthnoGrid(w::Int, h::Int)
+    EthnoGrid(w, h, fill(zero_entity, w, h))
+end
+
+# Running statistics
+mutable struct EthnoStats
+    # Per-tick counts
+    meet::Int
+    meetown::Int
+    meetother::Int
+    coopown::Int
+    coopother::Int
+    defother::Int
+    # Strategy percentages (rolling 100-tick window)
+    cc_history::Vector{Float64}  # altruist
+    cd_history::Vector{Float64}  # ethnocentric
+    dc_history::Vector{Float64}  # cosmopolitan
+    dd_history::Vector{Float64}  # egoist
+    total_population::Int
+end
+
+function EthnoStats()
+    EthnoStats(0, 0, 0, 0, 0, 0,
+               Float64[], Float64[], Float64[], Float64[], 0)
+end
+
+function clear_tick_stats!(stats::EthnoStats)
+    stats.meet = 0
+    stats.meetown = 0
+    stats.meetother = 0
+    stats.coopown = 0
+    stats.coopother = 0
+    stats.defother = 0
+end</code></pre><h3 id="Systems-(systems.jl)"><a class="docs-heading-anchor" href="#Systems-(systems.jl)">Systems (<code>systems.jl</code>)</a><a id="Systems-(systems.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Systems-(systems.jl)" title="Permalink"></a></h3><p>Systems contain the model logic and execute in a defined order each tick. Each system struct implements either <code>initialize!</code> (run once at setup) or <code>update!</code> (run every tick).</p><pre><code class="language-julia hljs"># --- Initialization ---
+
+struct InitEthnoSystem &lt;: System end
+
+function _random_ethno_agent!(world::World, rng, params::EthnocentrismParams,
+                               grid::EthnoGrid, x::Int, y::Int)
+    color = rand(rng, 1:4)
+    coop_same = rand(rng) &lt; params.immigrant_chance_cooperate_same
+    coop_diff = rand(rng) &lt; params.immigrant_chance_cooperate_different
+    eid = new_entity!(world, (
+        EthnoPosition(x, y),
+        Strategy(coop_same, coop_diff),
+        EthnoColor(color),
+        PTR(0.0),
+    ))
+    grid.cells[x, y] = eid
+    return eid
+end
+
+function initialize!(::InitEthnoSystem, world::World)
+    params = get_resource(world, EthnocentrismParams)
+    rng = get_resource(world, RNGResource).rng
+    grid = get_resource(world, EthnoGrid)
+
+    if params.start_full
+        for x in 1:grid.width, y in 1:grid.height
+            _random_ethno_agent!(world, rng, params, grid, x, y)
+        end
+    end
+    return nothing
+end
+
+# --- Immigration ---
+
+struct ImmigrationSystem &lt;: System end
+
+function update!(::ImmigrationSystem, world::World)
+    params = get_resource(world, EthnocentrismParams)
+    rng = get_resource(world, RNGResource).rng
+    grid = get_resource(world, EthnoGrid)
+
+    # Collect empty cells
+    empties = Tuple{Int,Int}[]
+    for x in 1:grid.width, y in 1:grid.height
+        is_zero(grid.cells[x, y]) &amp;&amp; push!(empties, (x, y))
+    end
+
+    isempty(empties) &amp;&amp; return nothing
+
+    for _ in 1:params.immigrants_per_day
+        isempty(empties) &amp;&amp; break
+        idx = rand(rng, 1:length(empties))
+        x, y = empties[idx]
+        _random_ethno_agent!(world, rng, params, grid, x, y)
+        deleteat!(empties, idx)
+    end
+    return nothing
+end
+
+# --- Interaction ---
+
+struct InteractionSystem &lt;: System end
+
+function update!(::InteractionSystem, world::World)
+    params = get_resource(world, EthnocentrismParams)
+    grid = get_resource(world, EthnoGrid)
+    stats = get_resource(world, EthnoStats)
+    clear_tick_stats!(stats)
+    w, h = grid.width, grid.height
+
+    # Set PTR to initial value for all agents
+    for (_, _, ptrs) in Query(world, (EthnoPosition, PTR))
+        @inbounds for i in eachindex(ptrs)
+            ptrs[i].value = params.initial_ptr
+        end
+    end
+
+    # Von Neumann neighbors (N, S, E, W)
+    offsets = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+
+    for (eids, positions, strategies, colors, ptrs) in Query(world, (EthnoPosition, Strategy, EthnoColor, PTR))
+        @inbounds for i in eachindex(positions)
+            pos = positions[i]
+            my_color = colors[i].color
+            my_strategy = strategies[i]
+
+            for (dx, dy) in offsets
+                nx = pos.x + dx
+                ny = pos.y + dy
+                # Wrap toroidal
+                nx = mod1(nx, w)
+                ny = mod1(ny, h)
+
+                neighbor_eid = grid.cells[nx, ny]
+                is_zero(neighbor_eid) &amp;&amp; continue
+
+                stats.meet += 1
+                neighbor_color = get_components(world, neighbor_eid, (EthnoColor,))[1]
+                neighbor_ptr = get_components(world, neighbor_eid, (PTR,))[1]
+                same_group = my_color == neighbor_color.color
+
+                if same_group
+                    stats.meetown += 1
+                    if my_strategy.cooperate_with_same
+                        ptrs[i].value -= params.cost_of_giving
+                        neighbor_ptr.value += params.gain_of_receiving
+                        stats.coopown += 1
+                    end
+                else
+                    stats.meetother += 1
+                    if my_strategy.cooperate_with_different
+                        ptrs[i].value -= params.cost_of_giving
+                        neighbor_ptr.value += params.gain_of_receiving
+                        stats.coopother += 1
+                    else
+                        stats.defother += 1
+                    end
+                end
+            end
+        end
+    end
+    return nothing
+end
+
+# --- Reproduction ---
+
+mutable struct EthnoReproductionSystem &lt;: System
+    to_spawn::Vector{Tuple{Int, Int, Int, Bool, Bool}}  # (x, y, color, coop_same, coop_diff)
+end
+EthnoReproductionSystem() = EthnoReproductionSystem(Tuple{Int,Int,Int,Bool,Bool}[])
+
+function update!(system::EthnoReproductionSystem, world::World)
+    params = get_resource(world, EthnocentrismParams)
+    rng = get_resource(world, RNGResource).rng
+    grid = get_resource(world, EthnoGrid)
+    w, h = grid.width, grid.height
+    offsets = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+
+    empty!(system.to_spawn)
+
+    for (_, positions, strategies, colors, ptrs) in Query(world, (EthnoPosition, Strategy, EthnoColor, PTR))
+        @inbounds for i in eachindex(positions)
+            ptrs[i].value &lt;= 0.0 &amp;&amp; continue
+            rand(rng) &gt;= ptrs[i].value &amp;&amp; continue
+
+            # Find empty neighbor
+            pos = positions[i]
+            neighbors = Tuple{Int,Int}[]
+            for (dx, dy) in offsets
+                nx = mod1(pos.x + dx, w)
+                ny = mod1(pos.y + dy, h)
+                is_zero(grid.cells[nx, ny]) &amp;&amp; push!(neighbors, (nx, ny))
+            end
+            isempty(neighbors) &amp;&amp; continue
+
+            nx, ny = neighbors[rand(rng, 1:length(neighbors))]
+
+            # Offspring inherits parent traits with mutation
+            child_color = colors[i].color
+            child_coop_same = strategies[i].cooperate_with_same
+            child_coop_diff = strategies[i].cooperate_with_different
+
+            if rand(rng) &lt; params.mutation_rate
+                child_color = rand(rng, 1:4)
+            end
+            if rand(rng) &lt; params.mutation_rate
+                child_coop_same = !child_coop_same
+            end
+            if rand(rng) &lt; params.mutation_rate
+                child_coop_diff = !child_coop_diff
+            end
+
+            push!(system.to_spawn, (nx, ny, child_color, child_coop_same, child_coop_diff))
+        end
+    end
+
+    for (x, y, color, cs, cd) in system.to_spawn
+        !is_zero(grid.cells[x, y]) &amp;&amp; continue
+        eid = new_entity!(world, (
+            EthnoPosition(x, y),
+            Strategy(cs, cd),
+            EthnoColor(color),
+            PTR(0.0),
+        ))
+        grid.cells[x, y] = eid
+    end
+    return nothing
+end
+
+# --- Death ---
+
+struct EthnoDeathSystem &lt;: System
+    to_remove::Vector{Entity}
+end
+EthnoDeathSystem() = EthnoDeathSystem(Entity[])
+
+function update!(system::EthnoDeathSystem, world::World)
+    params = get_resource(world, EthnocentrismParams)
+    rng = get_resource(world, RNGResource).rng
+    grid = get_resource(world, EthnoGrid)
+    empty!(system.to_remove)
+
+    for (eids, positions) in Query(world, (EthnoPosition,))
+        @inbounds for i in eachindex(positions)
+            if rand(rng) &lt; params.death_rate
+                push!(system.to_remove, eids[i])
+            end
+        end
+    end
+
+    for e in system.to_remove
+        if is_alive(world, e)
+            pos = get_components(world, e, (EthnoPosition,))[1]
+            grid.cells[pos.x, pos.y] = zero_entity
+            remove_entity!(world, e)
+        end
+    end
+    return nothing
+end
+
+# --- Statistics ---
+
+struct EthnoStatsSystem &lt;: System end
+
+function update!(::EthnoStatsSystem, world::World)
+    stats = get_resource(world, EthnoStats)
+    cc = 0; cd = 0; dc = 0; dd = 0; total = 0
+
+    for (_, _, strategies) in Query(world, (EthnoPosition, Strategy))
+        @inbounds for i in eachindex(strategies)
+            total += 1
+            s = strategies[i]
+            if s.cooperate_with_same &amp;&amp; s.cooperate_with_different
+                cc += 1  # altruist
+            elseif s.cooperate_with_same &amp;&amp; !s.cooperate_with_different
+                cd += 1  # ethnocentric
+            elseif !s.cooperate_with_same &amp;&amp; s.cooperate_with_different
+                dc += 1  # cosmopolitan
+            else
+                dd += 1  # egoist
+            end
+        end
+    end
+
+    stats.total_population = total
+    if total &gt; 0
+        push!(stats.cc_history, cc / total * 100.0)
+        push!(stats.cd_history, cd / total * 100.0)
+        push!(stats.dc_history, dc / total * 100.0)
+        push!(stats.dd_history, dd / total * 100.0)
+        # Keep rolling window of 100
+        if length(stats.cc_history) &gt; 100
+            popfirst!(stats.cc_history)
+            popfirst!(stats.cd_history)
+            popfirst!(stats.dc_history)
+            popfirst!(stats.dd_history)
+        end
+    end
+    return nothing
+end
+
+# --- Termination ---
+
+struct EthnoTerminationSystem &lt;: System end
+
+function update!(::EthnoTerminationSystem, world::World)
+    params = get_resource(world, EthnocentrismParams)
+    tick = get_resource(world, Tick)
+    if tick.tick + 1 &gt;= params.max_ticks
+        get_resource(world, Terminate).stop = true
+    end
+    return nothing
+end</code></pre><h3 id="Model-(model.jl)"><a class="docs-heading-anchor" href="#Model-(model.jl)">Model (<code>model.jl</code>)</a><a id="Model-(model.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Model-(model.jl)" title="Permalink"></a></h3><p>The model file assembles all pieces: it creates the ECS <code>World</code> with the required component types, registers resources, builds the <code>Scheduler</code> with systems in execution order, and exposes the public <code>run</code> entry point. The observer pattern records the trajectory each tick.</p><pre><code class="language-julia hljs">function ethnocentrism_world(; initial_capacity::Int = 4096)
+    return World(
+        EthnoPosition,
+        Strategy,
+        EthnoColor,
+        PTR;
+        initial_capacity = initial_capacity,
+        allow_mutable = true,
+    )
+end
+
+function ethnocentrism_systems()
+    return (
+        InitEthnoSystem(),
+        ImmigrationSystem(),
+        InteractionSystem(),
+        EthnoReproductionSystem(),
+        EthnoDeathSystem(),
+        EthnoStatsSystem(),
+        EthnoTerminationSystem(),
+    )
+end
+
+function ethnocentrism_model(params::EthnocentrismParams = EthnocentrismParams())
+    world = ethnocentrism_world()
+    _add_standard_resources!(world, params)
+    add_resource!(world, EthnoGrid(params.grid_size, params.grid_size))
+    add_resource!(world, EthnoStats())
+    scheduler = Scheduler(world, ethnocentrism_systems())
+    initialize!(scheduler)
+    return scheduler
+end
+
+struct EthnocentrismObserver end
+
+function ethnocentrism_headers(::EthnocentrismObserver)
+    return [&quot;CC_Altruist&quot;, &quot;CD_Ethnocentric&quot;, &quot;DC_Cosmopolitan&quot;, &quot;DD_Egoist&quot;, &quot;Population&quot;]
+end
+
+function ethnocentrism_values(::EthnocentrismObserver, world::World)
+    stats = get_resource(world, EthnoStats)
+    cc = isempty(stats.cc_history) ? 0.0 : last(stats.cc_history)
+    cd = isempty(stats.cd_history) ? 0.0 : last(stats.cd_history)
+    dc = isempty(stats.dc_history) ? 0.0 : last(stats.dc_history)
+    dd = isempty(stats.dd_history) ? 0.0 : last(stats.dd_history)
+    return Float64[cc, cd, dc, dd, stats.total_population]
+end
+
+function run_ethnocentrism(; params::EthnocentrismParams = EthnocentrismParams(), observe::Bool = true)
+    return _run_model(ethnocentrism_model, EthnocentrismObserver(), ethnocentrism_values; params, observe)
+end</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../erosion/erosion/">« Erosion</a><a class="docs-footer-nextpage" href="../../evolutionofnorms/evolutionofnorms/">EvolutionOfNorms »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.20.0 on <span class="colophon-date" title="Wednesday 18 November 2026 18:43">Wednesday 18 November 2026</span>. Using Julia version 1.13.4.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>

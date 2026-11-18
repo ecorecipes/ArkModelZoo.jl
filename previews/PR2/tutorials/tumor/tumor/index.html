@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="referrer" content="no-referrer"/><title>Tumor · ArkModelZoo.jl</title><meta name="title" content="Tumor · ArkModelZoo.jl"/><meta property="og:title" content="Tumor · ArkModelZoo.jl"/><meta property="twitter:title" content="Tumor · ArkModelZoo.jl"/><meta name="description" content="Documentation for ArkModelZoo.jl."/><meta property="og:description" content="Documentation for ArkModelZoo.jl."/><meta property="twitter:description" content="Documentation for ArkModelZoo.jl."/><meta property="og:url" content="https://ecorecipes.github.io/ArkModelZoo.jl/tutorials/tumor/tumor/"/><meta property="twitter:url" content="https://ecorecipes.github.io/ArkModelZoo.jl/tutorials/tumor/tumor/"/><link rel="canonical" href="https://ecorecipes.github.io/ArkModelZoo.jl/tutorials/tumor/tumor/"/><script data-outdated-warner src="../../../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.63.2/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../../assets/documenter.js"></script><script src="../../../search_index.js"></script><script src="../../../siteinfo.js"></script><script src="../../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="../../../">ArkModelZoo.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../../../">Home</a></li><li><span class="tocitem">Resilience</span><ul><li><a class="tocitem" href="../../resilience/resilience/">Resilience of agent-based models</a></li></ul></li><li><span class="tocitem">Models</span><ul><li><a class="tocitem" href="../../abtgc/abtgc/">ABTgc</a></li><li><a class="tocitem" href="../../aids/aids/">AIDS</a></li><li><a class="tocitem" href="../../altruism/altruism/">Altruism</a></li><li><a class="tocitem" href="../../antsystem/antsystem/">Ant System TSP</a></li><li><a class="tocitem" href="../../ants/ants/">Ants</a></li><li><a class="tocitem" href="../../artificialeconomy/artificialeconomy/">Artificial Economy</a></li><li><a class="tocitem" href="../../axelrodcultural/axelrodcultural/">AxelrodCultural</a></li><li><a class="tocitem" href="../../babysittingcoop/babysittingcoop/">Baby Sitting Coop</a></li><li><a class="tocitem" href="../../bank_reserves/bank_reserves/">Bank Reserves</a></li><li><a class="tocitem" href="../../bayesian/bayesian/">Bayesian Updating</a></li><li><a class="tocitem" href="../../beinggreen/beinggreen/">Being Green</a></li><li><a class="tocitem" href="../../birthrates/birthrates/">Birthrates</a></li><li><a class="tocitem" href="../../blackbox/blackbox/">BlackBox</a></li><li><a class="tocitem" href="../../boiling/boiling/">Boiling</a></li><li><a class="tocitem" href="../../bombscenario/bombscenario/">BombScenario</a></li><li><a class="tocitem" href="../../brians_brain/brians_brain/">Brian’s Brain</a></li><li><a class="tocitem" href="../../bullwhipeffect/bullwhipeffect/">Bullwhip Effect</a></li><li><a class="tocitem" href="../../ca_1d_elementary/ca_1d_elementary/">CA 1D Elementary</a></li><li><a class="tocitem" href="../../civilizationgrowth/civilizationgrowth/">Civilization Growth</a></li><li><a class="tocitem" href="../../climatechange/climatechange/">Climate Change</a></li><li><a class="tocitem" href="../../coin/coin/">COIN Learning</a></li><li><a class="tocitem" href="../../competitionlearning/competitionlearning/">Competition Learning</a></li><li><a class="tocitem" href="../../contactprocess/contactprocess/">Contact Process 2D</a></li><li><a class="tocitem" href="../../contagionnw/contagionnw/">Contagion NW</a></li><li><a class="tocitem" href="../../contagionsi/contagionsi/">Contagion SI</a></li><li><a class="tocitem" href="../../contagionsir/contagionsir/">Contagion SIR</a></li><li><a class="tocitem" href="../../cooperation/cooperation/">Cooperation</a></li><li><a class="tocitem" href="../../coordination/coordination/">Coordination</a></li><li><a class="tocitem" href="../../coordination2groups/coordination2groups/">Coordination 2 Groups</a></li><li><a class="tocitem" href="../../croprotation/croprotation/">Crop Rotation</a></li><li><a class="tocitem" href="../../crystallization/crystallization/">Crystallization</a></li><li><a class="tocitem" href="../../csvnetworkforaging/csvnetworkforaging/">CSV Network Foraging</a></li><li><a class="tocitem" href="../../csvpopulation/csvpopulation/">CSV Population</a></li><li><a class="tocitem" href="../../culturaldiffusion/culturaldiffusion/">Cultural Diffusion</a></li><li><a class="tocitem" href="../../cyberspaceopinion/cyberspaceopinion/">Cyberspace Opinion</a></li><li><a class="tocitem" href="../../daisyworld/daisyworld/">Daisyworld</a></li><li><a class="tocitem" href="../../dating/dating/">Dating</a></li><li><a class="tocitem" href="../../diffusionnetwork/diffusionnetwork/">Diffusion Network</a></li><li><a class="tocitem" href="../../diffusionofhiv/diffusionofhiv/">DiffusionOfHIV</a></li><li><a class="tocitem" href="../../disinfobitstringnw/disinfobitstringnw/">Disinfobitstringnw</a></li><li><a class="tocitem" href="../../dla/dla/">Dla</a></li><li><a class="tocitem" href="../../dlasimple/dlasimple/">DLA Simple</a></li><li><a class="tocitem" href="../../druguse/druguse/">Drug Use</a></li><li><a class="tocitem" href="../../druguseoverdose/druguseoverdose/">Drug Use Overdose</a></li><li><a class="tocitem" href="../../elfarol/elfarol/">El Farol</a></li><li><a class="tocitem" href="../../erosion/erosion/">Erosion</a></li><li><a class="tocitem" href="../../ethnocentrism/ethnocentrism/">Ethnocentrism</a></li><li><a class="tocitem" href="../../evolutionofnorms/evolutionofnorms/">EvolutionOfNorms</a></li><li><a class="tocitem" href="../../firepercolation/firepercolation/">Fire Percolation</a></li><li><a class="tocitem" href="../../firebenchmark/firebenchmark/">FireBenchmark</a></li><li><a class="tocitem" href="../../fireflies/fireflies/">Fireflies</a></li><li><a class="tocitem" href="../../flocking/flocking/">Flocking</a></li><li><a class="tocitem" href="../../flockingnetwork/flockingnetwork/">Flocking Network</a></li><li><a class="tocitem" href="../../forestdewdney/forestdewdney/">Forest Dewdney</a></li><li><a class="tocitem" href="../../fire/fire/">Forest Fire</a></li><li><a class="tocitem" href="../../fungalbioremediation/fungalbioremediation/">Fungal Bioremediation</a></li><li><a class="tocitem" href="../../giant_component/giant_component/">Giant Component</a></li><li><a class="tocitem" href="../../gishillclimber/gishillclimber/">GIS HillClimber</a></li><li><a class="tocitem" href="../../granovetter/granovetter/">Granovetter</a></li><li><a class="tocitem" href="../../grassbrushtrees/grassbrushtrees/">Grass Brush Trees</a></li><li><a class="tocitem" href="../../diffusion/diffusion/">Heat Diffusion</a></li><li><a class="tocitem" href="../../heatbugs/heatbugs/">Heatbugs</a></li><li><a class="tocitem" href="../../hikingelevation/hikingelevation/">HikingElevation</a></li><li><a class="tocitem" href="../../infinitelife/infinitelife/">Infinite Life</a></li><li><a class="tocitem" href="../../infodiffusion/infodiffusion/">Info Diffusion</a></li><li><a class="tocitem" href="../../ising/ising/">Ising</a></li><li><a class="tocitem" href="../../languageborders/languageborders/">Language Borders</a></li><li><a class="tocitem" href="../../languagechange/languagechange/">Language Change</a></li><li><a class="tocitem" href="../../lassavirus/lassavirus/">LassaVirus</a></li><li><a class="tocitem" href="../../leonarditechadoption/leonarditechadoption/">Leonardi Tech Adoption</a></li><li><a class="tocitem" href="../../life/life/">Life</a></li><li><a class="tocitem" href="../../logistic_growth/logistic_growth/">Logistic Growth</a></li><li><a class="tocitem" href="../../mailmen/mailmen/">Mailmen Delivery</a></li><li><a class="tocitem" href="../../marriage/marriage/">Marriage Problem</a></li><li><a class="tocitem" href="../../mimicry/mimicry/">Mimicry</a></li><li><a class="tocitem" href="../../minimalsis/minimalsis/">Minimal SIS</a></li><li><a class="tocitem" href="../../minoritybelief/minoritybelief/">Minority Belief Spread</a></li><li><a class="tocitem" href="../../minoritygame/minoritygame/">Minority Game</a></li><li><a class="tocitem" href="../../misinformationsbfc/misinformationsbfc/">Misinformation SBFC</a></li><li><a class="tocitem" href="../../modsocsegregation/modsocsegregation/">Modsoc Segregation</a></li><li><a class="tocitem" href="../../mousetraps/mousetraps/">Mousetraps</a></li><li><a class="tocitem" href="../../multidrugresistant/multidrugresistant/">MultidrugResistant</a></li><li><a class="tocitem" href="../../opinionbc/opinionbc/">Opinion Dynamics BC</a></li><li><a class="tocitem" href="../../paretolearn/paretolearn/">Pareto Learning</a></li><li><a class="tocitem" href="../../participatorydisinfo/participatorydisinfo/">Participatory Disinformation</a></li><li><a class="tocitem" href="../../participatorydisinformation/participatorydisinformation/">Participatory Disinformation</a></li><li><a class="tocitem" href="../../particles/particles/">Particles</a></li><li><a class="tocitem" href="../../party/party/">Party</a></li><li><a class="tocitem" href="../../pd_basic_evolutionary/pd_basic_evolutionary/">PD Basic Evolutionary</a></li><li><a class="tocitem" href="../../pdsimple/pdsimple/">PD Simple</a></li><li><a class="tocitem" href="../../percolation/percolation/">Percolation</a></li><li><a class="tocitem" href="../../polymerdynamics/polymerdynamics/">Polymer Dynamics</a></li><li><a class="tocitem" href="../../prefattachhomophily/prefattachhomophily/">Pref Attach Homophily</a></li><li><a class="tocitem" href="../../preferential_attachment/preferential_attachment/">Preferential Attachment</a></li><li><a class="tocitem" href="../../privacyopinion/privacyopinion/">Privacy Opinion</a></li><li><a class="tocitem" href="../../productsmarket/productsmarket/">Products Market</a></li><li><a class="tocitem" href="../../public_good/public_good/">Public Good</a></li><li><a class="tocitem" href="../../cqin/cqin/">Quality Improvement Network</a></li><li><a class="tocitem" href="../../rabbits_grass_weeds/rabbits_grass_weeds/">Rabbits Grass Weeds</a></li><li><a class="tocitem" href="../../decay/decay/">Radioactive Decay</a></li><li><a class="tocitem" href="../../rationalevolvingpd/rationalevolvingpd/">Rational Evolving PD</a></li><li><a class="tocitem" href="../../rebellion/rebellion/">Rebellion</a></li><li><a class="tocitem" href="../../recruitingmovement/recruitingmovement/">Recruiting Movement</a></li><li><a class="tocitem" href="../../recruiting/recruiting/">Recruiting Supporters</a></li><li><a class="tocitem" href="../../recruitingsupporters/recruitingsupporters/">Recruiting Supporters</a></li><li><a class="tocitem" href="../../resilientteam/resilientteam/">Resilient Team</a></li><li><a class="tocitem" href="../../rhinopoaching/rhinopoaching/">Rhino Poaching</a></li><li><a class="tocitem" href="../../riseofradicalism/riseofradicalism/">Rise of Radicalism</a></li><li><a class="tocitem" href="../../rope/rope/">Rope</a></li><li><a class="tocitem" href="../../rumormill/rumormill/">Rumor Mill</a></li><li><a class="tocitem" href="../../sand/sand/">Sand</a></li><li><a class="tocitem" href="../../schelling/schelling/">Schelling Segregation</a></li><li><a class="tocitem" href="../../segregation/segregation/">Segregation</a></li><li><a class="tocitem" href="../../shepherds/shepherds/">Shepherds</a></li><li><a class="tocitem" href="../../simple_genetic_algorithm/simple_genetic_algorithm/">Simple Genetic Algorithm</a></li><li><a class="tocitem" href="../../simplemarket/simplemarket/">Simple Market</a></li><li><a class="tocitem" href="../../simplemarketrandom/simplemarketrandom/">Simple Market Random</a></li><li><a class="tocitem" href="../../simplemarkettable/simplemarkettable/">Simple Market Table</a></li><li><a class="tocitem" href="../../sir/sir/">SIR Epidemic</a></li><li><a class="tocitem" href="../../sleuthlanduse/sleuthlanduse/">Sleuth LandUse</a></li><li><a class="tocitem" href="../../slime/slime/">Slime</a></li><li><a class="tocitem" href="../../slowspread/slowspread/">Slow Spread Env Action</a></li><li><a class="tocitem" href="../../small_worlds/small_worlds/">Small Worlds</a></li><li><a class="tocitem" href="../../socialinfluence/socialinfluence/">Social Influence</a></li><li><a class="tocitem" href="../../socialnetworkdiffusion/socialnetworkdiffusion/">Social Network Diffusion</a></li><li><a class="tocitem" href="../../soliddiffusion/soliddiffusion/">Solid Diffusion</a></li><li><a class="tocitem" href="../../spatialattitude/spatialattitude/">Spatial Attitude</a></li><li><a class="tocitem" href="../../ipd/ipd/">Spatial IPD</a></li><li><a class="tocitem" href="../../spatialopinion/spatialopinion/">Spatial Opinion Dynamics</a></li><li><a class="tocitem" href="../../fakenews/fakenews/">Spread of Fake News</a></li><li><a class="tocitem" href="../../spreadingbots/spreadingbots/">Spreading Bots</a></li><li><a class="tocitem" href="../../spreadinggroups/spreadinggroups/">Spreading Groups</a></li><li><a class="tocitem" href="../../sugarscape_1_growback/sugarscape_1_growback/">Sugarscape 1 Growback</a></li><li><a class="tocitem" href="../../sugarscapeculture/sugarscapeculture/">Sugarscape Culture</a></li><li><a class="tocitem" href="../../sugarscapesexual/sugarscapesexual/">Sugarscape Sexual</a></li><li><a class="tocitem" href="../../superdiffuser/superdiffuser/">SuperDiffuser</a></li><li><a class="tocitem" href="../../teamassembly/teamassembly/">Team Assembly</a></li><li><a class="tocitem" href="../../termites/termites/">Termites</a></li><li><a class="tocitem" href="../../thermostat/thermostat/">Thermostat</a></li><li><a class="tocitem" href="../../tourism/tourism/">Tourism</a></li><li><a class="tocitem" href="../../traffic2lanes/traffic2lanes/">Traffic 2 Lanes</a></li><li><a class="tocitem" href="../../trafficbasic/trafficbasic/">Traffic Basic</a></li><li><a class="tocitem" href="../../trafficgrid/trafficgrid/">Traffic Grid</a></li><li><a class="tocitem" href="../../trafficintersection/trafficintersection/">Traffic Intersection</a></li><li class="is-active"><a class="tocitem" href>Tumor</a><ul class="internal"><li><a class="tocitem" href="#Overview"><span>Overview</span></a></li><li><a class="tocitem" href="#Parameters"><span>Parameters</span></a></li><li><a class="tocitem" href="#Source-Code"><span>Source Code</span></a></li><li><a class="tocitem" href="#Time-Series"><span>Time Series</span></a></li><li><a class="tocitem" href="#Ensemble-Runs"><span>Ensemble Runs</span></a></li><li><a class="tocitem" href="#Appendix:-Source-Code"><span>Appendix: Source Code</span></a></li></ul></li><li><a class="tocitem" href="../../unitcohesion/unitcohesion/">Unit Cohesion</a></li><li><a class="tocitem" href="../../virus_on_network/virus_on_network/">Virus on a Network</a></li><li><a class="tocitem" href="../../virus/virus/">Virus on Network</a></li><li><a class="tocitem" href="../../voronoivoter/voronoivoter/">Voronoi Voter</a></li><li><a class="tocitem" href="../../voter/voter/">Voter Model</a></li><li><a class="tocitem" href="../../voting/voting/">Voting</a></li><li><a class="tocitem" href="../../wealthdistribution/wealthdistribution/">Wealth Distribution</a></li><li><a class="tocitem" href="../../wisdomcrowd/wisdomcrowd/">Wisdom of Crowd</a></li><li><a class="tocitem" href="../../wolfsheep/wolfsheep/">Wolf Sheep Predation</a></li></ul></li><li><a class="tocitem" href="../../../api/">API Reference</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Models</a></li><li class="is-active"><a href>Tumor</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Tumor</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/ecorecipes/ArkModelZoo.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/ecorecipes/ArkModelZoo.jl/blob/main/docs/src/tutorials/tumor/tumor.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Tumor"><a class="docs-heading-anchor" href="#Tumor">Tumor</a><a id="Tumor-1"></a><a class="docs-heading-anchor-permalink" href="#Tumor" title="Permalink"></a></h1><h2 id="Overview"><a class="docs-heading-anchor" href="#Overview">Overview</a><a id="Overview-1"></a><a class="docs-heading-anchor-permalink" href="#Overview" title="Permalink"></a></h2><h3 id="WHAT-IS-IT?"><a class="docs-heading-anchor" href="#WHAT-IS-IT?">WHAT IS IT?</a><a id="WHAT-IS-IT?-1"></a><a class="docs-heading-anchor-permalink" href="#WHAT-IS-IT?" title="Permalink"></a></h3><p>This model illustrates the growth of a tumor and how it resists chemical treatment. A tumor consists of two kinds of cells: stem cells (blue turtles) and transitory cells (all other turtles).</p><h3 id="HOW-IT-WORKS"><a class="docs-heading-anchor" href="#HOW-IT-WORKS">HOW IT WORKS</a><a id="HOW-IT-WORKS-1"></a><a class="docs-heading-anchor-permalink" href="#HOW-IT-WORKS" title="Permalink"></a></h3><p>During mitosis, a stem cell can divide either asymmetrically or symmetrically. In asymmetric mitosis, one of the two daughter cells remains a stem cell, replacing its parent. So a stem cell effectively never dies - it is quasi reincarnated after each division. The other daughter cell turns into a transitory cell that moves outward.</p><p>Young transitory cells may divide, breeding other transitory cells. The transitory cells stop dividing at a certain age and change color from red to white to black, eventually dying.</p><p>A stem cell may also divide symmetrically into two stem cells (blue turtles). In this example the original stem cell divides symmetrically only once. The first stem cell remains static, but the second stem cell moves to the right. This activity, in which the cell advances into distant sites and creates another tumor colony, is called metastasis. Notice that the metastasis is red. It is made of cells that die young, when they are still red, rather than ending as black dots as in the static tumor. As the disease progresses, cells die younger and younger.</p><h3 id="THINGS-TO-NOTICE"><a class="docs-heading-anchor" href="#THINGS-TO-NOTICE">THINGS TO NOTICE</a><a id="THINGS-TO-NOTICE-1"></a><a class="docs-heading-anchor-permalink" href="#THINGS-TO-NOTICE" title="Permalink"></a></h3><p>First, notice the blue dot. It represents a normal stem cell that has been transformed into a tumor stem cell. Set the “leave-trail” switch to On, and click ‘go’. A tumor is formed as the stem cell creates transitory cells, which reproduce themselves. It grows to a certain size. As it grows, a bulge appears on the right side. This is a tumor outgrowth, caused by symmetric mitosis of the stem cell. The outgrowth will turn into a metastasis and grow into remote regions.</p><p>After a while the tumor and metastasis appear to reach their ultimate size and nothing interesting seems to be happening. This illustrates how the tumor presents itself to the physician - as a solid cell mass. In reality, this seemingly solid mass conceals active cell turnover. To reveal it, set the leave-trail switch to Off, click on SETUP, and then click on GO to run the simulation again.</p><p>Slow down the model so you can follow individual steps. Move the speed slider to the left, click on SETUP and GO, and observe the blue stem cell. It divides into two blue stem cells. One remains static, and the other moves to the right.</p><p>Look at the static stem cell (blue). It breeds red cells which move outward and change their color as they age. When young, they are red and create more transitory cells. Then they turn white, then black, and then they die.</p><h3 id="THINGS-TO-TRY"><a class="docs-heading-anchor" href="#THINGS-TO-TRY">THINGS TO TRY</a><a id="THINGS-TO-TRY-1"></a><a class="docs-heading-anchor-permalink" href="#THINGS-TO-TRY" title="Permalink"></a></h3><p>Try a treatment: click on the ‘kill transitory cells’ button while the model is running. This simulates treatment with a chemical agent. The agent eliminates young (red) cells that divide, and it spares older cells. Note that the tumor shrinks and grows again. Continue with this “chemotherapy” by clicking on the button again and watch the plot. Repeat the treatment several times until you have understood why it fails.</p><p>Most of the chemotherapy drugs known as M- and S-poisons inhibit cell division, but generally do not cause cell death. Thus chemotherapy can be represented as killing the young (red) transitory cells, since only young cells divide. Older, non-dividing transitory cells are not affected; they continue aging and finally pass away.</p><p>The problem is that the stem cells maintain the tumor and propagate its metastases. Also known as clonogenic cells, stem cells are generally resistant to chemotherapy. They can be eliminated only with high doses of chemicals, which endanger healthy stem cells. The therapeutic margin of chemical drugs is extremely narrow. That is, they do about the same amount of harm as good.</p><p>Let the tumor grow again. Click on ‘kill moving stem cell’ and continue running the model. The right blue stem cell disappears. Its progeny live a bit longer and then die. Now click on “kill original stem cell”, and watch the gradual disappearance of the tumor, as no new cells are created and existing cells continue aging until they die and disappear.</p><p>Any questions? Before asking, continue exploring the model until you grasp its behavior. The model reveals a hidden dimension that is difficult to understand. It is the time dimension of tissues (and the tumor) in the body.</p><h3 id="EXTENDING-THE-MODEL"><a class="docs-heading-anchor" href="#EXTENDING-THE-MODEL">EXTENDING THE MODEL</a><a id="EXTENDING-THE-MODEL-1"></a><a class="docs-heading-anchor-permalink" href="#EXTENDING-THE-MODEL" title="Permalink"></a></h3><p>What alternative treatments would you suggest? How would you model them here?</p><h3 id="CREDITS-AND-REFERENCES"><a class="docs-heading-anchor" href="#CREDITS-AND-REFERENCES">CREDITS AND REFERENCES</a><a id="CREDITS-AND-REFERENCES-1"></a><a class="docs-heading-anchor-permalink" href="#CREDITS-AND-REFERENCES" title="Permalink"></a></h3><p>The original StarLogoT Tumor model was contributed in 1997 by Gershom Zajicek M.D., Professor of Experimental Medicine and Cancer Research at The Hebrew University-Hadassah Medical School, Jerusalem. It was adapted and converted to NetLogo by Wilensky and members of the CCL in 1998.</p><h3 id="HOW-TO-CITE"><a class="docs-heading-anchor" href="#HOW-TO-CITE">HOW TO CITE</a><a id="HOW-TO-CITE-1"></a><a class="docs-heading-anchor-permalink" href="#HOW-TO-CITE" title="Permalink"></a></h3><p>If you mention this model or the NetLogo software in a publication, we ask that you include the citations below.</p><p>For the model itself:</p><ul><li>Zacijek, G. and Wilensky, U. (1998). NetLogo Tumor model. http://ccl.northwestern.edu/netlogo/models/Tumor. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.</li></ul><p>Please cite the NetLogo software as:</p><ul><li>Wilensky, U. (1999). NetLogo. http://ccl.northwestern.edu/netlogo/. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.</li></ul><h3 id="COPYRIGHT-AND-LICENSE"><a class="docs-heading-anchor" href="#COPYRIGHT-AND-LICENSE">COPYRIGHT AND LICENSE</a><a id="COPYRIGHT-AND-LICENSE-1"></a><a class="docs-heading-anchor-permalink" href="#COPYRIGHT-AND-LICENSE" title="Permalink"></a></h3><p>Copyright 1998 Uri Wilensky.</p><p><img src="http://ccl.northwestern.edu/images/creativecommons/byncsa.png" alt="CC BY-NC-SA 3.0"/></p><p>This model is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License. To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/3.0/ or send a letter to Creative Commons, 559 Nathan Abbott Way, Stanford, California 94305, USA.</p><p>NetLogo itself is free software for non-commercial use under the terms of the GNU General Public License (<a href="https://ccl.northwestern.edu/netlogo/docs/copyright.html">see full license information here</a>).</p><p>To inquire about commercial licenses for either NetLogo or specific models from the models library, please contact netlogo-commercial-admin@ccl.northwestern.edu.</p><p>This model was created as part of the project: CONNECTED MATHEMATICS: MAKING SENSE OF COMPLEX PHENOMENA THROUGH BUILDING OBJECT-BASED PARALLEL MODELS (OBPML). The project gratefully acknowledges the support of the National Science Foundation (Applications of Advanced Technologies Program) – grant numbers RED #9552950 and REC #9632612.</p><p>This model was converted to NetLogo as part of the projects: PARTICIPATORY SIMULATIONS: NETWORK-BASED DESIGN FOR SYSTEMS LEARNING IN CLASSROOMS and/or INTEGRATED SIMULATION AND MODELING ENVIRONMENT. The project gratefully acknowledges the support of the National Science Foundation (REPP &amp; ROLE programs) – grant numbers REC #9814682 and REC-0126227. Converted from StarLogoT to NetLogo, 2001.</p><h2 id="Parameters"><a class="docs-heading-anchor" href="#Parameters">Parameters</a><a id="Parameters-1"></a><a class="docs-heading-anchor-permalink" href="#Parameters" title="Permalink"></a></h2><table><tr><th style="text-align: right">Parameter</th><th style="text-align: right">Type</th><th style="text-align: right">Default</th><th style="text-align: right">Description</th></tr><tr><td style="text-align: right"><code>grid_width</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>103</code></td><td style="text-align: right">-51..51</td></tr><tr><td style="text-align: right"><code>grid_height</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>103</code></td><td style="text-align: right">grid height</td></tr><tr><td style="text-align: right"><code>max_ticks</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>1000</code></td><td style="text-align: right">max ticks</td></tr></table><h2 id="Source-Code"><a class="docs-heading-anchor" href="#Source-Code">Source Code</a><a id="Source-Code-1"></a><a class="docs-heading-anchor-permalink" href="#Source-Code" title="Permalink"></a></h2><p>The Julia code to run this model:</p><pre><code class="language-julia hljs">using ArkModelZoo
+_, trajectory = run_tumor()</code></pre><h2 id="Time-Series"><a class="docs-heading-anchor" href="#Time-Series">Time Series</a><a id="Time-Series-1"></a><a class="docs-heading-anchor-permalink" href="#Time-Series" title="Permalink"></a></h2><p><img src="../plot_timeseries.png" alt="Tumor time series"/></p><h2 id="Ensemble-Runs"><a class="docs-heading-anchor" href="#Ensemble-Runs">Ensemble Runs</a><a id="Ensemble-Runs-1"></a><a class="docs-heading-anchor-permalink" href="#Ensemble-Runs" title="Permalink"></a></h2><p>Ten replicates with different random seeds, showing mean ± standard deviation.</p><p><img src="../plot_ensemble.png" alt="Tumor ensemble"/></p><h2 id="Appendix:-Source-Code"><a class="docs-heading-anchor" href="#Appendix:-Source-Code">Appendix: Source Code</a><a id="Appendix:-Source-Code-1"></a><a class="docs-heading-anchor-permalink" href="#Appendix:-Source-Code" title="Permalink"></a></h2><p>This model is implemented in the <a href="https://github.com/sdwfrost/Ark.jl">Ark.jl</a> Entity-Component-System (ECS) framework. The code is split into five files, each with a distinct role:</p><ul><li><strong>Parameters</strong>: a mutable struct holding all configurable values.</li><li><strong>Components</strong>: lightweight data types attached to individual entities (agents).</li><li><strong>Resources</strong>: world-level shared state accessible to all systems.</li><li><strong>Systems</strong>: functions that operate on entities each tick, defining model behavior.</li><li><strong>Model</strong>: wiring that assembles the world, registers resources and systems, and provides the run entry point.</li></ul><h3 id="Parameters-(parameters.jl)"><a class="docs-heading-anchor" href="#Parameters-(parameters.jl)">Parameters (<code>parameters.jl</code>)</a><a id="Parameters-(parameters.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Parameters-(parameters.jl)" title="Permalink"></a></h3><p>The parameter struct uses <code>@kwdef</code> so that every field has a default value and can be overridden by keyword. These defaults match the original NetLogo model’s slider settings.</p><pre><code class="language-julia hljs">Base.@kwdef mutable struct TumorParams
+    grid_width::Int = 103       # -51..51
+    grid_height::Int = 103
+    max_ticks::Int = 1000
+    seed::Int = 42
+end</code></pre><h3 id="Components-(components.jl)"><a class="docs-heading-anchor" href="#Components-(components.jl)">Components (<code>components.jl</code>)</a><a id="Components-(components.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Components-(components.jl)" title="Permalink"></a></h3><p>Components are lightweight data types attached to individual entities (agents). Mutable structs hold per-entity state, while empty tag structs act as markers for the ECS query system to efficiently filter entities.</p><pre><code class="language-julia hljs"># Cell position (continuous, toroidal wrapping)
+mutable struct TumorPosition
+    x::Float64
+    y::Float64
+end
+
+# Persistent heading (degrees, 0=north, clockwise)
+mutable struct TumorHeading
+    angle::Float64
+end
+
+# Cell age (incremented each tick)
+mutable struct TumorAge
+    age::Int
+end
+
+# Tag: stem cell (never dies, always divides)
+struct StemCell end
+
+# Tag: metastatic lineage (different death threshold)
+struct MetastaticTag end</code></pre><h3 id="Resources-(resources.jl)"><a class="docs-heading-anchor" href="#Resources-(resources.jl)">Resources (<code>resources.jl</code>)</a><a id="Resources-(resources.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Resources-(resources.jl)" title="Permalink"></a></h3><p>Resources are world-level singletons shared across all systems, used for global state and aggregate statistics.</p><pre><code class="language-julia hljs">mutable struct TumorStats
+    cell_count::Int
+end
+TumorStats() = TumorStats(0)</code></pre><h3 id="Systems-(systems.jl)"><a class="docs-heading-anchor" href="#Systems-(systems.jl)">Systems (<code>systems.jl</code>)</a><a id="Systems-(systems.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Systems-(systems.jl)" title="Permalink"></a></h3><p>Systems contain the model logic and execute in a defined order each tick. Each system struct implements either <code>initialize!</code> (run once at setup) or <code>update!</code> (run every tick).</p><pre><code class="language-julia hljs"># --- Initialization ---
+# NetLogo: create 2 stem cells at (min-pxcor/2, 0) = (-25.5, 0).
+# Turtle 0: non-metastatic stem, default heading (0).
+# Turtle 1: metastatic stem, heading 90.
+
+struct InitTumorSystem &lt;: System end
+
+function initialize!(::InitTumorSystem, world::World)
+    params = get_resource(world, TumorParams)
+    stats = get_resource(world, TumorStats)
+    wf = Float64(params.grid_width)
+
+    # Non-metastatic stem (turtle 0): position (min-pxcor/2, 0) in NetLogo coords.
+    # In our [0, 103) space: x = (-51/2 + 51.5) = 26.0, y = 51.5
+    # Actually min-pxcor = -51, min-pxcor/2 = -25.5.
+    # Mapped to [0,103): x = -25.5 + 51.5 = 26.0, y = 0 + 51.5 = 51.5
+    stem0_x = 26.0
+    stem0_y = 51.5
+    new_entity!(world, (
+        TumorPosition(stem0_x, stem0_y),
+        TumorHeading(0.0),
+        TumorAge(0),
+        StemCell(),
+    ))
+
+    # Metastatic stem (turtle 1): same position, heading 90
+    new_entity!(world, (
+        TumorPosition(stem0_x, stem0_y),
+        TumorHeading(90.0),
+        TumorAge(0),
+        StemCell(),
+        MetastaticTag(),
+    ))
+
+    stats.cell_count = 2
+    return nothing
+end
+
+# --- Update ---
+# Each tick, process all EXISTING turtles in random order (newly hatched excluded).
+# Per turtle:
+#   1. If metastatic stem and xcor &lt; 25 → fd 1
+#   2. age += 1
+#   3. If non-stem: move-transitional-cells (fd 1, hatch if age &lt; 6)
+#   4. If stem: mitosis (hatch 1 non-stem cell)
+#   5. Death check
+
+mutable struct TumorUpdateSystem &lt;: System
+    current_entities::Vector{Tuple{Entity, Bool, Bool}}  # (eid, is_stem, is_metastatic)
+    to_spawn::Vector{Tuple{Float64, Float64, Float64, Int, Bool}}  # (x, y, heading, age, metastatic)
+    to_remove::Vector{Entity}
+end
+TumorUpdateSystem() = TumorUpdateSystem(
+    Tuple{Entity, Bool, Bool}[],
+    Tuple{Float64, Float64, Float64, Int, Bool}[],
+    Entity[],
+)
+
+function update!(system::TumorUpdateSystem, world::World)
+    params = get_resource(world, TumorParams)
+    rng = get_resource(world, RNGResource).rng
+    wf = Float64(params.grid_width)
+    hf = Float64(params.grid_height)
+
+    # NetLogo xcor=25 in [0,103) space: 25 + 51.5 = 76.5
+    xcor_threshold = 76.5
+
+    empty!(system.current_entities)
+    empty!(system.to_spawn)
+    empty!(system.to_remove)
+
+    # Collect current entities by archetype (snapshot — newly spawned excluded)
+    for (eids, _) in Query(world, (TumorPosition,); with=(StemCell, MetastaticTag))
+        @inbounds for i in eachindex(eids)
+            push!(system.current_entities, (eids[i], true, true))
+        end
+    end
+    for (eids, _) in Query(world, (TumorPosition,); with=(StemCell,), without=(MetastaticTag,))
+        @inbounds for i in eachindex(eids)
+            push!(system.current_entities, (eids[i], true, false))
+        end
+    end
+    for (eids, _) in Query(world, (TumorPosition,); with=(MetastaticTag,), without=(StemCell,))
+        @inbounds for i in eachindex(eids)
+            push!(system.current_entities, (eids[i], false, true))
+        end
+    end
+    for (eids, _) in Query(world, (TumorPosition,); without=(StemCell, MetastaticTag))
+        @inbounds for i in eachindex(eids)
+            push!(system.current_entities, (eids[i], false, false))
+        end
+    end
+
+    # Random order (NetLogo ask turtles)
+    shuffle!(rng, system.current_entities)
+
+    for (eid, is_stem, is_meta) in system.current_entities
+        is_alive(world, eid) || continue
+
+        pos = get_components(world, eid, (TumorPosition,))[1]
+        hdg = get_components(world, eid, (TumorHeading,))[1]
+        age_c = get_components(world, eid, (TumorAge,))[1]
+
+        # 1. Metastatic stem movement
+        if is_stem &amp;&amp; is_meta &amp;&amp; pos.x &lt; xcor_threshold
+            θ = deg2rad(hdg.angle)
+            pos.x = mod(pos.x + sin(θ), wf)
+            pos.y = mod(pos.y + cos(θ), hf)
+        end
+
+        # 2. Age
+        age_c.age += 1
+
+        # 3. Transitional cell movement &amp; division
+        if !is_stem
+            # fd 1
+            θ = deg2rad(hdg.angle)
+            pos.x = mod(pos.x + sin(θ), wf)
+            pos.y = mod(pos.y + cos(θ), hf)
+
+            # Hatch if young (age &lt; 6, but age was just incremented, so check age &lt; 6)
+            if age_c.age &lt; 6
+                new_heading = rand(rng) * 360.0
+                nθ = deg2rad(new_heading)
+                nx = mod(pos.x + sin(nθ), wf)
+                ny = mod(pos.y + cos(nθ), hf)
+                push!(system.to_spawn, (nx, ny, new_heading, age_c.age, is_meta))
+            end
+        end
+
+        # 4. Mitosis (stem cells)
+        if is_stem
+            θ = deg2rad(hdg.angle)
+            nx = mod(pos.x + sin(θ), wf)
+            ny = mod(pos.y + cos(θ), hf)
+            # New cell: non-stem, age 0, inherits metastatic from parent
+            push!(system.to_spawn, (nx, ny, hdg.angle, 0, is_meta))
+        end
+
+        # 5. Death
+        if !is_stem
+            if !is_meta &amp;&amp; age_c.age &gt; 20
+                push!(system.to_remove, eid)
+            elseif is_meta &amp;&amp; age_c.age &gt; 4
+                push!(system.to_remove, eid)
+            end
+        end
+    end
+
+    # Spawn new cells
+    for (x, y, heading, age, meta) in system.to_spawn
+        if meta
+            new_entity!(world, (
+                TumorPosition(x, y),
+                TumorHeading(heading),
+                TumorAge(age),
+                MetastaticTag(),
+            ))
+        else
+            new_entity!(world, (
+                TumorPosition(x, y),
+                TumorHeading(heading),
+                TumorAge(age),
+            ))
+        end
+    end
+
+    # Remove dead cells
+    for e in system.to_remove
+        is_alive(world, e) &amp;&amp; remove_entity!(world, e)
+    end
+    return nothing
+end
+
+# --- Stats ---
+
+struct TumorStatsSystem &lt;: System end
+
+function update!(::TumorStatsSystem, world::World)
+    stats = get_resource(world, TumorStats)
+    count = 0
+    for (eids, _) in Query(world, (TumorPosition,))
+        count += length(eids)
+    end
+    stats.cell_count = count
+    return nothing
+end
+
+# --- Termination ---
+
+struct TumorTerminationSystem &lt;: System end
+
+function update!(::TumorTerminationSystem, world::World)
+    params = get_resource(world, TumorParams)
+    tick = get_resource(world, Tick)
+    stats = get_resource(world, TumorStats)
+    if stats.cell_count &lt;= 0 || tick.tick + 1 &gt;= params.max_ticks
+        get_resource(world, Terminate).stop = true
+    end
+    return nothing
+end</code></pre><h3 id="Model-(model.jl)"><a class="docs-heading-anchor" href="#Model-(model.jl)">Model (<code>model.jl</code>)</a><a id="Model-(model.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Model-(model.jl)" title="Permalink"></a></h3><p>The model file assembles all pieces: it creates the ECS <code>World</code> with the required component types, registers resources, builds the <code>Scheduler</code> with systems in execution order, and exposes the public <code>run</code> entry point. The observer pattern records the trajectory each tick.</p><pre><code class="language-julia hljs">function tumor_world(; initial_capacity::Int = 8192)
+    return World(
+        TumorPosition,
+        TumorHeading,
+        TumorAge,
+        StemCell,
+        MetastaticTag;
+        initial_capacity = initial_capacity,
+        allow_mutable = true,
+    )
+end
+
+function tumor_systems()
+    return (
+        InitTumorSystem(),
+        TumorUpdateSystem(),
+        TumorStatsSystem(),
+        TumorTerminationSystem(),
+    )
+end
+
+function tumor_model(params::TumorParams = TumorParams())
+    world = tumor_world()
+    _add_standard_resources!(world, params)
+    add_resource!(world, TumorStats())
+    scheduler = Scheduler(world, tumor_systems())
+    initialize!(scheduler)
+    return scheduler
+end
+
+struct TumorObserver end
+
+function tumor_headers(::TumorObserver)
+    return [&quot;CellCount&quot;]
+end
+
+function tumor_values(::TumorObserver, world::World)
+    stats = get_resource(world, TumorStats)
+    return Float64[stats.cell_count]
+end
+
+function run_tumor(; params::TumorParams = TumorParams(), observe::Bool = true)
+    return _run_model(tumor_model, TumorObserver(), tumor_values; params, observe)
+end</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../trafficintersection/trafficintersection/">« Traffic Intersection</a><a class="docs-footer-nextpage" href="../../unitcohesion/unitcohesion/">Unit Cohesion »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.20.0 on <span class="colophon-date" title="Wednesday 18 November 2026 18:43">Wednesday 18 November 2026</span>. Using Julia version 1.13.4.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>

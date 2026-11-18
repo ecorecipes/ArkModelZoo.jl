@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="referrer" content="no-referrer"/><title>Rise of Radicalism · ArkModelZoo.jl</title><meta name="title" content="Rise of Radicalism · ArkModelZoo.jl"/><meta property="og:title" content="Rise of Radicalism · ArkModelZoo.jl"/><meta property="twitter:title" content="Rise of Radicalism · ArkModelZoo.jl"/><meta name="description" content="Documentation for ArkModelZoo.jl."/><meta property="og:description" content="Documentation for ArkModelZoo.jl."/><meta property="twitter:description" content="Documentation for ArkModelZoo.jl."/><meta property="og:url" content="https://ecorecipes.github.io/ArkModelZoo.jl/tutorials/riseofradicalism/riseofradicalism/"/><meta property="twitter:url" content="https://ecorecipes.github.io/ArkModelZoo.jl/tutorials/riseofradicalism/riseofradicalism/"/><link rel="canonical" href="https://ecorecipes.github.io/ArkModelZoo.jl/tutorials/riseofradicalism/riseofradicalism/"/><script data-outdated-warner src="../../../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.63.2/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../../assets/documenter.js"></script><script src="../../../search_index.js"></script><script src="../../../siteinfo.js"></script><script src="../../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="../../../">ArkModelZoo.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../../../">Home</a></li><li><span class="tocitem">Resilience</span><ul><li><a class="tocitem" href="../../resilience/resilience/">Resilience of agent-based models</a></li></ul></li><li><span class="tocitem">Models</span><ul><li><a class="tocitem" href="../../abtgc/abtgc/">ABTgc</a></li><li><a class="tocitem" href="../../aids/aids/">AIDS</a></li><li><a class="tocitem" href="../../altruism/altruism/">Altruism</a></li><li><a class="tocitem" href="../../antsystem/antsystem/">Ant System TSP</a></li><li><a class="tocitem" href="../../ants/ants/">Ants</a></li><li><a class="tocitem" href="../../artificialeconomy/artificialeconomy/">Artificial Economy</a></li><li><a class="tocitem" href="../../axelrodcultural/axelrodcultural/">AxelrodCultural</a></li><li><a class="tocitem" href="../../babysittingcoop/babysittingcoop/">Baby Sitting Coop</a></li><li><a class="tocitem" href="../../bank_reserves/bank_reserves/">Bank Reserves</a></li><li><a class="tocitem" href="../../bayesian/bayesian/">Bayesian Updating</a></li><li><a class="tocitem" href="../../beinggreen/beinggreen/">Being Green</a></li><li><a class="tocitem" href="../../birthrates/birthrates/">Birthrates</a></li><li><a class="tocitem" href="../../blackbox/blackbox/">BlackBox</a></li><li><a class="tocitem" href="../../boiling/boiling/">Boiling</a></li><li><a class="tocitem" href="../../bombscenario/bombscenario/">BombScenario</a></li><li><a class="tocitem" href="../../brians_brain/brians_brain/">Brian’s Brain</a></li><li><a class="tocitem" href="../../bullwhipeffect/bullwhipeffect/">Bullwhip Effect</a></li><li><a class="tocitem" href="../../ca_1d_elementary/ca_1d_elementary/">CA 1D Elementary</a></li><li><a class="tocitem" href="../../civilizationgrowth/civilizationgrowth/">Civilization Growth</a></li><li><a class="tocitem" href="../../climatechange/climatechange/">Climate Change</a></li><li><a class="tocitem" href="../../coin/coin/">COIN Learning</a></li><li><a class="tocitem" href="../../competitionlearning/competitionlearning/">Competition Learning</a></li><li><a class="tocitem" href="../../contactprocess/contactprocess/">Contact Process 2D</a></li><li><a class="tocitem" href="../../contagionnw/contagionnw/">Contagion NW</a></li><li><a class="tocitem" href="../../contagionsi/contagionsi/">Contagion SI</a></li><li><a class="tocitem" href="../../contagionsir/contagionsir/">Contagion SIR</a></li><li><a class="tocitem" href="../../cooperation/cooperation/">Cooperation</a></li><li><a class="tocitem" href="../../coordination/coordination/">Coordination</a></li><li><a class="tocitem" href="../../coordination2groups/coordination2groups/">Coordination 2 Groups</a></li><li><a class="tocitem" href="../../croprotation/croprotation/">Crop Rotation</a></li><li><a class="tocitem" href="../../crystallization/crystallization/">Crystallization</a></li><li><a class="tocitem" href="../../csvnetworkforaging/csvnetworkforaging/">CSV Network Foraging</a></li><li><a class="tocitem" href="../../csvpopulation/csvpopulation/">CSV Population</a></li><li><a class="tocitem" href="../../culturaldiffusion/culturaldiffusion/">Cultural Diffusion</a></li><li><a class="tocitem" href="../../cyberspaceopinion/cyberspaceopinion/">Cyberspace Opinion</a></li><li><a class="tocitem" href="../../daisyworld/daisyworld/">Daisyworld</a></li><li><a class="tocitem" href="../../dating/dating/">Dating</a></li><li><a class="tocitem" href="../../diffusionnetwork/diffusionnetwork/">Diffusion Network</a></li><li><a class="tocitem" href="../../diffusionofhiv/diffusionofhiv/">DiffusionOfHIV</a></li><li><a class="tocitem" href="../../disinfobitstringnw/disinfobitstringnw/">Disinfobitstringnw</a></li><li><a class="tocitem" href="../../dla/dla/">Dla</a></li><li><a class="tocitem" href="../../dlasimple/dlasimple/">DLA Simple</a></li><li><a class="tocitem" href="../../druguse/druguse/">Drug Use</a></li><li><a class="tocitem" href="../../druguseoverdose/druguseoverdose/">Drug Use Overdose</a></li><li><a class="tocitem" href="../../elfarol/elfarol/">El Farol</a></li><li><a class="tocitem" href="../../erosion/erosion/">Erosion</a></li><li><a class="tocitem" href="../../ethnocentrism/ethnocentrism/">Ethnocentrism</a></li><li><a class="tocitem" href="../../evolutionofnorms/evolutionofnorms/">EvolutionOfNorms</a></li><li><a class="tocitem" href="../../firepercolation/firepercolation/">Fire Percolation</a></li><li><a class="tocitem" href="../../firebenchmark/firebenchmark/">FireBenchmark</a></li><li><a class="tocitem" href="../../fireflies/fireflies/">Fireflies</a></li><li><a class="tocitem" href="../../flocking/flocking/">Flocking</a></li><li><a class="tocitem" href="../../flockingnetwork/flockingnetwork/">Flocking Network</a></li><li><a class="tocitem" href="../../forestdewdney/forestdewdney/">Forest Dewdney</a></li><li><a class="tocitem" href="../../fire/fire/">Forest Fire</a></li><li><a class="tocitem" href="../../fungalbioremediation/fungalbioremediation/">Fungal Bioremediation</a></li><li><a class="tocitem" href="../../giant_component/giant_component/">Giant Component</a></li><li><a class="tocitem" href="../../gishillclimber/gishillclimber/">GIS HillClimber</a></li><li><a class="tocitem" href="../../granovetter/granovetter/">Granovetter</a></li><li><a class="tocitem" href="../../grassbrushtrees/grassbrushtrees/">Grass Brush Trees</a></li><li><a class="tocitem" href="../../diffusion/diffusion/">Heat Diffusion</a></li><li><a class="tocitem" href="../../heatbugs/heatbugs/">Heatbugs</a></li><li><a class="tocitem" href="../../hikingelevation/hikingelevation/">HikingElevation</a></li><li><a class="tocitem" href="../../infinitelife/infinitelife/">Infinite Life</a></li><li><a class="tocitem" href="../../infodiffusion/infodiffusion/">Info Diffusion</a></li><li><a class="tocitem" href="../../ising/ising/">Ising</a></li><li><a class="tocitem" href="../../languageborders/languageborders/">Language Borders</a></li><li><a class="tocitem" href="../../languagechange/languagechange/">Language Change</a></li><li><a class="tocitem" href="../../lassavirus/lassavirus/">LassaVirus</a></li><li><a class="tocitem" href="../../leonarditechadoption/leonarditechadoption/">Leonardi Tech Adoption</a></li><li><a class="tocitem" href="../../life/life/">Life</a></li><li><a class="tocitem" href="../../logistic_growth/logistic_growth/">Logistic Growth</a></li><li><a class="tocitem" href="../../mailmen/mailmen/">Mailmen Delivery</a></li><li><a class="tocitem" href="../../marriage/marriage/">Marriage Problem</a></li><li><a class="tocitem" href="../../mimicry/mimicry/">Mimicry</a></li><li><a class="tocitem" href="../../minimalsis/minimalsis/">Minimal SIS</a></li><li><a class="tocitem" href="../../minoritybelief/minoritybelief/">Minority Belief Spread</a></li><li><a class="tocitem" href="../../minoritygame/minoritygame/">Minority Game</a></li><li><a class="tocitem" href="../../misinformationsbfc/misinformationsbfc/">Misinformation SBFC</a></li><li><a class="tocitem" href="../../modsocsegregation/modsocsegregation/">Modsoc Segregation</a></li><li><a class="tocitem" href="../../mousetraps/mousetraps/">Mousetraps</a></li><li><a class="tocitem" href="../../multidrugresistant/multidrugresistant/">MultidrugResistant</a></li><li><a class="tocitem" href="../../opinionbc/opinionbc/">Opinion Dynamics BC</a></li><li><a class="tocitem" href="../../paretolearn/paretolearn/">Pareto Learning</a></li><li><a class="tocitem" href="../../participatorydisinfo/participatorydisinfo/">Participatory Disinformation</a></li><li><a class="tocitem" href="../../participatorydisinformation/participatorydisinformation/">Participatory Disinformation</a></li><li><a class="tocitem" href="../../particles/particles/">Particles</a></li><li><a class="tocitem" href="../../party/party/">Party</a></li><li><a class="tocitem" href="../../pd_basic_evolutionary/pd_basic_evolutionary/">PD Basic Evolutionary</a></li><li><a class="tocitem" href="../../pdsimple/pdsimple/">PD Simple</a></li><li><a class="tocitem" href="../../percolation/percolation/">Percolation</a></li><li><a class="tocitem" href="../../polymerdynamics/polymerdynamics/">Polymer Dynamics</a></li><li><a class="tocitem" href="../../prefattachhomophily/prefattachhomophily/">Pref Attach Homophily</a></li><li><a class="tocitem" href="../../preferential_attachment/preferential_attachment/">Preferential Attachment</a></li><li><a class="tocitem" href="../../privacyopinion/privacyopinion/">Privacy Opinion</a></li><li><a class="tocitem" href="../../productsmarket/productsmarket/">Products Market</a></li><li><a class="tocitem" href="../../public_good/public_good/">Public Good</a></li><li><a class="tocitem" href="../../cqin/cqin/">Quality Improvement Network</a></li><li><a class="tocitem" href="../../rabbits_grass_weeds/rabbits_grass_weeds/">Rabbits Grass Weeds</a></li><li><a class="tocitem" href="../../decay/decay/">Radioactive Decay</a></li><li><a class="tocitem" href="../../rationalevolvingpd/rationalevolvingpd/">Rational Evolving PD</a></li><li><a class="tocitem" href="../../rebellion/rebellion/">Rebellion</a></li><li><a class="tocitem" href="../../recruitingmovement/recruitingmovement/">Recruiting Movement</a></li><li><a class="tocitem" href="../../recruiting/recruiting/">Recruiting Supporters</a></li><li><a class="tocitem" href="../../recruitingsupporters/recruitingsupporters/">Recruiting Supporters</a></li><li><a class="tocitem" href="../../resilientteam/resilientteam/">Resilient Team</a></li><li><a class="tocitem" href="../../rhinopoaching/rhinopoaching/">Rhino Poaching</a></li><li class="is-active"><a class="tocitem" href>Rise of Radicalism</a><ul class="internal"><li><a class="tocitem" href="#Overview"><span>Overview</span></a></li><li><a class="tocitem" href="#Parameters"><span>Parameters</span></a></li><li><a class="tocitem" href="#Source-Code"><span>Source Code</span></a></li><li><a class="tocitem" href="#Appendix:-Source-Code"><span>Appendix: Source Code</span></a></li></ul></li><li><a class="tocitem" href="../../rope/rope/">Rope</a></li><li><a class="tocitem" href="../../rumormill/rumormill/">Rumor Mill</a></li><li><a class="tocitem" href="../../sand/sand/">Sand</a></li><li><a class="tocitem" href="../../schelling/schelling/">Schelling Segregation</a></li><li><a class="tocitem" href="../../segregation/segregation/">Segregation</a></li><li><a class="tocitem" href="../../shepherds/shepherds/">Shepherds</a></li><li><a class="tocitem" href="../../simple_genetic_algorithm/simple_genetic_algorithm/">Simple Genetic Algorithm</a></li><li><a class="tocitem" href="../../simplemarket/simplemarket/">Simple Market</a></li><li><a class="tocitem" href="../../simplemarketrandom/simplemarketrandom/">Simple Market Random</a></li><li><a class="tocitem" href="../../simplemarkettable/simplemarkettable/">Simple Market Table</a></li><li><a class="tocitem" href="../../sir/sir/">SIR Epidemic</a></li><li><a class="tocitem" href="../../sleuthlanduse/sleuthlanduse/">Sleuth LandUse</a></li><li><a class="tocitem" href="../../slime/slime/">Slime</a></li><li><a class="tocitem" href="../../slowspread/slowspread/">Slow Spread Env Action</a></li><li><a class="tocitem" href="../../small_worlds/small_worlds/">Small Worlds</a></li><li><a class="tocitem" href="../../socialinfluence/socialinfluence/">Social Influence</a></li><li><a class="tocitem" href="../../socialnetworkdiffusion/socialnetworkdiffusion/">Social Network Diffusion</a></li><li><a class="tocitem" href="../../soliddiffusion/soliddiffusion/">Solid Diffusion</a></li><li><a class="tocitem" href="../../spatialattitude/spatialattitude/">Spatial Attitude</a></li><li><a class="tocitem" href="../../ipd/ipd/">Spatial IPD</a></li><li><a class="tocitem" href="../../spatialopinion/spatialopinion/">Spatial Opinion Dynamics</a></li><li><a class="tocitem" href="../../fakenews/fakenews/">Spread of Fake News</a></li><li><a class="tocitem" href="../../spreadingbots/spreadingbots/">Spreading Bots</a></li><li><a class="tocitem" href="../../spreadinggroups/spreadinggroups/">Spreading Groups</a></li><li><a class="tocitem" href="../../sugarscape_1_growback/sugarscape_1_growback/">Sugarscape 1 Growback</a></li><li><a class="tocitem" href="../../sugarscapeculture/sugarscapeculture/">Sugarscape Culture</a></li><li><a class="tocitem" href="../../sugarscapesexual/sugarscapesexual/">Sugarscape Sexual</a></li><li><a class="tocitem" href="../../superdiffuser/superdiffuser/">SuperDiffuser</a></li><li><a class="tocitem" href="../../teamassembly/teamassembly/">Team Assembly</a></li><li><a class="tocitem" href="../../termites/termites/">Termites</a></li><li><a class="tocitem" href="../../thermostat/thermostat/">Thermostat</a></li><li><a class="tocitem" href="../../tourism/tourism/">Tourism</a></li><li><a class="tocitem" href="../../traffic2lanes/traffic2lanes/">Traffic 2 Lanes</a></li><li><a class="tocitem" href="../../trafficbasic/trafficbasic/">Traffic Basic</a></li><li><a class="tocitem" href="../../trafficgrid/trafficgrid/">Traffic Grid</a></li><li><a class="tocitem" href="../../trafficintersection/trafficintersection/">Traffic Intersection</a></li><li><a class="tocitem" href="../../tumor/tumor/">Tumor</a></li><li><a class="tocitem" href="../../unitcohesion/unitcohesion/">Unit Cohesion</a></li><li><a class="tocitem" href="../../virus_on_network/virus_on_network/">Virus on a Network</a></li><li><a class="tocitem" href="../../virus/virus/">Virus on Network</a></li><li><a class="tocitem" href="../../voronoivoter/voronoivoter/">Voronoi Voter</a></li><li><a class="tocitem" href="../../voter/voter/">Voter Model</a></li><li><a class="tocitem" href="../../voting/voting/">Voting</a></li><li><a class="tocitem" href="../../wealthdistribution/wealthdistribution/">Wealth Distribution</a></li><li><a class="tocitem" href="../../wisdomcrowd/wisdomcrowd/">Wisdom of Crowd</a></li><li><a class="tocitem" href="../../wolfsheep/wolfsheep/">Wolf Sheep Predation</a></li></ul></li><li><a class="tocitem" href="../../../api/">API Reference</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Models</a></li><li class="is-active"><a href>Rise of Radicalism</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Rise of Radicalism</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/ecorecipes/ArkModelZoo.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/ecorecipes/ArkModelZoo.jl/blob/main/docs/src/tutorials/riseofradicalism/riseofradicalism.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Rise-of-Radicalism"><a class="docs-heading-anchor" href="#Rise-of-Radicalism">Rise of Radicalism</a><a id="Rise-of-Radicalism-1"></a><a class="docs-heading-anchor-permalink" href="#Rise-of-Radicalism" title="Permalink"></a></h1><h2 id="Overview"><a class="docs-heading-anchor" href="#Overview">Overview</a><a id="Overview-1"></a><a class="docs-heading-anchor-permalink" href="#Overview" title="Permalink"></a></h2><p>This vignette demonstrates the <strong>Rise of Radicalism</strong> model implemented in <a href="https://github.com/sdwfrost/ArkModelZoo.jl">ArkModelZoo.jl</a> using the Ark.jl ECS framework.</p><h2 id="Parameters"><a class="docs-heading-anchor" href="#Parameters">Parameters</a><a id="Parameters-1"></a><a class="docs-heading-anchor-permalink" href="#Parameters" title="Permalink"></a></h2><table><tr><th style="text-align: right">Parameter</th><th style="text-align: right">Type</th><th style="text-align: right">Default</th><th style="text-align: right">Description</th></tr><tr><td style="text-align: right"><code>data_dir</code></td><td style="text-align: right"><code>String</code></td><td style="text-align: right"><code>&quot;.&quot;</code></td><td style="text-align: right">data dir</td></tr><tr><td style="text-align: right"><code>growth</code></td><td style="text-align: right"><code>Float64</code></td><td style="text-align: right"><code>1.5</code></td><td style="text-align: right">growth</td></tr><tr><td style="text-align: right"><code>num_townships</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>9</code></td><td style="text-align: right">num townships</td></tr><tr><td style="text-align: right"><code>num_terrorist_clusters</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>5</code></td><td style="text-align: right">num terrorist clusters</td></tr><tr><td style="text-align: right"><code>link_distance</code></td><td style="text-align: right"><code>Float64</code></td><td style="text-align: right"><code>25.0</code></td><td style="text-align: right">link distance</td></tr><tr><td style="text-align: right"><code>degree</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>8</code></td><td style="text-align: right">degree</td></tr><tr><td style="text-align: right"><code>radicalism_init</code></td><td style="text-align: right"><code>Float64</code></td><td style="text-align: right"><code>1.3</code></td><td style="text-align: right">radicalism init</td></tr><tr><td style="text-align: right"><code>grid_width</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>755</code></td><td style="text-align: right">grid width</td></tr><tr><td style="text-align: right"><code>grid_height</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>555</code></td><td style="text-align: right">grid height</td></tr><tr><td style="text-align: right"><code>max_ticks</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>50</code></td><td style="text-align: right">max ticks</td></tr></table><h2 id="Source-Code"><a class="docs-heading-anchor" href="#Source-Code">Source Code</a><a id="Source-Code-1"></a><a class="docs-heading-anchor-permalink" href="#Source-Code" title="Permalink"></a></h2><p>The Julia code to run this model:</p><pre><code class="language-julia hljs">using ArkModelZoo
+_, trajectory = run_riseofradicalism()</code></pre><h2 id="Appendix:-Source-Code"><a class="docs-heading-anchor" href="#Appendix:-Source-Code">Appendix: Source Code</a><a id="Appendix:-Source-Code-1"></a><a class="docs-heading-anchor-permalink" href="#Appendix:-Source-Code" title="Permalink"></a></h2><p>This model is implemented in the <a href="https://github.com/sdwfrost/Ark.jl">Ark.jl</a> Entity-Component-System (ECS) framework. The code is split into five files, each with a distinct role:</p><ul><li><strong>Parameters</strong>: a mutable struct holding all configurable values.</li><li><strong>Components</strong>: lightweight data types attached to individual entities (agents).</li><li><strong>Resources</strong>: world-level shared state accessible to all systems.</li><li><strong>Systems</strong>: functions that operate on entities each tick, defining model behavior.</li><li><strong>Model</strong>: wiring that assembles the world, registers resources and systems, and provides the run entry point.</li></ul><h3 id="Parameters-(parameters.jl)"><a class="docs-heading-anchor" href="#Parameters-(parameters.jl)">Parameters (<code>parameters.jl</code>)</a><a id="Parameters-(parameters.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Parameters-(parameters.jl)" title="Permalink"></a></h3><p>The parameter struct uses <code>@kwdef</code> so that every field has a default value and can be overridden by keyword. These defaults match the original NetLogo model’s slider settings.</p><pre><code class="language-julia hljs">Base.@kwdef mutable struct RadParams
+    data_dir::String = &quot;.&quot;
+    growth::Float64 = 1.5
+    num_townships::Int = 9
+    num_terrorist_clusters::Int = 5
+    link_distance::Float64 = 25.0
+    degree::Int = 8
+    radicalism_init::Float64 = 1.3
+    grid_width::Int = 755
+    grid_height::Int = 555
+    max_ticks::Int = 50
+    seed::Int = 42
+end</code></pre><h3 id="Components-(components.jl)"><a class="docs-heading-anchor" href="#Components-(components.jl)">Components (<code>components.jl</code>)</a><a id="Components-(components.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Components-(components.jl)" title="Permalink"></a></h3><p>Components are lightweight data types attached to individual entities (agents). Mutable structs hold per-entity state, while empty tag structs act as markers for the ECS query system to efficiently filter entities.</p><pre><code class="language-julia hljs">struct RadDummy end</code></pre><h3 id="Resources-(resources.jl)"><a class="docs-heading-anchor" href="#Resources-(resources.jl)">Resources (<code>resources.jl</code>)</a><a id="Resources-(resources.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Resources-(resources.jl)" title="Permalink"></a></h3><p>Resources are world-level singletons shared across all systems, used for global state and aggregate statistics.</p><pre><code class="language-julia hljs">mutable struct RadTerroristCluster
+    x::Int
+    y::Int
+    radicalism::Float64
+    alive::Bool
+end
+
+mutable struct RadTownship
+    x::Int
+    y::Int
+    overtaken::Bool
+end
+
+mutable struct RadGrid
+    width::Int
+    height::Int
+    elevation::Matrix{Float64}
+    tslb::Matrix{Float64}
+    radical_spread_value::Matrix{Float64}
+    wetness::Matrix{Float64}
+    slope::Matrix{Float64}
+    cell::Matrix{Float64}
+    radicalism_spread_area::Matrix{Float64}
+    radicalism_spread_area_time::Matrix{Float64}
+    spread_ability::Matrix{Float64}
+    radicalized::Matrix{Bool}
+end
+
+function RadGrid(w::Int, h::Int)
+    RadGrid(w, h,
+        zeros(Float64, w, h),
+        zeros(Float64, w, h),
+        zeros(Float64, w, h),
+        zeros(Float64, w, h),
+        ones(Float64, w, h),
+        ones(Float64, w, h),
+        fill(100.0, w, h),
+        ones(Float64, w, h),
+        zeros(Float64, w, h),
+        falses(w, h))
+end
+
+mutable struct RadState
+    terrorist_clusters::Vector{RadTerroristCluster}
+    townships::Vector{RadTownship}
+    network::NwGraph
+end
+RadState() = RadState(RadTerroristCluster[], RadTownship[], NwGraph())
+
+mutable struct RadStats
+    percent_radicals::Float64
+    overtaken_townships::Float64
+    total_radicalism::Float64
+end
+RadStats() = RadStats(0.0, 0.0, 0.0)</code></pre><h3 id="Systems-(systems.jl)"><a class="docs-heading-anchor" href="#Systems-(systems.jl)">Systems (<code>systems.jl</code>)</a><a id="Systems-(systems.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Systems-(systems.jl)" title="Permalink"></a></h3><p>Systems contain the model logic and execute in a defined order each tick. Each system struct implements either <code>initialize!</code> (run once at setup) or <code>update!</code> (run every tick).</p><pre><code class="language-julia hljs"># --- Initialization ---
+
+struct InitRadSystem &lt;: System end
+
+function initialize!(::InitRadSystem, world::World)
+    params = get_resource(world, RadParams)
+    rng = get_resource(world, RNGResource).rng
+    grid = get_resource(world, RadGrid)
+    state = get_resource(world, RadState)
+    w, h = grid.width, grid.height
+
+    # Load 4 raster layers
+    dem_r = gis_load_asc(joinpath(params.data_dir, &quot;KIMB_DEM_1.asc&quot;))
+    tslb_r = gis_load_asc(joinpath(params.data_dir, &quot;KIMB_YSLB_2.asc&quot;))
+    veg_r = gis_load_asc(joinpath(params.data_dir, &quot;KIMB_VEG_1.asc&quot;))
+    wet_r = gis_load_asc(joinpath(params.data_dir, &quot;KIMB_WET_2.asc&quot;))
+
+    grid.elevation = gis_apply_raster_simple(dem_r)
+    grid.tslb = gis_apply_raster_simple(tslb_r)
+    grid.radical_spread_value = gis_apply_raster_simple(veg_r)
+    grid.wetness = gis_apply_raster_simple(wet_r)
+
+    # Resize grids to match actual loaded dimensions
+    w = size(grid.elevation, 1)
+    h = size(grid.elevation, 2)
+    grid.width = w
+    grid.height = h
+
+    # Ensure auxiliary grids match loaded dimensions
+    if size(grid.slope) != (w, h)
+        grid.slope = ones(Float64, w, h)
+        grid.cell = ones(Float64, w, h)
+        grid.radicalism_spread_area = fill(100.0, w, h)
+        grid.radicalism_spread_area_time = ones(Float64, w, h)
+        grid.spread_ability = zeros(Float64, w, h)
+        grid.radicalized = falses(w, h)
+    end
+
+    # tslb += 1
+    for x in 1:w, y in 1:h
+        grid.tslb[x, y] += 1.0
+    end
+
+    # Create townships at random interior positions
+    margin = 10
+    for _ in 1:params.num_townships
+        tx = rand(rng, margin:(w-margin))
+        ty = rand(rng, margin:(h-margin))
+        push!(state.townships, RadTownship(tx, ty, false))
+    end
+
+    # Create terrorist clusters at random interior positions
+    state.network = NwGraph(params.num_terrorist_clusters)
+    for i in 1:params.num_terrorist_clusters
+        cx = rand(rng, margin:(w-margin))
+        cy = rand(rng, margin:(h-margin))
+        push!(state.terrorist_clusters, RadTerroristCluster(cx, cy, params.radicalism_init, true))
+        # Radicalize the initial patch
+        grid.radicalized[cx, cy] = true
+    end
+
+    # Build initial network: connect clusters within link_distance
+    for i in 1:params.num_terrorist_clusters
+        for j in (i+1):params.num_terrorist_clusters
+            ci = state.terrorist_clusters[i]
+            cj = state.terrorist_clusters[j]
+            dist = sqrt(Float64((ci.x - cj.x)^2 + (ci.y - cj.y)^2))
+            if dist &lt;= params.link_distance &amp;&amp; nw_degree(state.network, i) &lt; params.degree &amp;&amp; nw_degree(state.network, j) &lt; params.degree
+                nw_add_edge!(state.network, i, j)
+            end
+        end
+    end
+
+    _calc_spread_ability!(grid, params)
+    _update_rad_stats!(grid, state, world)
+    return nothing
+end
+
+function _calc_spread_ability!(grid::RadGrid, params::RadParams)
+    w, h = grid.width, grid.height
+    ln27 = log(2.7)
+    ln18 = log(1.8)
+    log4 = log(4.0)
+
+    for x in 1:w, y in 1:h
+        tslb_val = max(grid.tslb[x, y], 0.0)
+        rsv = grid.radical_spread_value[x, y]
+        sa = (log(tslb_val + 1.0) / ln27) * (rsv + 1.0) * ((log4 / ln18) + 1.0) / params.growth
+        grid.spread_ability[x, y] = sa
+    end
+    return nothing
+end
+
+# Wrapping helper
+function _rad_wrap(v::Int, sz::Int)
+    return mod1(v, sz)
+end
+
+function _calc_slope!(grid::RadGrid)
+    w, h = grid.width, grid.height
+    for x in 1:w, y in 1:h
+        e = grid.elevation[x, y]
+        max_diff = 0.0
+        for dx in -1:1, dy in -1:1
+            (dx == 0 &amp;&amp; dy == 0) &amp;&amp; continue
+            nx = _rad_wrap(x + dx, w)
+            ny = _rad_wrap(y + dy, h)
+            diff = abs(grid.elevation[nx, ny] - e)
+            if diff &gt; max_diff
+                max_diff = diff
+            end
+        end
+        grid.slope[x, y] = max(max_diff / 100.0, 0.01)
+    end
+    return nothing
+end
+
+function _update_rad_stats!(grid::RadGrid, state::RadState, world::World)
+    stats = get_resource(world, RadStats)
+    w, h = grid.width, grid.height
+    total = w * h
+    rad_count = 0
+    total_rad = 0.0
+
+    for x in 1:w, y in 1:h
+        if grid.radicalized[x, y]
+            rad_count += 1
+            total_rad += grid.spread_ability[x, y]
+        end
+    end
+
+    stats.percent_radicals = total &gt; 0 ? 100.0 * rad_count / total : 0.0
+    stats.total_radicalism = total_rad
+
+    n_town = length(state.townships)
+    n_over = count(t -&gt; t.overtaken, state.townships)
+    stats.overtaken_townships = n_town &gt; 0 ? 100.0 * n_over / n_town : 0.0
+    return nothing
+end
+
+# --- Slope Calculation ---
+
+struct RadSlopeSystem &lt;: System end
+
+function update!(::RadSlopeSystem, world::World)
+    grid = get_resource(world, RadGrid)
+    _calc_slope!(grid)
+    return nothing
+end
+
+# --- Radicalism Spread ---
+
+struct RadSpreadSystem &lt;: System end
+
+function update!(::RadSpreadSystem, world::World)
+    params = get_resource(world, RadParams)
+    rng = get_resource(world, RNGResource).rng
+    grid = get_resource(world, RadGrid)
+    w, h = grid.width, grid.height
+
+    new_rad = falses(w, h)
+    for x in 1:w, y in 1:h
+        new_rad[x, y] = grid.radicalized[x, y]
+    end
+
+    for x in 1:w, y in 1:h
+        !grid.radicalized[x, y] &amp;&amp; continue
+        # Spread to neighbors
+        for dx in -1:1, dy in -1:1
+            (dx == 0 &amp;&amp; dy == 0) &amp;&amp; continue
+            nx = _rad_wrap(x + dx, w)
+            ny = _rad_wrap(y + dy, h)
+            if !new_rad[nx, ny]
+                sa = grid.spread_ability[x, y]
+                sl = grid.slope[x, y]
+                threshold = sa * grid.cell[x, y] + sl * 0.5
+                if rand(rng, 0:29) &lt; threshold
+                    new_rad[nx, ny] = true
+                end
+            end
+        end
+    end
+
+    for x in 1:w, y in 1:h
+        grid.radicalized[x, y] = new_rad[x, y]
+    end
+    return nothing
+end
+
+# --- Kill border turtles ---
+
+struct RadBorderSystem &lt;: System end
+
+function update!(::RadBorderSystem, world::World)
+    state = get_resource(world, RadState)
+    grid = get_resource(world, RadGrid)
+    w, h = grid.width, grid.height
+
+    for tc in state.terrorist_clusters
+        !tc.alive &amp;&amp; continue
+        if tc.x &lt;= 1 || tc.x &gt;= w || tc.y &lt;= 1 || tc.y &gt;= h
+            tc.alive = false
+        end
+    end
+    return nothing
+end
+
+# --- Terrorist Network Influence ---
+
+struct RadNetworkSystem &lt;: System end
+
+function update!(::RadNetworkSystem, world::World)
+    params = get_resource(world, RadParams)
+    rng = get_resource(world, RNGResource).rng
+    state = get_resource(world, RadState)
+    grid = get_resource(world, RadGrid)
+    n = length(state.terrorist_clusters)
+
+    # 2% chance to re-link
+    for i in 1:n
+        !state.terrorist_clusters[i].alive &amp;&amp; continue
+        if rand(rng) &lt; 0.02
+            # Try to find a new connection
+            for j in 1:n
+                j == i &amp;&amp; continue
+                !state.terrorist_clusters[j].alive &amp;&amp; continue
+                nw_has_edge(state.network, i, j) &amp;&amp; continue
+                ci = state.terrorist_clusters[i]
+                cj = state.terrorist_clusters[j]
+                dist = sqrt(Float64((ci.x - cj.x)^2 + (ci.y - cj.y)^2))
+                if dist &lt;= params.link_distance &amp;&amp; nw_degree(state.network, i) &lt; params.degree
+                    nw_add_edge!(state.network, i, j)
+                    break
+                end
+            end
+        end
+    end
+
+    # Influence spreads via network
+    new_rad = [tc.radicalism for tc in state.terrorist_clusters]
+    for i in 1:n
+        !state.terrorist_clusters[i].alive &amp;&amp; continue
+        for j in nw_neighbors(state.network, i)
+            j &gt; n &amp;&amp; continue
+            !state.terrorist_clusters[j].alive &amp;&amp; continue
+            new_rad[i] += 0.01 * state.terrorist_clusters[j].radicalism
+        end
+    end
+    for i in 1:n
+        state.terrorist_clusters[i].radicalism = new_rad[i]
+        # Radicalize patch at cluster position
+        if state.terrorist_clusters[i].alive
+            cx, cy = state.terrorist_clusters[i].x, state.terrorist_clusters[i].y
+            if 1 &lt;= cx &lt;= grid.width &amp;&amp; 1 &lt;= cy &lt;= grid.height
+                grid.radicalized[cx, cy] = true
+            end
+        end
+    end
+    return nothing
+end
+
+# --- Township Check ---
+
+struct RadTownshipSystem &lt;: System end
+
+function update!(::RadTownshipSystem, world::World)
+    state = get_resource(world, RadState)
+    grid = get_resource(world, RadGrid)
+
+    for t in state.townships
+        t.overtaken &amp;&amp; continue
+        if 1 &lt;= t.x &lt;= grid.width &amp;&amp; 1 &lt;= t.y &lt;= grid.height
+            if grid.radicalized[t.x, t.y]
+                t.overtaken = true
+            end
+        end
+    end
+    return nothing
+end
+
+# --- Stats ---
+
+struct RadStatsSystem &lt;: System end
+
+function update!(::RadStatsSystem, world::World)
+    grid = get_resource(world, RadGrid)
+    state = get_resource(world, RadState)
+    _update_rad_stats!(grid, state, world)
+    return nothing
+end
+
+# --- Termination ---
+
+struct RadTerminationSystem &lt;: System end
+
+function update!(::RadTerminationSystem, world::World)
+    params = get_resource(world, RadParams)
+    tick = get_resource(world, Tick)
+    if tick.tick + 1 &gt;= params.max_ticks
+        get_resource(world, Terminate).stop = true
+    end
+    return nothing
+end</code></pre><h3 id="Model-(model.jl)"><a class="docs-heading-anchor" href="#Model-(model.jl)">Model (<code>model.jl</code>)</a><a id="Model-(model.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Model-(model.jl)" title="Permalink"></a></h3><p>The model file assembles all pieces: it creates the ECS <code>World</code> with the required component types, registers resources, builds the <code>Scheduler</code> with systems in execution order, and exposes the public <code>run</code> entry point. The observer pattern records the trajectory each tick.</p><pre><code class="language-julia hljs">function riseofradicalism_world(; initial_capacity::Int = 128)
+    return World(
+        RadDummy;
+        initial_capacity = initial_capacity,
+        allow_mutable = true,
+    )
+end
+
+function riseofradicalism_systems()
+    return (
+        InitRadSystem(),
+        RadBorderSystem(),
+        RadSlopeSystem(),
+        RadSpreadSystem(),
+        RadNetworkSystem(),
+        RadTownshipSystem(),
+        RadStatsSystem(),
+        RadTerminationSystem(),
+    )
+end
+
+function riseofradicalism_model(params::RadParams = RadParams())
+    world = riseofradicalism_world()
+    _add_standard_resources!(world, params)
+    add_resource!(world, RadGrid(params.grid_width, params.grid_height))
+    add_resource!(world, RadState())
+    add_resource!(world, RadStats())
+    scheduler = Scheduler(world, riseofradicalism_systems())
+    initialize!(scheduler)
+    return scheduler
+end
+
+struct RadObserver end
+
+function riseofradicalism_headers(::RadObserver)
+    return [&quot;PercentRadicals&quot;, &quot;OvertakenTownships&quot;, &quot;TotalRadicalism&quot;]
+end
+
+function riseofradicalism_values(::RadObserver, world::World)
+    stats = get_resource(world, RadStats)
+    return Float64[stats.percent_radicals, stats.overtaken_townships, stats.total_radicalism]
+end
+
+function run_riseofradicalism(; params::RadParams = RadParams(), observe::Bool = true)
+    return _run_model(riseofradicalism_model, RadObserver(), riseofradicalism_values; params, observe)
+end</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../rhinopoaching/rhinopoaching/">« Rhino Poaching</a><a class="docs-footer-nextpage" href="../../rope/rope/">Rope »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.20.0 on <span class="colophon-date" title="Wednesday 18 November 2026 18:43">Wednesday 18 November 2026</span>. Using Julia version 1.13.4.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>

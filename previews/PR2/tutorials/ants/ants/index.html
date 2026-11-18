@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="referrer" content="no-referrer"/><title>Ants · ArkModelZoo.jl</title><meta name="title" content="Ants · ArkModelZoo.jl"/><meta property="og:title" content="Ants · ArkModelZoo.jl"/><meta property="twitter:title" content="Ants · ArkModelZoo.jl"/><meta name="description" content="Documentation for ArkModelZoo.jl."/><meta property="og:description" content="Documentation for ArkModelZoo.jl."/><meta property="twitter:description" content="Documentation for ArkModelZoo.jl."/><meta property="og:url" content="https://ecorecipes.github.io/ArkModelZoo.jl/tutorials/ants/ants/"/><meta property="twitter:url" content="https://ecorecipes.github.io/ArkModelZoo.jl/tutorials/ants/ants/"/><link rel="canonical" href="https://ecorecipes.github.io/ArkModelZoo.jl/tutorials/ants/ants/"/><script data-outdated-warner src="../../../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.63.2/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../../assets/documenter.js"></script><script src="../../../search_index.js"></script><script src="../../../siteinfo.js"></script><script src="../../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="../../../">ArkModelZoo.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../../../">Home</a></li><li><span class="tocitem">Resilience</span><ul><li><a class="tocitem" href="../../resilience/resilience/">Resilience of agent-based models</a></li></ul></li><li><span class="tocitem">Models</span><ul><li><a class="tocitem" href="../../abtgc/abtgc/">ABTgc</a></li><li><a class="tocitem" href="../../aids/aids/">AIDS</a></li><li><a class="tocitem" href="../../altruism/altruism/">Altruism</a></li><li><a class="tocitem" href="../../antsystem/antsystem/">Ant System TSP</a></li><li class="is-active"><a class="tocitem" href>Ants</a><ul class="internal"><li><a class="tocitem" href="#Overview"><span>Overview</span></a></li><li><a class="tocitem" href="#Parameters"><span>Parameters</span></a></li><li><a class="tocitem" href="#Source-Code"><span>Source Code</span></a></li><li><a class="tocitem" href="#Time-Series"><span>Time Series</span></a></li><li><a class="tocitem" href="#Ensemble-Runs"><span>Ensemble Runs</span></a></li><li><a class="tocitem" href="#Parameter-Sensitivity"><span>Parameter Sensitivity</span></a></li><li><a class="tocitem" href="#Appendix:-Source-Code"><span>Appendix: Source Code</span></a></li></ul></li><li><a class="tocitem" href="../../artificialeconomy/artificialeconomy/">Artificial Economy</a></li><li><a class="tocitem" href="../../axelrodcultural/axelrodcultural/">AxelrodCultural</a></li><li><a class="tocitem" href="../../babysittingcoop/babysittingcoop/">Baby Sitting Coop</a></li><li><a class="tocitem" href="../../bank_reserves/bank_reserves/">Bank Reserves</a></li><li><a class="tocitem" href="../../bayesian/bayesian/">Bayesian Updating</a></li><li><a class="tocitem" href="../../beinggreen/beinggreen/">Being Green</a></li><li><a class="tocitem" href="../../birthrates/birthrates/">Birthrates</a></li><li><a class="tocitem" href="../../blackbox/blackbox/">BlackBox</a></li><li><a class="tocitem" href="../../boiling/boiling/">Boiling</a></li><li><a class="tocitem" href="../../bombscenario/bombscenario/">BombScenario</a></li><li><a class="tocitem" href="../../brians_brain/brians_brain/">Brian’s Brain</a></li><li><a class="tocitem" href="../../bullwhipeffect/bullwhipeffect/">Bullwhip Effect</a></li><li><a class="tocitem" href="../../ca_1d_elementary/ca_1d_elementary/">CA 1D Elementary</a></li><li><a class="tocitem" href="../../civilizationgrowth/civilizationgrowth/">Civilization Growth</a></li><li><a class="tocitem" href="../../climatechange/climatechange/">Climate Change</a></li><li><a class="tocitem" href="../../coin/coin/">COIN Learning</a></li><li><a class="tocitem" href="../../competitionlearning/competitionlearning/">Competition Learning</a></li><li><a class="tocitem" href="../../contactprocess/contactprocess/">Contact Process 2D</a></li><li><a class="tocitem" href="../../contagionnw/contagionnw/">Contagion NW</a></li><li><a class="tocitem" href="../../contagionsi/contagionsi/">Contagion SI</a></li><li><a class="tocitem" href="../../contagionsir/contagionsir/">Contagion SIR</a></li><li><a class="tocitem" href="../../cooperation/cooperation/">Cooperation</a></li><li><a class="tocitem" href="../../coordination/coordination/">Coordination</a></li><li><a class="tocitem" href="../../coordination2groups/coordination2groups/">Coordination 2 Groups</a></li><li><a class="tocitem" href="../../croprotation/croprotation/">Crop Rotation</a></li><li><a class="tocitem" href="../../crystallization/crystallization/">Crystallization</a></li><li><a class="tocitem" href="../../csvnetworkforaging/csvnetworkforaging/">CSV Network Foraging</a></li><li><a class="tocitem" href="../../csvpopulation/csvpopulation/">CSV Population</a></li><li><a class="tocitem" href="../../culturaldiffusion/culturaldiffusion/">Cultural Diffusion</a></li><li><a class="tocitem" href="../../cyberspaceopinion/cyberspaceopinion/">Cyberspace Opinion</a></li><li><a class="tocitem" href="../../daisyworld/daisyworld/">Daisyworld</a></li><li><a class="tocitem" href="../../dating/dating/">Dating</a></li><li><a class="tocitem" href="../../diffusionnetwork/diffusionnetwork/">Diffusion Network</a></li><li><a class="tocitem" href="../../diffusionofhiv/diffusionofhiv/">DiffusionOfHIV</a></li><li><a class="tocitem" href="../../disinfobitstringnw/disinfobitstringnw/">Disinfobitstringnw</a></li><li><a class="tocitem" href="../../dla/dla/">Dla</a></li><li><a class="tocitem" href="../../dlasimple/dlasimple/">DLA Simple</a></li><li><a class="tocitem" href="../../druguse/druguse/">Drug Use</a></li><li><a class="tocitem" href="../../druguseoverdose/druguseoverdose/">Drug Use Overdose</a></li><li><a class="tocitem" href="../../elfarol/elfarol/">El Farol</a></li><li><a class="tocitem" href="../../erosion/erosion/">Erosion</a></li><li><a class="tocitem" href="../../ethnocentrism/ethnocentrism/">Ethnocentrism</a></li><li><a class="tocitem" href="../../evolutionofnorms/evolutionofnorms/">EvolutionOfNorms</a></li><li><a class="tocitem" href="../../firepercolation/firepercolation/">Fire Percolation</a></li><li><a class="tocitem" href="../../firebenchmark/firebenchmark/">FireBenchmark</a></li><li><a class="tocitem" href="../../fireflies/fireflies/">Fireflies</a></li><li><a class="tocitem" href="../../flocking/flocking/">Flocking</a></li><li><a class="tocitem" href="../../flockingnetwork/flockingnetwork/">Flocking Network</a></li><li><a class="tocitem" href="../../forestdewdney/forestdewdney/">Forest Dewdney</a></li><li><a class="tocitem" href="../../fire/fire/">Forest Fire</a></li><li><a class="tocitem" href="../../fungalbioremediation/fungalbioremediation/">Fungal Bioremediation</a></li><li><a class="tocitem" href="../../giant_component/giant_component/">Giant Component</a></li><li><a class="tocitem" href="../../gishillclimber/gishillclimber/">GIS HillClimber</a></li><li><a class="tocitem" href="../../granovetter/granovetter/">Granovetter</a></li><li><a class="tocitem" href="../../grassbrushtrees/grassbrushtrees/">Grass Brush Trees</a></li><li><a class="tocitem" href="../../diffusion/diffusion/">Heat Diffusion</a></li><li><a class="tocitem" href="../../heatbugs/heatbugs/">Heatbugs</a></li><li><a class="tocitem" href="../../hikingelevation/hikingelevation/">HikingElevation</a></li><li><a class="tocitem" href="../../infinitelife/infinitelife/">Infinite Life</a></li><li><a class="tocitem" href="../../infodiffusion/infodiffusion/">Info Diffusion</a></li><li><a class="tocitem" href="../../ising/ising/">Ising</a></li><li><a class="tocitem" href="../../languageborders/languageborders/">Language Borders</a></li><li><a class="tocitem" href="../../languagechange/languagechange/">Language Change</a></li><li><a class="tocitem" href="../../lassavirus/lassavirus/">LassaVirus</a></li><li><a class="tocitem" href="../../leonarditechadoption/leonarditechadoption/">Leonardi Tech Adoption</a></li><li><a class="tocitem" href="../../life/life/">Life</a></li><li><a class="tocitem" href="../../logistic_growth/logistic_growth/">Logistic Growth</a></li><li><a class="tocitem" href="../../mailmen/mailmen/">Mailmen Delivery</a></li><li><a class="tocitem" href="../../marriage/marriage/">Marriage Problem</a></li><li><a class="tocitem" href="../../mimicry/mimicry/">Mimicry</a></li><li><a class="tocitem" href="../../minimalsis/minimalsis/">Minimal SIS</a></li><li><a class="tocitem" href="../../minoritybelief/minoritybelief/">Minority Belief Spread</a></li><li><a class="tocitem" href="../../minoritygame/minoritygame/">Minority Game</a></li><li><a class="tocitem" href="../../misinformationsbfc/misinformationsbfc/">Misinformation SBFC</a></li><li><a class="tocitem" href="../../modsocsegregation/modsocsegregation/">Modsoc Segregation</a></li><li><a class="tocitem" href="../../mousetraps/mousetraps/">Mousetraps</a></li><li><a class="tocitem" href="../../multidrugresistant/multidrugresistant/">MultidrugResistant</a></li><li><a class="tocitem" href="../../opinionbc/opinionbc/">Opinion Dynamics BC</a></li><li><a class="tocitem" href="../../paretolearn/paretolearn/">Pareto Learning</a></li><li><a class="tocitem" href="../../participatorydisinfo/participatorydisinfo/">Participatory Disinformation</a></li><li><a class="tocitem" href="../../participatorydisinformation/participatorydisinformation/">Participatory Disinformation</a></li><li><a class="tocitem" href="../../particles/particles/">Particles</a></li><li><a class="tocitem" href="../../party/party/">Party</a></li><li><a class="tocitem" href="../../pd_basic_evolutionary/pd_basic_evolutionary/">PD Basic Evolutionary</a></li><li><a class="tocitem" href="../../pdsimple/pdsimple/">PD Simple</a></li><li><a class="tocitem" href="../../percolation/percolation/">Percolation</a></li><li><a class="tocitem" href="../../polymerdynamics/polymerdynamics/">Polymer Dynamics</a></li><li><a class="tocitem" href="../../prefattachhomophily/prefattachhomophily/">Pref Attach Homophily</a></li><li><a class="tocitem" href="../../preferential_attachment/preferential_attachment/">Preferential Attachment</a></li><li><a class="tocitem" href="../../privacyopinion/privacyopinion/">Privacy Opinion</a></li><li><a class="tocitem" href="../../productsmarket/productsmarket/">Products Market</a></li><li><a class="tocitem" href="../../public_good/public_good/">Public Good</a></li><li><a class="tocitem" href="../../cqin/cqin/">Quality Improvement Network</a></li><li><a class="tocitem" href="../../rabbits_grass_weeds/rabbits_grass_weeds/">Rabbits Grass Weeds</a></li><li><a class="tocitem" href="../../decay/decay/">Radioactive Decay</a></li><li><a class="tocitem" href="../../rationalevolvingpd/rationalevolvingpd/">Rational Evolving PD</a></li><li><a class="tocitem" href="../../rebellion/rebellion/">Rebellion</a></li><li><a class="tocitem" href="../../recruitingmovement/recruitingmovement/">Recruiting Movement</a></li><li><a class="tocitem" href="../../recruiting/recruiting/">Recruiting Supporters</a></li><li><a class="tocitem" href="../../recruitingsupporters/recruitingsupporters/">Recruiting Supporters</a></li><li><a class="tocitem" href="../../resilientteam/resilientteam/">Resilient Team</a></li><li><a class="tocitem" href="../../rhinopoaching/rhinopoaching/">Rhino Poaching</a></li><li><a class="tocitem" href="../../riseofradicalism/riseofradicalism/">Rise of Radicalism</a></li><li><a class="tocitem" href="../../rope/rope/">Rope</a></li><li><a class="tocitem" href="../../rumormill/rumormill/">Rumor Mill</a></li><li><a class="tocitem" href="../../sand/sand/">Sand</a></li><li><a class="tocitem" href="../../schelling/schelling/">Schelling Segregation</a></li><li><a class="tocitem" href="../../segregation/segregation/">Segregation</a></li><li><a class="tocitem" href="../../shepherds/shepherds/">Shepherds</a></li><li><a class="tocitem" href="../../simple_genetic_algorithm/simple_genetic_algorithm/">Simple Genetic Algorithm</a></li><li><a class="tocitem" href="../../simplemarket/simplemarket/">Simple Market</a></li><li><a class="tocitem" href="../../simplemarketrandom/simplemarketrandom/">Simple Market Random</a></li><li><a class="tocitem" href="../../simplemarkettable/simplemarkettable/">Simple Market Table</a></li><li><a class="tocitem" href="../../sir/sir/">SIR Epidemic</a></li><li><a class="tocitem" href="../../sleuthlanduse/sleuthlanduse/">Sleuth LandUse</a></li><li><a class="tocitem" href="../../slime/slime/">Slime</a></li><li><a class="tocitem" href="../../slowspread/slowspread/">Slow Spread Env Action</a></li><li><a class="tocitem" href="../../small_worlds/small_worlds/">Small Worlds</a></li><li><a class="tocitem" href="../../socialinfluence/socialinfluence/">Social Influence</a></li><li><a class="tocitem" href="../../socialnetworkdiffusion/socialnetworkdiffusion/">Social Network Diffusion</a></li><li><a class="tocitem" href="../../soliddiffusion/soliddiffusion/">Solid Diffusion</a></li><li><a class="tocitem" href="../../spatialattitude/spatialattitude/">Spatial Attitude</a></li><li><a class="tocitem" href="../../ipd/ipd/">Spatial IPD</a></li><li><a class="tocitem" href="../../spatialopinion/spatialopinion/">Spatial Opinion Dynamics</a></li><li><a class="tocitem" href="../../fakenews/fakenews/">Spread of Fake News</a></li><li><a class="tocitem" href="../../spreadingbots/spreadingbots/">Spreading Bots</a></li><li><a class="tocitem" href="../../spreadinggroups/spreadinggroups/">Spreading Groups</a></li><li><a class="tocitem" href="../../sugarscape_1_growback/sugarscape_1_growback/">Sugarscape 1 Growback</a></li><li><a class="tocitem" href="../../sugarscapeculture/sugarscapeculture/">Sugarscape Culture</a></li><li><a class="tocitem" href="../../sugarscapesexual/sugarscapesexual/">Sugarscape Sexual</a></li><li><a class="tocitem" href="../../superdiffuser/superdiffuser/">SuperDiffuser</a></li><li><a class="tocitem" href="../../teamassembly/teamassembly/">Team Assembly</a></li><li><a class="tocitem" href="../../termites/termites/">Termites</a></li><li><a class="tocitem" href="../../thermostat/thermostat/">Thermostat</a></li><li><a class="tocitem" href="../../tourism/tourism/">Tourism</a></li><li><a class="tocitem" href="../../traffic2lanes/traffic2lanes/">Traffic 2 Lanes</a></li><li><a class="tocitem" href="../../trafficbasic/trafficbasic/">Traffic Basic</a></li><li><a class="tocitem" href="../../trafficgrid/trafficgrid/">Traffic Grid</a></li><li><a class="tocitem" href="../../trafficintersection/trafficintersection/">Traffic Intersection</a></li><li><a class="tocitem" href="../../tumor/tumor/">Tumor</a></li><li><a class="tocitem" href="../../unitcohesion/unitcohesion/">Unit Cohesion</a></li><li><a class="tocitem" href="../../virus_on_network/virus_on_network/">Virus on a Network</a></li><li><a class="tocitem" href="../../virus/virus/">Virus on Network</a></li><li><a class="tocitem" href="../../voronoivoter/voronoivoter/">Voronoi Voter</a></li><li><a class="tocitem" href="../../voter/voter/">Voter Model</a></li><li><a class="tocitem" href="../../voting/voting/">Voting</a></li><li><a class="tocitem" href="../../wealthdistribution/wealthdistribution/">Wealth Distribution</a></li><li><a class="tocitem" href="../../wisdomcrowd/wisdomcrowd/">Wisdom of Crowd</a></li><li><a class="tocitem" href="../../wolfsheep/wolfsheep/">Wolf Sheep Predation</a></li></ul></li><li><a class="tocitem" href="../../../api/">API Reference</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Models</a></li><li class="is-active"><a href>Ants</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Ants</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/ecorecipes/ArkModelZoo.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/ecorecipes/ArkModelZoo.jl/blob/main/docs/src/tutorials/ants/ants.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Ants"><a class="docs-heading-anchor" href="#Ants">Ants</a><a id="Ants-1"></a><a class="docs-heading-anchor-permalink" href="#Ants" title="Permalink"></a></h1><h2 id="Overview"><a class="docs-heading-anchor" href="#Overview">Overview</a><a id="Overview-1"></a><a class="docs-heading-anchor-permalink" href="#Overview" title="Permalink"></a></h2><h3 id="WHAT-IS-IT?"><a class="docs-heading-anchor" href="#WHAT-IS-IT?">WHAT IS IT?</a><a id="WHAT-IS-IT?-1"></a><a class="docs-heading-anchor-permalink" href="#WHAT-IS-IT?" title="Permalink"></a></h3><p>In this project, a colony of ants forages for food. Though each ant follows a set of simple rules, the colony as a whole acts in a sophisticated way.</p><h3 id="HOW-IT-WORKS"><a class="docs-heading-anchor" href="#HOW-IT-WORKS">HOW IT WORKS</a><a id="HOW-IT-WORKS-1"></a><a class="docs-heading-anchor-permalink" href="#HOW-IT-WORKS" title="Permalink"></a></h3><p>When an ant finds a piece of food, it carries the food back to the nest, dropping a chemical as it moves. When other ants “sniff” the chemical, they follow the chemical toward the food. As more ants carry food to the nest, they reinforce the chemical trail.</p><h3 id="THINGS-TO-NOTICE"><a class="docs-heading-anchor" href="#THINGS-TO-NOTICE">THINGS TO NOTICE</a><a id="THINGS-TO-NOTICE-1"></a><a class="docs-heading-anchor-permalink" href="#THINGS-TO-NOTICE" title="Permalink"></a></h3><p>The ant colony generally exploits the food source in order, starting with the food closest to the nest, and finishing with the food most distant from the nest. It is more difficult for the ants to form a stable trail to the more distant food, since the chemical trail has more time to evaporate and diffuse before being reinforced.</p><p>Once the colony finishes collecting the closest food, the chemical trail to that food naturally disappears, freeing up ants to help collect the other food sources. The more distant food sources require a larger “critical number” of ants to form a stable trail.</p><p>The consumption of the food is shown in a plot. The line colors in the plot match the colors of the food piles.</p><h3 id="EXTENDING-THE-MODEL"><a class="docs-heading-anchor" href="#EXTENDING-THE-MODEL">EXTENDING THE MODEL</a><a id="EXTENDING-THE-MODEL-1"></a><a class="docs-heading-anchor-permalink" href="#EXTENDING-THE-MODEL" title="Permalink"></a></h3><p>Try different placements for the food sources. What happens if two food sources are equidistant from the nest? When that happens in the real world, ant colonies typically exploit one source then the other (not at the same time).</p><p>In this project, the ants use a “trick” to find their way back to the nest: they follow the “nest scent.” Real ants use a variety of different approaches to find their way back to the nest. Try to implement some alternative strategies.</p><p>The ants only respond to chemical levels between 0.05 and 2. The lower limit is used so the ants aren’t infinitely sensitive. Try removing the upper limit. What happens? Why?</p><p>In the <code>uphill-chemical</code> procedure, the ant “follows the gradient” of the chemical. That is, it “sniffs” in three directions, then turns in the direction where the chemical is strongest. You might want to try variants of the <code>uphill-chemical</code> procedure, changing the number and placement of “ant sniffs.”</p><h3 id="NETLOGO-FEATURES"><a class="docs-heading-anchor" href="#NETLOGO-FEATURES">NETLOGO FEATURES</a><a id="NETLOGO-FEATURES-1"></a><a class="docs-heading-anchor-permalink" href="#NETLOGO-FEATURES" title="Permalink"></a></h3><p>The built-in <code>diffuse</code> primitive lets us diffuse the chemical easily without complicated code.</p><p>The primitive <code>patch-right-and-ahead</code> is used to make the ants smell in different directions without actually turning.</p><h3 id="HOW-TO-CITE"><a class="docs-heading-anchor" href="#HOW-TO-CITE">HOW TO CITE</a><a id="HOW-TO-CITE-1"></a><a class="docs-heading-anchor-permalink" href="#HOW-TO-CITE" title="Permalink"></a></h3><p>If you mention this model or the NetLogo software in a publication, we ask that you include the citations below.</p><p>For the model itself:</p><ul><li>Wilensky, U. (1997). NetLogo Ants model. http://ccl.northwestern.edu/netlogo/models/Ants. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.</li></ul><p>Please cite the NetLogo software as:</p><ul><li>Wilensky, U. (1999). NetLogo. http://ccl.northwestern.edu/netlogo/. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.</li></ul><h3 id="COPYRIGHT-AND-LICENSE"><a class="docs-heading-anchor" href="#COPYRIGHT-AND-LICENSE">COPYRIGHT AND LICENSE</a><a id="COPYRIGHT-AND-LICENSE-1"></a><a class="docs-heading-anchor-permalink" href="#COPYRIGHT-AND-LICENSE" title="Permalink"></a></h3><p>Copyright 1997 Uri Wilensky.</p><p><img src="http://ccl.northwestern.edu/images/creativecommons/byncsa.png" alt="CC BY-NC-SA 3.0"/></p><p>This model is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License. To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/3.0/ or send a letter to Creative Commons, 559 Nathan Abbott Way, Stanford, California 94305, USA.</p><p>NetLogo itself is free software for non-commercial use under the terms of the GNU General Public License (<a href="https://ccl.northwestern.edu/netlogo/docs/copyright.html">see full license information here</a>).</p><p>To inquire about commercial licenses for either NetLogo or specific models from the models library, please contact netlogo-commercial-admin@ccl.northwestern.edu.</p><p>This model was created as part of the project: CONNECTED MATHEMATICS: MAKING SENSE OF COMPLEX PHENOMENA THROUGH BUILDING OBJECT-BASED PARALLEL MODELS (OBPML). The project gratefully acknowledges the support of the National Science Foundation (Applications of Advanced Technologies Program) – grant numbers RED #9552950 and REC #9632612.</p><p>This model was developed at the MIT Media Lab using CM StarLogo. See Resnick, M. (1994) “Turtles, Termites and Traffic Jams: Explorations in Massively Parallel Microworlds.” Cambridge, MA: MIT Press. Adapted to StarLogoT, 1997, as part of the Connected Mathematics Project.</p><p>This model was converted to NetLogo as part of the projects: PARTICIPATORY SIMULATIONS: NETWORK-BASED DESIGN FOR SYSTEMS LEARNING IN CLASSROOMS and/or INTEGRATED SIMULATION AND MODELING ENVIRONMENT. The project gratefully acknowledges the support of the National Science Foundation (REPP &amp; ROLE programs) – grant numbers REC #9814682 and REC-0126227. Converted from StarLogoT to NetLogo, 1998.</p><h2 id="Parameters"><a class="docs-heading-anchor" href="#Parameters">Parameters</a><a id="Parameters-1"></a><a class="docs-heading-anchor-permalink" href="#Parameters" title="Permalink"></a></h2><table><tr><th style="text-align: right">Parameter</th><th style="text-align: right">Type</th><th style="text-align: right">Default</th><th style="text-align: right">Description</th></tr><tr><td style="text-align: right"><code>population</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>125</code></td><td style="text-align: right">population</td></tr><tr><td style="text-align: right"><code>diffusion_rate</code></td><td style="text-align: right"><code>Float64</code></td><td style="text-align: right"><code>50.0</code></td><td style="text-align: right">0-99, percentage</td></tr><tr><td style="text-align: right"><code>evaporation_rate</code></td><td style="text-align: right"><code>Float64</code></td><td style="text-align: right"><code>10.0</code></td><td style="text-align: right">0-99, percentage</td></tr><tr><td style="text-align: right"><code>grid_size</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>71</code></td><td style="text-align: right">width and height (odd for center nest)</td></tr><tr><td style="text-align: right"><code>max_ticks</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>1000</code></td><td style="text-align: right">max ticks</td></tr></table><h2 id="Source-Code"><a class="docs-heading-anchor" href="#Source-Code">Source Code</a><a id="Source-Code-1"></a><a class="docs-heading-anchor-permalink" href="#Source-Code" title="Permalink"></a></h2><p>The Julia code to run this model:</p><pre><code class="language-julia hljs">using ArkModelZoo
+_, trajectory = run_ants()</code></pre><h2 id="Time-Series"><a class="docs-heading-anchor" href="#Time-Series">Time Series</a><a id="Time-Series-1"></a><a class="docs-heading-anchor-permalink" href="#Time-Series" title="Permalink"></a></h2><p><img src="../plot_timeseries.png" alt="Ants time series"/></p><h2 id="Ensemble-Runs"><a class="docs-heading-anchor" href="#Ensemble-Runs">Ensemble Runs</a><a id="Ensemble-Runs-1"></a><a class="docs-heading-anchor-permalink" href="#Ensemble-Runs" title="Permalink"></a></h2><p>Ten replicates with different random seeds, showing mean ± standard deviation.</p><p><img src="../plot_ensemble.png" alt="Ants ensemble"/></p><h2 id="Parameter-Sensitivity"><a class="docs-heading-anchor" href="#Parameter-Sensitivity">Parameter Sensitivity</a><a id="Parameter-Sensitivity-1"></a><a class="docs-heading-anchor-permalink" href="#Parameter-Sensitivity" title="Permalink"></a></h2><p>Varying <code>population</code>.</p><p><img src="../plot_sensitivity.png" alt="Ants sensitivity"/></p><h2 id="Appendix:-Source-Code"><a class="docs-heading-anchor" href="#Appendix:-Source-Code">Appendix: Source Code</a><a id="Appendix:-Source-Code-1"></a><a class="docs-heading-anchor-permalink" href="#Appendix:-Source-Code" title="Permalink"></a></h2><p>This model is implemented in the <a href="https://github.com/sdwfrost/Ark.jl">Ark.jl</a> Entity-Component-System (ECS) framework. The code is split into five files, each with a distinct role:</p><ul><li><strong>Parameters</strong>: a mutable struct holding all configurable values.</li><li><strong>Components</strong>: lightweight data types attached to individual entities (agents).</li><li><strong>Resources</strong>: world-level shared state accessible to all systems.</li><li><strong>Systems</strong>: functions that operate on entities each tick, defining model behavior.</li><li><strong>Model</strong>: wiring that assembles the world, registers resources and systems, and provides the run entry point.</li></ul><h3 id="Parameters-(parameters.jl)"><a class="docs-heading-anchor" href="#Parameters-(parameters.jl)">Parameters (<code>parameters.jl</code>)</a><a id="Parameters-(parameters.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Parameters-(parameters.jl)" title="Permalink"></a></h3><p>The parameter struct uses <code>@kwdef</code> so that every field has a default value and can be overridden by keyword. These defaults match the original NetLogo model’s slider settings.</p><pre><code class="language-julia hljs">Base.@kwdef mutable struct AntsParams
+    population::Int = 125
+    diffusion_rate::Float64 = 50.0    # 0-99, percentage
+    evaporation_rate::Float64 = 10.0  # 0-99, percentage
+    grid_size::Int = 71               # width and height (odd for center nest)
+    max_ticks::Int = 1000
+    seed::Int = 42
+end</code></pre><h3 id="Components-(components.jl)"><a class="docs-heading-anchor" href="#Components-(components.jl)">Components (<code>components.jl</code>)</a><a id="Components-(components.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Components-(components.jl)" title="Permalink"></a></h3><p>Components are lightweight data types attached to individual entities (agents). Mutable structs hold per-entity state, while empty tag structs act as markers for the ECS query system to efficiently filter entities.</p><pre><code class="language-julia hljs"># Ant position on continuous space mapped to grid
+mutable struct AntPosition
+    x::Float64
+    y::Float64
+end
+AntPosition() = AntPosition(0.0, 0.0)
+
+# Heading in degrees (0 = north, 90 = east)
+mutable struct Heading
+    angle::Float64
+end
+Heading() = Heading(0.0)
+
+# Tag: ant is carrying food
+struct CarryingFood end
+
+# Ant identity for staggered departure
+mutable struct AntID
+    who::Int
+end
+AntID() = AntID(0)</code></pre><h3 id="Resources-(resources.jl)"><a class="docs-heading-anchor" href="#Resources-(resources.jl)">Resources (<code>resources.jl</code>)</a><a id="Resources-(resources.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Resources-(resources.jl)" title="Permalink"></a></h3><p>Resources are world-level singletons shared across all systems, used for global state and aggregate statistics.</p><pre><code class="language-julia hljs"># Patch grid holds all per-cell state
+mutable struct PatchGrid
+    width::Int
+    height::Int
+    chemical::Matrix{Float64}     # pheromone level
+    food::Matrix{Int}             # food amount (0, 1, or 2)
+    nest::Matrix{Bool}            # true if nest area
+    nest_scent::Matrix{Float64}   # gradient: higher closer to nest
+    food_source::Matrix{Int}      # food source identifier (0, 1, 2, or 3)
+end
+
+function PatchGrid(width::Int, height::Int)
+    PatchGrid(
+        width, height,
+        zeros(Float64, width, height),
+        zeros(Int, width, height),
+        falses(width, height),
+        zeros(Float64, width, height),
+        zeros(Int, width, height),
+    )
+end
+
+mutable struct AntsStats
+    total_food_collected::Int
+    total_food_remaining::Int   # sum of food on all patches (NetLogo&#39;s &quot;total-food&quot;)
+    food_source1::Int
+    food_source2::Int
+    food_source3::Int
+end
+AntsStats() = AntsStats(0, 0, 0, 0, 0)</code></pre><h3 id="Systems-(systems.jl)"><a class="docs-heading-anchor" href="#Systems-(systems.jl)">Systems (<code>systems.jl</code>)</a><a id="Systems-(systems.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Systems-(systems.jl)" title="Permalink"></a></h3><p>Systems contain the model logic and execute in a defined order each tick. Each system struct implements either <code>initialize!</code> (run once at setup) or <code>update!</code> (run every tick).</p><pre><code class="language-julia hljs"># --- Initialization ---
+
+struct InitAntsSystem &lt;: System end
+
+function _setup_nest!(grid::PatchGrid)
+    cx = (grid.width + 1) ÷ 2
+    cy = (grid.height + 1) ÷ 2
+    for x in 1:grid.width, y in 1:grid.height
+        dist = sqrt(Float64((x - cx)^2 + (y - cy)^2))
+        grid.nest_scent[x, y] = max(0.0, 200.0 - dist)
+        if dist &lt; 5.0
+            grid.nest[x, y] = true
+        end
+    end
+end
+
+function _setup_food!(grid::PatchGrid, rng)
+    cx = (grid.width + 1) ÷ 2
+    cy = (grid.height + 1) ÷ 2
+    max_r = (grid.width - 1) ÷ 2
+
+    # Three food sources at fixed relative positions
+    sources = [
+        (round(Int, cx + 0.6 * max_r), cy, 1),
+        (round(Int, cx - 0.6 * max_r), round(Int, cy - 0.6 * max_r), 2),
+        (round(Int, cx - 0.8 * max_r), round(Int, cy + 0.8 * max_r), 3),
+    ]
+
+    for (sx, sy, src_id) in sources
+        for x in 1:grid.width, y in 1:grid.height
+            dist = sqrt(Float64((x - sx)^2 + (y - sy)^2))
+            if dist &lt; 5.0
+                grid.food[x, y] = rand(rng, 1:2)
+                grid.food_source[x, y] = src_id
+            end
+        end
+    end
+end
+
+function initialize!(::InitAntsSystem, world::World)
+    params = get_resource(world, AntsParams)
+    rng = get_resource(world, RNGResource).rng
+    grid = get_resource(world, PatchGrid)
+
+    _setup_nest!(grid)
+    _setup_food!(grid, rng)
+
+    # Compute initial total food remaining
+    stats = get_resource(world, AntsStats)
+    total = 0
+    for x in 1:grid.width, y in 1:grid.height
+        total += grid.food[x, y]
+    end
+    stats.total_food_remaining = total
+
+    # Create ants at nest center
+    cx = Float64((grid.width + 1) ÷ 2)
+    cy = Float64((grid.height + 1) ÷ 2)
+    for i in 1:params.population
+        new_entity!(world, (
+            AntPosition(cx, cy),
+            Heading(rand(rng) * 360.0),
+            AntID(i),
+        ))
+    end
+    return nothing
+end
+
+# --- Foraging Behavior ---
+
+struct ForagingBehaviorSystem &lt;: System
+    to_add_food::Vector{Entity}      # ants that found food (add CarryingFood)
+    to_drop_food::Vector{Entity}     # ants at nest (remove CarryingFood)
+end
+ForagingBehaviorSystem() = ForagingBehaviorSystem(Entity[], Entity[])
+
+function _grid_xy(pos::AntPosition, grid::PatchGrid)
+    gx = clamp(round(Int, pos.x), 1, grid.width)
+    gy = clamp(round(Int, pos.y), 1, grid.height)
+    return gx, gy
+end
+
+function _scent_at_angle(pos::AntPosition, heading::Float64, offset::Float64,
+                          grid::PatchGrid, field::Matrix{Float64})
+    θ = deg2rad(heading + offset)
+    nx = pos.x + sin(θ)
+    ny = pos.y + cos(θ)
+    gx = clamp(round(Int, nx), 1, grid.width)
+    gy = clamp(round(Int, ny), 1, grid.height)
+    return field[gx, gy]
+end
+
+function _uphill!(heading_comp::Heading, pos::AntPosition, grid::PatchGrid, field::Matrix{Float64})
+    ahead = _scent_at_angle(pos, heading_comp.angle, 0.0, grid, field)
+    right = _scent_at_angle(pos, heading_comp.angle, 45.0, grid, field)
+    left = _scent_at_angle(pos, heading_comp.angle, -45.0, grid, field)
+    if right &gt; ahead || left &gt; ahead
+        if right &gt; left
+            heading_comp.angle += 45.0
+        else
+            heading_comp.angle -= 45.0
+        end
+    end
+end
+
+function update!(system::ForagingBehaviorSystem, world::World)
+    grid = get_resource(world, PatchGrid)
+    stats = get_resource(world, AntsStats)
+    tick_val = get_resource(world, Tick).tick
+
+    empty!(system.to_add_food)
+    empty!(system.to_drop_food)
+
+    # Ants NOT carrying food: look for food
+    for (eids, positions, headings, antids) in Query(world, (AntPosition, Heading, AntID); without=(CarryingFood,))
+        @inbounds for i in eachindex(positions)
+            antids[i].who &gt;= tick_val &amp;&amp; continue
+
+            gx, gy = _grid_xy(positions[i], grid)
+
+            if grid.food[gx, gy] &gt; 0
+                grid.food[gx, gy] -= 1
+                stats.total_food_collected += 1
+                src = grid.food_source[gx, gy]
+                if src == 1; stats.food_source1 += 1
+                elseif src == 2; stats.food_source2 += 1
+                elseif src == 3; stats.food_source3 += 1
+                end
+                headings[i].angle += 180.0
+                push!(system.to_add_food, eids[i])
+            else
+                chem = grid.chemical[gx, gy]
+                if chem &gt;= 0.05 &amp;&amp; chem &lt; 2.0
+                    _uphill!(headings[i], positions[i], grid, grid.chemical)
+                end
+            end
+        end
+    end
+
+    # Ants carrying food: return to nest
+    for (eids, positions, headings) in Query(world, (AntPosition, Heading); with=(CarryingFood,))
+        @inbounds for i in eachindex(positions)
+            gx, gy = _grid_xy(positions[i], grid)
+            if grid.nest[gx, gy]
+                headings[i].angle += 180.0
+                push!(system.to_drop_food, eids[i])
+            else
+                grid.chemical[gx, gy] += 60.0
+                _uphill!(headings[i], positions[i], grid, grid.nest_scent)
+            end
+        end
+    end
+
+    # Apply deferred component changes outside query iteration
+    for e in system.to_add_food
+        add_components!(world, e, (CarryingFood(),))
+    end
+    for e in system.to_drop_food
+        remove_components!(world, e, (CarryingFood,))
+    end
+    return nothing
+end
+
+# --- Movement ---
+
+struct AntMovementSystem &lt;: System end
+
+function update!(::AntMovementSystem, world::World)
+    rng = get_resource(world, RNGResource).rng
+    grid = get_resource(world, PatchGrid)
+    tick_val = get_resource(world, Tick).tick
+    w, h = grid.width, grid.height
+
+    for (_, positions, headings, antids) in Query(world, (AntPosition, Heading, AntID))
+        @inbounds for i in eachindex(positions)
+            antids[i].who &gt;= tick_val &amp;&amp; continue
+
+            # Wiggle: random ±40 degrees
+            headings[i].angle += rand(rng) * 40.0
+            headings[i].angle -= rand(rng) * 40.0
+
+            # Move forward 1
+            θ = deg2rad(headings[i].angle)
+            nx = positions[i].x + sin(θ)
+            ny = positions[i].y + cos(θ)
+
+            # Bounce off walls
+            if nx &lt; 1.0 || nx &gt; Float64(w) || ny &lt; 1.0 || ny &gt; Float64(h)
+                headings[i].angle += 180.0
+                θ = deg2rad(headings[i].angle)
+                nx = positions[i].x + sin(θ)
+                ny = positions[i].y + cos(θ)
+            end
+
+            positions[i].x = clamp(nx, 1.0, Float64(w))
+            positions[i].y = clamp(ny, 1.0, Float64(h))
+        end
+    end
+    return nothing
+end
+
+# --- Pheromone Diffusion &amp; Evaporation ---
+
+struct PheromoneSystem &lt;: System
+    buffer::Matrix{Float64}
+end
+PheromoneSystem(grid_size::Int) = PheromoneSystem(zeros(Float64, grid_size, grid_size))
+PheromoneSystem() = PheromoneSystem(0)  # placeholder; re-created in init
+
+function initialize!(system::PheromoneSystem, world::World)
+    # No-op; buffer allocated at construction
+    return nothing
+end
+
+function update!(system::PheromoneSystem, world::World)
+    params = get_resource(world, AntsParams)
+    grid = get_resource(world, PatchGrid)
+    w, h = grid.width, grid.height
+    chem = grid.chemical
+    buf = system.buffer
+
+    # Diffuse: each cell shares diffusion_rate% with 8 neighbors
+    diff_frac = params.diffusion_rate / 100.0
+    share = diff_frac / 8.0
+
+    # NetLogo diffuse: edge/corner patches keep shares meant for non-existent
+    # neighbors, preserving the global sum of chemical.
+    @inbounds for x in 1:w, y in 1:h
+        n_nbr = 0
+        for dx in -1:1, dy in -1:1
+            (dx == 0 &amp;&amp; dy == 0) &amp;&amp; continue
+            nx = x + dx
+            ny = y + dy
+            if nx &gt;= 1 &amp;&amp; nx &lt;= w &amp;&amp; ny &gt;= 1 &amp;&amp; ny &lt;= h
+                n_nbr += 1
+            end
+        end
+        buf[x, y] = chem[x, y] * (1.0 - n_nbr * share)
+    end
+
+    @inbounds for x in 1:w, y in 1:h
+        contrib = chem[x, y] * share
+        contrib == 0.0 &amp;&amp; continue
+        for dx in -1:1, dy in -1:1
+            (dx == 0 &amp;&amp; dy == 0) &amp;&amp; continue
+            nx = x + dx
+            ny = y + dy
+            (nx &lt; 1 || nx &gt; w || ny &lt; 1 || ny &gt; h) &amp;&amp; continue
+            buf[nx, ny] += contrib
+        end
+    end
+
+    # Evaporate
+    retention = (100.0 - params.evaporation_rate) / 100.0
+    @inbounds for x in 1:w, y in 1:h
+        chem[x, y] = buf[x, y] * retention
+    end
+    return nothing
+end
+
+# --- Update Food Stats ---
+
+struct UpdateFoodStatsSystem &lt;: System end
+
+function update!(::UpdateFoodStatsSystem, world::World)
+    grid = get_resource(world, PatchGrid)
+    stats = get_resource(world, AntsStats)
+    total = 0
+    @inbounds for x in 1:grid.width, y in 1:grid.height
+        total += grid.food[x, y]
+    end
+    stats.total_food_remaining = total
+    return nothing
+end
+
+# --- Termination ---
+
+struct AntsTerminationSystem &lt;: System end
+
+function update!(::AntsTerminationSystem, world::World)
+    params = get_resource(world, AntsParams)
+    tick = get_resource(world, Tick)
+    if tick.tick + 1 &gt;= params.max_ticks
+        get_resource(world, Terminate).stop = true
+    end
+    return nothing
+end</code></pre><h3 id="Model-(model.jl)"><a class="docs-heading-anchor" href="#Model-(model.jl)">Model (<code>model.jl</code>)</a><a id="Model-(model.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Model-(model.jl)" title="Permalink"></a></h3><p>The model file assembles all pieces: it creates the ECS <code>World</code> with the required component types, registers resources, builds the <code>Scheduler</code> with systems in execution order, and exposes the public <code>run</code> entry point. The observer pattern records the trajectory each tick.</p><pre><code class="language-julia hljs">function ants_world(; initial_capacity::Int = 1024)
+    return World(
+        AntPosition,
+        Heading,
+        AntID,
+        CarryingFood;
+        initial_capacity = initial_capacity,
+        allow_mutable = true,
+    )
+end
+
+function ants_systems(grid_size::Int = 71)
+    return (
+        InitAntsSystem(),
+        ForagingBehaviorSystem(),
+        AntMovementSystem(),
+        PheromoneSystem(grid_size),
+        UpdateFoodStatsSystem(),
+        AntsTerminationSystem(),
+    )
+end
+
+function ants_model(params::AntsParams = AntsParams())
+    world = ants_world()
+    _add_standard_resources!(world, params)
+    add_resource!(world, PatchGrid(params.grid_size, params.grid_size))
+    add_resource!(world, AntsStats())
+    scheduler = Scheduler(world, ants_systems(params.grid_size))
+    initialize!(scheduler)
+    return scheduler
+end
+
+struct AntsObserver end
+
+function ants_headers(::AntsObserver)
+    return [&quot;TotalFood&quot;, &quot;TotalFoodRemaining&quot;, &quot;Source1&quot;, &quot;Source2&quot;, &quot;Source3&quot;]
+end
+
+function ants_values(::AntsObserver, world::World)
+    stats = get_resource(world, AntsStats)
+    return Float64[stats.total_food_collected, stats.total_food_remaining,
+                    stats.food_source1, stats.food_source2, stats.food_source3]
+end
+
+function run_ants(; params::AntsParams = AntsParams(), observe::Bool = true)
+    return _run_model(ants_model, AntsObserver(), ants_values; params, observe)
+end</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../antsystem/antsystem/">« Ant System TSP</a><a class="docs-footer-nextpage" href="../../artificialeconomy/artificialeconomy/">Artificial Economy »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.20.0 on <span class="colophon-date" title="Wednesday 18 November 2026 18:43">Wednesday 18 November 2026</span>. Using Julia version 1.13.4.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>

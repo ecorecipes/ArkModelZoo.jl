@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="referrer" content="no-referrer"/><title>Baby Sitting Coop · ArkModelZoo.jl</title><meta name="title" content="Baby Sitting Coop · ArkModelZoo.jl"/><meta property="og:title" content="Baby Sitting Coop · ArkModelZoo.jl"/><meta property="twitter:title" content="Baby Sitting Coop · ArkModelZoo.jl"/><meta name="description" content="Documentation for ArkModelZoo.jl."/><meta property="og:description" content="Documentation for ArkModelZoo.jl."/><meta property="twitter:description" content="Documentation for ArkModelZoo.jl."/><meta property="og:url" content="https://ecorecipes.github.io/ArkModelZoo.jl/tutorials/babysittingcoop/babysittingcoop/"/><meta property="twitter:url" content="https://ecorecipes.github.io/ArkModelZoo.jl/tutorials/babysittingcoop/babysittingcoop/"/><link rel="canonical" href="https://ecorecipes.github.io/ArkModelZoo.jl/tutorials/babysittingcoop/babysittingcoop/"/><script data-outdated-warner src="../../../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.63.2/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../../assets/documenter.js"></script><script src="../../../search_index.js"></script><script src="../../../siteinfo.js"></script><script src="../../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="../../../">ArkModelZoo.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../../../">Home</a></li><li><span class="tocitem">Resilience</span><ul><li><a class="tocitem" href="../../resilience/resilience/">Resilience of agent-based models</a></li></ul></li><li><span class="tocitem">Models</span><ul><li><a class="tocitem" href="../../abtgc/abtgc/">ABTgc</a></li><li><a class="tocitem" href="../../aids/aids/">AIDS</a></li><li><a class="tocitem" href="../../altruism/altruism/">Altruism</a></li><li><a class="tocitem" href="../../antsystem/antsystem/">Ant System TSP</a></li><li><a class="tocitem" href="../../ants/ants/">Ants</a></li><li><a class="tocitem" href="../../artificialeconomy/artificialeconomy/">Artificial Economy</a></li><li><a class="tocitem" href="../../axelrodcultural/axelrodcultural/">AxelrodCultural</a></li><li class="is-active"><a class="tocitem" href>Baby Sitting Coop</a><ul class="internal"><li><a class="tocitem" href="#Overview"><span>Overview</span></a></li><li><a class="tocitem" href="#Parameters"><span>Parameters</span></a></li><li><a class="tocitem" href="#Source-Code"><span>Source Code</span></a></li><li><a class="tocitem" href="#Time-Series"><span>Time Series</span></a></li><li><a class="tocitem" href="#Ensemble-Runs"><span>Ensemble Runs</span></a></li><li><a class="tocitem" href="#Parameter-Sensitivity"><span>Parameter Sensitivity</span></a></li><li><a class="tocitem" href="#Appendix:-Source-Code"><span>Appendix: Source Code</span></a></li></ul></li><li><a class="tocitem" href="../../bank_reserves/bank_reserves/">Bank Reserves</a></li><li><a class="tocitem" href="../../bayesian/bayesian/">Bayesian Updating</a></li><li><a class="tocitem" href="../../beinggreen/beinggreen/">Being Green</a></li><li><a class="tocitem" href="../../birthrates/birthrates/">Birthrates</a></li><li><a class="tocitem" href="../../blackbox/blackbox/">BlackBox</a></li><li><a class="tocitem" href="../../boiling/boiling/">Boiling</a></li><li><a class="tocitem" href="../../bombscenario/bombscenario/">BombScenario</a></li><li><a class="tocitem" href="../../brians_brain/brians_brain/">Brian’s Brain</a></li><li><a class="tocitem" href="../../bullwhipeffect/bullwhipeffect/">Bullwhip Effect</a></li><li><a class="tocitem" href="../../ca_1d_elementary/ca_1d_elementary/">CA 1D Elementary</a></li><li><a class="tocitem" href="../../civilizationgrowth/civilizationgrowth/">Civilization Growth</a></li><li><a class="tocitem" href="../../climatechange/climatechange/">Climate Change</a></li><li><a class="tocitem" href="../../coin/coin/">COIN Learning</a></li><li><a class="tocitem" href="../../competitionlearning/competitionlearning/">Competition Learning</a></li><li><a class="tocitem" href="../../contactprocess/contactprocess/">Contact Process 2D</a></li><li><a class="tocitem" href="../../contagionnw/contagionnw/">Contagion NW</a></li><li><a class="tocitem" href="../../contagionsi/contagionsi/">Contagion SI</a></li><li><a class="tocitem" href="../../contagionsir/contagionsir/">Contagion SIR</a></li><li><a class="tocitem" href="../../cooperation/cooperation/">Cooperation</a></li><li><a class="tocitem" href="../../coordination/coordination/">Coordination</a></li><li><a class="tocitem" href="../../coordination2groups/coordination2groups/">Coordination 2 Groups</a></li><li><a class="tocitem" href="../../croprotation/croprotation/">Crop Rotation</a></li><li><a class="tocitem" href="../../crystallization/crystallization/">Crystallization</a></li><li><a class="tocitem" href="../../csvnetworkforaging/csvnetworkforaging/">CSV Network Foraging</a></li><li><a class="tocitem" href="../../csvpopulation/csvpopulation/">CSV Population</a></li><li><a class="tocitem" href="../../culturaldiffusion/culturaldiffusion/">Cultural Diffusion</a></li><li><a class="tocitem" href="../../cyberspaceopinion/cyberspaceopinion/">Cyberspace Opinion</a></li><li><a class="tocitem" href="../../daisyworld/daisyworld/">Daisyworld</a></li><li><a class="tocitem" href="../../dating/dating/">Dating</a></li><li><a class="tocitem" href="../../diffusionnetwork/diffusionnetwork/">Diffusion Network</a></li><li><a class="tocitem" href="../../diffusionofhiv/diffusionofhiv/">DiffusionOfHIV</a></li><li><a class="tocitem" href="../../disinfobitstringnw/disinfobitstringnw/">Disinfobitstringnw</a></li><li><a class="tocitem" href="../../dla/dla/">Dla</a></li><li><a class="tocitem" href="../../dlasimple/dlasimple/">DLA Simple</a></li><li><a class="tocitem" href="../../druguse/druguse/">Drug Use</a></li><li><a class="tocitem" href="../../druguseoverdose/druguseoverdose/">Drug Use Overdose</a></li><li><a class="tocitem" href="../../elfarol/elfarol/">El Farol</a></li><li><a class="tocitem" href="../../erosion/erosion/">Erosion</a></li><li><a class="tocitem" href="../../ethnocentrism/ethnocentrism/">Ethnocentrism</a></li><li><a class="tocitem" href="../../evolutionofnorms/evolutionofnorms/">EvolutionOfNorms</a></li><li><a class="tocitem" href="../../firepercolation/firepercolation/">Fire Percolation</a></li><li><a class="tocitem" href="../../firebenchmark/firebenchmark/">FireBenchmark</a></li><li><a class="tocitem" href="../../fireflies/fireflies/">Fireflies</a></li><li><a class="tocitem" href="../../flocking/flocking/">Flocking</a></li><li><a class="tocitem" href="../../flockingnetwork/flockingnetwork/">Flocking Network</a></li><li><a class="tocitem" href="../../forestdewdney/forestdewdney/">Forest Dewdney</a></li><li><a class="tocitem" href="../../fire/fire/">Forest Fire</a></li><li><a class="tocitem" href="../../fungalbioremediation/fungalbioremediation/">Fungal Bioremediation</a></li><li><a class="tocitem" href="../../giant_component/giant_component/">Giant Component</a></li><li><a class="tocitem" href="../../gishillclimber/gishillclimber/">GIS HillClimber</a></li><li><a class="tocitem" href="../../granovetter/granovetter/">Granovetter</a></li><li><a class="tocitem" href="../../grassbrushtrees/grassbrushtrees/">Grass Brush Trees</a></li><li><a class="tocitem" href="../../diffusion/diffusion/">Heat Diffusion</a></li><li><a class="tocitem" href="../../heatbugs/heatbugs/">Heatbugs</a></li><li><a class="tocitem" href="../../hikingelevation/hikingelevation/">HikingElevation</a></li><li><a class="tocitem" href="../../infinitelife/infinitelife/">Infinite Life</a></li><li><a class="tocitem" href="../../infodiffusion/infodiffusion/">Info Diffusion</a></li><li><a class="tocitem" href="../../ising/ising/">Ising</a></li><li><a class="tocitem" href="../../languageborders/languageborders/">Language Borders</a></li><li><a class="tocitem" href="../../languagechange/languagechange/">Language Change</a></li><li><a class="tocitem" href="../../lassavirus/lassavirus/">LassaVirus</a></li><li><a class="tocitem" href="../../leonarditechadoption/leonarditechadoption/">Leonardi Tech Adoption</a></li><li><a class="tocitem" href="../../life/life/">Life</a></li><li><a class="tocitem" href="../../logistic_growth/logistic_growth/">Logistic Growth</a></li><li><a class="tocitem" href="../../mailmen/mailmen/">Mailmen Delivery</a></li><li><a class="tocitem" href="../../marriage/marriage/">Marriage Problem</a></li><li><a class="tocitem" href="../../mimicry/mimicry/">Mimicry</a></li><li><a class="tocitem" href="../../minimalsis/minimalsis/">Minimal SIS</a></li><li><a class="tocitem" href="../../minoritybelief/minoritybelief/">Minority Belief Spread</a></li><li><a class="tocitem" href="../../minoritygame/minoritygame/">Minority Game</a></li><li><a class="tocitem" href="../../misinformationsbfc/misinformationsbfc/">Misinformation SBFC</a></li><li><a class="tocitem" href="../../modsocsegregation/modsocsegregation/">Modsoc Segregation</a></li><li><a class="tocitem" href="../../mousetraps/mousetraps/">Mousetraps</a></li><li><a class="tocitem" href="../../multidrugresistant/multidrugresistant/">MultidrugResistant</a></li><li><a class="tocitem" href="../../opinionbc/opinionbc/">Opinion Dynamics BC</a></li><li><a class="tocitem" href="../../paretolearn/paretolearn/">Pareto Learning</a></li><li><a class="tocitem" href="../../participatorydisinfo/participatorydisinfo/">Participatory Disinformation</a></li><li><a class="tocitem" href="../../participatorydisinformation/participatorydisinformation/">Participatory Disinformation</a></li><li><a class="tocitem" href="../../particles/particles/">Particles</a></li><li><a class="tocitem" href="../../party/party/">Party</a></li><li><a class="tocitem" href="../../pd_basic_evolutionary/pd_basic_evolutionary/">PD Basic Evolutionary</a></li><li><a class="tocitem" href="../../pdsimple/pdsimple/">PD Simple</a></li><li><a class="tocitem" href="../../percolation/percolation/">Percolation</a></li><li><a class="tocitem" href="../../polymerdynamics/polymerdynamics/">Polymer Dynamics</a></li><li><a class="tocitem" href="../../prefattachhomophily/prefattachhomophily/">Pref Attach Homophily</a></li><li><a class="tocitem" href="../../preferential_attachment/preferential_attachment/">Preferential Attachment</a></li><li><a class="tocitem" href="../../privacyopinion/privacyopinion/">Privacy Opinion</a></li><li><a class="tocitem" href="../../productsmarket/productsmarket/">Products Market</a></li><li><a class="tocitem" href="../../public_good/public_good/">Public Good</a></li><li><a class="tocitem" href="../../cqin/cqin/">Quality Improvement Network</a></li><li><a class="tocitem" href="../../rabbits_grass_weeds/rabbits_grass_weeds/">Rabbits Grass Weeds</a></li><li><a class="tocitem" href="../../decay/decay/">Radioactive Decay</a></li><li><a class="tocitem" href="../../rationalevolvingpd/rationalevolvingpd/">Rational Evolving PD</a></li><li><a class="tocitem" href="../../rebellion/rebellion/">Rebellion</a></li><li><a class="tocitem" href="../../recruitingmovement/recruitingmovement/">Recruiting Movement</a></li><li><a class="tocitem" href="../../recruiting/recruiting/">Recruiting Supporters</a></li><li><a class="tocitem" href="../../recruitingsupporters/recruitingsupporters/">Recruiting Supporters</a></li><li><a class="tocitem" href="../../resilientteam/resilientteam/">Resilient Team</a></li><li><a class="tocitem" href="../../rhinopoaching/rhinopoaching/">Rhino Poaching</a></li><li><a class="tocitem" href="../../riseofradicalism/riseofradicalism/">Rise of Radicalism</a></li><li><a class="tocitem" href="../../rope/rope/">Rope</a></li><li><a class="tocitem" href="../../rumormill/rumormill/">Rumor Mill</a></li><li><a class="tocitem" href="../../sand/sand/">Sand</a></li><li><a class="tocitem" href="../../schelling/schelling/">Schelling Segregation</a></li><li><a class="tocitem" href="../../segregation/segregation/">Segregation</a></li><li><a class="tocitem" href="../../shepherds/shepherds/">Shepherds</a></li><li><a class="tocitem" href="../../simple_genetic_algorithm/simple_genetic_algorithm/">Simple Genetic Algorithm</a></li><li><a class="tocitem" href="../../simplemarket/simplemarket/">Simple Market</a></li><li><a class="tocitem" href="../../simplemarketrandom/simplemarketrandom/">Simple Market Random</a></li><li><a class="tocitem" href="../../simplemarkettable/simplemarkettable/">Simple Market Table</a></li><li><a class="tocitem" href="../../sir/sir/">SIR Epidemic</a></li><li><a class="tocitem" href="../../sleuthlanduse/sleuthlanduse/">Sleuth LandUse</a></li><li><a class="tocitem" href="../../slime/slime/">Slime</a></li><li><a class="tocitem" href="../../slowspread/slowspread/">Slow Spread Env Action</a></li><li><a class="tocitem" href="../../small_worlds/small_worlds/">Small Worlds</a></li><li><a class="tocitem" href="../../socialinfluence/socialinfluence/">Social Influence</a></li><li><a class="tocitem" href="../../socialnetworkdiffusion/socialnetworkdiffusion/">Social Network Diffusion</a></li><li><a class="tocitem" href="../../soliddiffusion/soliddiffusion/">Solid Diffusion</a></li><li><a class="tocitem" href="../../spatialattitude/spatialattitude/">Spatial Attitude</a></li><li><a class="tocitem" href="../../ipd/ipd/">Spatial IPD</a></li><li><a class="tocitem" href="../../spatialopinion/spatialopinion/">Spatial Opinion Dynamics</a></li><li><a class="tocitem" href="../../fakenews/fakenews/">Spread of Fake News</a></li><li><a class="tocitem" href="../../spreadingbots/spreadingbots/">Spreading Bots</a></li><li><a class="tocitem" href="../../spreadinggroups/spreadinggroups/">Spreading Groups</a></li><li><a class="tocitem" href="../../sugarscape_1_growback/sugarscape_1_growback/">Sugarscape 1 Growback</a></li><li><a class="tocitem" href="../../sugarscapeculture/sugarscapeculture/">Sugarscape Culture</a></li><li><a class="tocitem" href="../../sugarscapesexual/sugarscapesexual/">Sugarscape Sexual</a></li><li><a class="tocitem" href="../../superdiffuser/superdiffuser/">SuperDiffuser</a></li><li><a class="tocitem" href="../../teamassembly/teamassembly/">Team Assembly</a></li><li><a class="tocitem" href="../../termites/termites/">Termites</a></li><li><a class="tocitem" href="../../thermostat/thermostat/">Thermostat</a></li><li><a class="tocitem" href="../../tourism/tourism/">Tourism</a></li><li><a class="tocitem" href="../../traffic2lanes/traffic2lanes/">Traffic 2 Lanes</a></li><li><a class="tocitem" href="../../trafficbasic/trafficbasic/">Traffic Basic</a></li><li><a class="tocitem" href="../../trafficgrid/trafficgrid/">Traffic Grid</a></li><li><a class="tocitem" href="../../trafficintersection/trafficintersection/">Traffic Intersection</a></li><li><a class="tocitem" href="../../tumor/tumor/">Tumor</a></li><li><a class="tocitem" href="../../unitcohesion/unitcohesion/">Unit Cohesion</a></li><li><a class="tocitem" href="../../virus_on_network/virus_on_network/">Virus on a Network</a></li><li><a class="tocitem" href="../../virus/virus/">Virus on Network</a></li><li><a class="tocitem" href="../../voronoivoter/voronoivoter/">Voronoi Voter</a></li><li><a class="tocitem" href="../../voter/voter/">Voter Model</a></li><li><a class="tocitem" href="../../voting/voting/">Voting</a></li><li><a class="tocitem" href="../../wealthdistribution/wealthdistribution/">Wealth Distribution</a></li><li><a class="tocitem" href="../../wisdomcrowd/wisdomcrowd/">Wisdom of Crowd</a></li><li><a class="tocitem" href="../../wolfsheep/wolfsheep/">Wolf Sheep Predation</a></li></ul></li><li><a class="tocitem" href="../../../api/">API Reference</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Models</a></li><li class="is-active"><a href>Baby Sitting Coop</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Baby Sitting Coop</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/ecorecipes/ArkModelZoo.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/ecorecipes/ArkModelZoo.jl/blob/main/docs/src/tutorials/babysittingcoop/babysittingcoop.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Baby-Sitting-Coop"><a class="docs-heading-anchor" href="#Baby-Sitting-Coop">Baby Sitting Coop</a><a id="Baby-Sitting-Coop-1"></a><a class="docs-heading-anchor-permalink" href="#Baby-Sitting-Coop" title="Permalink"></a></h1><h2 id="Overview"><a class="docs-heading-anchor" href="#Overview">Overview</a><a id="Overview-1"></a><a class="docs-heading-anchor-permalink" href="#Overview" title="Permalink"></a></h2><p>This vignette demonstrates the <strong>Baby Sitting Coop</strong> model implemented in <a href="https://github.com/sdwfrost/ArkModelZoo.jl">ArkModelZoo.jl</a> using the Ark.jl ECS framework.</p><h2 id="Parameters"><a class="docs-heading-anchor" href="#Parameters">Parameters</a><a id="Parameters-1"></a><a class="docs-heading-anchor-permalink" href="#Parameters" title="Permalink"></a></h2><table><tr><th style="text-align: right">Parameter</th><th style="text-align: right">Type</th><th style="text-align: right">Default</th><th style="text-align: right">Description</th></tr><tr><td style="text-align: right"><code>co_op_size</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>100</code></td><td style="text-align: right">co op size</td></tr><tr><td style="text-align: right"><code>initial_scrip</code></td><td style="text-align: right"><code>Float64</code></td><td style="text-align: right"><code>25.0</code></td><td style="text-align: right">initial scrip</td></tr><tr><td style="text-align: right"><code>mean_hours_out</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>4</code></td><td style="text-align: right">mean hours out</td></tr><tr><td style="text-align: right"><code>want_to_go_out_probability</code></td><td style="text-align: right"><code>Float64</code></td><td style="text-align: right"><code>0.5</code></td><td style="text-align: right">want to go out probability</td></tr><tr><td style="text-align: right"><code>want_to_sit_probability</code></td><td style="text-align: right"><code>Float64</code></td><td style="text-align: right"><code>0.5</code></td><td style="text-align: right">want to sit probability</td></tr><tr><td style="text-align: right"><code>monthly_dues</code></td><td style="text-align: right"><code>Float64</code></td><td style="text-align: right"><code>0.6</code></td><td style="text-align: right">monthly dues</td></tr><tr><td style="text-align: right"><code>desired_times_out_reserve</code></td><td style="text-align: right"><code>Float64</code></td><td style="text-align: right"><code>0.0</code></td><td style="text-align: right">desired times out reserve</td></tr><tr><td style="text-align: right"><code>willing_to_sit_prob</code></td><td style="text-align: right"><code>Float64</code></td><td style="text-align: right"><code>0.0</code></td><td style="text-align: right">willing to sit prob</td></tr><tr><td style="text-align: right"><code>years</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>10</code></td><td style="text-align: right">years</td></tr><tr><td style="text-align: right"><code>cycle_amplitude</code></td><td style="text-align: right"><code>Float64</code></td><td style="text-align: right"><code>0.0</code></td><td style="text-align: right">cycle amplitude</td></tr><tr><td style="text-align: right"><code>multiple_sitees</code></td><td style="text-align: right"><code>Bool</code></td><td style="text-align: right"><code>true</code></td><td style="text-align: right">multiple sitees</td></tr><tr><td style="text-align: right"><code>clear_sitter_market</code></td><td style="text-align: right"><code>Bool</code></td><td style="text-align: right"><code>false</code></td><td style="text-align: right">clear sitter market</td></tr><tr><td style="text-align: right"><code>auto_adjust</code></td><td style="text-align: right"><code>Bool</code></td><td style="text-align: right"><code>false</code></td><td style="text-align: right">auto adjust</td></tr><tr><td style="text-align: right"><code>hours_out_distribution</code></td><td style="text-align: right"><code>String</code></td><td style="text-align: right"><code>&quot;uniform&quot;</code></td><td style="text-align: right">hours out distribution</td></tr><tr><td style="text-align: right"><code>max_ticks</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>3650</code></td><td style="text-align: right">365 * years</td></tr></table><h2 id="Source-Code"><a class="docs-heading-anchor" href="#Source-Code">Source Code</a><a id="Source-Code-1"></a><a class="docs-heading-anchor-permalink" href="#Source-Code" title="Permalink"></a></h2><p>The Julia code to run this model:</p><pre><code class="language-julia hljs">using ArkModelZoo
+_, trajectory = run_babysittingcoop()</code></pre><h2 id="Time-Series"><a class="docs-heading-anchor" href="#Time-Series">Time Series</a><a id="Time-Series-1"></a><a class="docs-heading-anchor-permalink" href="#Time-Series" title="Permalink"></a></h2><p><img src="../plot_timeseries.png" alt="Baby Sitting Coop time series"/></p><h2 id="Ensemble-Runs"><a class="docs-heading-anchor" href="#Ensemble-Runs">Ensemble Runs</a><a id="Ensemble-Runs-1"></a><a class="docs-heading-anchor-permalink" href="#Ensemble-Runs" title="Permalink"></a></h2><p>Ten replicates with different random seeds, showing mean ± standard deviation.</p><p><img src="../plot_ensemble.png" alt="Baby Sitting Coop ensemble"/></p><h2 id="Parameter-Sensitivity"><a class="docs-heading-anchor" href="#Parameter-Sensitivity">Parameter Sensitivity</a><a id="Parameter-Sensitivity-1"></a><a class="docs-heading-anchor-permalink" href="#Parameter-Sensitivity" title="Permalink"></a></h2><p>Varying <code>co_op_size</code>.</p><p><img src="../plot_sensitivity.png" alt="Baby Sitting Coop sensitivity"/></p><h2 id="Appendix:-Source-Code"><a class="docs-heading-anchor" href="#Appendix:-Source-Code">Appendix: Source Code</a><a id="Appendix:-Source-Code-1"></a><a class="docs-heading-anchor-permalink" href="#Appendix:-Source-Code" title="Permalink"></a></h2><p>This model is implemented in the <a href="https://github.com/sdwfrost/Ark.jl">Ark.jl</a> Entity-Component-System (ECS) framework. The code is split into five files, each with a distinct role:</p><ul><li><strong>Parameters</strong>: a mutable struct holding all configurable values.</li><li><strong>Components</strong>: lightweight data types attached to individual entities (agents).</li><li><strong>Resources</strong>: world-level shared state accessible to all systems.</li><li><strong>Systems</strong>: functions that operate on entities each tick, defining model behavior.</li><li><strong>Model</strong>: wiring that assembles the world, registers resources and systems, and provides the run entry point.</li></ul><h3 id="Parameters-(parameters.jl)"><a class="docs-heading-anchor" href="#Parameters-(parameters.jl)">Parameters (<code>parameters.jl</code>)</a><a id="Parameters-(parameters.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Parameters-(parameters.jl)" title="Permalink"></a></h3><p>The parameter struct uses <code>@kwdef</code> so that every field has a default value and can be overridden by keyword. These defaults match the original NetLogo model’s slider settings.</p><pre><code class="language-julia hljs">Base.@kwdef mutable struct BSitParams
+    co_op_size::Int = 100
+    initial_scrip::Float64 = 25.0
+    mean_hours_out::Int = 4
+    want_to_go_out_probability::Float64 = 0.5
+    want_to_sit_probability::Float64 = 0.5
+    monthly_dues::Float64 = 0.6
+    desired_times_out_reserve::Float64 = 0.0
+    willing_to_sit_prob::Float64 = 0.0
+    years::Int = 10
+    cycle_amplitude::Float64 = 0.0
+    multiple_sitees::Bool = true
+    clear_sitter_market::Bool = false
+    auto_adjust::Bool = false
+    hours_out_distribution::String = &quot;uniform&quot;
+    max_ticks::Int = 3650   # 365 * years
+    seed::Int = 42
+end</code></pre><h3 id="Components-(components.jl)"><a class="docs-heading-anchor" href="#Components-(components.jl)">Components (<code>components.jl</code>)</a><a id="Components-(components.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Components-(components.jl)" title="Permalink"></a></h3><p>Components are lightweight data types attached to individual entities (agents). Mutable structs hold per-entity state, while empty tag structs act as markers for the ECS query system to efficiently filter entities.</p><pre><code class="language-julia hljs">struct BSitDummy end</code></pre><h3 id="Resources-(resources.jl)"><a class="docs-heading-anchor" href="#Resources-(resources.jl)">Resources (<code>resources.jl</code>)</a><a id="Resources-(resources.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Resources-(resources.jl)" title="Permalink"></a></h3><p>Resources are world-level singletons shared across all systems, used for global state and aggregate statistics.</p><pre><code class="language-julia hljs">mutable struct BSitState
+    n_agents::Int
+    scrip::Vector{Float64}
+    scrip_needed::Vector{Float64}
+    want_sitter::Vector{Bool}
+    want_to_go_out::Vector{Bool}
+    enough_scrip::Vector{Bool}
+    going_out::Vector{Bool}
+    want_to_sit::Vector{Bool}
+    sitting::Vector{Bool}
+    total_hours_out::Float64
+    cycle_pos::Float64
+    stop_run::Bool
+end
+
+function BSitState()
+    BSitState(0, Float64[], Float64[], Bool[], Bool[], Bool[], Bool[], Bool[], Bool[], 0.0, 0.0, false)
+end
+
+function _bsit_add_agent!(state::BSitState, initial_scrip::Float64)
+    state.n_agents += 1
+    push!(state.scrip, initial_scrip)
+    push!(state.scrip_needed, 0.0)
+    push!(state.want_sitter, false)
+    push!(state.want_to_go_out, false)
+    push!(state.enough_scrip, false)
+    push!(state.going_out, false)
+    push!(state.want_to_sit, false)
+    push!(state.sitting, false)
+    return state.n_agents
+end
+
+function _bsit_reset_flags!(state::BSitState)
+    n = state.n_agents
+    @inbounds for i in 1:n
+        state.scrip_needed[i] = 0.0
+        state.want_sitter[i] = false
+        state.want_to_go_out[i] = false
+        state.enough_scrip[i] = false
+        state.going_out[i] = false
+        state.want_to_sit[i] = false
+        state.sitting[i] = false
+    end
+end
+
+mutable struct BSitStats
+    total_scrip::Float64
+    max_scrip::Float64
+    going_out_count::Int
+    sitting_count::Int
+    want_sitter_count::Int
+    want_to_sit_count::Int
+    quiet_evening_count::Int
+    no_sitter_count::Int
+    no_sitting_jobs_count::Int
+    not_enough_scrip_count::Int
+    sitting_as_1st_choice_count::Int
+    sitting_as_2nd_choice_count::Int
+end
+
+function BSitStats()
+    BSitStats(0.0, 0.0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+end</code></pre><h3 id="Systems-(systems.jl)"><a class="docs-heading-anchor" href="#Systems-(systems.jl)">Systems (<code>systems.jl</code>)</a><a id="Systems-(systems.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Systems-(systems.jl)" title="Permalink"></a></h3><p>Systems contain the model logic and execute in a defined order each tick. Each system struct implements either <code>initialize!</code> (run once at setup) or <code>update!</code> (run every tick).</p><pre><code class="language-julia hljs"># --- Helpers ---
+
+# NetLogo: (random 100) / 100 → 0.00, 0.01, ... 0.99
+function _bsit_random_probability(rng)
+    return rand(rng, 0:99) / 100.0
+end
+
+# NetLogo: seasonally-adjusted-prob [p cycle-p]
+function _bsit_seasonally_adjusted_prob(p::Float64, cycle_p::Float64)
+    diff = if cycle_p &gt; 0
+        1.0 - p
+    elseif cycle_p == 0.0
+        0.0
+    else
+        p
+    end
+    return p + diff * cycle_p
+end
+
+# NetLogo: percent-of-limit [amount limit]
+function _bsit_percent_of_limit(amount::Float64, limit::Float64)
+    return min(1.0, max(0.0, amount / limit))
+end
+
+# NetLogo: percent-of-desired-times-out-reserve (agent-level, depends on scrip)
+function _bsit_percent_of_desired_times_out_reserve(scrip::Float64, params)
+    if params.desired_times_out_reserve == 0.0
+        return 1.0
+    end
+    return _bsit_percent_of_limit(scrip, Float64(params.mean_hours_out) * params.desired_times_out_reserve)
+end
+
+# NetLogo: get-want-to-go-out-probability (agent-level)
+function _bsit_get_want_to_go_out_probability(scrip::Float64, params, cycle_pos::Float64)
+    pct = _bsit_percent_of_desired_times_out_reserve(scrip, params)
+    raw = min(pct, params.want_to_go_out_probability)
+    return _bsit_seasonally_adjusted_prob(raw, cycle_pos)
+end
+
+# NetLogo: get-want-to-sit-probability (agent-level)
+function _bsit_get_want_to_sit_probability(scrip::Float64, params, cycle_pos::Float64)
+    pct = _bsit_percent_of_desired_times_out_reserve(scrip, params)
+    raw = max(1.0 - pct, params.want_to_sit_probability)
+    return _bsit_seasonally_adjusted_prob(raw, -cycle_pos)
+end
+
+# NetLogo: get-event-length — returns hours-out-wanted for one agent
+function _bsit_get_event_length(rng, scrip::Float64, params, cycle_pos::Float64)
+    if _bsit_random_probability(rng) &gt; _bsit_get_want_to_go_out_probability(scrip, params, cycle_pos)
+        return 0
+    end
+    dist = params.hours_out_distribution
+    mho = params.mean_hours_out
+    if dist == &quot;uniform&quot;
+        # NetLogo integer arithmetic: mean-hours-out + mean-hours-out / 2
+        # With mho=4: 4 + div(4,2) = 6, random 6 → 0..5, +1 → 1..6
+        upper = mho + div(mho, 2)
+        return rand(rng, 0:(upper - 1)) + 1
+    elseif dist == &quot;poisson&quot;
+        return _bsit_random_poisson(rng, mho - 1) + 1
+    else  # &quot;none&quot;
+        return mho
+    end
+end
+
+# Simple Poisson sampler (Knuth algorithm) — no Distributions.jl needed
+function _bsit_random_poisson(rng, lambda::Int)
+    L = exp(-Float64(lambda))
+    k = 0
+    p = 1.0
+    while true
+        k += 1
+        p *= rand(rng)
+        if p &lt; L
+            return k - 1
+        end
+    end
+end
+
+# NetLogo: repeat-to [xs n] — double list until &gt;= n, then take n random elements
+function _bsit_repeat_to(rng, xs::Vector{Int}, n::Int)
+    buf = copy(xs)
+    while length(buf) &lt; n
+        append!(buf, xs)
+    end
+    shuffle!(rng, buf)
+    return buf[1:n]
+end
+
+# NetLogo: pay-sitter [sittee sitter source]
+function _bsit_pay_sitter!(state::BSitState, sittee::Int, sitter::Int)
+    payment = state.scrip_needed[sittee]
+    state.scrip[sittee] -= payment
+    state.going_out[sittee] = true
+    state.scrip[sitter] += payment
+    state.sitting[sitter] = true
+    state.total_hours_out += payment
+end
+
+# --- plan-evening (shuffled order, per NetLogo ask turtles) ---
+function _bsit_plan_evening!(rng, state::BSitState, params, cycle_pos::Float64)
+    order = collect(1:state.n_agents)
+    shuffle!(rng, order)
+    @inbounds for i in order
+        hours = _bsit_get_event_length(rng, state.scrip[i], params, cycle_pos)
+        state.scrip_needed[i] = Float64(hours)
+        if hours &gt; 0
+            state.want_to_go_out[i] = true
+            if state.scrip[i] &gt;= state.scrip_needed[i]
+                state.want_sitter[i] = true
+                state.enough_scrip[i] = true
+            end
+        end
+        if !state.want_sitter[i]
+            sit_prob = _bsit_get_want_to_sit_probability(state.scrip[i], params, cycle_pos)
+            if _bsit_random_probability(rng) &lt; sit_prob
+                state.want_to_sit[i] = true
+            end
+        end
+    end
+end
+
+# --- match-sitees-and-sitters ---
+function _bsit_match!(rng, state::BSitState, params)
+    want_sitters = Int[]
+    available_sitters = Int[]
+    @inbounds for i in 1:state.n_agents
+        if state.want_sitter[i]
+            push!(want_sitters, i)
+        end
+        if state.want_to_sit[i]
+            push!(available_sitters, i)
+        end
+    end
+
+    nw = length(want_sitters)
+    na = length(available_sitters)
+
+    if nw == 0 || na == 0
+        if nw &gt; 0 &amp;&amp; na == 0
+            return  # no sitters available
+        end
+        return
+    end
+
+    if nw &lt; na
+        shuffle!(rng, available_sitters)
+        available_sitters = available_sitters[1:nw]
+        na = nw
+    elseif nw &gt; na
+        if params.multiple_sitees &amp;&amp; na &gt; 0
+            available_sitters = _bsit_repeat_to(rng, available_sitters, nw)
+            na = nw
+        else
+            shuffle!(rng, want_sitters)
+            want_sitters = want_sitters[1:na]
+            nw = na
+        end
+    end
+
+    # Shuffle want_sitters for random pairing (NetLogo n-of is random)
+    shuffle!(rng, want_sitters)
+    shuffle!(rng, available_sitters)
+
+    @inbounds for i in 1:length(want_sitters)
+        _bsit_pay_sitter!(state, want_sitters[i], available_sitters[i])
+    end
+end
+
+# --- clear-sitter-market (only when clear_sitter_market is true) ---
+function _bsit_clear_sitter_market!(rng, state::BSitState, params)
+    # uncleared = want-sitter and not going-out
+    uncleared = Int[]
+    @inbounds for i in 1:state.n_agents
+        if state.want_sitter[i] &amp;&amp; !state.going_out[i]
+            push!(uncleared, i)
+        end
+    end
+    isempty(uncleared) &amp;&amp; return
+
+    # Split into sitters-set and sittees
+    sitters_set = Int[]
+    sittees = Int[]
+    for i in uncleared
+        if _bsit_random_probability(rng) &lt; params.willing_to_sit_prob
+            push!(sitters_set, i)
+        else
+            push!(sittees, i)
+        end
+    end
+
+    sitters = copy(sitters_set)
+    ns = length(sitters)
+    nt = length(sittees)
+    if ns &gt; nt
+        shuffle!(rng, sitters)
+        sitters = sitters[1:nt]
+    else
+        shuffle!(rng, sittees)
+        sittees = sittees[1:ns]
+    end
+    for i in 1:length(sittees)
+        _bsit_pay_sitter!(state, sittees[i], sitters[i])
+    end
+
+    # Extra sitters: those from sitters_set not yet sitting
+    extra = Int[]
+    for i in sitters_set
+        if !state.sitting[i]
+            push!(extra, i)
+        end
+    end
+    ne = length(extra)
+    half = div(ne, 2)
+    if half == 0
+        return
+    end
+    shuffle!(rng, extra)
+    sittees2 = extra[1:half]
+    remaining = extra[(half + 1):end]
+    shuffle!(rng, remaining)
+    sitters2 = remaining[1:min(half, length(remaining))]
+    for i in 1:length(sitters2)
+        _bsit_pay_sitter!(state, sittees2[i], sitters2[i])
+    end
+end
+
+# --- check-consistency ---
+function _bsit_check_consistency!(state::BSitState, stats::BSitStats, params)
+    n = state.n_agents
+
+    # Count categories
+    want_sitter_count = 0
+    want_to_sit_count = 0
+    quiet_evening_count = 0
+    want_to_go_out_count = 0
+    not_enough_scrip_count = 0
+    going_out_count = 0
+    sitting_count = 0
+    sitting_as_1st_choice_count = 0
+    sitting_as_2nd_choice_count = 0
+    frustrated_want_sitter = 0
+    frustrated_want_to_sit = 0
+
+    @inbounds for i in 1:n
+        ws = state.want_sitter[i]
+        wts = state.want_to_sit[i]
+        go = state.going_out[i]
+        si = state.sitting[i]
+        wtgo = state.want_to_go_out[i]
+        es = state.enough_scrip[i]
+
+        if ws
+            want_sitter_count += 1
+        end
+        if wts
+            want_to_sit_count += 1
+        end
+        if !ws &amp;&amp; !wts
+            quiet_evening_count += 1
+        end
+        if wtgo
+            want_to_go_out_count += 1
+            if !es
+                not_enough_scrip_count += 1
+            end
+        end
+        if go
+            going_out_count += 1
+        end
+        if si
+            sitting_count += 1
+        end
+        if ws &amp;&amp; si
+            sitting_as_2nd_choice_count += 1
+        end
+        if wts &amp;&amp; si
+            sitting_as_1st_choice_count += 1
+        end
+        if ws &amp;&amp; !go &amp;&amp; !si
+            frustrated_want_sitter += 1
+        end
+        if wts &amp;&amp; !si
+            frustrated_want_to_sit += 1
+        end
+    end
+
+    no_sitter_count = frustrated_want_sitter
+    no_sitting_jobs_count = frustrated_want_to_sit
+
+    # Store stats
+    stats.want_sitter_count = want_sitter_count
+    stats.want_to_sit_count = want_to_sit_count
+    stats.quiet_evening_count = quiet_evening_count
+    stats.going_out_count = going_out_count
+    stats.sitting_count = sitting_count
+    stats.no_sitter_count = no_sitter_count
+    stats.no_sitting_jobs_count = no_sitting_jobs_count
+    stats.not_enough_scrip_count = not_enough_scrip_count
+    stats.sitting_as_1st_choice_count = sitting_as_1st_choice_count
+    stats.sitting_as_2nd_choice_count = sitting_as_2nd_choice_count
+
+    # Check consistency — set stop_run if violated
+    if frustrated_want_sitter &gt; 0 &amp;&amp; frustrated_want_to_sit &gt; 0
+        state.stop_run = true
+    end
+    if want_sitter_count + want_to_sit_count + quiet_evening_count != n
+        state.stop_run = true
+    end
+    if want_sitter_count + not_enough_scrip_count != want_to_go_out_count
+        state.stop_run = true
+    end
+    if going_out_count + no_sitter_count + sitting_as_2nd_choice_count != want_sitter_count
+        state.stop_run = true
+    end
+    if sitting_as_1st_choice_count + no_sitting_jobs_count != want_to_sit_count
+        state.stop_run = true
+    end
+    if !params.multiple_sitees &amp;&amp; going_out_count != sitting_count
+        state.stop_run = true
+    end
+end
+
+# --- Systems ---
+
+struct InitBSitSystem &lt;: System end
+
+function initialize!(::InitBSitSystem, world::World)
+    params = get_resource(world, BSitParams)
+    state = get_resource(world, BSitState)
+    for _ in 1:params.co_op_size
+        _bsit_add_agent!(state, params.initial_scrip)
+    end
+    return nothing
+end
+
+struct BSitGoSystem &lt;: System end
+
+function update!(::BSitGoSystem, world::World)
+    params = get_resource(world, BSitParams)
+    rng = get_resource(world, RNGResource).rng
+    state = get_resource(world, BSitState)
+    stats = get_resource(world, BSitStats)
+    tick = get_resource(world, Tick)
+    my_ticks = tick.tick
+
+    # Reset flags each tick
+    _bsit_reset_flags!(state)
+
+    # Compute cycle position
+    state.cycle_pos = sin(deg2rad(my_ticks % 360)) * params.cycle_amplitude
+
+    # Plan evening
+    _bsit_plan_evening!(rng, state, params, state.cycle_pos)
+
+    # Match sitees and sitters
+    _bsit_match!(rng, state, params)
+
+    # Clear sitter market (only if enabled)
+    if params.clear_sitter_market
+        _bsit_clear_sitter_market!(rng, state, params)
+    end
+
+    # Check consistency
+    _bsit_check_consistency!(state, stats, params)
+
+    # Compute aggregate stats
+    stats.total_scrip = sum(state.scrip)
+    max_scrip_now = maximum(state.scrip)
+    stats.max_scrip = max(stats.max_scrip, ceil(max_scrip_now))
+
+    # Auto-adjust monthly dues (only if enabled)
+    if params.auto_adjust
+        if stats.no_sitting_jobs_count &gt; 10
+            params.monthly_dues = -0.3
+        end
+        if stats.no_sitting_jobs_count &lt; 5
+            params.monthly_dues = 0.6
+        end
+    end
+
+    # Monthly dues every 12 ticks
+    if my_ticks % 12 == 0
+        @inbounds for i in 1:state.n_agents
+            state.scrip[i] -= params.monthly_dues
+        end
+    end
+
+    # Stop condition
+    if state.stop_run
+        get_resource(world, Terminate).stop = true
+    end
+
+    return nothing
+end
+
+struct BSitTerminationSystem &lt;: System end
+
+function update!(::BSitTerminationSystem, world::World)
+    params = get_resource(world, BSitParams)
+    tick = get_resource(world, Tick)
+    if tick.tick + 1 &gt;= params.max_ticks
+        get_resource(world, Terminate).stop = true
+    end
+    return nothing
+end</code></pre><h3 id="Model-(model.jl)"><a class="docs-heading-anchor" href="#Model-(model.jl)">Model (<code>model.jl</code>)</a><a id="Model-(model.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Model-(model.jl)" title="Permalink"></a></h3><p>The model file assembles all pieces: it creates the ECS <code>World</code> with the required component types, registers resources, builds the <code>Scheduler</code> with systems in execution order, and exposes the public <code>run</code> entry point. The observer pattern records the trajectory each tick.</p><pre><code class="language-julia hljs">function babysittingcoop_world(; initial_capacity::Int = 128)
+    return World(BSitDummy; initial_capacity=initial_capacity, allow_mutable=true)
+end
+
+function babysittingcoop_systems()
+    return (
+        InitBSitSystem(),
+        BSitGoSystem(),
+        BSitTerminationSystem(),
+    )
+end
+
+function babysittingcoop_model(params::BSitParams = BSitParams())
+    world = babysittingcoop_world()
+    _add_standard_resources!(world, params)
+    add_resource!(world, BSitState())
+    add_resource!(world, BSitStats())
+    scheduler = Scheduler(world, babysittingcoop_systems())
+    initialize!(scheduler)
+    return scheduler
+end
+
+struct BabysittingCoopObserver end
+
+function babysittingcoop_headers(::BabysittingCoopObserver)
+    return [&quot;total_scrip&quot;, &quot;going_out_count&quot;, &quot;sitting_count&quot;]
+end
+
+function babysittingcoop_values(::BabysittingCoopObserver, world::World)
+    stats = get_resource(world, BSitStats)
+    return Float64[stats.total_scrip, stats.going_out_count, stats.sitting_count]
+end
+
+function run_babysittingcoop(; params::BSitParams = BSitParams(), observe::Bool = true)
+    return _run_model(babysittingcoop_model, BabysittingCoopObserver(), babysittingcoop_values; params, observe)
+end</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../axelrodcultural/axelrodcultural/">« AxelrodCultural</a><a class="docs-footer-nextpage" href="../../bank_reserves/bank_reserves/">Bank Reserves »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.20.0 on <span class="colophon-date" title="Wednesday 18 November 2026 18:43">Wednesday 18 November 2026</span>. Using Julia version 1.13.4.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>

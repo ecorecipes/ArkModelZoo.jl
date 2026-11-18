@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="referrer" content="no-referrer"/><title>Bullwhip Effect · ArkModelZoo.jl</title><meta name="title" content="Bullwhip Effect · ArkModelZoo.jl"/><meta property="og:title" content="Bullwhip Effect · ArkModelZoo.jl"/><meta property="twitter:title" content="Bullwhip Effect · ArkModelZoo.jl"/><meta name="description" content="Documentation for ArkModelZoo.jl."/><meta property="og:description" content="Documentation for ArkModelZoo.jl."/><meta property="twitter:description" content="Documentation for ArkModelZoo.jl."/><meta property="og:url" content="https://ecorecipes.github.io/ArkModelZoo.jl/tutorials/bullwhipeffect/bullwhipeffect/"/><meta property="twitter:url" content="https://ecorecipes.github.io/ArkModelZoo.jl/tutorials/bullwhipeffect/bullwhipeffect/"/><link rel="canonical" href="https://ecorecipes.github.io/ArkModelZoo.jl/tutorials/bullwhipeffect/bullwhipeffect/"/><script data-outdated-warner src="../../../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.63.2/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../../assets/documenter.js"></script><script src="../../../search_index.js"></script><script src="../../../siteinfo.js"></script><script src="../../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="../../../">ArkModelZoo.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../../../">Home</a></li><li><span class="tocitem">Resilience</span><ul><li><a class="tocitem" href="../../resilience/resilience/">Resilience of agent-based models</a></li></ul></li><li><span class="tocitem">Models</span><ul><li><a class="tocitem" href="../../abtgc/abtgc/">ABTgc</a></li><li><a class="tocitem" href="../../aids/aids/">AIDS</a></li><li><a class="tocitem" href="../../altruism/altruism/">Altruism</a></li><li><a class="tocitem" href="../../antsystem/antsystem/">Ant System TSP</a></li><li><a class="tocitem" href="../../ants/ants/">Ants</a></li><li><a class="tocitem" href="../../artificialeconomy/artificialeconomy/">Artificial Economy</a></li><li><a class="tocitem" href="../../axelrodcultural/axelrodcultural/">AxelrodCultural</a></li><li><a class="tocitem" href="../../babysittingcoop/babysittingcoop/">Baby Sitting Coop</a></li><li><a class="tocitem" href="../../bank_reserves/bank_reserves/">Bank Reserves</a></li><li><a class="tocitem" href="../../bayesian/bayesian/">Bayesian Updating</a></li><li><a class="tocitem" href="../../beinggreen/beinggreen/">Being Green</a></li><li><a class="tocitem" href="../../birthrates/birthrates/">Birthrates</a></li><li><a class="tocitem" href="../../blackbox/blackbox/">BlackBox</a></li><li><a class="tocitem" href="../../boiling/boiling/">Boiling</a></li><li><a class="tocitem" href="../../bombscenario/bombscenario/">BombScenario</a></li><li><a class="tocitem" href="../../brians_brain/brians_brain/">Brian’s Brain</a></li><li class="is-active"><a class="tocitem" href>Bullwhip Effect</a><ul class="internal"><li><a class="tocitem" href="#Overview"><span>Overview</span></a></li><li><a class="tocitem" href="#Parameters"><span>Parameters</span></a></li><li><a class="tocitem" href="#Source-Code"><span>Source Code</span></a></li><li><a class="tocitem" href="#Time-Series"><span>Time Series</span></a></li><li><a class="tocitem" href="#Ensemble-Runs"><span>Ensemble Runs</span></a></li><li><a class="tocitem" href="#Parameter-Sensitivity"><span>Parameter Sensitivity</span></a></li><li><a class="tocitem" href="#Appendix:-Source-Code"><span>Appendix: Source Code</span></a></li></ul></li><li><a class="tocitem" href="../../ca_1d_elementary/ca_1d_elementary/">CA 1D Elementary</a></li><li><a class="tocitem" href="../../civilizationgrowth/civilizationgrowth/">Civilization Growth</a></li><li><a class="tocitem" href="../../climatechange/climatechange/">Climate Change</a></li><li><a class="tocitem" href="../../coin/coin/">COIN Learning</a></li><li><a class="tocitem" href="../../competitionlearning/competitionlearning/">Competition Learning</a></li><li><a class="tocitem" href="../../contactprocess/contactprocess/">Contact Process 2D</a></li><li><a class="tocitem" href="../../contagionnw/contagionnw/">Contagion NW</a></li><li><a class="tocitem" href="../../contagionsi/contagionsi/">Contagion SI</a></li><li><a class="tocitem" href="../../contagionsir/contagionsir/">Contagion SIR</a></li><li><a class="tocitem" href="../../cooperation/cooperation/">Cooperation</a></li><li><a class="tocitem" href="../../coordination/coordination/">Coordination</a></li><li><a class="tocitem" href="../../coordination2groups/coordination2groups/">Coordination 2 Groups</a></li><li><a class="tocitem" href="../../croprotation/croprotation/">Crop Rotation</a></li><li><a class="tocitem" href="../../crystallization/crystallization/">Crystallization</a></li><li><a class="tocitem" href="../../csvnetworkforaging/csvnetworkforaging/">CSV Network Foraging</a></li><li><a class="tocitem" href="../../csvpopulation/csvpopulation/">CSV Population</a></li><li><a class="tocitem" href="../../culturaldiffusion/culturaldiffusion/">Cultural Diffusion</a></li><li><a class="tocitem" href="../../cyberspaceopinion/cyberspaceopinion/">Cyberspace Opinion</a></li><li><a class="tocitem" href="../../daisyworld/daisyworld/">Daisyworld</a></li><li><a class="tocitem" href="../../dating/dating/">Dating</a></li><li><a class="tocitem" href="../../diffusionnetwork/diffusionnetwork/">Diffusion Network</a></li><li><a class="tocitem" href="../../diffusionofhiv/diffusionofhiv/">DiffusionOfHIV</a></li><li><a class="tocitem" href="../../disinfobitstringnw/disinfobitstringnw/">Disinfobitstringnw</a></li><li><a class="tocitem" href="../../dla/dla/">Dla</a></li><li><a class="tocitem" href="../../dlasimple/dlasimple/">DLA Simple</a></li><li><a class="tocitem" href="../../druguse/druguse/">Drug Use</a></li><li><a class="tocitem" href="../../druguseoverdose/druguseoverdose/">Drug Use Overdose</a></li><li><a class="tocitem" href="../../elfarol/elfarol/">El Farol</a></li><li><a class="tocitem" href="../../erosion/erosion/">Erosion</a></li><li><a class="tocitem" href="../../ethnocentrism/ethnocentrism/">Ethnocentrism</a></li><li><a class="tocitem" href="../../evolutionofnorms/evolutionofnorms/">EvolutionOfNorms</a></li><li><a class="tocitem" href="../../firepercolation/firepercolation/">Fire Percolation</a></li><li><a class="tocitem" href="../../firebenchmark/firebenchmark/">FireBenchmark</a></li><li><a class="tocitem" href="../../fireflies/fireflies/">Fireflies</a></li><li><a class="tocitem" href="../../flocking/flocking/">Flocking</a></li><li><a class="tocitem" href="../../flockingnetwork/flockingnetwork/">Flocking Network</a></li><li><a class="tocitem" href="../../forestdewdney/forestdewdney/">Forest Dewdney</a></li><li><a class="tocitem" href="../../fire/fire/">Forest Fire</a></li><li><a class="tocitem" href="../../fungalbioremediation/fungalbioremediation/">Fungal Bioremediation</a></li><li><a class="tocitem" href="../../giant_component/giant_component/">Giant Component</a></li><li><a class="tocitem" href="../../gishillclimber/gishillclimber/">GIS HillClimber</a></li><li><a class="tocitem" href="../../granovetter/granovetter/">Granovetter</a></li><li><a class="tocitem" href="../../grassbrushtrees/grassbrushtrees/">Grass Brush Trees</a></li><li><a class="tocitem" href="../../diffusion/diffusion/">Heat Diffusion</a></li><li><a class="tocitem" href="../../heatbugs/heatbugs/">Heatbugs</a></li><li><a class="tocitem" href="../../hikingelevation/hikingelevation/">HikingElevation</a></li><li><a class="tocitem" href="../../infinitelife/infinitelife/">Infinite Life</a></li><li><a class="tocitem" href="../../infodiffusion/infodiffusion/">Info Diffusion</a></li><li><a class="tocitem" href="../../ising/ising/">Ising</a></li><li><a class="tocitem" href="../../languageborders/languageborders/">Language Borders</a></li><li><a class="tocitem" href="../../languagechange/languagechange/">Language Change</a></li><li><a class="tocitem" href="../../lassavirus/lassavirus/">LassaVirus</a></li><li><a class="tocitem" href="../../leonarditechadoption/leonarditechadoption/">Leonardi Tech Adoption</a></li><li><a class="tocitem" href="../../life/life/">Life</a></li><li><a class="tocitem" href="../../logistic_growth/logistic_growth/">Logistic Growth</a></li><li><a class="tocitem" href="../../mailmen/mailmen/">Mailmen Delivery</a></li><li><a class="tocitem" href="../../marriage/marriage/">Marriage Problem</a></li><li><a class="tocitem" href="../../mimicry/mimicry/">Mimicry</a></li><li><a class="tocitem" href="../../minimalsis/minimalsis/">Minimal SIS</a></li><li><a class="tocitem" href="../../minoritybelief/minoritybelief/">Minority Belief Spread</a></li><li><a class="tocitem" href="../../minoritygame/minoritygame/">Minority Game</a></li><li><a class="tocitem" href="../../misinformationsbfc/misinformationsbfc/">Misinformation SBFC</a></li><li><a class="tocitem" href="../../modsocsegregation/modsocsegregation/">Modsoc Segregation</a></li><li><a class="tocitem" href="../../mousetraps/mousetraps/">Mousetraps</a></li><li><a class="tocitem" href="../../multidrugresistant/multidrugresistant/">MultidrugResistant</a></li><li><a class="tocitem" href="../../opinionbc/opinionbc/">Opinion Dynamics BC</a></li><li><a class="tocitem" href="../../paretolearn/paretolearn/">Pareto Learning</a></li><li><a class="tocitem" href="../../participatorydisinfo/participatorydisinfo/">Participatory Disinformation</a></li><li><a class="tocitem" href="../../participatorydisinformation/participatorydisinformation/">Participatory Disinformation</a></li><li><a class="tocitem" href="../../particles/particles/">Particles</a></li><li><a class="tocitem" href="../../party/party/">Party</a></li><li><a class="tocitem" href="../../pd_basic_evolutionary/pd_basic_evolutionary/">PD Basic Evolutionary</a></li><li><a class="tocitem" href="../../pdsimple/pdsimple/">PD Simple</a></li><li><a class="tocitem" href="../../percolation/percolation/">Percolation</a></li><li><a class="tocitem" href="../../polymerdynamics/polymerdynamics/">Polymer Dynamics</a></li><li><a class="tocitem" href="../../prefattachhomophily/prefattachhomophily/">Pref Attach Homophily</a></li><li><a class="tocitem" href="../../preferential_attachment/preferential_attachment/">Preferential Attachment</a></li><li><a class="tocitem" href="../../privacyopinion/privacyopinion/">Privacy Opinion</a></li><li><a class="tocitem" href="../../productsmarket/productsmarket/">Products Market</a></li><li><a class="tocitem" href="../../public_good/public_good/">Public Good</a></li><li><a class="tocitem" href="../../cqin/cqin/">Quality Improvement Network</a></li><li><a class="tocitem" href="../../rabbits_grass_weeds/rabbits_grass_weeds/">Rabbits Grass Weeds</a></li><li><a class="tocitem" href="../../decay/decay/">Radioactive Decay</a></li><li><a class="tocitem" href="../../rationalevolvingpd/rationalevolvingpd/">Rational Evolving PD</a></li><li><a class="tocitem" href="../../rebellion/rebellion/">Rebellion</a></li><li><a class="tocitem" href="../../recruitingmovement/recruitingmovement/">Recruiting Movement</a></li><li><a class="tocitem" href="../../recruiting/recruiting/">Recruiting Supporters</a></li><li><a class="tocitem" href="../../recruitingsupporters/recruitingsupporters/">Recruiting Supporters</a></li><li><a class="tocitem" href="../../resilientteam/resilientteam/">Resilient Team</a></li><li><a class="tocitem" href="../../rhinopoaching/rhinopoaching/">Rhino Poaching</a></li><li><a class="tocitem" href="../../riseofradicalism/riseofradicalism/">Rise of Radicalism</a></li><li><a class="tocitem" href="../../rope/rope/">Rope</a></li><li><a class="tocitem" href="../../rumormill/rumormill/">Rumor Mill</a></li><li><a class="tocitem" href="../../sand/sand/">Sand</a></li><li><a class="tocitem" href="../../schelling/schelling/">Schelling Segregation</a></li><li><a class="tocitem" href="../../segregation/segregation/">Segregation</a></li><li><a class="tocitem" href="../../shepherds/shepherds/">Shepherds</a></li><li><a class="tocitem" href="../../simple_genetic_algorithm/simple_genetic_algorithm/">Simple Genetic Algorithm</a></li><li><a class="tocitem" href="../../simplemarket/simplemarket/">Simple Market</a></li><li><a class="tocitem" href="../../simplemarketrandom/simplemarketrandom/">Simple Market Random</a></li><li><a class="tocitem" href="../../simplemarkettable/simplemarkettable/">Simple Market Table</a></li><li><a class="tocitem" href="../../sir/sir/">SIR Epidemic</a></li><li><a class="tocitem" href="../../sleuthlanduse/sleuthlanduse/">Sleuth LandUse</a></li><li><a class="tocitem" href="../../slime/slime/">Slime</a></li><li><a class="tocitem" href="../../slowspread/slowspread/">Slow Spread Env Action</a></li><li><a class="tocitem" href="../../small_worlds/small_worlds/">Small Worlds</a></li><li><a class="tocitem" href="../../socialinfluence/socialinfluence/">Social Influence</a></li><li><a class="tocitem" href="../../socialnetworkdiffusion/socialnetworkdiffusion/">Social Network Diffusion</a></li><li><a class="tocitem" href="../../soliddiffusion/soliddiffusion/">Solid Diffusion</a></li><li><a class="tocitem" href="../../spatialattitude/spatialattitude/">Spatial Attitude</a></li><li><a class="tocitem" href="../../ipd/ipd/">Spatial IPD</a></li><li><a class="tocitem" href="../../spatialopinion/spatialopinion/">Spatial Opinion Dynamics</a></li><li><a class="tocitem" href="../../fakenews/fakenews/">Spread of Fake News</a></li><li><a class="tocitem" href="../../spreadingbots/spreadingbots/">Spreading Bots</a></li><li><a class="tocitem" href="../../spreadinggroups/spreadinggroups/">Spreading Groups</a></li><li><a class="tocitem" href="../../sugarscape_1_growback/sugarscape_1_growback/">Sugarscape 1 Growback</a></li><li><a class="tocitem" href="../../sugarscapeculture/sugarscapeculture/">Sugarscape Culture</a></li><li><a class="tocitem" href="../../sugarscapesexual/sugarscapesexual/">Sugarscape Sexual</a></li><li><a class="tocitem" href="../../superdiffuser/superdiffuser/">SuperDiffuser</a></li><li><a class="tocitem" href="../../teamassembly/teamassembly/">Team Assembly</a></li><li><a class="tocitem" href="../../termites/termites/">Termites</a></li><li><a class="tocitem" href="../../thermostat/thermostat/">Thermostat</a></li><li><a class="tocitem" href="../../tourism/tourism/">Tourism</a></li><li><a class="tocitem" href="../../traffic2lanes/traffic2lanes/">Traffic 2 Lanes</a></li><li><a class="tocitem" href="../../trafficbasic/trafficbasic/">Traffic Basic</a></li><li><a class="tocitem" href="../../trafficgrid/trafficgrid/">Traffic Grid</a></li><li><a class="tocitem" href="../../trafficintersection/trafficintersection/">Traffic Intersection</a></li><li><a class="tocitem" href="../../tumor/tumor/">Tumor</a></li><li><a class="tocitem" href="../../unitcohesion/unitcohesion/">Unit Cohesion</a></li><li><a class="tocitem" href="../../virus_on_network/virus_on_network/">Virus on a Network</a></li><li><a class="tocitem" href="../../virus/virus/">Virus on Network</a></li><li><a class="tocitem" href="../../voronoivoter/voronoivoter/">Voronoi Voter</a></li><li><a class="tocitem" href="../../voter/voter/">Voter Model</a></li><li><a class="tocitem" href="../../voting/voting/">Voting</a></li><li><a class="tocitem" href="../../wealthdistribution/wealthdistribution/">Wealth Distribution</a></li><li><a class="tocitem" href="../../wisdomcrowd/wisdomcrowd/">Wisdom of Crowd</a></li><li><a class="tocitem" href="../../wolfsheep/wolfsheep/">Wolf Sheep Predation</a></li></ul></li><li><a class="tocitem" href="../../../api/">API Reference</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Models</a></li><li class="is-active"><a href>Bullwhip Effect</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Bullwhip Effect</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/ecorecipes/ArkModelZoo.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/ecorecipes/ArkModelZoo.jl/blob/main/docs/src/tutorials/bullwhipeffect/bullwhipeffect.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Bullwhip-Effect"><a class="docs-heading-anchor" href="#Bullwhip-Effect">Bullwhip Effect</a><a id="Bullwhip-Effect-1"></a><a class="docs-heading-anchor-permalink" href="#Bullwhip-Effect" title="Permalink"></a></h1><h2 id="Overview"><a class="docs-heading-anchor" href="#Overview">Overview</a><a id="Overview-1"></a><a class="docs-heading-anchor-permalink" href="#Overview" title="Permalink"></a></h2><p>This vignette demonstrates the <strong>Bullwhip Effect</strong> model implemented in <a href="https://github.com/sdwfrost/ArkModelZoo.jl">ArkModelZoo.jl</a> using the Ark.jl ECS framework.</p><h2 id="Parameters"><a class="docs-heading-anchor" href="#Parameters">Parameters</a><a id="Parameters-1"></a><a class="docs-heading-anchor-permalink" href="#Parameters" title="Permalink"></a></h2><table><tr><th style="text-align: right">Parameter</th><th style="text-align: right">Type</th><th style="text-align: right">Default</th><th style="text-align: right">Description</th></tr><tr><td style="text-align: right"><code>n_customers</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>100</code></td><td style="text-align: right">n customers</td></tr><tr><td style="text-align: right"><code>max_purchase</code></td><td style="text-align: right"><code>Float64</code></td><td style="text-align: right"><code>50.0</code></td><td style="text-align: right">max purchase</td></tr><tr><td style="text-align: right"><code>n_retailers</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>1</code></td><td style="text-align: right">n retailers</td></tr><tr><td style="text-align: right"><code>n_wholesalers</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>1</code></td><td style="text-align: right">n wholesalers</td></tr><tr><td style="text-align: right"><code>n_distributors</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>1</code></td><td style="text-align: right">n distributors</td></tr><tr><td style="text-align: right"><code>retailers_increment</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>3</code></td><td style="text-align: right">retailers increment</td></tr><tr><td style="text-align: right"><code>wholesalers_increment</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>3</code></td><td style="text-align: right">wholesalers increment</td></tr><tr><td style="text-align: right"><code>alien_amount</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>400</code></td><td style="text-align: right">alien amount</td></tr><tr><td style="text-align: right"><code>return_in_weeks</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>10</code></td><td style="text-align: right">return in weeks</td></tr><tr><td style="text-align: right"><code>num_ticks</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>100</code></td><td style="text-align: right">num ticks</td></tr></table><h2 id="Source-Code"><a class="docs-heading-anchor" href="#Source-Code">Source Code</a><a id="Source-Code-1"></a><a class="docs-heading-anchor-permalink" href="#Source-Code" title="Permalink"></a></h2><p>The Julia code to run this model:</p><pre><code class="language-julia hljs">using ArkModelZoo
+_, trajectory = run_bullwhip()</code></pre><h2 id="Time-Series"><a class="docs-heading-anchor" href="#Time-Series">Time Series</a><a id="Time-Series-1"></a><a class="docs-heading-anchor-permalink" href="#Time-Series" title="Permalink"></a></h2><p><img src="../plot_timeseries.png" alt="Bullwhip Effect time series"/></p><h2 id="Ensemble-Runs"><a class="docs-heading-anchor" href="#Ensemble-Runs">Ensemble Runs</a><a id="Ensemble-Runs-1"></a><a class="docs-heading-anchor-permalink" href="#Ensemble-Runs" title="Permalink"></a></h2><p>Ten replicates with different random seeds, showing mean ± standard deviation.</p><p><img src="../plot_ensemble.png" alt="Bullwhip Effect ensemble"/></p><h2 id="Parameter-Sensitivity"><a class="docs-heading-anchor" href="#Parameter-Sensitivity">Parameter Sensitivity</a><a id="Parameter-Sensitivity-1"></a><a class="docs-heading-anchor-permalink" href="#Parameter-Sensitivity" title="Permalink"></a></h2><p>Varying <code>n_customers</code>.</p><p><img src="../plot_sensitivity.png" alt="Bullwhip Effect sensitivity"/></p><h2 id="Appendix:-Source-Code"><a class="docs-heading-anchor" href="#Appendix:-Source-Code">Appendix: Source Code</a><a id="Appendix:-Source-Code-1"></a><a class="docs-heading-anchor-permalink" href="#Appendix:-Source-Code" title="Permalink"></a></h2><p>This model is implemented in the <a href="https://github.com/sdwfrost/Ark.jl">Ark.jl</a> Entity-Component-System (ECS) framework. The code is split into five files, each with a distinct role:</p><ul><li><strong>Parameters</strong>: a mutable struct holding all configurable values.</li><li><strong>Components</strong>: lightweight data types attached to individual entities (agents).</li><li><strong>Resources</strong>: world-level shared state accessible to all systems.</li><li><strong>Systems</strong>: functions that operate on entities each tick, defining model behavior.</li><li><strong>Model</strong>: wiring that assembles the world, registers resources and systems, and provides the run entry point.</li></ul><h3 id="Parameters-(parameters.jl)"><a class="docs-heading-anchor" href="#Parameters-(parameters.jl)">Parameters (<code>parameters.jl</code>)</a><a id="Parameters-(parameters.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Parameters-(parameters.jl)" title="Permalink"></a></h3><p>The parameter struct uses <code>@kwdef</code> so that every field has a default value and can be overridden by keyword. These defaults match the original NetLogo model’s slider settings.</p><pre><code class="language-julia hljs">Base.@kwdef mutable struct BullwhipParams
+    seed::Int = 47822
+    n_customers::Int = 100
+    max_purchase::Float64 = 50.0
+    n_retailers::Int = 1
+    n_wholesalers::Int = 1
+    n_distributors::Int = 1
+    retailers_increment::Int = 3
+    wholesalers_increment::Int = 3
+    alien_amount::Int = 400
+    return_in_weeks::Int = 10
+    num_ticks::Int = 100
+end</code></pre><h3 id="Components-(components.jl)"><a class="docs-heading-anchor" href="#Components-(components.jl)">Components (<code>components.jl</code>)</a><a id="Components-(components.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Components-(components.jl)" title="Permalink"></a></h3><p>Components are lightweight data types attached to individual entities (agents). Mutable structs hold per-entity state, while empty tag structs act as markers for the ECS query system to efficiently filter entities.</p><pre><code class="language-julia hljs">struct BullwhipDummy end</code></pre><h3 id="Resources-(resources.jl)"><a class="docs-heading-anchor" href="#Resources-(resources.jl)">Resources (<code>resources.jl</code>)</a><a id="Resources-(resources.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Resources-(resources.jl)" title="Permalink"></a></h3><p>Resources are world-level singletons shared across all systems, used for global state and aggregate statistics.</p><pre><code class="language-julia hljs">mutable struct BullwhipState
+    # Customer arrays
+    frequency::Vector{Int}
+    order_to_retailer::Vector{Float64}
+    lucky_number::Vector{Int}
+    n_customers::Int
+
+    # Retailer 1 (continuous growth forecast)
+    r1_stock::Float64
+    r1_buffer::Float64
+    r1_backorder::Float64
+    r1_demand_log::Vector{Float64}
+    r1_prediction::Float64
+    r1_prediction_log::Vector{Float64}
+    r1_order_to_wholesaler::Float64
+
+    # Retailer 2 (linear growth forecast)
+    r2_stock::Float64
+    r2_buffer::Float64
+    r2_backorder::Float64
+    r2_demand_log::Vector{Float64}
+    r2_prediction::Float64
+    r2_prediction_log::Vector{Float64}
+    r2_order_to_wholesaler::Float64
+
+    # Wholesaler
+    w_stock::Float64
+    w_buffer::Float64
+    w_backorder::Float64
+    w_demand_log::Vector{Float64}
+    w_prediction::Float64
+    w_prediction_log::Vector{Float64}
+    w_order_to_distributor::Float64
+
+    # Distributor
+    d_demand_log::Vector{Float64}
+    d_prediction::Float64
+    d_prediction_log::Vector{Float64}
+
+    # Return flag for alien strike recovery
+    return_flag::Int
+end
+
+function BullwhipState()
+    return BullwhipState(
+        Int[], Float64[], Int[], 0,
+        0.0, 0.0, 0.0, Float64[], 0.0, Float64[], 0.0,
+        0.0, 0.0, 0.0, Float64[], 0.0, Float64[], 0.0,
+        0.0, 0.0, 0.0, Float64[], 0.0, Float64[], 0.0,
+        Float64[], 0.0, Float64[],
+        0
+    )
+end
+
+mutable struct BullwhipStats
+    n_customers::Int
+    r1_stock::Float64
+    r2_stock::Float64
+    w_stock::Float64
+end
+
+BullwhipStats() = BullwhipStats(0, 0.0, 0.0, 0.0)</code></pre><h3 id="Systems-(systems.jl)"><a class="docs-heading-anchor" href="#Systems-(systems.jl)">Systems (<code>systems.jl</code>)</a><a id="Systems-(systems.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Systems-(systems.jl)" title="Permalink"></a></h3><p>Systems contain the model logic and execute in a defined order each tick. Each system struct implements either <code>initialize!</code> (run once at setup) or <code>update!</code> (run every tick).</p><pre><code class="language-julia hljs"># --- Helper functions ---
+
+function _bullwhip_frequency_chooser(rng)
+    temp = round(Int, randn(rng) * 2 + 2)
+    return temp &gt; 0 ? temp : 1
+end
+
+function _bullwhip_order_chooser(rng, max_purchase::Float64)
+    mean_order = round(max_purchase / 2)
+    std_order = (max_purchase - mean_order) / 3
+    temp = randn(rng) * std_order + mean_order
+    if temp &gt; 0
+        return min(temp, max_purchase)
+    else
+        return rand(rng) * (max_purchase - 0.1) + 0.1
+    end
+end
+
+function _bullwhip_predict_linear(demand_log::Vector{Float64})
+    n = length(demand_log)
+    if n == 0
+        return 0.0
+    elseif n == 1
+        return demand_log[1]
+    else
+        # Simple linear extrapolation from last two values
+        return demand_log[end] + (demand_log[end] - demand_log[end-1])
+    end
+end
+
+function _bullwhip_predict_continuous(demand_log::Vector{Float64})
+    n = length(demand_log)
+    if n == 0
+        return 0.0
+    elseif n == 1
+        return demand_log[1]
+    else
+        # Exponential growth extrapolation from last two values
+        if demand_log[end-1] &gt; 0 &amp;&amp; demand_log[end] &gt; 0
+            ratio = demand_log[end] / demand_log[end-1]
+            return demand_log[end] * ratio
+        else
+            return demand_log[end] + (demand_log[end] - demand_log[end-1])
+        end
+    end
+end
+
+# --- Systems ---
+
+struct InitBullwhipSystem &lt;: System end
+
+function initialize!(::InitBullwhipSystem, world::World)
+    params = get_resource(world, BullwhipParams)
+    rng = get_resource(world, RNGResource).rng
+    state = get_resource(world, BullwhipState)
+
+    nc = params.n_customers
+    state.n_customers = nc
+
+    # Initialize customer arrays
+    state.frequency = [_bullwhip_frequency_chooser(rng) for _ in 1:nc]
+    state.order_to_retailer = [_bullwhip_order_chooser(rng, params.max_purchase) for _ in 1:nc]
+    state.lucky_number = zeros(Int, nc)
+
+    # Compute initial stocks and buffers
+    stocks = nc * (rand(rng) * params.max_purchase * 0.5 + 1)
+    buffers = nc * rand(rng) * params.max_purchase * 0.5
+
+    # Retailer 1 (continuous growth)
+    state.r1_stock = stocks
+    state.r1_buffer = buffers
+    state.r1_backorder = 0.0
+    state.r1_demand_log = Float64[]
+    state.r1_prediction = 0.0
+    state.r1_prediction_log = Float64[]
+    state.r1_order_to_wholesaler = 0.0
+
+    # Retailer 2 (linear growth)
+    state.r2_stock = stocks
+    state.r2_buffer = buffers
+    state.r2_backorder = 0.0
+    state.r2_demand_log = Float64[]
+    state.r2_prediction = 0.0
+    state.r2_prediction_log = Float64[]
+    state.r2_order_to_wholesaler = 0.0
+
+    # Wholesaler
+    state.w_stock = stocks * 2
+    state.w_buffer = buffers * 2
+    state.w_backorder = 0.0
+    state.w_demand_log = Float64[]
+    state.w_prediction = 0.0
+    state.w_prediction_log = Float64[]
+    state.w_order_to_distributor = 0.0
+
+    # Distributor
+    state.d_demand_log = Float64[]
+    state.d_prediction = 0.0
+    state.d_prediction_log = Float64[]
+
+    state.return_flag = 0
+
+    # Update stats
+    stats = get_resource(world, BullwhipStats)
+    stats.n_customers = state.n_customers
+    stats.r1_stock = state.r1_stock
+    stats.r2_stock = state.r2_stock
+    stats.w_stock = state.w_stock
+end
+
+struct BullwhipStepSystem &lt;: System end
+
+function update!(::BullwhipStepSystem, world::World)
+    params = get_resource(world, BullwhipParams)
+    rng = get_resource(world, RNGResource).rng
+    state = get_resource(world, BullwhipState)
+
+    nc = state.n_customers
+
+    # --- Return flag logic (respawn customers after alien strike) ---
+    if state.return_flag &gt;= 1
+        if state.return_flag == 1
+            # Respawn missing customers
+            while state.n_customers &lt; params.n_customers
+                state.n_customers += 1
+                push!(state.frequency, _bullwhip_frequency_chooser(rng))
+                push!(state.order_to_retailer, _bullwhip_order_chooser(rng, params.max_purchase))
+                push!(state.lucky_number, 0)
+            end
+        end
+        state.return_flag -= 1
+    end
+    if state.n_customers &lt; params.n_customers &amp;&amp; state.return_flag == 0
+        state.return_flag = params.return_in_weeks
+    end
+
+    nc = state.n_customers
+
+    # --- Customers: who&#39;s shopping ---
+    for i in 1:nc
+        state.lucky_number[i] = rand(rng, 0:2)
+    end
+
+    # --- Update retailer demand logs ---
+    # Demand = sum of orders from customers whose lucky_number == 0
+    demand = 0.0
+    for i in 1:nc
+        if state.lucky_number[i] == 0
+            demand += state.order_to_retailer[i]
+        end
+    end
+    push!(state.r1_demand_log, demand)
+    push!(state.r2_demand_log, demand)
+
+    # --- Retailer predictions ---
+    state.r1_prediction = _bullwhip_predict_continuous(state.r1_demand_log)
+    push!(state.r1_prediction_log, state.r1_prediction)
+
+    state.r2_prediction = _bullwhip_predict_linear(state.r2_demand_log)
+    push!(state.r2_prediction_log, state.r2_prediction)
+
+    # --- Update retailer 1 inventory ---
+    state.r1_order_to_wholesaler = 0.0
+    d1 = state.r1_demand_log[end]
+    if (d1 + state.r1_backorder) &gt; state.r1_stock
+        state.r1_backorder = d1 - state.r1_stock
+        state.r1_stock = 0.0
+        deficit = state.r1_backorder + max(0.0, state.r1_buffer - state.r1_stock)
+        state.r1_order_to_wholesaler = deficit
+        state.r1_stock += deficit
+    else
+        state.r1_stock -= d1
+        state.r1_backorder = 0.0
+        if (state.r1_buffer - state.r1_stock) &gt; 0
+            deficit = state.r1_backorder + (state.r1_buffer - state.r1_stock)
+            state.r1_order_to_wholesaler = deficit
+            state.r1_stock += deficit
+        end
+    end
+    if (state.r1_stock - state.r1_prediction) &lt; state.r1_buffer
+        extra = state.r1_prediction - state.r1_stock
+        state.r1_order_to_wholesaler += extra
+        state.r1_stock += state.r1_order_to_wholesaler + extra
+    end
+
+    # --- Update retailer 2 inventory ---
+    state.r2_order_to_wholesaler = 0.0
+    d2 = state.r2_demand_log[end]
+    if (d2 + state.r2_backorder) &gt; state.r2_stock
+        state.r2_backorder = d2 - state.r2_stock
+        state.r2_stock = 0.0
+        deficit = state.r2_backorder + max(0.0, state.r2_buffer - state.r2_stock)
+        state.r2_order_to_wholesaler = deficit
+        state.r2_stock += deficit
+    else
+        state.r2_stock -= d2
+        state.r2_backorder = 0.0
+        if (state.r2_buffer - state.r2_stock) &gt; 0
+            deficit = state.r2_backorder + (state.r2_buffer - state.r2_stock)
+            state.r2_order_to_wholesaler = deficit
+            state.r2_stock += deficit
+        end
+    end
+    if (state.r2_stock - state.r2_prediction) &lt; state.r2_buffer
+        extra = state.r2_prediction - state.r2_stock
+        state.r2_order_to_wholesaler += extra
+        state.r2_stock += state.r2_order_to_wholesaler + extra
+    end
+
+    # --- Update wholesaler demand log ---
+    w_demand = state.r1_order_to_wholesaler + state.r2_order_to_wholesaler
+    push!(state.w_demand_log, w_demand)
+
+    # --- Wholesaler prediction ---
+    state.w_prediction = _bullwhip_predict_linear(state.w_demand_log)
+    push!(state.w_prediction_log, state.w_prediction)
+
+    # --- Update wholesaler inventory ---
+    state.w_order_to_distributor = 0.0
+    wd = state.w_demand_log[end]
+    if (wd + state.w_backorder) &gt; state.w_stock
+        state.w_backorder = wd - state.w_stock
+        state.w_stock = 0.0
+        deficit = state.w_backorder + max(0.0, state.w_buffer - state.w_stock)
+        state.w_order_to_distributor = deficit
+        state.w_stock += deficit
+    else
+        state.w_stock -= wd
+        state.w_backorder = 0.0
+        if (state.w_buffer - state.w_stock) &gt; 0
+            deficit = state.w_backorder + (state.w_buffer - state.w_stock)
+            state.w_order_to_distributor = deficit
+            state.w_stock += deficit
+        end
+    end
+    if (state.w_stock - state.w_prediction) &lt; state.w_buffer
+        extra = state.w_prediction - state.w_stock
+        state.w_order_to_distributor += extra
+        state.w_stock += state.w_order_to_distributor + extra
+    end
+
+    # --- Update distributor demand log ---
+    push!(state.d_demand_log, state.w_order_to_distributor)
+
+    # --- Distributor prediction ---
+    state.d_prediction = _bullwhip_predict_linear(state.d_demand_log)
+    push!(state.d_prediction_log, state.d_prediction)
+
+    # --- Customers update frequency and orders ---
+    for i in 1:nc
+        state.frequency[i] = _bullwhip_frequency_chooser(rng)
+        state.order_to_retailer[i] = _bullwhip_order_chooser(rng, params.max_purchase)
+    end
+end
+
+struct BullwhipStatsSystem &lt;: System end
+
+function update!(::BullwhipStatsSystem, world::World)
+    state = get_resource(world, BullwhipState)
+    stats = get_resource(world, BullwhipStats)
+    stats.n_customers = state.n_customers
+    stats.r1_stock = state.r1_stock
+    stats.r2_stock = state.r2_stock
+    stats.w_stock = state.w_stock
+end
+
+struct BullwhipTerminationSystem &lt;: System end
+
+function update!(::BullwhipTerminationSystem, world::World)
+    params = get_resource(world, BullwhipParams)
+    tick = get_resource(world, Tick).tick
+    if tick &gt;= params.num_ticks
+        get_resource(world, Terminate).stop = true
+    end
+end</code></pre><h3 id="Model-(model.jl)"><a class="docs-heading-anchor" href="#Model-(model.jl)">Model (<code>model.jl</code>)</a><a id="Model-(model.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Model-(model.jl)" title="Permalink"></a></h3><p>The model file assembles all pieces: it creates the ECS <code>World</code> with the required component types, registers resources, builds the <code>Scheduler</code> with systems in execution order, and exposes the public <code>run</code> entry point. The observer pattern records the trajectory each tick.</p><pre><code class="language-julia hljs">function bullwhip_world(; initial_capacity::Int = 128)
+    return World(BullwhipDummy; initial_capacity=initial_capacity, allow_mutable=true)
+end
+
+function bullwhip_systems()
+    return (
+        InitBullwhipSystem(),
+        BullwhipStepSystem(),
+        BullwhipStatsSystem(),
+        BullwhipTerminationSystem(),
+    )
+end
+
+function bullwhip_model(params::BullwhipParams = BullwhipParams())
+    world = bullwhip_world()
+    _add_standard_resources!(world, params)
+    add_resource!(world, BullwhipState())
+    add_resource!(world, BullwhipStats())
+    scheduler = Scheduler(world, bullwhip_systems())
+    initialize!(scheduler)
+    return scheduler
+end
+
+struct BullwhipObserver end
+
+function bullwhip_headers(::BullwhipObserver)
+    return [&quot;NCustomers&quot;, &quot;R1Stock&quot;, &quot;R2Stock&quot;, &quot;WStock&quot;]
+end
+
+function bullwhip_values(::BullwhipObserver, world::World)
+    stats = get_resource(world, BullwhipStats)
+    return Float64[stats.n_customers, stats.r1_stock, stats.r2_stock, stats.w_stock]
+end
+
+function run_bullwhip(; params::BullwhipParams = BullwhipParams(), observe::Bool = true)
+    return _run_model(bullwhip_model, BullwhipObserver(), bullwhip_values; params, observe)
+end</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../brians_brain/brians_brain/">« Brian’s Brain</a><a class="docs-footer-nextpage" href="../../ca_1d_elementary/ca_1d_elementary/">CA 1D Elementary »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.20.0 on <span class="colophon-date" title="Wednesday 18 November 2026 18:43">Wednesday 18 November 2026</span>. Using Julia version 1.13.4.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>

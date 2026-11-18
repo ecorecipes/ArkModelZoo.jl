@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="referrer" content="no-referrer"/><title>Traffic Intersection · ArkModelZoo.jl</title><meta name="title" content="Traffic Intersection · ArkModelZoo.jl"/><meta property="og:title" content="Traffic Intersection · ArkModelZoo.jl"/><meta property="twitter:title" content="Traffic Intersection · ArkModelZoo.jl"/><meta name="description" content="Documentation for ArkModelZoo.jl."/><meta property="og:description" content="Documentation for ArkModelZoo.jl."/><meta property="twitter:description" content="Documentation for ArkModelZoo.jl."/><meta property="og:url" content="https://ecorecipes.github.io/ArkModelZoo.jl/tutorials/trafficintersection/trafficintersection/"/><meta property="twitter:url" content="https://ecorecipes.github.io/ArkModelZoo.jl/tutorials/trafficintersection/trafficintersection/"/><link rel="canonical" href="https://ecorecipes.github.io/ArkModelZoo.jl/tutorials/trafficintersection/trafficintersection/"/><script data-outdated-warner src="../../../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.63.2/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../../assets/documenter.js"></script><script src="../../../search_index.js"></script><script src="../../../siteinfo.js"></script><script src="../../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="../../../">ArkModelZoo.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../../../">Home</a></li><li><span class="tocitem">Resilience</span><ul><li><a class="tocitem" href="../../resilience/resilience/">Resilience of agent-based models</a></li></ul></li><li><span class="tocitem">Models</span><ul><li><a class="tocitem" href="../../abtgc/abtgc/">ABTgc</a></li><li><a class="tocitem" href="../../aids/aids/">AIDS</a></li><li><a class="tocitem" href="../../altruism/altruism/">Altruism</a></li><li><a class="tocitem" href="../../antsystem/antsystem/">Ant System TSP</a></li><li><a class="tocitem" href="../../ants/ants/">Ants</a></li><li><a class="tocitem" href="../../artificialeconomy/artificialeconomy/">Artificial Economy</a></li><li><a class="tocitem" href="../../axelrodcultural/axelrodcultural/">AxelrodCultural</a></li><li><a class="tocitem" href="../../babysittingcoop/babysittingcoop/">Baby Sitting Coop</a></li><li><a class="tocitem" href="../../bank_reserves/bank_reserves/">Bank Reserves</a></li><li><a class="tocitem" href="../../bayesian/bayesian/">Bayesian Updating</a></li><li><a class="tocitem" href="../../beinggreen/beinggreen/">Being Green</a></li><li><a class="tocitem" href="../../birthrates/birthrates/">Birthrates</a></li><li><a class="tocitem" href="../../blackbox/blackbox/">BlackBox</a></li><li><a class="tocitem" href="../../boiling/boiling/">Boiling</a></li><li><a class="tocitem" href="../../bombscenario/bombscenario/">BombScenario</a></li><li><a class="tocitem" href="../../brians_brain/brians_brain/">Brian’s Brain</a></li><li><a class="tocitem" href="../../bullwhipeffect/bullwhipeffect/">Bullwhip Effect</a></li><li><a class="tocitem" href="../../ca_1d_elementary/ca_1d_elementary/">CA 1D Elementary</a></li><li><a class="tocitem" href="../../civilizationgrowth/civilizationgrowth/">Civilization Growth</a></li><li><a class="tocitem" href="../../climatechange/climatechange/">Climate Change</a></li><li><a class="tocitem" href="../../coin/coin/">COIN Learning</a></li><li><a class="tocitem" href="../../competitionlearning/competitionlearning/">Competition Learning</a></li><li><a class="tocitem" href="../../contactprocess/contactprocess/">Contact Process 2D</a></li><li><a class="tocitem" href="../../contagionnw/contagionnw/">Contagion NW</a></li><li><a class="tocitem" href="../../contagionsi/contagionsi/">Contagion SI</a></li><li><a class="tocitem" href="../../contagionsir/contagionsir/">Contagion SIR</a></li><li><a class="tocitem" href="../../cooperation/cooperation/">Cooperation</a></li><li><a class="tocitem" href="../../coordination/coordination/">Coordination</a></li><li><a class="tocitem" href="../../coordination2groups/coordination2groups/">Coordination 2 Groups</a></li><li><a class="tocitem" href="../../croprotation/croprotation/">Crop Rotation</a></li><li><a class="tocitem" href="../../crystallization/crystallization/">Crystallization</a></li><li><a class="tocitem" href="../../csvnetworkforaging/csvnetworkforaging/">CSV Network Foraging</a></li><li><a class="tocitem" href="../../csvpopulation/csvpopulation/">CSV Population</a></li><li><a class="tocitem" href="../../culturaldiffusion/culturaldiffusion/">Cultural Diffusion</a></li><li><a class="tocitem" href="../../cyberspaceopinion/cyberspaceopinion/">Cyberspace Opinion</a></li><li><a class="tocitem" href="../../daisyworld/daisyworld/">Daisyworld</a></li><li><a class="tocitem" href="../../dating/dating/">Dating</a></li><li><a class="tocitem" href="../../diffusionnetwork/diffusionnetwork/">Diffusion Network</a></li><li><a class="tocitem" href="../../diffusionofhiv/diffusionofhiv/">DiffusionOfHIV</a></li><li><a class="tocitem" href="../../disinfobitstringnw/disinfobitstringnw/">Disinfobitstringnw</a></li><li><a class="tocitem" href="../../dla/dla/">Dla</a></li><li><a class="tocitem" href="../../dlasimple/dlasimple/">DLA Simple</a></li><li><a class="tocitem" href="../../druguse/druguse/">Drug Use</a></li><li><a class="tocitem" href="../../druguseoverdose/druguseoverdose/">Drug Use Overdose</a></li><li><a class="tocitem" href="../../elfarol/elfarol/">El Farol</a></li><li><a class="tocitem" href="../../erosion/erosion/">Erosion</a></li><li><a class="tocitem" href="../../ethnocentrism/ethnocentrism/">Ethnocentrism</a></li><li><a class="tocitem" href="../../evolutionofnorms/evolutionofnorms/">EvolutionOfNorms</a></li><li><a class="tocitem" href="../../firepercolation/firepercolation/">Fire Percolation</a></li><li><a class="tocitem" href="../../firebenchmark/firebenchmark/">FireBenchmark</a></li><li><a class="tocitem" href="../../fireflies/fireflies/">Fireflies</a></li><li><a class="tocitem" href="../../flocking/flocking/">Flocking</a></li><li><a class="tocitem" href="../../flockingnetwork/flockingnetwork/">Flocking Network</a></li><li><a class="tocitem" href="../../forestdewdney/forestdewdney/">Forest Dewdney</a></li><li><a class="tocitem" href="../../fire/fire/">Forest Fire</a></li><li><a class="tocitem" href="../../fungalbioremediation/fungalbioremediation/">Fungal Bioremediation</a></li><li><a class="tocitem" href="../../giant_component/giant_component/">Giant Component</a></li><li><a class="tocitem" href="../../gishillclimber/gishillclimber/">GIS HillClimber</a></li><li><a class="tocitem" href="../../granovetter/granovetter/">Granovetter</a></li><li><a class="tocitem" href="../../grassbrushtrees/grassbrushtrees/">Grass Brush Trees</a></li><li><a class="tocitem" href="../../diffusion/diffusion/">Heat Diffusion</a></li><li><a class="tocitem" href="../../heatbugs/heatbugs/">Heatbugs</a></li><li><a class="tocitem" href="../../hikingelevation/hikingelevation/">HikingElevation</a></li><li><a class="tocitem" href="../../infinitelife/infinitelife/">Infinite Life</a></li><li><a class="tocitem" href="../../infodiffusion/infodiffusion/">Info Diffusion</a></li><li><a class="tocitem" href="../../ising/ising/">Ising</a></li><li><a class="tocitem" href="../../languageborders/languageborders/">Language Borders</a></li><li><a class="tocitem" href="../../languagechange/languagechange/">Language Change</a></li><li><a class="tocitem" href="../../lassavirus/lassavirus/">LassaVirus</a></li><li><a class="tocitem" href="../../leonarditechadoption/leonarditechadoption/">Leonardi Tech Adoption</a></li><li><a class="tocitem" href="../../life/life/">Life</a></li><li><a class="tocitem" href="../../logistic_growth/logistic_growth/">Logistic Growth</a></li><li><a class="tocitem" href="../../mailmen/mailmen/">Mailmen Delivery</a></li><li><a class="tocitem" href="../../marriage/marriage/">Marriage Problem</a></li><li><a class="tocitem" href="../../mimicry/mimicry/">Mimicry</a></li><li><a class="tocitem" href="../../minimalsis/minimalsis/">Minimal SIS</a></li><li><a class="tocitem" href="../../minoritybelief/minoritybelief/">Minority Belief Spread</a></li><li><a class="tocitem" href="../../minoritygame/minoritygame/">Minority Game</a></li><li><a class="tocitem" href="../../misinformationsbfc/misinformationsbfc/">Misinformation SBFC</a></li><li><a class="tocitem" href="../../modsocsegregation/modsocsegregation/">Modsoc Segregation</a></li><li><a class="tocitem" href="../../mousetraps/mousetraps/">Mousetraps</a></li><li><a class="tocitem" href="../../multidrugresistant/multidrugresistant/">MultidrugResistant</a></li><li><a class="tocitem" href="../../opinionbc/opinionbc/">Opinion Dynamics BC</a></li><li><a class="tocitem" href="../../paretolearn/paretolearn/">Pareto Learning</a></li><li><a class="tocitem" href="../../participatorydisinfo/participatorydisinfo/">Participatory Disinformation</a></li><li><a class="tocitem" href="../../participatorydisinformation/participatorydisinformation/">Participatory Disinformation</a></li><li><a class="tocitem" href="../../particles/particles/">Particles</a></li><li><a class="tocitem" href="../../party/party/">Party</a></li><li><a class="tocitem" href="../../pd_basic_evolutionary/pd_basic_evolutionary/">PD Basic Evolutionary</a></li><li><a class="tocitem" href="../../pdsimple/pdsimple/">PD Simple</a></li><li><a class="tocitem" href="../../percolation/percolation/">Percolation</a></li><li><a class="tocitem" href="../../polymerdynamics/polymerdynamics/">Polymer Dynamics</a></li><li><a class="tocitem" href="../../prefattachhomophily/prefattachhomophily/">Pref Attach Homophily</a></li><li><a class="tocitem" href="../../preferential_attachment/preferential_attachment/">Preferential Attachment</a></li><li><a class="tocitem" href="../../privacyopinion/privacyopinion/">Privacy Opinion</a></li><li><a class="tocitem" href="../../productsmarket/productsmarket/">Products Market</a></li><li><a class="tocitem" href="../../public_good/public_good/">Public Good</a></li><li><a class="tocitem" href="../../cqin/cqin/">Quality Improvement Network</a></li><li><a class="tocitem" href="../../rabbits_grass_weeds/rabbits_grass_weeds/">Rabbits Grass Weeds</a></li><li><a class="tocitem" href="../../decay/decay/">Radioactive Decay</a></li><li><a class="tocitem" href="../../rationalevolvingpd/rationalevolvingpd/">Rational Evolving PD</a></li><li><a class="tocitem" href="../../rebellion/rebellion/">Rebellion</a></li><li><a class="tocitem" href="../../recruitingmovement/recruitingmovement/">Recruiting Movement</a></li><li><a class="tocitem" href="../../recruiting/recruiting/">Recruiting Supporters</a></li><li><a class="tocitem" href="../../recruitingsupporters/recruitingsupporters/">Recruiting Supporters</a></li><li><a class="tocitem" href="../../resilientteam/resilientteam/">Resilient Team</a></li><li><a class="tocitem" href="../../rhinopoaching/rhinopoaching/">Rhino Poaching</a></li><li><a class="tocitem" href="../../riseofradicalism/riseofradicalism/">Rise of Radicalism</a></li><li><a class="tocitem" href="../../rope/rope/">Rope</a></li><li><a class="tocitem" href="../../rumormill/rumormill/">Rumor Mill</a></li><li><a class="tocitem" href="../../sand/sand/">Sand</a></li><li><a class="tocitem" href="../../schelling/schelling/">Schelling Segregation</a></li><li><a class="tocitem" href="../../segregation/segregation/">Segregation</a></li><li><a class="tocitem" href="../../shepherds/shepherds/">Shepherds</a></li><li><a class="tocitem" href="../../simple_genetic_algorithm/simple_genetic_algorithm/">Simple Genetic Algorithm</a></li><li><a class="tocitem" href="../../simplemarket/simplemarket/">Simple Market</a></li><li><a class="tocitem" href="../../simplemarketrandom/simplemarketrandom/">Simple Market Random</a></li><li><a class="tocitem" href="../../simplemarkettable/simplemarkettable/">Simple Market Table</a></li><li><a class="tocitem" href="../../sir/sir/">SIR Epidemic</a></li><li><a class="tocitem" href="../../sleuthlanduse/sleuthlanduse/">Sleuth LandUse</a></li><li><a class="tocitem" href="../../slime/slime/">Slime</a></li><li><a class="tocitem" href="../../slowspread/slowspread/">Slow Spread Env Action</a></li><li><a class="tocitem" href="../../small_worlds/small_worlds/">Small Worlds</a></li><li><a class="tocitem" href="../../socialinfluence/socialinfluence/">Social Influence</a></li><li><a class="tocitem" href="../../socialnetworkdiffusion/socialnetworkdiffusion/">Social Network Diffusion</a></li><li><a class="tocitem" href="../../soliddiffusion/soliddiffusion/">Solid Diffusion</a></li><li><a class="tocitem" href="../../spatialattitude/spatialattitude/">Spatial Attitude</a></li><li><a class="tocitem" href="../../ipd/ipd/">Spatial IPD</a></li><li><a class="tocitem" href="../../spatialopinion/spatialopinion/">Spatial Opinion Dynamics</a></li><li><a class="tocitem" href="../../fakenews/fakenews/">Spread of Fake News</a></li><li><a class="tocitem" href="../../spreadingbots/spreadingbots/">Spreading Bots</a></li><li><a class="tocitem" href="../../spreadinggroups/spreadinggroups/">Spreading Groups</a></li><li><a class="tocitem" href="../../sugarscape_1_growback/sugarscape_1_growback/">Sugarscape 1 Growback</a></li><li><a class="tocitem" href="../../sugarscapeculture/sugarscapeculture/">Sugarscape Culture</a></li><li><a class="tocitem" href="../../sugarscapesexual/sugarscapesexual/">Sugarscape Sexual</a></li><li><a class="tocitem" href="../../superdiffuser/superdiffuser/">SuperDiffuser</a></li><li><a class="tocitem" href="../../teamassembly/teamassembly/">Team Assembly</a></li><li><a class="tocitem" href="../../termites/termites/">Termites</a></li><li><a class="tocitem" href="../../thermostat/thermostat/">Thermostat</a></li><li><a class="tocitem" href="../../tourism/tourism/">Tourism</a></li><li><a class="tocitem" href="../../traffic2lanes/traffic2lanes/">Traffic 2 Lanes</a></li><li><a class="tocitem" href="../../trafficbasic/trafficbasic/">Traffic Basic</a></li><li><a class="tocitem" href="../../trafficgrid/trafficgrid/">Traffic Grid</a></li><li class="is-active"><a class="tocitem" href>Traffic Intersection</a><ul class="internal"><li><a class="tocitem" href="#Overview"><span>Overview</span></a></li><li><a class="tocitem" href="#Parameters"><span>Parameters</span></a></li><li><a class="tocitem" href="#Source-Code"><span>Source Code</span></a></li><li><a class="tocitem" href="#Time-Series"><span>Time Series</span></a></li><li><a class="tocitem" href="#Ensemble-Runs"><span>Ensemble Runs</span></a></li><li><a class="tocitem" href="#Parameter-Sensitivity"><span>Parameter Sensitivity</span></a></li><li><a class="tocitem" href="#Appendix:-Source-Code"><span>Appendix: Source Code</span></a></li></ul></li><li><a class="tocitem" href="../../tumor/tumor/">Tumor</a></li><li><a class="tocitem" href="../../unitcohesion/unitcohesion/">Unit Cohesion</a></li><li><a class="tocitem" href="../../virus_on_network/virus_on_network/">Virus on a Network</a></li><li><a class="tocitem" href="../../virus/virus/">Virus on Network</a></li><li><a class="tocitem" href="../../voronoivoter/voronoivoter/">Voronoi Voter</a></li><li><a class="tocitem" href="../../voter/voter/">Voter Model</a></li><li><a class="tocitem" href="../../voting/voting/">Voting</a></li><li><a class="tocitem" href="../../wealthdistribution/wealthdistribution/">Wealth Distribution</a></li><li><a class="tocitem" href="../../wisdomcrowd/wisdomcrowd/">Wisdom of Crowd</a></li><li><a class="tocitem" href="../../wolfsheep/wolfsheep/">Wolf Sheep Predation</a></li></ul></li><li><a class="tocitem" href="../../../api/">API Reference</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Models</a></li><li class="is-active"><a href>Traffic Intersection</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Traffic Intersection</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/ecorecipes/ArkModelZoo.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/ecorecipes/ArkModelZoo.jl/blob/main/docs/src/tutorials/trafficintersection/trafficintersection.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Traffic-Intersection"><a class="docs-heading-anchor" href="#Traffic-Intersection">Traffic Intersection</a><a id="Traffic-Intersection-1"></a><a class="docs-heading-anchor-permalink" href="#Traffic-Intersection" title="Permalink"></a></h1><h2 id="Overview"><a class="docs-heading-anchor" href="#Overview">Overview</a><a id="Overview-1"></a><a class="docs-heading-anchor-permalink" href="#Overview" title="Permalink"></a></h2><h3 id="WHAT-IS-IT?"><a class="docs-heading-anchor" href="#WHAT-IS-IT?">WHAT IS IT?</a><a id="WHAT-IS-IT?-1"></a><a class="docs-heading-anchor-permalink" href="#WHAT-IS-IT?" title="Permalink"></a></h3><p>In this model the turtles are cars traveling through an intersection. The user has the ability to control the frequency of cars coming from each direction, the speed of the cars, and the timing of the light at the traffic intersection. Once the frequency and speed of cars is selected, the user should run the simulation and adjust the timing of the traffic light so as to minimize the amount of waiting time of cars traveling through the intersection.</p><h3 id="HOW-IT-WORKS"><a class="docs-heading-anchor" href="#HOW-IT-WORKS">HOW IT WORKS</a><a id="HOW-IT-WORKS-1"></a><a class="docs-heading-anchor-permalink" href="#HOW-IT-WORKS" title="Permalink"></a></h3><p>The rules for each car are:</p><ul><li><p>I can only go in the direction I started in, or stop.</p></li><li><p>I stop for cars in front of me and red lights, and I stop for a yellow light if I’m not already on it.</p></li><li><p>If I am moving quickly and I see that I will have to stop soon, I try to slow down enough to make sure I can stop in time, up to MAX-BRAKE.</p></li><li><p>If I see that I have free space in front of me, I speed up towards the SPEED-LIMIT, up to MAX-ACCEL.</p></li><li><p>If I am on the same space as another car, we crash and die.</p></li></ul><h3 id="THINGS-TO-NOTICE"><a class="docs-heading-anchor" href="#THINGS-TO-NOTICE">THINGS TO NOTICE</a><a id="THINGS-TO-NOTICE-1"></a><a class="docs-heading-anchor-permalink" href="#THINGS-TO-NOTICE" title="Permalink"></a></h3><p>Cars start out evenly spaced but over time, they form bunches. What kinds of patterns appear in the traffic flow?</p><p>Under what conditions do the cars appear to be moving backwards?</p><p>Gridlock happens when cars are unable to move because cars from the other direction are in their path. What settings cause gridlock in this model? What settings can be changed to end the gridlock?</p><h3 id="THINGS-TO-TRY"><a class="docs-heading-anchor" href="#THINGS-TO-TRY">THINGS TO TRY</a><a id="THINGS-TO-TRY-1"></a><a class="docs-heading-anchor-permalink" href="#THINGS-TO-TRY" title="Permalink"></a></h3><p>Try to answer the following questions before running the simulations.</p><p>Record your predictions.</p><p>Compare your predicted results with the actual results.</p><ul><li><p>What reasoning led you to correct predictions?</p></li><li><p>What assumptions that you made need to be revised?</p></li></ul><p>Try different numbers of eastbound cars while keeping all other slider values the same.</p><p>Try different numbers of northbound cars while keeping all other slider values the same.</p><p>Try different values of SPEED-LIMIT while keeping all other slider values the same.</p><p>Try different values of MAX-ACCEL while keeping all other slider values the same.</p><p>Try different values of GREEN-LENGTH and YELLOW-LENGTH while keeping all other slider values the same.</p><p>For all of the above cases, consider the following:</p><ul><li><p>What happens to the waiting time of eastbound cars?</p></li><li><p>What happens to the waiting time of northbound cars?</p></li><li><p>What happens to the overall waiting time?</p></li><li><p>What generalizations can you make about the impact of each variable on the waiting time of cars?</p></li><li><p>What kind of relationship exists between the number of cars and the waiting time they experience?</p></li><li><p>What kind of relationship exists between the speed of cars and the waiting time they experience?</p></li><li><p>What kind of relationship exists between the number of ticks of green light and the waiting time cars experience?</p></li></ul><p>Use your answers to the above questions to come up with a strategy for minimizing the waiting time of cars.</p><p>What factor (or combination of factors) has the most influence over the waiting time experienced by the cars?</p><h3 id="EXTENDING-THE-MODEL"><a class="docs-heading-anchor" href="#EXTENDING-THE-MODEL">EXTENDING THE MODEL</a><a id="EXTENDING-THE-MODEL-1"></a><a class="docs-heading-anchor-permalink" href="#EXTENDING-THE-MODEL" title="Permalink"></a></h3><p>Find a realistic way to eliminate all crashes by only changing car behavior.</p><p>Allow different light lengths for each direction in order to control wait time better.</p><p>Is there a better way to measure the efficiency of an intersection than the current number of stopped cars?</p><h3 id="RELATED-MODELS"><a class="docs-heading-anchor" href="#RELATED-MODELS">RELATED MODELS</a><a id="RELATED-MODELS-1"></a><a class="docs-heading-anchor-permalink" href="#RELATED-MODELS" title="Permalink"></a></h3><ul><li><p>“Traffic Basic”: a simple model of the movement of cars on a highway.</p></li><li><p>“Traffic Basic Utility”: a version of “Traffic Basic” including a utility function for the cars.</p></li><li><p>“Traffic Basic Adaptive”: a version of “Traffic Basic” where cars adapt their acceleration to try and maintain a smooth flow of traffic.</p></li><li><p>“Traffic Basic Adaptive Individuals”: a version of “Traffic Basic Adaptive” where each car adapts individually, instead of all cars adapting in unison.</p></li><li><p>“Traffic 2 Lanes”: a more sophisticated two-lane version of the “Traffic Basic” model.</p></li><li><p>“Traffic Grid”: a model of traffic moving in a city grid, with stoplights at the intersections.</p></li><li><p>“Traffic Grid Goal”: a version of “Traffic Grid” where the cars have goals, namely to drive to and from work.</p></li><li><p>“Gridlock HubNet”: a version of “Traffic Grid” where students control traffic lights in real-time.</p></li><li><p>“Gridlock Alternate HubNet”: a version of “Gridlock HubNet” where students can enter NetLogo code to plot custom metrics.</p></li></ul><h3 id="HOW-TO-CITE"><a class="docs-heading-anchor" href="#HOW-TO-CITE">HOW TO CITE</a><a id="HOW-TO-CITE-1"></a><a class="docs-heading-anchor-permalink" href="#HOW-TO-CITE" title="Permalink"></a></h3><p>If you mention this model or the NetLogo software in a publication, we ask that you include the citations below.</p><p>For the model itself:</p><ul><li>Wilensky, U. (1998). NetLogo Traffic Intersection model. http://ccl.northwestern.edu/netlogo/models/TrafficIntersection. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.</li></ul><p>Please cite the NetLogo software as:</p><ul><li>Wilensky, U. (1999). NetLogo. http://ccl.northwestern.edu/netlogo/. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.</li></ul><h3 id="COPYRIGHT-AND-LICENSE"><a class="docs-heading-anchor" href="#COPYRIGHT-AND-LICENSE">COPYRIGHT AND LICENSE</a><a id="COPYRIGHT-AND-LICENSE-1"></a><a class="docs-heading-anchor-permalink" href="#COPYRIGHT-AND-LICENSE" title="Permalink"></a></h3><p>Copyright 1998 Uri Wilensky.</p><p><img src="http://ccl.northwestern.edu/images/creativecommons/byncsa.png" alt="CC BY-NC-SA 3.0"/></p><p>This model is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License. To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/3.0/ or send a letter to Creative Commons, 559 Nathan Abbott Way, Stanford, California 94305, USA.</p><p>NetLogo itself is free software for non-commercial use under the terms of the GNU General Public License (<a href="https://ccl.northwestern.edu/netlogo/docs/copyright.html">see full license information here</a>).</p><p>To inquire about commercial licenses for either NetLogo or specific models from the models library, please contact netlogo-commercial-admin@ccl.northwestern.edu.</p><p>This model was created as part of the project: CONNECTED MATHEMATICS: MAKING SENSE OF COMPLEX PHENOMENA THROUGH BUILDING OBJECT-BASED PARALLEL MODELS (OBPML). The project gratefully acknowledges the support of the National Science Foundation (Applications of Advanced Technologies Program) – grant numbers RED #9552950 and REC #9632612.</p><p>This model was converted to NetLogo as part of the projects: PARTICIPATORY SIMULATIONS: NETWORK-BASED DESIGN FOR SYSTEMS LEARNING IN CLASSROOMS and/or INTEGRATED SIMULATION AND MODELING ENVIRONMENT. The project gratefully acknowledges the support of the National Science Foundation (REPP &amp; ROLE programs) – grant numbers REC #9814682 and REC-0126227. Converted from StarLogoT to NetLogo, 2002.</p><h2 id="Parameters"><a class="docs-heading-anchor" href="#Parameters">Parameters</a><a id="Parameters-1"></a><a class="docs-heading-anchor-permalink" href="#Parameters" title="Permalink"></a></h2><table><tr><th style="text-align: right">Parameter</th><th style="text-align: right">Type</th><th style="text-align: right">Default</th><th style="text-align: right">Description</th></tr><tr><td style="text-align: right"><code>freq_north</code></td><td style="text-align: right"><code>Float64</code></td><td style="text-align: right"><code>60.0</code></td><td style="text-align: right">percent chance new car from north</td></tr><tr><td style="text-align: right"><code>freq_east</code></td><td style="text-align: right"><code>Float64</code></td><td style="text-align: right"><code>100.0</code></td><td style="text-align: right">percent chance new car from east</td></tr><tr><td style="text-align: right"><code>speed_limit</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>5</code></td><td style="text-align: right">speed limit</td></tr><tr><td style="text-align: right"><code>max_accel</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>2</code></td><td style="text-align: right">max accel</td></tr><tr><td style="text-align: right"><code>max_brake</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>4</code></td><td style="text-align: right">max brake</td></tr><tr><td style="text-align: right"><code>green_length</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>12</code></td><td style="text-align: right">green length</td></tr><tr><td style="text-align: right"><code>yellow_length</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>3</code></td><td style="text-align: right">yellow length</td></tr><tr><td style="text-align: right"><code>auto</code></td><td style="text-align: right"><code>Bool</code></td><td style="text-align: right"><code>true</code></td><td style="text-align: right">auto</td></tr><tr><td style="text-align: right"><code>grid_size</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>35</code></td><td style="text-align: right">-17..17 = 35</td></tr><tr><td style="text-align: right"><code>max_ticks</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>500</code></td><td style="text-align: right">max ticks</td></tr></table><h2 id="Source-Code"><a class="docs-heading-anchor" href="#Source-Code">Source Code</a><a id="Source-Code-1"></a><a class="docs-heading-anchor-permalink" href="#Source-Code" title="Permalink"></a></h2><p>The Julia code to run this model:</p><pre><code class="language-julia hljs">using ArkModelZoo
+_, trajectory = run_trafficintersection()</code></pre><h2 id="Time-Series"><a class="docs-heading-anchor" href="#Time-Series">Time Series</a><a id="Time-Series-1"></a><a class="docs-heading-anchor-permalink" href="#Time-Series" title="Permalink"></a></h2><p><img src="../plot_timeseries.png" alt="Traffic Intersection time series"/></p><h2 id="Ensemble-Runs"><a class="docs-heading-anchor" href="#Ensemble-Runs">Ensemble Runs</a><a id="Ensemble-Runs-1"></a><a class="docs-heading-anchor-permalink" href="#Ensemble-Runs" title="Permalink"></a></h2><p>Ten replicates with different random seeds, showing mean ± standard deviation.</p><p><img src="../plot_ensemble.png" alt="Traffic Intersection ensemble"/></p><h2 id="Parameter-Sensitivity"><a class="docs-heading-anchor" href="#Parameter-Sensitivity">Parameter Sensitivity</a><a id="Parameter-Sensitivity-1"></a><a class="docs-heading-anchor-permalink" href="#Parameter-Sensitivity" title="Permalink"></a></h2><p>Varying <code>freq_north</code>.</p><p><img src="../plot_sensitivity.png" alt="Traffic Intersection sensitivity"/></p><h2 id="Appendix:-Source-Code"><a class="docs-heading-anchor" href="#Appendix:-Source-Code">Appendix: Source Code</a><a id="Appendix:-Source-Code-1"></a><a class="docs-heading-anchor-permalink" href="#Appendix:-Source-Code" title="Permalink"></a></h2><p>This model is implemented in the <a href="https://github.com/sdwfrost/Ark.jl">Ark.jl</a> Entity-Component-System (ECS) framework. The code is split into five files, each with a distinct role:</p><ul><li><strong>Parameters</strong>: a mutable struct holding all configurable values.</li><li><strong>Components</strong>: lightweight data types attached to individual entities (agents).</li><li><strong>Resources</strong>: world-level shared state accessible to all systems.</li><li><strong>Systems</strong>: functions that operate on entities each tick, defining model behavior.</li><li><strong>Model</strong>: wiring that assembles the world, registers resources and systems, and provides the run entry point.</li></ul><h3 id="Parameters-(parameters.jl)"><a class="docs-heading-anchor" href="#Parameters-(parameters.jl)">Parameters (<code>parameters.jl</code>)</a><a id="Parameters-(parameters.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Parameters-(parameters.jl)" title="Permalink"></a></h3><p>The parameter struct uses <code>@kwdef</code> so that every field has a default value and can be overridden by keyword. These defaults match the original NetLogo model’s slider settings.</p><pre><code class="language-julia hljs">Base.@kwdef mutable struct TIParams
+    freq_north::Float64 = 60.0   # percent chance new car from north
+    freq_east::Float64 = 100.0   # percent chance new car from east
+    speed_limit::Int = 5
+    max_accel::Int = 2
+    max_brake::Int = 4
+    green_length::Int = 12
+    yellow_length::Int = 3
+    auto::Bool = true
+    grid_size::Int = 35   # -17..17 = 35
+    max_ticks::Int = 500
+    seed::Int = 42
+end</code></pre><h3 id="Components-(components.jl)"><a class="docs-heading-anchor" href="#Components-(components.jl)">Components (<code>components.jl</code>)</a><a id="Components-(components.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Components-(components.jl)" title="Permalink"></a></h3><p>Components are lightweight data types attached to individual entities (agents). Mutable structs hold per-entity state, while empty tag structs act as markers for the ECS query system to efficiently filter entities.</p><pre><code class="language-julia hljs">mutable struct TICar
+    x::Int
+    y::Int
+    heading::Int     # 0=north, 90=east
+    speed::Int
+end
+TICar() = TICar(0, 0, 0, 0)</code></pre><h3 id="Resources-(resources.jl)"><a class="docs-heading-anchor" href="#Resources-(resources.jl)">Resources (<code>resources.jl</code>)</a><a id="Resources-(resources.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Resources-(resources.jl)" title="Permalink"></a></h3><p>Resources are world-level singletons shared across all systems, used for global state and aggregate statistics.</p><pre><code class="language-julia hljs">mutable struct TIRoad
+    size::Int
+    # Road: patches where |x - center| &lt;= 1 or |y - center| &lt;= 1
+    # Signal state
+    stop_light::Symbol   # :north or :east (which direction has green)
+    # Grid of occupancy
+    occupancy::Matrix{Entity}
+    # Accident patches: countdown timer (0 = clear)
+    accidents::Matrix{Int}
+end
+
+function TIRoad(sz::Int)
+    TIRoad(sz, :north, fill(zero_entity, sz, sz), zeros(Int, sz, sz))
+end
+
+mutable struct TIStats
+    waiting_overall::Int
+    waiting_eastbound::Int
+    waiting_northbound::Int
+    num_collisions::Int
+end
+TIStats() = TIStats(0, 0, 0, 0)</code></pre><h3 id="Systems-(systems.jl)"><a class="docs-heading-anchor" href="#Systems-(systems.jl)">Systems (<code>systems.jl</code>)</a><a id="Systems-(systems.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Systems-(systems.jl)" title="Permalink"></a></h3><p>Systems contain the model logic and execute in a defined order each tick. Each system struct implements either <code>initialize!</code> (run once at setup) or <code>update!</code> (run every tick).</p><pre><code class="language-julia hljs"># --- Initialization ---
+
+struct InitTISystem &lt;: System end
+
+function initialize!(::InitTISystem, world::World)
+    params = get_resource(world, TIParams)
+    road = get_resource(world, TIRoad)
+    road.stop_light = :north
+    _ti_update_stats!(world)
+    return nothing
+end
+
+function _ti_is_road(sz::Int, x::Int, y::Int)
+    center = (sz + 1) ÷ 2
+    return abs(x - center) &lt;= 1 || abs(y - center) &lt;= 1
+end
+
+function _ti_is_intersection(sz::Int, x::Int, y::Int)
+    center = (sz + 1) ÷ 2
+    return abs(x - center) &lt;= 1 &amp;&amp; abs(y - center) &lt;= 1
+end
+
+function _ti_update_stats!(world::World)
+    stats = get_resource(world, TIStats)
+    waiting = 0
+    waiting_e = 0
+    waiting_n = 0
+    for (_, cars) in Query(world, (TICar,))
+        @inbounds for i in eachindex(cars)
+            c = cars[i]
+            if c.speed == 0
+                waiting += 1
+                if c.heading == 90
+                    waiting_e += 1
+                elseif c.heading == 0
+                    waiting_n += 1
+                end
+            end
+        end
+    end
+    stats.waiting_overall = waiting
+    stats.waiting_eastbound = waiting_e
+    stats.waiting_northbound = waiting_n
+end
+
+# --- Helpers ---
+
+@inline function _ti_heading_delta(heading::Int)
+    heading == 0 ? (0, 1) : (1, 0)
+end
+
+# NetLogo signal patches:
+#   stop_light=&quot;north&quot; → patch (0,-1)=red, patch (-1,0)=green   (north STOPPED)
+#   stop_light=&quot;east&quot;  → patch (0,-1)=green, patch (-1,0)=red   (east STOPPED)
+# In Ark coords (center=18): (0,-1)=(center, center-1)=(18,17), (-1,0)=(center-1, center)=(17,18)
+#
+# The OLD Ark convention: stop_light=:north means &quot;north has GREEN&quot; (opposite of NL).
+# Combined with switch-at-start + tick&gt;0 guard, the signal timing is accidentally correct.
+# We keep the OLD convention and just fix the red-patch check to match NL&#39;s single-patch behavior.
+#
+# OLD :north (north GREEN, east RED) matches NL &quot;east&quot; → red at (-1,0) = Ark (17,18)
+# OLD :east  (east GREEN, north RED) matches NL &quot;north&quot; → red at (0,-1) = Ark (18,17)
+@inline function _ti_is_red_patch(road::TIRoad, center::Int, x::Int, y::Int)
+    if road.stop_light == :north
+        # East is stopped → red at Ark (center-1, center) = NL (-1, 0)
+        return x == center - 1 &amp;&amp; y == center
+    else
+        # North is stopped → red at Ark (center, center-1) = NL (0, -1)
+        return x == center &amp;&amp; y == center - 1
+    end
+end
+
+# NetLogo clear-ahead: look max-accel + speed patches ahead.
+# Reports distance to first obstacle (red patch, orange/accident, or turtle).
+function _ti_clear_ahead(car::TICar, road::TIRoad, params::TIParams, sz::Int)
+    return _ti_clear_ahead_at(car.x, car.y, car.heading, car.speed, road, params, sz)
+end
+
+function _ti_clear_ahead_at(x::Int, y::Int, heading::Int, speed::Int,
+                            road::TIRoad, params::TIParams, sz::Int)
+    dx, dy = _ti_heading_delta(heading)
+    center = (sz + 1) ÷ 2
+    n = 1
+    max_look = params.max_accel + speed
+    for _ in 1:max_look
+        nx, ny = x + n * dx, y + n * dy
+        if nx &lt; 1 || nx &gt; sz || ny &lt; 1 || ny &gt; sz
+            break
+        end
+        if _ti_is_red_patch(road, center, nx, ny) ||
+           road.accidents[nx, ny] &gt; 0 ||
+           !is_zero(road.occupancy[nx, ny])
+            return n
+        end
+        n += 1
+    end
+    return n
+end
+
+# --- Go ---
+
+struct TIGoSystem &lt;: System end
+
+function update!(::TIGoSystem, world::World)
+    params = get_resource(world, TIParams)
+    rng = get_resource(world, RNGResource).rng
+    road = get_resource(world, TIRoad)
+    stats = get_resource(world, TIStats)
+    sz = road.size
+    tick_val = get_resource(world, Tick).tick
+    center = (sz + 1) ÷ 2
+
+    # Switch light FIRST (OLD order — accidentally correct with OLD signal semantics)
+    if params.auto
+        cycle = params.green_length + params.yellow_length
+        if cycle &gt; 0 &amp;&amp; tick_val % cycle == 0 &amp;&amp; tick_val &gt; 0
+            road.stop_light = road.stop_light == :north ? :east : :north
+        end
+    end
+
+    # ── 1. move-cars: ask turtles [move] then check-for-collisions ──
+    car_list = Tuple{Entity, Int}[]
+    for (eids, cars) in Query(world, (TICar,))
+        @inbounds for i in eachindex(cars)
+            push!(car_list, (eids[i], i))
+        end
+    end
+    Random.shuffle!(rng, car_list)
+
+    dead_set = Set{Entity}()
+
+    for (eid, _) in car_list
+        eid in dead_set &amp;&amp; continue
+        car_comp = try
+            get_components(world, eid, (TICar,))
+        catch
+            nothing
+        end
+        (car_comp === nothing || isempty(car_comp)) &amp;&amp; continue
+        car = car_comp[1]
+
+        # clear-ahead
+        clear = _ti_clear_ahead(car, road, params, sz)
+
+        # Speed adjustment (matches NetLogo move procedure)
+        if clear &gt; car.speed
+            if car.speed &lt; params.speed_limit
+                car.speed = car.speed + min(params.max_accel, clear - 1 - car.speed)
+            end
+            if car.speed &gt; params.speed_limit
+                car.speed = params.speed_limit
+            end
+        else
+            car.speed = car.speed - min(params.max_brake, car.speed - (clear - 1))
+            if car.speed &lt; 0; car.speed = 0; end
+        end
+
+        # Move: repeat speed [fd 1; if not can-move? 1 [die]; if pcolor = orange [die]]
+        if road.occupancy[car.x, car.y] == eid
+            road.occupancy[car.x, car.y] = zero_entity
+        end
+        alive = true
+        for _ in 1:car.speed
+            dx, dy = _ti_heading_delta(car.heading)
+            nx, ny = car.x + dx, car.y + dy
+            if nx &lt; 1 || nx &gt; sz || ny &lt; 1 || ny &gt; sz
+                push!(dead_set, eid)
+                alive = false
+                break
+            end
+            if road.accidents[nx, ny] &gt; 0
+                road.accidents[nx, ny] = 5
+                push!(dead_set, eid)
+                alive = false
+                break
+            end
+            car.x = nx
+            car.y = ny
+            # can-move? 1: check if NEXT step would be off-grid
+            nnx, nny = nx + dx, ny + dy
+            if nnx &lt; 1 || nnx &gt; sz || nny &lt; 1 || nny &gt; sz
+                push!(dead_set, eid)
+                alive = false
+                break
+            end
+        end
+
+        if alive
+            # Inline collision: if another car already at this position
+            if !is_zero(road.occupancy[car.x, car.y]) &amp;&amp; road.occupancy[car.x, car.y] != eid
+                other = road.occupancy[car.x, car.y]
+                road.accidents[car.x, car.y] = 5
+                road.occupancy[car.x, car.y] = zero_entity
+                push!(dead_set, other)
+                push!(dead_set, eid)
+            else
+                road.occupancy[car.x, car.y] = eid
+            end
+        end
+    end
+
+    # check-for-collisions: decay old accidents
+    for i in eachindex(road.accidents)
+        if road.accidents[i] &gt; 0
+            road.accidents[i] -= 1
+        end
+    end
+
+    # Remove dead cars
+    for eid in dead_set
+        car_comp = try
+            get_components(world, eid, (TICar,))
+        catch
+            nothing
+        end
+        if car_comp !== nothing &amp;&amp; !isempty(car_comp)
+            c = car_comp[1]
+            if c.x &gt;= 1 &amp;&amp; c.x &lt;= sz &amp;&amp; c.y &gt;= 1 &amp;&amp; c.y &lt;= sz
+                if road.occupancy[c.x, c.y] == eid
+                    road.occupancy[c.x, c.y] = zero_entity
+                end
+            end
+        end
+        try
+            remove_entity!(world, eid)
+        catch
+        end
+    end
+
+    # ── 2. make-new-cars ──
+    if rand(rng) * 100.0 &lt; params.freq_north
+        spawn_x = center
+        spawn_y = 1
+        if is_zero(road.occupancy[spawn_x, spawn_y])
+            spd = min(_ti_clear_ahead_at(spawn_x, spawn_y, 0, 0, road, params, sz),
+                      params.speed_limit)
+            eid = new_entity!(world, (TICar(spawn_x, spawn_y, 0, spd),))
+            road.occupancy[spawn_x, spawn_y] = eid
+        end
+    end
+
+    if rand(rng) * 100.0 &lt; params.freq_east
+        spawn_x = 1
+        spawn_y = center
+        if is_zero(road.occupancy[spawn_x, spawn_y])
+            spd = min(_ti_clear_ahead_at(spawn_x, spawn_y, 90, 0, road, params, sz),
+                      params.speed_limit)
+            eid = new_entity!(world, (TICar(spawn_x, spawn_y, 90, spd),))
+            road.occupancy[spawn_x, spawn_y] = eid
+        end
+    end
+
+    # ── 3. Update stats ──
+    _ti_update_stats!(world)
+    return nothing
+end
+
+# --- Termination ---
+
+struct TITerminationSystem &lt;: System end
+
+function update!(::TITerminationSystem, world::World)
+    params = get_resource(world, TIParams)
+    tick = get_resource(world, Tick)
+    if tick.tick + 1 &gt;= params.max_ticks
+        get_resource(world, Terminate).stop = true
+    end
+    return nothing
+end</code></pre><h3 id="Model-(model.jl)"><a class="docs-heading-anchor" href="#Model-(model.jl)">Model (<code>model.jl</code>)</a><a id="Model-(model.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Model-(model.jl)" title="Permalink"></a></h3><p>The model file assembles all pieces: it creates the ECS <code>World</code> with the required component types, registers resources, builds the <code>Scheduler</code> with systems in execution order, and exposes the public <code>run</code> entry point. The observer pattern records the trajectory each tick.</p><pre><code class="language-julia hljs">function trafficintersection_world(; initial_capacity::Int = 4096)
+    return World(TICar; initial_capacity = initial_capacity, allow_mutable = true)
+end
+
+function trafficintersection_systems()
+    return (InitTISystem(), TIGoSystem(), TITerminationSystem())
+end
+
+function trafficintersection_model(params::TIParams = TIParams())
+    world = trafficintersection_world()
+    _add_standard_resources!(world, params)
+    add_resource!(world, TIRoad(params.grid_size))
+    add_resource!(world, TIStats())
+    scheduler = Scheduler(world, trafficintersection_systems())
+    initialize!(scheduler)
+    return scheduler
+end
+
+struct TIObserver end
+
+function trafficintersection_headers(::TIObserver)
+    return [&quot;WaitingOverall&quot;, &quot;WaitingEastbound&quot;, &quot;WaitingNorthbound&quot;]
+end
+
+function trafficintersection_values(::TIObserver, world::World)
+    stats = get_resource(world, TIStats)
+    return Float64[Float64(stats.waiting_overall), Float64(stats.waiting_eastbound), Float64(stats.waiting_northbound)]
+end
+
+function run_trafficintersection(; params::TIParams = TIParams(), observe::Bool = true)
+    return _run_model(trafficintersection_model, TIObserver(), trafficintersection_values; params, observe)
+end</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../trafficgrid/trafficgrid/">« Traffic Grid</a><a class="docs-footer-nextpage" href="../../tumor/tumor/">Tumor »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.20.0 on <span class="colophon-date" title="Wednesday 18 November 2026 18:43">Wednesday 18 November 2026</span>. Using Julia version 1.13.4.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>

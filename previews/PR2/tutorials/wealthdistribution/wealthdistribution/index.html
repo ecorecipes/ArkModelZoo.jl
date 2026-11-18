@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="referrer" content="no-referrer"/><title>Wealth Distribution · ArkModelZoo.jl</title><meta name="title" content="Wealth Distribution · ArkModelZoo.jl"/><meta property="og:title" content="Wealth Distribution · ArkModelZoo.jl"/><meta property="twitter:title" content="Wealth Distribution · ArkModelZoo.jl"/><meta name="description" content="Documentation for ArkModelZoo.jl."/><meta property="og:description" content="Documentation for ArkModelZoo.jl."/><meta property="twitter:description" content="Documentation for ArkModelZoo.jl."/><meta property="og:url" content="https://ecorecipes.github.io/ArkModelZoo.jl/tutorials/wealthdistribution/wealthdistribution/"/><meta property="twitter:url" content="https://ecorecipes.github.io/ArkModelZoo.jl/tutorials/wealthdistribution/wealthdistribution/"/><link rel="canonical" href="https://ecorecipes.github.io/ArkModelZoo.jl/tutorials/wealthdistribution/wealthdistribution/"/><script data-outdated-warner src="../../../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.63.2/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../../assets/documenter.js"></script><script src="../../../search_index.js"></script><script src="../../../siteinfo.js"></script><script src="../../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="../../../">ArkModelZoo.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../../../">Home</a></li><li><span class="tocitem">Resilience</span><ul><li><a class="tocitem" href="../../resilience/resilience/">Resilience of agent-based models</a></li></ul></li><li><span class="tocitem">Models</span><ul><li><a class="tocitem" href="../../abtgc/abtgc/">ABTgc</a></li><li><a class="tocitem" href="../../aids/aids/">AIDS</a></li><li><a class="tocitem" href="../../altruism/altruism/">Altruism</a></li><li><a class="tocitem" href="../../antsystem/antsystem/">Ant System TSP</a></li><li><a class="tocitem" href="../../ants/ants/">Ants</a></li><li><a class="tocitem" href="../../artificialeconomy/artificialeconomy/">Artificial Economy</a></li><li><a class="tocitem" href="../../axelrodcultural/axelrodcultural/">AxelrodCultural</a></li><li><a class="tocitem" href="../../babysittingcoop/babysittingcoop/">Baby Sitting Coop</a></li><li><a class="tocitem" href="../../bank_reserves/bank_reserves/">Bank Reserves</a></li><li><a class="tocitem" href="../../bayesian/bayesian/">Bayesian Updating</a></li><li><a class="tocitem" href="../../beinggreen/beinggreen/">Being Green</a></li><li><a class="tocitem" href="../../birthrates/birthrates/">Birthrates</a></li><li><a class="tocitem" href="../../blackbox/blackbox/">BlackBox</a></li><li><a class="tocitem" href="../../boiling/boiling/">Boiling</a></li><li><a class="tocitem" href="../../bombscenario/bombscenario/">BombScenario</a></li><li><a class="tocitem" href="../../brians_brain/brians_brain/">Brian’s Brain</a></li><li><a class="tocitem" href="../../bullwhipeffect/bullwhipeffect/">Bullwhip Effect</a></li><li><a class="tocitem" href="../../ca_1d_elementary/ca_1d_elementary/">CA 1D Elementary</a></li><li><a class="tocitem" href="../../civilizationgrowth/civilizationgrowth/">Civilization Growth</a></li><li><a class="tocitem" href="../../climatechange/climatechange/">Climate Change</a></li><li><a class="tocitem" href="../../coin/coin/">COIN Learning</a></li><li><a class="tocitem" href="../../competitionlearning/competitionlearning/">Competition Learning</a></li><li><a class="tocitem" href="../../contactprocess/contactprocess/">Contact Process 2D</a></li><li><a class="tocitem" href="../../contagionnw/contagionnw/">Contagion NW</a></li><li><a class="tocitem" href="../../contagionsi/contagionsi/">Contagion SI</a></li><li><a class="tocitem" href="../../contagionsir/contagionsir/">Contagion SIR</a></li><li><a class="tocitem" href="../../cooperation/cooperation/">Cooperation</a></li><li><a class="tocitem" href="../../coordination/coordination/">Coordination</a></li><li><a class="tocitem" href="../../coordination2groups/coordination2groups/">Coordination 2 Groups</a></li><li><a class="tocitem" href="../../croprotation/croprotation/">Crop Rotation</a></li><li><a class="tocitem" href="../../crystallization/crystallization/">Crystallization</a></li><li><a class="tocitem" href="../../csvnetworkforaging/csvnetworkforaging/">CSV Network Foraging</a></li><li><a class="tocitem" href="../../csvpopulation/csvpopulation/">CSV Population</a></li><li><a class="tocitem" href="../../culturaldiffusion/culturaldiffusion/">Cultural Diffusion</a></li><li><a class="tocitem" href="../../cyberspaceopinion/cyberspaceopinion/">Cyberspace Opinion</a></li><li><a class="tocitem" href="../../daisyworld/daisyworld/">Daisyworld</a></li><li><a class="tocitem" href="../../dating/dating/">Dating</a></li><li><a class="tocitem" href="../../diffusionnetwork/diffusionnetwork/">Diffusion Network</a></li><li><a class="tocitem" href="../../diffusionofhiv/diffusionofhiv/">DiffusionOfHIV</a></li><li><a class="tocitem" href="../../disinfobitstringnw/disinfobitstringnw/">Disinfobitstringnw</a></li><li><a class="tocitem" href="../../dla/dla/">Dla</a></li><li><a class="tocitem" href="../../dlasimple/dlasimple/">DLA Simple</a></li><li><a class="tocitem" href="../../druguse/druguse/">Drug Use</a></li><li><a class="tocitem" href="../../druguseoverdose/druguseoverdose/">Drug Use Overdose</a></li><li><a class="tocitem" href="../../elfarol/elfarol/">El Farol</a></li><li><a class="tocitem" href="../../erosion/erosion/">Erosion</a></li><li><a class="tocitem" href="../../ethnocentrism/ethnocentrism/">Ethnocentrism</a></li><li><a class="tocitem" href="../../evolutionofnorms/evolutionofnorms/">EvolutionOfNorms</a></li><li><a class="tocitem" href="../../firepercolation/firepercolation/">Fire Percolation</a></li><li><a class="tocitem" href="../../firebenchmark/firebenchmark/">FireBenchmark</a></li><li><a class="tocitem" href="../../fireflies/fireflies/">Fireflies</a></li><li><a class="tocitem" href="../../flocking/flocking/">Flocking</a></li><li><a class="tocitem" href="../../flockingnetwork/flockingnetwork/">Flocking Network</a></li><li><a class="tocitem" href="../../forestdewdney/forestdewdney/">Forest Dewdney</a></li><li><a class="tocitem" href="../../fire/fire/">Forest Fire</a></li><li><a class="tocitem" href="../../fungalbioremediation/fungalbioremediation/">Fungal Bioremediation</a></li><li><a class="tocitem" href="../../giant_component/giant_component/">Giant Component</a></li><li><a class="tocitem" href="../../gishillclimber/gishillclimber/">GIS HillClimber</a></li><li><a class="tocitem" href="../../granovetter/granovetter/">Granovetter</a></li><li><a class="tocitem" href="../../grassbrushtrees/grassbrushtrees/">Grass Brush Trees</a></li><li><a class="tocitem" href="../../diffusion/diffusion/">Heat Diffusion</a></li><li><a class="tocitem" href="../../heatbugs/heatbugs/">Heatbugs</a></li><li><a class="tocitem" href="../../hikingelevation/hikingelevation/">HikingElevation</a></li><li><a class="tocitem" href="../../infinitelife/infinitelife/">Infinite Life</a></li><li><a class="tocitem" href="../../infodiffusion/infodiffusion/">Info Diffusion</a></li><li><a class="tocitem" href="../../ising/ising/">Ising</a></li><li><a class="tocitem" href="../../languageborders/languageborders/">Language Borders</a></li><li><a class="tocitem" href="../../languagechange/languagechange/">Language Change</a></li><li><a class="tocitem" href="../../lassavirus/lassavirus/">LassaVirus</a></li><li><a class="tocitem" href="../../leonarditechadoption/leonarditechadoption/">Leonardi Tech Adoption</a></li><li><a class="tocitem" href="../../life/life/">Life</a></li><li><a class="tocitem" href="../../logistic_growth/logistic_growth/">Logistic Growth</a></li><li><a class="tocitem" href="../../mailmen/mailmen/">Mailmen Delivery</a></li><li><a class="tocitem" href="../../marriage/marriage/">Marriage Problem</a></li><li><a class="tocitem" href="../../mimicry/mimicry/">Mimicry</a></li><li><a class="tocitem" href="../../minimalsis/minimalsis/">Minimal SIS</a></li><li><a class="tocitem" href="../../minoritybelief/minoritybelief/">Minority Belief Spread</a></li><li><a class="tocitem" href="../../minoritygame/minoritygame/">Minority Game</a></li><li><a class="tocitem" href="../../misinformationsbfc/misinformationsbfc/">Misinformation SBFC</a></li><li><a class="tocitem" href="../../modsocsegregation/modsocsegregation/">Modsoc Segregation</a></li><li><a class="tocitem" href="../../mousetraps/mousetraps/">Mousetraps</a></li><li><a class="tocitem" href="../../multidrugresistant/multidrugresistant/">MultidrugResistant</a></li><li><a class="tocitem" href="../../opinionbc/opinionbc/">Opinion Dynamics BC</a></li><li><a class="tocitem" href="../../paretolearn/paretolearn/">Pareto Learning</a></li><li><a class="tocitem" href="../../participatorydisinfo/participatorydisinfo/">Participatory Disinformation</a></li><li><a class="tocitem" href="../../participatorydisinformation/participatorydisinformation/">Participatory Disinformation</a></li><li><a class="tocitem" href="../../particles/particles/">Particles</a></li><li><a class="tocitem" href="../../party/party/">Party</a></li><li><a class="tocitem" href="../../pd_basic_evolutionary/pd_basic_evolutionary/">PD Basic Evolutionary</a></li><li><a class="tocitem" href="../../pdsimple/pdsimple/">PD Simple</a></li><li><a class="tocitem" href="../../percolation/percolation/">Percolation</a></li><li><a class="tocitem" href="../../polymerdynamics/polymerdynamics/">Polymer Dynamics</a></li><li><a class="tocitem" href="../../prefattachhomophily/prefattachhomophily/">Pref Attach Homophily</a></li><li><a class="tocitem" href="../../preferential_attachment/preferential_attachment/">Preferential Attachment</a></li><li><a class="tocitem" href="../../privacyopinion/privacyopinion/">Privacy Opinion</a></li><li><a class="tocitem" href="../../productsmarket/productsmarket/">Products Market</a></li><li><a class="tocitem" href="../../public_good/public_good/">Public Good</a></li><li><a class="tocitem" href="../../cqin/cqin/">Quality Improvement Network</a></li><li><a class="tocitem" href="../../rabbits_grass_weeds/rabbits_grass_weeds/">Rabbits Grass Weeds</a></li><li><a class="tocitem" href="../../decay/decay/">Radioactive Decay</a></li><li><a class="tocitem" href="../../rationalevolvingpd/rationalevolvingpd/">Rational Evolving PD</a></li><li><a class="tocitem" href="../../rebellion/rebellion/">Rebellion</a></li><li><a class="tocitem" href="../../recruitingmovement/recruitingmovement/">Recruiting Movement</a></li><li><a class="tocitem" href="../../recruiting/recruiting/">Recruiting Supporters</a></li><li><a class="tocitem" href="../../recruitingsupporters/recruitingsupporters/">Recruiting Supporters</a></li><li><a class="tocitem" href="../../resilientteam/resilientteam/">Resilient Team</a></li><li><a class="tocitem" href="../../rhinopoaching/rhinopoaching/">Rhino Poaching</a></li><li><a class="tocitem" href="../../riseofradicalism/riseofradicalism/">Rise of Radicalism</a></li><li><a class="tocitem" href="../../rope/rope/">Rope</a></li><li><a class="tocitem" href="../../rumormill/rumormill/">Rumor Mill</a></li><li><a class="tocitem" href="../../sand/sand/">Sand</a></li><li><a class="tocitem" href="../../schelling/schelling/">Schelling Segregation</a></li><li><a class="tocitem" href="../../segregation/segregation/">Segregation</a></li><li><a class="tocitem" href="../../shepherds/shepherds/">Shepherds</a></li><li><a class="tocitem" href="../../simple_genetic_algorithm/simple_genetic_algorithm/">Simple Genetic Algorithm</a></li><li><a class="tocitem" href="../../simplemarket/simplemarket/">Simple Market</a></li><li><a class="tocitem" href="../../simplemarketrandom/simplemarketrandom/">Simple Market Random</a></li><li><a class="tocitem" href="../../simplemarkettable/simplemarkettable/">Simple Market Table</a></li><li><a class="tocitem" href="../../sir/sir/">SIR Epidemic</a></li><li><a class="tocitem" href="../../sleuthlanduse/sleuthlanduse/">Sleuth LandUse</a></li><li><a class="tocitem" href="../../slime/slime/">Slime</a></li><li><a class="tocitem" href="../../slowspread/slowspread/">Slow Spread Env Action</a></li><li><a class="tocitem" href="../../small_worlds/small_worlds/">Small Worlds</a></li><li><a class="tocitem" href="../../socialinfluence/socialinfluence/">Social Influence</a></li><li><a class="tocitem" href="../../socialnetworkdiffusion/socialnetworkdiffusion/">Social Network Diffusion</a></li><li><a class="tocitem" href="../../soliddiffusion/soliddiffusion/">Solid Diffusion</a></li><li><a class="tocitem" href="../../spatialattitude/spatialattitude/">Spatial Attitude</a></li><li><a class="tocitem" href="../../ipd/ipd/">Spatial IPD</a></li><li><a class="tocitem" href="../../spatialopinion/spatialopinion/">Spatial Opinion Dynamics</a></li><li><a class="tocitem" href="../../fakenews/fakenews/">Spread of Fake News</a></li><li><a class="tocitem" href="../../spreadingbots/spreadingbots/">Spreading Bots</a></li><li><a class="tocitem" href="../../spreadinggroups/spreadinggroups/">Spreading Groups</a></li><li><a class="tocitem" href="../../sugarscape_1_growback/sugarscape_1_growback/">Sugarscape 1 Growback</a></li><li><a class="tocitem" href="../../sugarscapeculture/sugarscapeculture/">Sugarscape Culture</a></li><li><a class="tocitem" href="../../sugarscapesexual/sugarscapesexual/">Sugarscape Sexual</a></li><li><a class="tocitem" href="../../superdiffuser/superdiffuser/">SuperDiffuser</a></li><li><a class="tocitem" href="../../teamassembly/teamassembly/">Team Assembly</a></li><li><a class="tocitem" href="../../termites/termites/">Termites</a></li><li><a class="tocitem" href="../../thermostat/thermostat/">Thermostat</a></li><li><a class="tocitem" href="../../tourism/tourism/">Tourism</a></li><li><a class="tocitem" href="../../traffic2lanes/traffic2lanes/">Traffic 2 Lanes</a></li><li><a class="tocitem" href="../../trafficbasic/trafficbasic/">Traffic Basic</a></li><li><a class="tocitem" href="../../trafficgrid/trafficgrid/">Traffic Grid</a></li><li><a class="tocitem" href="../../trafficintersection/trafficintersection/">Traffic Intersection</a></li><li><a class="tocitem" href="../../tumor/tumor/">Tumor</a></li><li><a class="tocitem" href="../../unitcohesion/unitcohesion/">Unit Cohesion</a></li><li><a class="tocitem" href="../../virus_on_network/virus_on_network/">Virus on a Network</a></li><li><a class="tocitem" href="../../virus/virus/">Virus on Network</a></li><li><a class="tocitem" href="../../voronoivoter/voronoivoter/">Voronoi Voter</a></li><li><a class="tocitem" href="../../voter/voter/">Voter Model</a></li><li><a class="tocitem" href="../../voting/voting/">Voting</a></li><li class="is-active"><a class="tocitem" href>Wealth Distribution</a><ul class="internal"><li><a class="tocitem" href="#Overview"><span>Overview</span></a></li><li><a class="tocitem" href="#Parameters"><span>Parameters</span></a></li><li><a class="tocitem" href="#Source-Code"><span>Source Code</span></a></li><li><a class="tocitem" href="#Time-Series"><span>Time Series</span></a></li><li><a class="tocitem" href="#Ensemble-Runs"><span>Ensemble Runs</span></a></li><li><a class="tocitem" href="#Parameter-Sensitivity"><span>Parameter Sensitivity</span></a></li><li><a class="tocitem" href="#Appendix:-Source-Code"><span>Appendix: Source Code</span></a></li></ul></li><li><a class="tocitem" href="../../wisdomcrowd/wisdomcrowd/">Wisdom of Crowd</a></li><li><a class="tocitem" href="../../wolfsheep/wolfsheep/">Wolf Sheep Predation</a></li></ul></li><li><a class="tocitem" href="../../../api/">API Reference</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Models</a></li><li class="is-active"><a href>Wealth Distribution</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Wealth Distribution</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/ecorecipes/ArkModelZoo.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/ecorecipes/ArkModelZoo.jl/blob/main/docs/src/tutorials/wealthdistribution/wealthdistribution.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Wealth-Distribution"><a class="docs-heading-anchor" href="#Wealth-Distribution">Wealth Distribution</a><a id="Wealth-Distribution-1"></a><a class="docs-heading-anchor-permalink" href="#Wealth-Distribution" title="Permalink"></a></h1><h2 id="Overview"><a class="docs-heading-anchor" href="#Overview">Overview</a><a id="Overview-1"></a><a class="docs-heading-anchor-permalink" href="#Overview" title="Permalink"></a></h2><h3 id="WHAT-IS-IT?"><a class="docs-heading-anchor" href="#WHAT-IS-IT?">WHAT IS IT?</a><a id="WHAT-IS-IT?-1"></a><a class="docs-heading-anchor-permalink" href="#WHAT-IS-IT?" title="Permalink"></a></h3><p>This model simulates the distribution of wealth. “The rich get richer and the poor get poorer” is a familiar saying that expresses inequity in the distribution of wealth. In this simulation, we see Pareto’s law, in which there are a large number of “poor” or red people, fewer “middle class” or green people, and many fewer “rich” or blue people.</p><h3 id="HOW-IT-WORKS"><a class="docs-heading-anchor" href="#HOW-IT-WORKS">HOW IT WORKS</a><a id="HOW-IT-WORKS-1"></a><a class="docs-heading-anchor-permalink" href="#HOW-IT-WORKS" title="Permalink"></a></h3><p>This model is adapted from Epstein &amp; Axtell’s “Sugarscape” model. It uses grain instead of sugar. Each patch has an amount of grain and a grain capacity (the amount of grain it can grow). People collect grain from the patches, and eat the grain to survive. How much grain each person accumulates is his or her wealth.</p><p>The model begins with a roughly equal wealth distribution. The people then wander around the landscape gathering as much grain as they can. Each person attempts to move in the direction where the most grain lies. Each time tick, each person eats a certain amount of grain. This amount is called their metabolism. People also have a life expectancy. When their lifespan runs out, or they run out of grain, they die and produce a single offspring. The offspring has a random metabolism and a random amount of grain, ranging from the poorest person’s amount of grain to the richest person’s amount of grain. (There is no inheritance of wealth.)</p><p>To observe the equity (or the inequity) of the distribution of wealth, a graphical tool called the Lorenz curve is utilized. We rank the population by their wealth and then plot the percentage of the population that owns each percentage of the wealth (e.g. 30% of the wealth is owned by 50% of the population). Hence the ranges on both axes are from 0% to 100%.</p><p>Another way to understand the Lorenz curve is to imagine a society of 100 people with a fixed amount of wealth available. Each individual is 1% of the population. Rank the individuals in order of their wealth from greatest to least: the poorest individual would have the lowest ranking of 1 and so forth. Then plot the proportion of the rank of an individual on the y-axis and the portion of wealth owned by this particular individual and all the individuals with lower rankings on the x-axis. For example, individual Y with a ranking of 20 (20th poorest in society) would have a percentage ranking of 20% in a society of 100 people (or 100 rankings) — this is the point on the y-axis. The corresponding plot on the x-axis is the proportion of the wealth that this individual with ranking 20 owns along with the wealth owned by all the individuals with lower rankings (from rankings 1 to 19). A straight line with a 45 degree incline at the origin (or slope of 1) is a Lorenz curve that represents perfect equality — everyone holds an equal part of the available wealth. On the other hand, should only one family or one individual hold all of the wealth in the population (i.e. perfect inequity), then the Lorenz curve will be a backwards “L” where 100% of the wealth is owned by the last percentage proportion of the population. In practice, the Lorenz curve actually falls somewhere between the straight 45 degree line and the backwards “L”.</p><p>For a numerical measurement of the inequity in the distribution of wealth, the Gini index (or Gini coefficient) is derived from the Lorenz curve. To calculate the Gini index, find the area between the 45 degree line of perfect equality and the Lorenz curve. Divide this quantity by the total area under the 45 degree line of perfect equality (this number is always 0.5 — the area of 45-45-90 triangle with sides of length 1). If the Lorenz curve is the 45 degree line then the Gini index would be 0; there is no area between the Lorenz curve and the 45 degree line. If, however, the Lorenz curve is a backwards “L”, then the Gini-Index would be 1 — the area between the Lorenz curve and the 45 degree line is 0.5; this quantity divided by 0.5 is 1. Hence, equality in the distribution of wealth is measured on a scale of 0 to 1 — more inequity as one travels up the scale. Another way to understand (and equivalently compute) the Gini index, without reference to the Lorenz curve, is to think of it as the mean difference in wealth between all possible pairs of people in the population, expressed as a proportion of the average wealth (see Deltas, 2003 for more).</p><h3 id="THINGS-TO-NOTICE"><a class="docs-heading-anchor" href="#THINGS-TO-NOTICE">THINGS TO NOTICE</a><a id="THINGS-TO-NOTICE-1"></a><a class="docs-heading-anchor-permalink" href="#THINGS-TO-NOTICE" title="Permalink"></a></h3><p>Notice the distribution of wealth. Are the classes equal?</p><p>This model usually demonstrates Pareto’s Law, in which most of the people are poor, fewer are middle class, and very few are rich. Why does this happen?</p><p>Do poor families seem to stay poor? What about the rich and the middle class people?</p><p>Watch the CLASS PLOT to see how long it takes for the classes to reach stable values.</p><p>As time passes, does the distribution get more equalized or more skewed? (Hint: observe the Gini index plot.)</p><p>Try to find resources from the U.S. Government Census Bureau for the U.S.’s Gini coefficient. Are the Gini coefficients that you calculate from the model comparable to those of the Census Bureau? Why or why not?</p><p>Is there a trend in the plotting of the Gini index with respect to time? Does the plot oscillate? Or does it stabilize to a certain number?</p><h3 id="THINGS-TO-TRY"><a class="docs-heading-anchor" href="#THINGS-TO-TRY">THINGS TO TRY</a><a id="THINGS-TO-TRY-1"></a><a class="docs-heading-anchor-permalink" href="#THINGS-TO-TRY" title="Permalink"></a></h3><p>Are there any settings that do not result in a demonstration of Pareto’s Law?</p><p>Play with the NUM-GRAIN-GROWN slider, and see how this affects the distribution of wealth.</p><p>How much does the LIFE-EXPECTANCY-MAX matter?</p><p>Change the value of the MAX-GRAIN variable (in the <code>setup</code> procedure in the Code tab). Do outcomes differ?</p><p>Experiment with the PERCENT-BEST-LAND and NUM-PEOPLE sliders. How do these affect the outcome of the distribution of wealth?</p><p>Try having all the people start in one location. See what happens.</p><p>Try setting everyone’s initial wealth as being equal. Does the initial endowment of an individual still arrive at an unequal distribution in wealth? Is it less so when setting random initial wealth for each individual?</p><p>Try setting all the individual’s wealth and vision to being equal. Do you still arrive at an unequal distribution of wealth? Is it more equal in the measure of the Gini index than with random endowments of vision?</p><h3 id="EXTENDING-THE-MODEL"><a class="docs-heading-anchor" href="#EXTENDING-THE-MODEL">EXTENDING THE MODEL</a><a id="EXTENDING-THE-MODEL-1"></a><a class="docs-heading-anchor-permalink" href="#EXTENDING-THE-MODEL" title="Permalink"></a></h3><p>Have each newborn inherit a percentage of the wealth of its parent.</p><p>Add a switch or slider which has the patches grow back all or a percentage of their grain capacity, rather than just one unit of grain.</p><p>Allow the grain to give an advantage or disadvantage to its carrier, such as every time some grain is eaten or harvested, pollution is created.</p><p>Would this model be the same if the wealth were randomly distributed (as opposed to a gradient)? Try different landscapes, making SETUP buttons for each new landscape.</p><p>Try allowing metabolism or vision or another characteristic to be inherited. Will we see any sort of evolution? Will the “fittest” survive? If not, why not?</p><p>We said above that “there is no inheritance of wealth” in the model, but that is not entirely true. New turtles are born in the same location as their parents. If grain is plentiful relative to the population at this location, they inherit a good starting situation. Try moving the turtles to a random patch when they are born. Does that lead to a more equitable distribution of wealth?</p><p>Try adding in seasons into the model. That is to say have the grain grow better in a section of the landscape during certain times and worse at others.</p><p>How could you change the model to achieve wealth equality?</p><p>The way the procedures are set up now, one person will sometimes follow another. You can see this by setting the number of people relatively low, such as 50 or 100, and having a long life expectancy. Why does this phenomenon happen? Try adding code to prevent this from occurring. (Hint: When and how do people check to see which direction they should move in?)</p><h3 id="NETLOGO-FEATURES"><a class="docs-heading-anchor" href="#NETLOGO-FEATURES">NETLOGO FEATURES</a><a id="NETLOGO-FEATURES-1"></a><a class="docs-heading-anchor-permalink" href="#NETLOGO-FEATURES" title="Permalink"></a></h3><p>Examine how the landscape of color is created — note the use of the <code>scale-color</code> reporter. Each patch is given a value, and <code>scale-color</code> reports a color for each patch that is scaled according to its value.</p><p>Note the use of lists in drawing the Lorenz Curve and computing the Gini index.</p><h3 id="CREDITS-AND-REFERENCES"><a class="docs-heading-anchor" href="#CREDITS-AND-REFERENCES">CREDITS AND REFERENCES</a><a id="CREDITS-AND-REFERENCES-1"></a><a class="docs-heading-anchor-permalink" href="#CREDITS-AND-REFERENCES" title="Permalink"></a></h3><p>This model is based on a model described in Epstein, J. &amp; Axtell R. (1996). Growing Artificial Societies: Social Science from the Bottom Up. Washington, DC: Brookings Institution Press.</p><p>For an explanation of Pareto’s Law, see https://en.wikipedia.org/wiki/Pareto_principle.</p><p>For more on the calculation of the Gini index see:</p><ul><li>Deltas, George (2003). The Small-Sample Bias of the Gini Coefficient: Results and Implications for Empirical Research. The Review of Economics and Statistics, February 2003, 85(1): 226-234.</li></ul><p>In particular, note that if one is calculating the Gini index of a sample for the purpose of estimating the value for a larger population, a small correction factor to the method used here may be needed for small samples.</p><h3 id="HOW-TO-CITE"><a class="docs-heading-anchor" href="#HOW-TO-CITE">HOW TO CITE</a><a id="HOW-TO-CITE-1"></a><a class="docs-heading-anchor-permalink" href="#HOW-TO-CITE" title="Permalink"></a></h3><p>If you mention this model or the NetLogo software in a publication, we ask that you include the citations below.</p><p>For the model itself:</p><ul><li>Wilensky, U. (1998). NetLogo Wealth Distribution model. http://ccl.northwestern.edu/netlogo/models/WealthDistribution. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.</li></ul><p>Please cite the NetLogo software as:</p><ul><li>Wilensky, U. (1999). NetLogo. http://ccl.northwestern.edu/netlogo/. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.</li></ul><h3 id="COPYRIGHT-AND-LICENSE"><a class="docs-heading-anchor" href="#COPYRIGHT-AND-LICENSE">COPYRIGHT AND LICENSE</a><a id="COPYRIGHT-AND-LICENSE-1"></a><a class="docs-heading-anchor-permalink" href="#COPYRIGHT-AND-LICENSE" title="Permalink"></a></h3><p>Copyright 1998 Uri Wilensky.</p><p><img src="http://ccl.northwestern.edu/images/creativecommons/byncsa.png" alt="CC BY-NC-SA 3.0"/></p><p>This model is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License. To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/3.0/ or send a letter to Creative Commons, 559 Nathan Abbott Way, Stanford, California 94305, USA.</p><p>NetLogo itself is free software for non-commercial use under the terms of the GNU General Public License (<a href="https://ccl.northwestern.edu/netlogo/docs/copyright.html">see full license information here</a>).</p><p>To inquire about commercial licenses for either NetLogo or specific models from the models library, please contact netlogo-commercial-admin@ccl.northwestern.edu.</p><p>This model was created as part of the project: CONNECTED MATHEMATICS: MAKING SENSE OF COMPLEX PHENOMENA THROUGH BUILDING OBJECT-BASED PARALLEL MODELS (OBPML). The project gratefully acknowledges the support of the National Science Foundation (Applications of Advanced Technologies Program) – grant numbers RED #9552950 and REC #9632612.</p><p>This model was converted to NetLogo as part of the projects: PARTICIPATORY SIMULATIONS: NETWORK-BASED DESIGN FOR SYSTEMS LEARNING IN CLASSROOMS and/or INTEGRATED SIMULATION AND MODELING ENVIRONMENT. The project gratefully acknowledges the support of the National Science Foundation (REPP &amp; ROLE programs) – grant numbers REC #9814682 and REC-0126227. Converted from StarLogoT to NetLogo, 2001.</p><h2 id="Parameters"><a class="docs-heading-anchor" href="#Parameters">Parameters</a><a id="Parameters-1"></a><a class="docs-heading-anchor-permalink" href="#Parameters" title="Permalink"></a></h2><table><tr><th style="text-align: right">Parameter</th><th style="text-align: right">Type</th><th style="text-align: right">Default</th><th style="text-align: right">Description</th></tr><tr><td style="text-align: right"><code>grid_width</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>31</code></td><td style="text-align: right">-15..15 → 31</td></tr><tr><td style="text-align: right"><code>grid_height</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>31</code></td><td style="text-align: right">grid height</td></tr><tr><td style="text-align: right"><code>grain_growth_interval</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>1</code></td><td style="text-align: right">grain growth interval</td></tr><tr><td style="text-align: right"><code>life_expectancy_max</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>83</code></td><td style="text-align: right">life expectancy max</td></tr><tr><td style="text-align: right"><code>life_expectancy_min</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>1</code></td><td style="text-align: right">life expectancy min</td></tr><tr><td style="text-align: right"><code>max_vision</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>5</code></td><td style="text-align: right">max vision</td></tr><tr><td style="text-align: right"><code>metabolism_max</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>15</code></td><td style="text-align: right">metabolism max</td></tr><tr><td style="text-align: right"><code>num_grain_grown</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>4</code></td><td style="text-align: right">num grain grown</td></tr><tr><td style="text-align: right"><code>num_people</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>250</code></td><td style="text-align: right">num people</td></tr><tr><td style="text-align: right"><code>percent_best_land</code></td><td style="text-align: right"><code>Float64</code></td><td style="text-align: right"><code>10.0</code></td><td style="text-align: right">percent best land</td></tr><tr><td style="text-align: right"><code>max_grain</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>50</code></td><td style="text-align: right">max grain</td></tr><tr><td style="text-align: right"><code>max_ticks</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>1000</code></td><td style="text-align: right">max ticks</td></tr></table><h2 id="Source-Code"><a class="docs-heading-anchor" href="#Source-Code">Source Code</a><a id="Source-Code-1"></a><a class="docs-heading-anchor-permalink" href="#Source-Code" title="Permalink"></a></h2><p>The Julia code to run this model:</p><pre><code class="language-julia hljs">using ArkModelZoo
+_, trajectory = run_wealthdistribution()</code></pre><h2 id="Time-Series"><a class="docs-heading-anchor" href="#Time-Series">Time Series</a><a id="Time-Series-1"></a><a class="docs-heading-anchor-permalink" href="#Time-Series" title="Permalink"></a></h2><p><img src="../plot_timeseries.png" alt="Wealth Distribution time series"/></p><h2 id="Ensemble-Runs"><a class="docs-heading-anchor" href="#Ensemble-Runs">Ensemble Runs</a><a id="Ensemble-Runs-1"></a><a class="docs-heading-anchor-permalink" href="#Ensemble-Runs" title="Permalink"></a></h2><p>Ten replicates with different random seeds, showing mean ± standard deviation.</p><p><img src="../plot_ensemble.png" alt="Wealth Distribution ensemble"/></p><h2 id="Parameter-Sensitivity"><a class="docs-heading-anchor" href="#Parameter-Sensitivity">Parameter Sensitivity</a><a id="Parameter-Sensitivity-1"></a><a class="docs-heading-anchor-permalink" href="#Parameter-Sensitivity" title="Permalink"></a></h2><p>Varying <code>grain_growth_interval</code>.</p><p><img src="../plot_sensitivity.png" alt="Wealth Distribution sensitivity"/></p><h2 id="Appendix:-Source-Code"><a class="docs-heading-anchor" href="#Appendix:-Source-Code">Appendix: Source Code</a><a id="Appendix:-Source-Code-1"></a><a class="docs-heading-anchor-permalink" href="#Appendix:-Source-Code" title="Permalink"></a></h2><p>This model is implemented in the <a href="https://github.com/sdwfrost/Ark.jl">Ark.jl</a> Entity-Component-System (ECS) framework. The code is split into five files, each with a distinct role:</p><ul><li><strong>Parameters</strong>: a mutable struct holding all configurable values.</li><li><strong>Components</strong>: lightweight data types attached to individual entities (agents).</li><li><strong>Resources</strong>: world-level shared state accessible to all systems.</li><li><strong>Systems</strong>: functions that operate on entities each tick, defining model behavior.</li><li><strong>Model</strong>: wiring that assembles the world, registers resources and systems, and provides the run entry point.</li></ul><h3 id="Parameters-(parameters.jl)"><a class="docs-heading-anchor" href="#Parameters-(parameters.jl)">Parameters (<code>parameters.jl</code>)</a><a id="Parameters-(parameters.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Parameters-(parameters.jl)" title="Permalink"></a></h3><p>The parameter struct uses <code>@kwdef</code> so that every field has a default value and can be overridden by keyword. These defaults match the original NetLogo model’s slider settings.</p><pre><code class="language-julia hljs">Base.@kwdef mutable struct WDParams
+    grid_width::Int = 31            # -15..15 → 31
+    grid_height::Int = 31
+    grain_growth_interval::Int = 1
+    life_expectancy_max::Int = 83
+    life_expectancy_min::Int = 1
+    max_vision::Int = 5
+    metabolism_max::Int = 15
+    num_grain_grown::Int = 4
+    num_people::Int = 250
+    percent_best_land::Float64 = 10.0
+    max_grain::Int = 50
+    max_ticks::Int = 1000
+    seed::Int = 42
+end</code></pre><h3 id="Components-(components.jl)"><a class="docs-heading-anchor" href="#Components-(components.jl)">Components (<code>components.jl</code>)</a><a id="Components-(components.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Components-(components.jl)" title="Permalink"></a></h3><p>Components are lightweight data types attached to individual entities (agents). Mutable structs hold per-entity state, while empty tag structs act as markers for the ECS query system to efficiently filter entities.</p><pre><code class="language-julia hljs"># Grid position (integer coords, 1-based)
+mutable struct WDPosition
+    x::Int
+    y::Int
+end
+WDPosition() = WDPosition(1, 1)
+
+# Heading: 0=North, 90=East, 180=South, 270=West
+mutable struct WDHeading
+    heading::Int
+end
+WDHeading() = WDHeading(0)
+
+mutable struct WDTurtle
+    age::Int
+    wealth::Int
+    life_expectancy::Int
+    metabolism::Int
+    vision::Int
+end
+WDTurtle() = WDTurtle(0, 0, 0, 0, 0)
+
+struct WDTag end</code></pre><h3 id="Resources-(resources.jl)"><a class="docs-heading-anchor" href="#Resources-(resources.jl)">Resources (<code>resources.jl</code>)</a><a id="Resources-(resources.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Resources-(resources.jl)" title="Permalink"></a></h3><p>Resources are world-level singletons shared across all systems, used for global state and aggregate statistics.</p><pre><code class="language-julia hljs">mutable struct WDGrid
+    width::Int
+    height::Int
+    grain_here::Matrix{Float64}
+    max_grain_here::Matrix{Float64}
+end
+
+function WDGrid(width::Int, height::Int)
+    WDGrid(width, height, zeros(Float64, width, height), zeros(Float64, width, height))
+end
+
+mutable struct WDStats
+    gini_index_reserve::Float64
+end
+WDStats() = WDStats(0.0)</code></pre><h3 id="Systems-(systems.jl)"><a class="docs-heading-anchor" href="#Systems-(systems.jl)">Systems (<code>systems.jl</code>)</a><a id="Systems-(systems.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Systems-(systems.jl)" title="Permalink"></a></h3><p>Systems contain the model logic and execute in a defined order each tick. Each system struct implements either <code>initialize!</code> (run once at setup) or <code>update!</code> (run every tick).</p><pre><code class="language-julia hljs"># --- Initialization ---
+
+struct InitWDSystem &lt;: System end
+
+function initialize!(::InitWDSystem, world::World)
+    params = get_resource(world, WDParams)
+    rng = get_resource(world, RNGResource).rng
+    grid = get_resource(world, WDGrid)
+    w, h = grid.width, grid.height
+
+    # setup-patches: assign best land, diffuse grain
+    for x in 1:w, y in 1:h
+        grid.max_grain_here[x, y] = 0.0
+        if rand(rng) * 100.0 &lt;= params.percent_best_land
+            grid.max_grain_here[x, y] = Float64(params.max_grain)
+            grid.grain_here[x, y] = Float64(params.max_grain)
+        end
+    end
+
+    # repeat 5 [ ask patches with [max-grain-here != 0] [set grain-here max-grain-here]; diffuse grain-here 0.25 ]
+    for _ in 1:5
+        for x in 1:w, y in 1:h
+            if grid.max_grain_here[x, y] != 0.0
+                grid.grain_here[x, y] = grid.max_grain_here[x, y]
+            end
+        end
+        diffuse!(grid.grain_here, 0.25, w, h)
+    end
+
+    # repeat 10 [ diffuse grain-here 0.25 ]
+    for _ in 1:10
+        diffuse!(grid.grain_here, 0.25, w, h)
+    end
+
+    # ask patches [ set grain-here floor grain-here; set max-grain-here grain-here ]
+    for x in 1:w, y in 1:h
+        grid.grain_here[x, y] = floor(grid.grain_here[x, y])
+        grid.max_grain_here[x, y] = grid.grain_here[x, y]
+    end
+
+    # setup-turtles
+    for _ in 1:params.num_people
+        px = rand(rng, 1:w)
+        py = rand(rng, 1:h)
+        heading = rand(rng, [0, 90, 180, 270])
+        le = params.life_expectancy_min + rand(rng, 0:(params.life_expectancy_max - params.life_expectancy_min))
+        met = 1 + rand(rng, 0:params.metabolism_max - 1)
+        wealth = met + rand(rng, 0:49)
+        vis = 1 + rand(rng, 0:params.max_vision - 1)
+        age = rand(rng, 0:le - 1)
+        new_entity!(world, (
+            WDPosition(px, py),
+            WDHeading(heading),
+            WDTurtle(age, wealth, le, met, vis),
+            WDTag(),
+        ))
+    end
+
+    # Initial Gini
+    update!(WDGiniSystem(), world)
+    return nothing
+end
+
+# --- Turn Towards Grain ---
+# Each turtle looks N/E/S/W along its vision and picks the direction with most total grain
+
+struct WDTurnSystem &lt;: System end
+
+function update!(::WDTurnSystem, world::World)
+    rng = get_resource(world, RNGResource).rng
+    grid = get_resource(world, WDGrid)
+    w, h = grid.width, grid.height
+
+    for (eids, positions, headings, turtles) in Query(world, (WDPosition, WDHeading, WDTurtle); with=(WDTag,))
+        indices = collect(eachindex(positions))
+        Random.shuffle!(rng, indices)
+        @inbounds for i in indices
+            pos = positions[i]
+            vis = turtles[i].vision
+            best_dir = 0
+            best_amount = _wd_grain_ahead(grid, pos.x, pos.y, 0, vis, w, h)
+            for dir in (90, 180, 270)
+                amt = _wd_grain_ahead(grid, pos.x, pos.y, dir, vis, w, h)
+                if amt &gt; best_amount
+                    best_dir = dir
+                    best_amount = amt
+                end
+            end
+            headings[i].heading = best_dir
+        end
+    end
+    return nothing
+end
+
+function _wd_grain_ahead(grid::WDGrid, x::Int, y::Int, heading::Int, vision::Int, w::Int, h::Int)
+    total = 0.0
+    dx, dy = _wd_heading_delta(heading)
+    cx, cy = x, y
+    for _ in 1:vision
+        cx = mod1(cx + dx, w)
+        cy = mod1(cy + dy, h)
+        total += grid.grain_here[cx, cy]
+    end
+    return total
+end
+
+function _wd_heading_delta(heading::Int)
+    if heading == 0
+        return (0, 1)   # North: y+1
+    elseif heading == 90
+        return (1, 0)   # East: x+1
+    elseif heading == 180
+        return (0, -1)  # South: y-1
+    else  # 270
+        return (-1, 0)  # West: x-1
+    end
+end
+
+# --- Harvest ---
+# First pass: all turtles gain floor(grain / num_turtles_here)
+# Second pass: all turtles zero the grain on their patch
+
+struct WDHarvestSystem &lt;: System end
+
+function update!(::WDHarvestSystem, world::World)
+    grid = get_resource(world, WDGrid)
+
+    # Build count of turtles per cell
+    w, h = grid.width, grid.height
+    counts = zeros(Int, w, h)
+    for (_, positions) in Query(world, (WDPosition,); with=(WDTag,))
+        @inbounds for i in eachindex(positions)
+            counts[positions[i].x, positions[i].y] += 1
+        end
+    end
+
+    # First pass: distribute grain
+    for (_, positions, _, turtles) in Query(world, (WDPosition, WDHeading, WDTurtle); with=(WDTag,))
+        @inbounds for i in eachindex(positions)
+            px, py = positions[i].x, positions[i].y
+            c = counts[px, py]
+            if c &gt; 0
+                turtles[i].wealth = floor(Int, turtles[i].wealth + grid.grain_here[px, py] / c)
+            end
+        end
+    end
+
+    # Second pass: zero grain
+    for (_, positions) in Query(world, (WDPosition,); with=(WDTag,))
+        @inbounds for i in eachindex(positions)
+            grid.grain_here[positions[i].x, positions[i].y] = 0.0
+        end
+    end
+    return nothing
+end
+
+# --- Move, Eat, Age, Die ---
+# fd 1 in heading direction, subtract metabolism, increment age, if dead: reset
+
+struct WDMoveEatAgeDieSystem &lt;: System end
+
+function update!(::WDMoveEatAgeDieSystem, world::World)
+    params = get_resource(world, WDParams)
+    rng = get_resource(world, RNGResource).rng
+    grid = get_resource(world, WDGrid)
+    w, h = grid.width, grid.height
+
+    for (eids, positions, headings, turtles) in Query(world, (WDPosition, WDHeading, WDTurtle); with=(WDTag,))
+        indices = collect(eachindex(positions))
+        Random.shuffle!(rng, indices)
+        @inbounds for i in indices
+            # fd 1
+            dx, dy = _wd_heading_delta(headings[i].heading)
+            positions[i].x = mod1(positions[i].x + dx, w)
+            positions[i].y = mod1(positions[i].y + dy, h)
+
+            # Consume metabolism
+            turtles[i].wealth -= turtles[i].metabolism
+            turtles[i].age += 1
+
+            # Death check: reset turtle stats (constant population)
+            # NetLogo: set-initial-turtle-vars — does NOT relocate, turtle stays
+            if turtles[i].wealth &lt; 0 || turtles[i].age &gt;= turtles[i].life_expectancy
+                headings[i].heading = rand(rng, [0, 90, 180, 270])
+                turtles[i].life_expectancy = params.life_expectancy_min + rand(rng, 0:(params.life_expectancy_max - params.life_expectancy_min))
+                turtles[i].metabolism = 1 + rand(rng, 0:params.metabolism_max - 1)
+                turtles[i].wealth = turtles[i].metabolism + rand(rng, 0:49)
+                turtles[i].vision = 1 + rand(rng, 0:params.max_vision - 1)
+                turtles[i].age = rand(rng, 0:turtles[i].life_expectancy - 1)
+            end
+        end
+    end
+    return nothing
+end
+
+# --- Grow Grain ---
+
+struct WDGrowGrainSystem &lt;: System end
+
+function update!(::WDGrowGrainSystem, world::World)
+    params = get_resource(world, WDParams)
+    tick = get_resource(world, Tick)
+    grid = get_resource(world, WDGrid)
+
+    # NetLogo: if ticks mod grain-growth-interval = 0
+    if tick.tick % params.grain_growth_interval == 0
+        for x in 1:grid.width, y in 1:grid.height
+            if grid.grain_here[x, y] &lt; grid.max_grain_here[x, y]
+                grid.grain_here[x, y] = min(
+                    grid.grain_here[x, y] + params.num_grain_grown,
+                    grid.max_grain_here[x, y]
+                )
+            end
+        end
+    end
+    return nothing
+end
+
+# --- Gini Computation ---
+
+struct WDGiniSystem &lt;: System end
+
+function update!(::WDGiniSystem, world::World)
+    params = get_resource(world, WDParams)
+    stats = get_resource(world, WDStats)
+
+    # Collect all wealths
+    wealths = Int[]
+    for (_, _, _, turtles) in Query(world, (WDPosition, WDHeading, WDTurtle); with=(WDTag,))
+        @inbounds for i in eachindex(turtles)
+            push!(wealths, turtles[i].wealth)
+        end
+    end
+
+    sort!(wealths)
+    n = length(wealths)
+    total_wealth = sum(wealths)
+
+    gini = 0.0
+    wealth_sum_so_far = 0.0
+    for idx in 1:n
+        wealth_sum_so_far += wealths[idx]
+        gini += (idx / n) - (wealth_sum_so_far / total_wealth)
+    end
+
+    stats.gini_index_reserve = gini
+    return nothing
+end
+
+# --- Termination ---
+
+struct WDTerminationSystem &lt;: System end
+
+function update!(::WDTerminationSystem, world::World)
+    params = get_resource(world, WDParams)
+    tick = get_resource(world, Tick)
+    if tick.tick + 1 &gt;= params.max_ticks
+        get_resource(world, Terminate).stop = true
+    end
+    return nothing
+end</code></pre><h3 id="Model-(model.jl)"><a class="docs-heading-anchor" href="#Model-(model.jl)">Model (<code>model.jl</code>)</a><a id="Model-(model.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Model-(model.jl)" title="Permalink"></a></h3><p>The model file assembles all pieces: it creates the ECS <code>World</code> with the required component types, registers resources, builds the <code>Scheduler</code> with systems in execution order, and exposes the public <code>run</code> entry point. The observer pattern records the trajectory each tick.</p><pre><code class="language-julia hljs">function wealthdistribution_world(; initial_capacity::Int = 4096)
+    return World(
+        WDPosition,
+        WDHeading,
+        WDTurtle,
+        WDTag;
+        initial_capacity = initial_capacity,
+        allow_mutable = true,
+    )
+end
+
+function wealthdistribution_systems()
+    return (
+        InitWDSystem(),
+        WDTurnSystem(),
+        WDHarvestSystem(),
+        WDMoveEatAgeDieSystem(),
+        WDGrowGrainSystem(),
+        WDGiniSystem(),
+        WDTerminationSystem(),
+    )
+end
+
+function wealthdistribution_model(params::WDParams = WDParams())
+    world = wealthdistribution_world()
+    _add_standard_resources!(world, params)
+    add_resource!(world, WDGrid(params.grid_width, params.grid_height))
+    add_resource!(world, WDStats())
+    scheduler = Scheduler(world, wealthdistribution_systems())
+    initialize!(scheduler)
+    return scheduler
+end
+
+struct WDObserver end
+
+function wealthdistribution_headers(::WDObserver)
+    return [&quot;GiniIndex&quot;]
+end
+
+function wealthdistribution_values(::WDObserver, world::World)
+    stats = get_resource(world, WDStats)
+    return Float64[stats.gini_index_reserve]
+end
+
+function run_wealthdistribution(; params::WDParams = WDParams(), observe::Bool = true)
+    return _run_model(wealthdistribution_model, WDObserver(), wealthdistribution_values; params, observe)
+end</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../voting/voting/">« Voting</a><a class="docs-footer-nextpage" href="../../wisdomcrowd/wisdomcrowd/">Wisdom of Crowd »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.20.0 on <span class="colophon-date" title="Wednesday 18 November 2026 18:43">Wednesday 18 November 2026</span>. Using Julia version 1.13.4.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>

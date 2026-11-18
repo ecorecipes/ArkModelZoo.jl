@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="referrer" content="no-referrer"/><title>LassaVirus · ArkModelZoo.jl</title><meta name="title" content="LassaVirus · ArkModelZoo.jl"/><meta property="og:title" content="LassaVirus · ArkModelZoo.jl"/><meta property="twitter:title" content="LassaVirus · ArkModelZoo.jl"/><meta name="description" content="Documentation for ArkModelZoo.jl."/><meta property="og:description" content="Documentation for ArkModelZoo.jl."/><meta property="twitter:description" content="Documentation for ArkModelZoo.jl."/><meta property="og:url" content="https://ecorecipes.github.io/ArkModelZoo.jl/tutorials/lassavirus/lassavirus/"/><meta property="twitter:url" content="https://ecorecipes.github.io/ArkModelZoo.jl/tutorials/lassavirus/lassavirus/"/><link rel="canonical" href="https://ecorecipes.github.io/ArkModelZoo.jl/tutorials/lassavirus/lassavirus/"/><script data-outdated-warner src="../../../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.63.2/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../../assets/documenter.js"></script><script src="../../../search_index.js"></script><script src="../../../siteinfo.js"></script><script src="../../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="../../../">ArkModelZoo.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../../../">Home</a></li><li><span class="tocitem">Resilience</span><ul><li><a class="tocitem" href="../../resilience/resilience/">Resilience of agent-based models</a></li></ul></li><li><span class="tocitem">Models</span><ul><li><a class="tocitem" href="../../abtgc/abtgc/">ABTgc</a></li><li><a class="tocitem" href="../../aids/aids/">AIDS</a></li><li><a class="tocitem" href="../../altruism/altruism/">Altruism</a></li><li><a class="tocitem" href="../../antsystem/antsystem/">Ant System TSP</a></li><li><a class="tocitem" href="../../ants/ants/">Ants</a></li><li><a class="tocitem" href="../../artificialeconomy/artificialeconomy/">Artificial Economy</a></li><li><a class="tocitem" href="../../axelrodcultural/axelrodcultural/">AxelrodCultural</a></li><li><a class="tocitem" href="../../babysittingcoop/babysittingcoop/">Baby Sitting Coop</a></li><li><a class="tocitem" href="../../bank_reserves/bank_reserves/">Bank Reserves</a></li><li><a class="tocitem" href="../../bayesian/bayesian/">Bayesian Updating</a></li><li><a class="tocitem" href="../../beinggreen/beinggreen/">Being Green</a></li><li><a class="tocitem" href="../../birthrates/birthrates/">Birthrates</a></li><li><a class="tocitem" href="../../blackbox/blackbox/">BlackBox</a></li><li><a class="tocitem" href="../../boiling/boiling/">Boiling</a></li><li><a class="tocitem" href="../../bombscenario/bombscenario/">BombScenario</a></li><li><a class="tocitem" href="../../brians_brain/brians_brain/">Brian’s Brain</a></li><li><a class="tocitem" href="../../bullwhipeffect/bullwhipeffect/">Bullwhip Effect</a></li><li><a class="tocitem" href="../../ca_1d_elementary/ca_1d_elementary/">CA 1D Elementary</a></li><li><a class="tocitem" href="../../civilizationgrowth/civilizationgrowth/">Civilization Growth</a></li><li><a class="tocitem" href="../../climatechange/climatechange/">Climate Change</a></li><li><a class="tocitem" href="../../coin/coin/">COIN Learning</a></li><li><a class="tocitem" href="../../competitionlearning/competitionlearning/">Competition Learning</a></li><li><a class="tocitem" href="../../contactprocess/contactprocess/">Contact Process 2D</a></li><li><a class="tocitem" href="../../contagionnw/contagionnw/">Contagion NW</a></li><li><a class="tocitem" href="../../contagionsi/contagionsi/">Contagion SI</a></li><li><a class="tocitem" href="../../contagionsir/contagionsir/">Contagion SIR</a></li><li><a class="tocitem" href="../../cooperation/cooperation/">Cooperation</a></li><li><a class="tocitem" href="../../coordination/coordination/">Coordination</a></li><li><a class="tocitem" href="../../coordination2groups/coordination2groups/">Coordination 2 Groups</a></li><li><a class="tocitem" href="../../croprotation/croprotation/">Crop Rotation</a></li><li><a class="tocitem" href="../../crystallization/crystallization/">Crystallization</a></li><li><a class="tocitem" href="../../csvnetworkforaging/csvnetworkforaging/">CSV Network Foraging</a></li><li><a class="tocitem" href="../../csvpopulation/csvpopulation/">CSV Population</a></li><li><a class="tocitem" href="../../culturaldiffusion/culturaldiffusion/">Cultural Diffusion</a></li><li><a class="tocitem" href="../../cyberspaceopinion/cyberspaceopinion/">Cyberspace Opinion</a></li><li><a class="tocitem" href="../../daisyworld/daisyworld/">Daisyworld</a></li><li><a class="tocitem" href="../../dating/dating/">Dating</a></li><li><a class="tocitem" href="../../diffusionnetwork/diffusionnetwork/">Diffusion Network</a></li><li><a class="tocitem" href="../../diffusionofhiv/diffusionofhiv/">DiffusionOfHIV</a></li><li><a class="tocitem" href="../../disinfobitstringnw/disinfobitstringnw/">Disinfobitstringnw</a></li><li><a class="tocitem" href="../../dla/dla/">Dla</a></li><li><a class="tocitem" href="../../dlasimple/dlasimple/">DLA Simple</a></li><li><a class="tocitem" href="../../druguse/druguse/">Drug Use</a></li><li><a class="tocitem" href="../../druguseoverdose/druguseoverdose/">Drug Use Overdose</a></li><li><a class="tocitem" href="../../elfarol/elfarol/">El Farol</a></li><li><a class="tocitem" href="../../erosion/erosion/">Erosion</a></li><li><a class="tocitem" href="../../ethnocentrism/ethnocentrism/">Ethnocentrism</a></li><li><a class="tocitem" href="../../evolutionofnorms/evolutionofnorms/">EvolutionOfNorms</a></li><li><a class="tocitem" href="../../firepercolation/firepercolation/">Fire Percolation</a></li><li><a class="tocitem" href="../../firebenchmark/firebenchmark/">FireBenchmark</a></li><li><a class="tocitem" href="../../fireflies/fireflies/">Fireflies</a></li><li><a class="tocitem" href="../../flocking/flocking/">Flocking</a></li><li><a class="tocitem" href="../../flockingnetwork/flockingnetwork/">Flocking Network</a></li><li><a class="tocitem" href="../../forestdewdney/forestdewdney/">Forest Dewdney</a></li><li><a class="tocitem" href="../../fire/fire/">Forest Fire</a></li><li><a class="tocitem" href="../../fungalbioremediation/fungalbioremediation/">Fungal Bioremediation</a></li><li><a class="tocitem" href="../../giant_component/giant_component/">Giant Component</a></li><li><a class="tocitem" href="../../gishillclimber/gishillclimber/">GIS HillClimber</a></li><li><a class="tocitem" href="../../granovetter/granovetter/">Granovetter</a></li><li><a class="tocitem" href="../../grassbrushtrees/grassbrushtrees/">Grass Brush Trees</a></li><li><a class="tocitem" href="../../diffusion/diffusion/">Heat Diffusion</a></li><li><a class="tocitem" href="../../heatbugs/heatbugs/">Heatbugs</a></li><li><a class="tocitem" href="../../hikingelevation/hikingelevation/">HikingElevation</a></li><li><a class="tocitem" href="../../infinitelife/infinitelife/">Infinite Life</a></li><li><a class="tocitem" href="../../infodiffusion/infodiffusion/">Info Diffusion</a></li><li><a class="tocitem" href="../../ising/ising/">Ising</a></li><li><a class="tocitem" href="../../languageborders/languageborders/">Language Borders</a></li><li><a class="tocitem" href="../../languagechange/languagechange/">Language Change</a></li><li class="is-active"><a class="tocitem" href>LassaVirus</a><ul class="internal"><li><a class="tocitem" href="#Overview"><span>Overview</span></a></li><li><a class="tocitem" href="#Parameters"><span>Parameters</span></a></li><li><a class="tocitem" href="#Source-Code"><span>Source Code</span></a></li><li><a class="tocitem" href="#Time-Series"><span>Time Series</span></a></li><li><a class="tocitem" href="#Ensemble-Runs"><span>Ensemble Runs</span></a></li><li><a class="tocitem" href="#Parameter-Sensitivity"><span>Parameter Sensitivity</span></a></li><li><a class="tocitem" href="#Appendix:-Source-Code"><span>Appendix: Source Code</span></a></li></ul></li><li><a class="tocitem" href="../../leonarditechadoption/leonarditechadoption/">Leonardi Tech Adoption</a></li><li><a class="tocitem" href="../../life/life/">Life</a></li><li><a class="tocitem" href="../../logistic_growth/logistic_growth/">Logistic Growth</a></li><li><a class="tocitem" href="../../mailmen/mailmen/">Mailmen Delivery</a></li><li><a class="tocitem" href="../../marriage/marriage/">Marriage Problem</a></li><li><a class="tocitem" href="../../mimicry/mimicry/">Mimicry</a></li><li><a class="tocitem" href="../../minimalsis/minimalsis/">Minimal SIS</a></li><li><a class="tocitem" href="../../minoritybelief/minoritybelief/">Minority Belief Spread</a></li><li><a class="tocitem" href="../../minoritygame/minoritygame/">Minority Game</a></li><li><a class="tocitem" href="../../misinformationsbfc/misinformationsbfc/">Misinformation SBFC</a></li><li><a class="tocitem" href="../../modsocsegregation/modsocsegregation/">Modsoc Segregation</a></li><li><a class="tocitem" href="../../mousetraps/mousetraps/">Mousetraps</a></li><li><a class="tocitem" href="../../multidrugresistant/multidrugresistant/">MultidrugResistant</a></li><li><a class="tocitem" href="../../opinionbc/opinionbc/">Opinion Dynamics BC</a></li><li><a class="tocitem" href="../../paretolearn/paretolearn/">Pareto Learning</a></li><li><a class="tocitem" href="../../participatorydisinfo/participatorydisinfo/">Participatory Disinformation</a></li><li><a class="tocitem" href="../../participatorydisinformation/participatorydisinformation/">Participatory Disinformation</a></li><li><a class="tocitem" href="../../particles/particles/">Particles</a></li><li><a class="tocitem" href="../../party/party/">Party</a></li><li><a class="tocitem" href="../../pd_basic_evolutionary/pd_basic_evolutionary/">PD Basic Evolutionary</a></li><li><a class="tocitem" href="../../pdsimple/pdsimple/">PD Simple</a></li><li><a class="tocitem" href="../../percolation/percolation/">Percolation</a></li><li><a class="tocitem" href="../../polymerdynamics/polymerdynamics/">Polymer Dynamics</a></li><li><a class="tocitem" href="../../prefattachhomophily/prefattachhomophily/">Pref Attach Homophily</a></li><li><a class="tocitem" href="../../preferential_attachment/preferential_attachment/">Preferential Attachment</a></li><li><a class="tocitem" href="../../privacyopinion/privacyopinion/">Privacy Opinion</a></li><li><a class="tocitem" href="../../productsmarket/productsmarket/">Products Market</a></li><li><a class="tocitem" href="../../public_good/public_good/">Public Good</a></li><li><a class="tocitem" href="../../cqin/cqin/">Quality Improvement Network</a></li><li><a class="tocitem" href="../../rabbits_grass_weeds/rabbits_grass_weeds/">Rabbits Grass Weeds</a></li><li><a class="tocitem" href="../../decay/decay/">Radioactive Decay</a></li><li><a class="tocitem" href="../../rationalevolvingpd/rationalevolvingpd/">Rational Evolving PD</a></li><li><a class="tocitem" href="../../rebellion/rebellion/">Rebellion</a></li><li><a class="tocitem" href="../../recruitingmovement/recruitingmovement/">Recruiting Movement</a></li><li><a class="tocitem" href="../../recruiting/recruiting/">Recruiting Supporters</a></li><li><a class="tocitem" href="../../recruitingsupporters/recruitingsupporters/">Recruiting Supporters</a></li><li><a class="tocitem" href="../../resilientteam/resilientteam/">Resilient Team</a></li><li><a class="tocitem" href="../../rhinopoaching/rhinopoaching/">Rhino Poaching</a></li><li><a class="tocitem" href="../../riseofradicalism/riseofradicalism/">Rise of Radicalism</a></li><li><a class="tocitem" href="../../rope/rope/">Rope</a></li><li><a class="tocitem" href="../../rumormill/rumormill/">Rumor Mill</a></li><li><a class="tocitem" href="../../sand/sand/">Sand</a></li><li><a class="tocitem" href="../../schelling/schelling/">Schelling Segregation</a></li><li><a class="tocitem" href="../../segregation/segregation/">Segregation</a></li><li><a class="tocitem" href="../../shepherds/shepherds/">Shepherds</a></li><li><a class="tocitem" href="../../simple_genetic_algorithm/simple_genetic_algorithm/">Simple Genetic Algorithm</a></li><li><a class="tocitem" href="../../simplemarket/simplemarket/">Simple Market</a></li><li><a class="tocitem" href="../../simplemarketrandom/simplemarketrandom/">Simple Market Random</a></li><li><a class="tocitem" href="../../simplemarkettable/simplemarkettable/">Simple Market Table</a></li><li><a class="tocitem" href="../../sir/sir/">SIR Epidemic</a></li><li><a class="tocitem" href="../../sleuthlanduse/sleuthlanduse/">Sleuth LandUse</a></li><li><a class="tocitem" href="../../slime/slime/">Slime</a></li><li><a class="tocitem" href="../../slowspread/slowspread/">Slow Spread Env Action</a></li><li><a class="tocitem" href="../../small_worlds/small_worlds/">Small Worlds</a></li><li><a class="tocitem" href="../../socialinfluence/socialinfluence/">Social Influence</a></li><li><a class="tocitem" href="../../socialnetworkdiffusion/socialnetworkdiffusion/">Social Network Diffusion</a></li><li><a class="tocitem" href="../../soliddiffusion/soliddiffusion/">Solid Diffusion</a></li><li><a class="tocitem" href="../../spatialattitude/spatialattitude/">Spatial Attitude</a></li><li><a class="tocitem" href="../../ipd/ipd/">Spatial IPD</a></li><li><a class="tocitem" href="../../spatialopinion/spatialopinion/">Spatial Opinion Dynamics</a></li><li><a class="tocitem" href="../../fakenews/fakenews/">Spread of Fake News</a></li><li><a class="tocitem" href="../../spreadingbots/spreadingbots/">Spreading Bots</a></li><li><a class="tocitem" href="../../spreadinggroups/spreadinggroups/">Spreading Groups</a></li><li><a class="tocitem" href="../../sugarscape_1_growback/sugarscape_1_growback/">Sugarscape 1 Growback</a></li><li><a class="tocitem" href="../../sugarscapeculture/sugarscapeculture/">Sugarscape Culture</a></li><li><a class="tocitem" href="../../sugarscapesexual/sugarscapesexual/">Sugarscape Sexual</a></li><li><a class="tocitem" href="../../superdiffuser/superdiffuser/">SuperDiffuser</a></li><li><a class="tocitem" href="../../teamassembly/teamassembly/">Team Assembly</a></li><li><a class="tocitem" href="../../termites/termites/">Termites</a></li><li><a class="tocitem" href="../../thermostat/thermostat/">Thermostat</a></li><li><a class="tocitem" href="../../tourism/tourism/">Tourism</a></li><li><a class="tocitem" href="../../traffic2lanes/traffic2lanes/">Traffic 2 Lanes</a></li><li><a class="tocitem" href="../../trafficbasic/trafficbasic/">Traffic Basic</a></li><li><a class="tocitem" href="../../trafficgrid/trafficgrid/">Traffic Grid</a></li><li><a class="tocitem" href="../../trafficintersection/trafficintersection/">Traffic Intersection</a></li><li><a class="tocitem" href="../../tumor/tumor/">Tumor</a></li><li><a class="tocitem" href="../../unitcohesion/unitcohesion/">Unit Cohesion</a></li><li><a class="tocitem" href="../../virus_on_network/virus_on_network/">Virus on a Network</a></li><li><a class="tocitem" href="../../virus/virus/">Virus on Network</a></li><li><a class="tocitem" href="../../voronoivoter/voronoivoter/">Voronoi Voter</a></li><li><a class="tocitem" href="../../voter/voter/">Voter Model</a></li><li><a class="tocitem" href="../../voting/voting/">Voting</a></li><li><a class="tocitem" href="../../wealthdistribution/wealthdistribution/">Wealth Distribution</a></li><li><a class="tocitem" href="../../wisdomcrowd/wisdomcrowd/">Wisdom of Crowd</a></li><li><a class="tocitem" href="../../wolfsheep/wolfsheep/">Wolf Sheep Predation</a></li></ul></li><li><a class="tocitem" href="../../../api/">API Reference</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Models</a></li><li class="is-active"><a href>LassaVirus</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>LassaVirus</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/ecorecipes/ArkModelZoo.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/ecorecipes/ArkModelZoo.jl/blob/main/docs/src/tutorials/lassavirus/lassavirus.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="LassaVirus"><a class="docs-heading-anchor" href="#LassaVirus">LassaVirus</a><a id="LassaVirus-1"></a><a class="docs-heading-anchor-permalink" href="#LassaVirus" title="Permalink"></a></h1><h2 id="Overview"><a class="docs-heading-anchor" href="#Overview">Overview</a><a id="Overview-1"></a><a class="docs-heading-anchor-permalink" href="#Overview" title="Permalink"></a></h2><h3 id="WHAT-IS-IT?"><a class="docs-heading-anchor" href="#WHAT-IS-IT?">WHAT IS IT?</a><a id="WHAT-IS-IT?-1"></a><a class="docs-heading-anchor-permalink" href="#WHAT-IS-IT?" title="Permalink"></a></h3><p>This model simulates the transmission and perpetuation of a virus in a human population.</p><p>Ecological biologists have suggested a number of factors which may influence the survival of a directly transmitted virus within a population. (Yorke, et al. “Seasonality and the requirements for perpetuation and eradication of viruses in populations.” Journal of Epidemiology, volume 109, pages 103-123)</p><h3 id="HOW-IT-WORKS"><a class="docs-heading-anchor" href="#HOW-IT-WORKS">HOW IT WORKS</a><a id="HOW-IT-WORKS-1"></a><a class="docs-heading-anchor-permalink" href="#HOW-IT-WORKS" title="Permalink"></a></h3><p>The model is initialized with 150 people, of which 10 are infected. People move randomly about the world in one of three states: healthy but susceptible to infection (green), sick and infectious (red), and healthy and immune (gray). People may die of infection or old age. When the population dips below the environment’s “carrying capacity” (set at 300 in this model) healthy people may produce healthy (but susceptible) offspring.</p><p>Some of these factors are summarized below with an explanation of how each one is treated in this model.</p><h3 id="THINGS-TO-NOTICE"><a class="docs-heading-anchor" href="#THINGS-TO-NOTICE">THINGS TO NOTICE</a><a id="THINGS-TO-NOTICE-1"></a><a class="docs-heading-anchor-permalink" href="#THINGS-TO-NOTICE" title="Permalink"></a></h3><p>The factors controlled by the three sliders interact to influence how likely the virus is to thrive in this population. Notice that in all cases, these factors must create a balance in which an adequate number of potential hosts remain available to the virus and in which the virus can adequately access those hosts.</p><p>Often there will initially be an explosion of infection since no one in the population is immune. This approximates the initial “outbreak” of a viral infection in a population, one that often has devastating consequences for the humans concerned. Soon, however, the virus becomes less common as the population dynamics change. What ultimately happens to the virus is determined by the factors controlled by the sliders.</p><p>Notice that viruses that are too successful at first (infecting almost everyone) may not survive in the long term. Since everyone infected generally dies or becomes immune as a result, the potential number of hosts is often limited. The exception to the above is when the DURATION slider is set so high that population turnover (reproduction) can keep up and provide new hosts.</p><h3 id="THINGS-TO-TRY"><a class="docs-heading-anchor" href="#THINGS-TO-TRY">THINGS TO TRY</a><a id="THINGS-TO-TRY-1"></a><a class="docs-heading-anchor-permalink" href="#THINGS-TO-TRY" title="Permalink"></a></h3><p>Think about how different slider values might approximate the dynamics of real-life viruses. The famous Ebola virus in central Africa has a very short duration, a very high infectiousness value, and an extremely low recovery rate. For all the fear this virus has raised, how successful is it? Set the sliders appropriately and watch what happens.</p><p>The HIV virus, which causes AIDS, has an extremely long duration, an extremely low recovery rate, but an extremely low infectiousness value. How does a virus with these slider values fare in this model?</p><h3 id="EXTENDING-THE-MODEL"><a class="docs-heading-anchor" href="#EXTENDING-THE-MODEL">EXTENDING THE MODEL</a><a id="EXTENDING-THE-MODEL-1"></a><a class="docs-heading-anchor-permalink" href="#EXTENDING-THE-MODEL" title="Permalink"></a></h3><p>Add additional sliders controlling the carrying capacity of the world (how many people can be in the world at one time), the average lifespan of the people and their birth-rate.</p><p>Build a similar model simulating viral infection of a non-human host with very different reproductive rates, lifespans, and population densities.</p><p>Add a slider controlling how long immunity lasts. You could also make immunity imperfect, so that immune turtles still have a small chance of getting infected. This chance could get higher over time.</p><h3 id="RELATED-MODELS"><a class="docs-heading-anchor" href="#RELATED-MODELS">RELATED MODELS</a><a id="RELATED-MODELS-1"></a><a class="docs-heading-anchor-permalink" href="#RELATED-MODELS" title="Permalink"></a></h3><ul><li>HIV</li><li>Virus on a Network</li></ul><h3 id="CREDITS-AND-REFERENCES"><a class="docs-heading-anchor" href="#CREDITS-AND-REFERENCES">CREDITS AND REFERENCES</a><a id="CREDITS-AND-REFERENCES-1"></a><a class="docs-heading-anchor-permalink" href="#CREDITS-AND-REFERENCES" title="Permalink"></a></h3><p>This model can show an alternate visualization of the Virus model using circles to represent the people. It uses visualization techniques as recommended in the paper:</p><p>Kornhauser, D., Wilensky, U., &amp; Rand, W. (2009). Design guidelines for agent based model visualization. Journal of Artificial Societies and Social Simulation, JASSS, 12(2), 1.</p><h3 id="HOW-TO-CITE"><a class="docs-heading-anchor" href="#HOW-TO-CITE">HOW TO CITE</a><a id="HOW-TO-CITE-1"></a><a class="docs-heading-anchor-permalink" href="#HOW-TO-CITE" title="Permalink"></a></h3><p>If you mention this model or the NetLogo software in a publication, we ask that you include the citations below.</p><p>For the model itself:</p><ul><li>Wilensky, U. (1998). NetLogo Virus model. http://ccl.northwestern.edu/netlogo/models/Virus. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.</li></ul><p>Please cite the NetLogo software as:</p><ul><li>Wilensky, U. (1999). NetLogo. http://ccl.northwestern.edu/netlogo/. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.</li></ul><h3 id="COPYRIGHT-AND-LICENSE"><a class="docs-heading-anchor" href="#COPYRIGHT-AND-LICENSE">COPYRIGHT AND LICENSE</a><a id="COPYRIGHT-AND-LICENSE-1"></a><a class="docs-heading-anchor-permalink" href="#COPYRIGHT-AND-LICENSE" title="Permalink"></a></h3><p>Copyright 1998 Uri Wilensky.</p><p><img src="http://ccl.northwestern.edu/images/creativecommons/byncsa.png" alt="CC BY-NC-SA 3.0"/></p><p>This model is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License. To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/3.0/ or send a letter to Creative Commons, 559 Nathan Abbott Way, Stanford, California 94305, USA.</p><p>NetLogo itself is free software for non-commercial use under the terms of the GNU General Public License (<a href="https://ccl.northwestern.edu/netlogo/docs/copyright.html">see full license information here</a>).</p><p>To inquire about commercial licenses for either NetLogo or specific models from the models library, please contact netlogo-commercial-admin@ccl.northwestern.edu.</p><p>This model was created as part of the project: CONNECTED MATHEMATICS: MAKING SENSE OF COMPLEX PHENOMENA THROUGH BUILDING OBJECT-BASED PARALLEL MODELS (OBPML). The project gratefully acknowledges the support of the National Science Foundation (Applications of Advanced Technologies Program) – grant numbers RED #9552950 and REC #9632612.</p><p>This model was converted to NetLogo as part of the projects: PARTICIPATORY SIMULATIONS: NETWORK-BASED DESIGN FOR SYSTEMS LEARNING IN CLASSROOMS and/or INTEGRATED SIMULATION AND MODELING ENVIRONMENT. The project gratefully acknowledges the support of the National Science Foundation (REPP &amp; ROLE programs) – grant numbers REC #9814682 and REC-0126227. Converted from StarLogoT to NetLogo, 2001.</p><h2 id="Parameters"><a class="docs-heading-anchor" href="#Parameters">Parameters</a><a id="Parameters-1"></a><a class="docs-heading-anchor-permalink" href="#Parameters" title="Permalink"></a></h2><table><tr><th style="text-align: right">Parameter</th><th style="text-align: right">Type</th><th style="text-align: right">Default</th><th style="text-align: right">Description</th></tr><tr><td style="text-align: right"><code>Human_Population</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>500</code></td><td style="text-align: right">Human Population</td></tr><tr><td style="text-align: right"><code>Multimammate_Rat_Population</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>25</code></td><td style="text-align: right">Multimammate Rat Population</td></tr><tr><td style="text-align: right"><code>Initial_Number_Of_Cases</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>5</code></td><td style="text-align: right">Initial Number Of Cases</td></tr><tr><td style="text-align: right"><code>pct_Severe_Cases</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>20</code></td><td style="text-align: right">pct Severe Cases</td></tr><tr><td style="text-align: right"><code>pct_Infectiousness_H2H</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>20</code></td><td style="text-align: right">pct Infectiousness H2H</td></tr><tr><td style="text-align: right"><code>pct_Infectiousness_R2H</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>40</code></td><td style="text-align: right">pct Infectiousness R2H</td></tr><tr><td style="text-align: right"><code>Incubation_Period</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>10</code></td><td style="text-align: right">Incubation Period</td></tr><tr><td style="text-align: right"><code>Sick_Days</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>15</code></td><td style="text-align: right">Sick Days</td></tr><tr><td style="text-align: right"><code>CFR_Mild_Case</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>1</code></td><td style="text-align: right">CFR Mild Case</td></tr><tr><td style="text-align: right"><code>CFR_Severe_Case</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>15</code></td><td style="text-align: right">CFR Severe Case</td></tr><tr><td style="text-align: right"><code>Human_Behaviour_Factor</code></td><td style="text-align: right"><code>Float64</code></td><td style="text-align: right"><code>0.8</code></td><td style="text-align: right">Human Behaviour Factor</td></tr><tr><td style="text-align: right"><code>Infectious_Days_After_Recovery</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>90</code></td><td style="text-align: right">Infectious Days After Recovery</td></tr><tr><td style="text-align: right"><code>world_min</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>-16</code></td><td style="text-align: right">world min</td></tr><tr><td style="text-align: right"><code>world_max</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>16</code></td><td style="text-align: right">world max</td></tr><tr><td style="text-align: right"><code>max_ticks</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>500</code></td><td style="text-align: right">max ticks</td></tr></table><h2 id="Source-Code"><a class="docs-heading-anchor" href="#Source-Code">Source Code</a><a id="Source-Code-1"></a><a class="docs-heading-anchor-permalink" href="#Source-Code" title="Permalink"></a></h2><p>The Julia code to run this model:</p><pre><code class="language-julia hljs">using ArkModelZoo
+_, trajectory = run_lassavirus()</code></pre><h2 id="Time-Series"><a class="docs-heading-anchor" href="#Time-Series">Time Series</a><a id="Time-Series-1"></a><a class="docs-heading-anchor-permalink" href="#Time-Series" title="Permalink"></a></h2><p><img src="../plot_timeseries.png" alt="LassaVirus time series"/></p><h2 id="Ensemble-Runs"><a class="docs-heading-anchor" href="#Ensemble-Runs">Ensemble Runs</a><a id="Ensemble-Runs-1"></a><a class="docs-heading-anchor-permalink" href="#Ensemble-Runs" title="Permalink"></a></h2><p>Ten replicates with different random seeds, showing mean ± standard deviation.</p><p><img src="../plot_ensemble.png" alt="LassaVirus ensemble"/></p><h2 id="Parameter-Sensitivity"><a class="docs-heading-anchor" href="#Parameter-Sensitivity">Parameter Sensitivity</a><a id="Parameter-Sensitivity-1"></a><a class="docs-heading-anchor-permalink" href="#Parameter-Sensitivity" title="Permalink"></a></h2><p>Varying <code>Human_Population</code>.</p><p><img src="../plot_sensitivity.png" alt="LassaVirus sensitivity"/></p><h2 id="Appendix:-Source-Code"><a class="docs-heading-anchor" href="#Appendix:-Source-Code">Appendix: Source Code</a><a id="Appendix:-Source-Code-1"></a><a class="docs-heading-anchor-permalink" href="#Appendix:-Source-Code" title="Permalink"></a></h2><p>This model is implemented in the <a href="https://github.com/sdwfrost/Ark.jl">Ark.jl</a> Entity-Component-System (ECS) framework. The code is split into five files, each with a distinct role:</p><ul><li><strong>Parameters</strong>: a mutable struct holding all configurable values.</li><li><strong>Components</strong>: lightweight data types attached to individual entities (agents).</li><li><strong>Resources</strong>: world-level shared state accessible to all systems.</li><li><strong>Systems</strong>: functions that operate on entities each tick, defining model behavior.</li><li><strong>Model</strong>: wiring that assembles the world, registers resources and systems, and provides the run entry point.</li></ul><h3 id="Parameters-(parameters.jl)"><a class="docs-heading-anchor" href="#Parameters-(parameters.jl)">Parameters (<code>parameters.jl</code>)</a><a id="Parameters-(parameters.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Parameters-(parameters.jl)" title="Permalink"></a></h3><p>The parameter struct uses <code>@kwdef</code> so that every field has a default value and can be overridden by keyword. These defaults match the original NetLogo model’s slider settings.</p><pre><code class="language-julia hljs"># Lassa Virus – parameters with defaults matching NetLogo reference
+
+Base.@kwdef mutable struct LassaParams
+    Human_Population::Int = 500
+    Multimammate_Rat_Population::Int = 25
+    Initial_Number_Of_Cases::Int = 5
+    pct_Severe_Cases::Int = 20
+    pct_Infectiousness_H2H::Int = 20
+    pct_Infectiousness_R2H::Int = 40
+    Incubation_Period::Int = 10
+    Sick_Days::Int = 15
+    CFR_Mild_Case::Int = 1
+    CFR_Severe_Case::Int = 15
+    Human_Behaviour_Factor::Float64 = 0.8
+    Infectious_Days_After_Recovery::Int = 90
+    world_min::Int = -16
+    world_max::Int = 16
+    max_ticks::Int = 500
+    seed::Int = 42
+end</code></pre><h3 id="Components-(components.jl)"><a class="docs-heading-anchor" href="#Components-(components.jl)">Components (<code>components.jl</code>)</a><a id="Components-(components.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Components-(components.jl)" title="Permalink"></a></h3><p>Components are lightweight data types attached to individual entities (agents). Mutable structs hold per-entity state, while empty tag structs act as markers for the ECS query system to efficiently filter entities.</p><pre><code class="language-julia hljs"># Lassa Virus – ECS components
+
+# Disease states matching NetLogo color-based states
+@enum LassaHealthStatus begin
+    LassaSusceptible      = 1   # white
+    LassaIncubating       = 2   # yellow
+    LassaMild             = 3   # orange+2
+    LassaSevere           = 4   # red
+    LassaImmuneInfectious = 5   # cyan
+    LassaImmune           = 6   # lime+1
+    LassaDead             = 7   # gray
+end
+
+# Shared position component for both breeds
+mutable struct LassaPosition
+    x::Float64
+    y::Float64
+end
+LassaPosition() = LassaPosition(0.0, 0.0)
+
+mutable struct LassaHeading
+    angle::Float64
+end
+LassaHeading() = LassaHeading(0.0)
+
+# Human-specific components
+mutable struct HumanState
+    status::LassaHealthStatus
+    hours::Int
+    human_speed::Float64
+end
+HumanState() = HumanState(LassaSusceptible, 0, 1.0)
+
+# Rat marker (tag component)
+mutable struct RatTag
+    _::Bool
+end
+RatTag() = RatTag(true)</code></pre><h3 id="Resources-(resources.jl)"><a class="docs-heading-anchor" href="#Resources-(resources.jl)">Resources (<code>resources.jl</code>)</a><a id="Resources-(resources.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Resources-(resources.jl)" title="Permalink"></a></h3><p>Resources are world-level singletons shared across all systems, used for global state and aggregate statistics.</p><pre><code class="language-julia hljs"># Lassa Virus – model-specific resources
+
+mutable struct LassaStats
+    infected_not_infectious::Int
+    mild_cases_count::Int
+    severe_cases_count::Int
+    immune_infectious::Int
+    immune_not_infectious::Int
+    total_immune::Int
+    current_cases::Int
+    mild_cases::Int        # running total of transitions to mild
+    severe_cases::Int      # running total of transitions to severe
+    total_mild_cases::Float64
+    total_severe_cases::Float64
+    total_cases::Float64
+    total_infectious::Int
+    total_infected::Float64
+    total_fatalities::Int
+    fatalities::Int        # running total of deaths
+    pct_infected::Float64
+    pct_uninfected::Float64
+    pct_immune::Float64
+    average_pct_CFR::Float64
+end
+LassaStats() = LassaStats(0, 0, 0, 0, 0, 0, 0, 0, 0, 0.0, 0.0, 0.0, 0, 0.0, 0, 0, 0.0, 0.0, 0.0, 0.0)
+
+mutable struct LassaRegistry
+    human_entities::Vector{Entity}
+    rat_entities::Vector{Entity}
+end
+LassaRegistry() = LassaRegistry(Entity[], Entity[])</code></pre><h3 id="Systems-(systems.jl)"><a class="docs-heading-anchor" href="#Systems-(systems.jl)">Systems (<code>systems.jl</code>)</a><a id="Systems-(systems.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Systems-(systems.jl)" title="Permalink"></a></h3><p>Systems contain the model logic and execute in a defined order each tick. Each system struct implements either <code>initialize!</code> (run once at setup) or <code>update!</code> (run every tick).</p><pre><code class="language-julia hljs"># Lassa Virus – ECS systems matching the NetLogo reference.
+# Execution order: init → movement → infection+progression → stats → termination
+#
+# NetLogo model uses color to track disease states. Two breeds: rats and humans.
+# Rats just move and carry infection. Humans have full disease progression.
+
+# --- Initialization ---
+
+struct InitLassaSystem &lt;: System end
+
+function initialize!(::InitLassaSystem, world::World)
+    params = get_resource(world, LassaParams)
+    rng = get_resource(world, RNGResource).rng
+    registry = get_resource(world, LassaRegistry)
+    stats = get_resource(world, LassaStats)
+    wspan = params.world_max - params.world_min + 1  # 33
+    w = Float64(wspan)
+
+    pct_Mild_Cases = 100 - params.pct_Severe_Cases
+    initial_mild = (params.Initial_Number_Of_Cases * pct_Mild_Cases) / 100
+    initial_severe = (params.Initial_Number_Of_Cases * params.pct_Severe_Cases) / 100
+
+    # Create rats
+    empty!(registry.rat_entities)
+    for _ in 1:params.Multimammate_Rat_Population
+        # random-xcor gives float in [-16.5, 16.5) → offset to [0, 33)
+        x = rand(rng) * w
+        y = rand(rng) * w
+        e = new_entity!(world, (
+            LassaPosition(x, y),
+            LassaHeading(Float64(rand(rng, 0:359))),
+            RatTag(true),
+        ))
+        push!(registry.rat_entities, e)
+    end
+
+    # Create humans
+    empty!(registry.human_entities)
+    for _ in 1:params.Human_Population
+        x = rand(rng) * w
+        y = rand(rng) * w
+        e = new_entity!(world, (
+            LassaPosition(x, y),
+            LassaHeading(Float64(rand(rng, 0:359))),
+            HumanState(LassaSusceptible, 0, Float64(1)),  # control_speed = 1
+        ))
+        push!(registry.human_entities, e)
+    end
+
+    # Initial cases: ask n-of initial_mild_cases Humans [set color orange+2]
+    shuffled = copy(registry.human_entities)
+    Random.shuffle!(rng, shuffled)
+    mild_count = round(Int, initial_mild)
+    severe_count = round(Int, initial_severe)
+    for i in 1:mild_count
+        hs = get_components(world, shuffled[i], (HumanState,))[1]
+        hs.status = LassaMild
+    end
+    for i in (mild_count+1):(mild_count+severe_count)
+        hs = get_components(world, shuffled[i], (HumanState,))[1]
+        hs.status = LassaSevere
+    end
+
+    # Initialize stats running totals
+    stats.mild_cases = 0
+    stats.severe_cases = 0
+    stats.fatalities = 0
+    stats.infected_not_infectious = 0
+    stats.mild_cases_count = mild_count
+    stats.severe_cases_count = severe_count
+    stats.immune_infectious = 0
+    stats.immune_not_infectious = 0
+    stats.total_immune = 0
+    stats.current_cases = mild_count + severe_count
+    stats.total_mild_cases = Float64(initial_mild)
+    stats.total_severe_cases = Float64(initial_severe)
+    stats.total_cases = initial_mild + initial_severe
+    stats.total_infectious = mild_count + severe_count
+    stats.total_fatalities = 0
+    stats.total_infected = Float64(stats.infected_not_infectious + stats.total_infectious + stats.total_fatalities)
+    stats.pct_infected = (stats.total_infected / params.Human_Population) * 100
+    stats.pct_uninfected = 100.0 - stats.pct_infected
+    stats.pct_immune = 0.0
+    stats.average_pct_CFR = 0.0
+    return nothing
+end
+
+# --- Movement ---
+# NetLogo: rats fd control_speed * -1 * ((1/HBF)*0.01); rt random 100; lt random 100
+#          humans fd human_speed * ((1/HBF)*0.01); rt random 45; lt random 45; hours += 1
+
+struct LassaMovementSystem &lt;: System end
+
+function _lassa_wrap!(pos::LassaPosition, w::Float64)
+    pos.x = mod(pos.x, w)
+    pos.y = mod(pos.y, w)
+    return nothing
+end
+
+function _lassa_fd!(pos::LassaPosition, heading::LassaHeading, dist::Float64, w::Float64)
+    rad = heading.angle * π / 180.0
+    pos.x += sin(rad) * dist
+    pos.y += cos(rad) * dist
+    _lassa_wrap!(pos, w)
+    return nothing
+end
+
+function update!(::LassaMovementSystem, world::World)
+    params = get_resource(world, LassaParams)
+    rng = get_resource(world, RNGResource).rng
+    registry = get_resource(world, LassaRegistry)
+    wspan = params.world_max - params.world_min + 1
+    w = Float64(wspan)
+    control_speed = 1.0
+
+    # ask rats [fd ...; rt random 100; lt random 100]
+    rat_order = randperm(rng, length(registry.rat_entities))
+    for ri in rat_order
+        re = registry.rat_entities[ri]
+        rpos, rhead = get_components(world, re, (LassaPosition, LassaHeading))
+        dist = control_speed * -1.0 * ((1.0 / params.Human_Behaviour_Factor) * 0.01)
+        _lassa_fd!(rpos, rhead, dist, w)
+        rhead.angle += rand(rng, 0:99) - rand(rng, 0:99)
+        rhead.angle = mod(rhead.angle, 360.0)
+    end
+
+    # ask humans [fd ...; rt random 45; lt random 45; set hours hours + 1]
+    human_order = randperm(rng, length(registry.human_entities))
+    for hi in human_order
+        he = registry.human_entities[hi]
+        hpos, hhead, hstate = get_components(world, he, (LassaPosition, LassaHeading, HumanState))
+        dist = hstate.human_speed * ((1.0 / params.Human_Behaviour_Factor) * 0.01)
+        _lassa_fd!(hpos, hhead, dist, w)
+        hhead.angle += rand(rng, 0:44) - rand(rng, 0:44)
+        hhead.angle = mod(hhead.angle, 360.0)
+        hstate.hours += 1
+    end
+    return nothing
+end
+
+# --- Infection and Disease Progression ---
+# This is the big combined system matching the NetLogo `ask humans [...]` block.
+# Each human is processed in random order. Infection checks use &quot;here&quot; (same patch).
+
+struct LassaInfectionSystem &lt;: System end
+
+# Check if two positions are on the same patch (same rounded coords)
+function _lassa_same_patch(p1::LassaPosition, p2::LassaPosition, min_coord::Int)
+    return round(Int, p1.x + min_coord) == round(Int, p2.x + min_coord) &amp;&amp;
+           round(Int, p1.y + min_coord) == round(Int, p2.y + min_coord)
+end
+
+function update!(::LassaInfectionSystem, world::World)
+    params = get_resource(world, LassaParams)
+    rng = get_resource(world, RNGResource).rng
+    registry = get_resource(world, LassaRegistry)
+    stats = get_resource(world, LassaStats)
+    immune_or_severe_pct = params.pct_Infectiousness_H2H * (1.0 - params.Human_Behaviour_Factor)
+
+    n_humans = length(registry.human_entities)
+    n_rats = length(registry.rat_entities)
+
+    # ask humans (random order)
+    human_order = randperm(rng, n_humans)
+
+    for hi in human_order
+        he = registry.human_entities[hi]
+        hpos, hstate = get_components(world, he, (LassaPosition, HumanState))
+
+        # --- Infection spreading ---
+        # Mild cases infect other humans-here
+        if hstate.status == LassaMild
+            # ask other humans-here
+            for hj in 1:n_humans
+                hj == hi &amp;&amp; continue
+                he2 = registry.human_entities[hj]
+                hpos2, hstate2 = get_components(world, he2, (LassaPosition, HumanState))
+                if _lassa_same_patch(hpos, hpos2, params.world_min)
+                    # random 100 &lt; pct_Infectiousness_H2H  (integer random)
+                    if rand(rng, 0:99) &lt; params.pct_Infectiousness_H2H
+                        if hstate2.status == LassaSusceptible
+                            hstate2.status = LassaIncubating
+                            hstate2.hours = 0
+                        end
+                    end
+                end
+            end
+        else
+            # Rats infect humans-here
+            # NetLogo: ask rats [ask other humans-here [...]]
+            for ri in 1:n_rats
+                re = registry.rat_entities[ri]
+                rpos = get_components(world, re, (LassaPosition,))[1]
+                # Check if this human is at same patch as this rat
+                if _lassa_same_patch(hpos, rpos, params.world_min)
+                    # random-float 100 &lt; pct_Infectiousness_R2H
+                    if rand(rng) * 100.0 &lt; params.pct_Infectiousness_R2H
+                        if hstate.status == LassaSusceptible
+                            hstate.status = LassaIncubating
+                            hstate.hours = 0
+                        end
+                    end
+                end
+            end
+        end
+
+        # Immune-infectious or severe infect others
+        if hstate.status == LassaImmuneInfectious || hstate.status == LassaSevere
+            for hj in 1:n_humans
+                hj == hi &amp;&amp; continue
+                he2 = registry.human_entities[hj]
+                hpos2, hstate2 = get_components(world, he2, (LassaPosition, HumanState))
+                if _lassa_same_patch(hpos, hpos2, params.world_min)
+                    if rand(rng) * 100.0 &lt; immune_or_severe_pct
+                        if hstate2.status == LassaSusceptible
+                            hstate2.status = LassaIncubating
+                            hstate2.hours = 0
+                        end
+                    end
+                end
+            end
+        end
+
+        # --- Disease Progression ---
+        # Incubating → Mild or Severe
+        if hstate.status == LassaIncubating &amp;&amp; hstate.hours &gt; (params.Incubation_Period * 24)
+            if rand(rng) * 100.0 &lt; params.pct_Severe_Cases
+                hstate.status = LassaSevere
+                stats.severe_cases += 1
+                hstate.hours = 0
+                hstate.human_speed = 0.0
+            else
+                hstate.status = LassaMild
+                stats.mild_cases += 1
+                hstate.hours = 0
+                hstate.human_speed = 0.5
+            end
+        end
+
+        # Mild → Dead or Immune-Infectious
+        if hstate.status == LassaMild &amp;&amp; hstate.hours == (params.Sick_Days * 24)
+            if rand(rng) * 100.0 &lt; params.CFR_Mild_Case
+                hstate.status = LassaDead
+                stats.fatalities += 1
+                hstate.hours = 0
+                hstate.human_speed = 0.0
+            else
+                hstate.status = LassaImmuneInfectious
+                hstate.hours = 0
+                hstate.human_speed = 0.5
+            end
+        end
+
+        # Severe → Dead or Immune-Infectious
+        if hstate.status == LassaSevere &amp;&amp; hstate.hours == (params.Sick_Days * 24)
+            if rand(rng) * 100.0 &lt; params.CFR_Severe_Case
+                hstate.status = LassaDead
+                stats.fatalities += 1
+                hstate.hours = 0
+                hstate.human_speed = 0.0
+            else
+                hstate.status = LassaImmuneInfectious
+                hstate.hours = 0
+                hstate.human_speed = 1.0  # control_speed
+            end
+        end
+
+        # Immune-Infectious → Immune
+        if hstate.status == LassaImmuneInfectious &amp;&amp; hstate.hours == (params.Infectious_Days_After_Recovery * 24)
+            hstate.status = LassaImmune
+            hstate.hours = 0
+            hstate.human_speed = 1.0  # control_speed
+        end
+    end
+    return nothing
+end
+
+# --- Statistics ---
+# Compute all tracked globals matching NetLogo
+
+struct LassaStatsSystem &lt;: System end
+
+function update!(::LassaStatsSystem, world::World)
+    params = get_resource(world, LassaParams)
+    registry = get_resource(world, LassaRegistry)
+    stats = get_resource(world, LassaStats)
+
+    pct_Mild_Cases = 100 - params.pct_Severe_Cases
+    initial_mild = (params.Initial_Number_Of_Cases * pct_Mild_Cases) / 100.0
+    initial_severe = (params.Initial_Number_Of_Cases * params.pct_Severe_Cases) / 100.0
+
+    n_incubating = 0
+    n_mild = 0
+    n_severe = 0
+    n_immune_inf = 0
+    n_immune = 0
+    n_susceptible = 0
+    n_dead = 0
+
+    for he in registry.human_entities
+        hs = get_components(world, he, (HumanState,))[1]
+        s = hs.status
+        if s == LassaSusceptible
+            n_susceptible += 1
+        elseif s == LassaIncubating
+            n_incubating += 1
+        elseif s == LassaMild
+            n_mild += 1
+        elseif s == LassaSevere
+            n_severe += 1
+        elseif s == LassaImmuneInfectious
+            n_immune_inf += 1
+        elseif s == LassaImmune
+            n_immune += 1
+        elseif s == LassaDead
+            n_dead += 1
+        end
+    end
+
+    stats.infected_not_infectious = n_incubating
+    stats.mild_cases_count = n_mild
+    stats.severe_cases_count = n_severe
+    stats.immune_infectious = n_immune_inf
+    stats.immune_not_infectious = n_immune
+    stats.total_immune = n_immune_inf + n_immune
+    stats.current_cases = n_mild + n_severe
+    stats.total_mild_cases = stats.mild_cases + initial_mild
+    stats.total_severe_cases = stats.severe_cases + initial_severe
+    stats.total_cases = stats.total_mild_cases + stats.total_severe_cases
+    stats.total_infectious = stats.current_cases + n_immune_inf
+    stats.total_fatalities = n_dead  # count humans with [color = gray]
+    stats.total_infected = Float64(stats.infected_not_infectious + stats.total_infectious + stats.total_fatalities)
+    if stats.total_cases &gt; 0
+        stats.average_pct_CFR = (stats.fatalities / stats.total_cases) * 100.0
+    else
+        stats.average_pct_CFR = 0.0
+    end
+    stats.pct_infected = (stats.total_infected / params.Human_Population) * 100.0
+    stats.pct_uninfected = (n_susceptible / params.Human_Population) * 100.0
+    stats.pct_immune = (stats.total_immune / params.Human_Population) * 100.0
+    return nothing
+end
+
+# --- Termination ---
+# NetLogo: if infected_not_infectious + current_cases + count humans with [color = white] = 0 [stop]
+
+struct LassaTerminationSystem &lt;: System end
+
+function update!(::LassaTerminationSystem, world::World)
+    params = get_resource(world, LassaParams)
+    tick = get_resource(world, Tick)
+    stats = get_resource(world, LassaStats)
+
+    # Count susceptible humans
+    n_susceptible = 0
+    registry = get_resource(world, LassaRegistry)
+    for he in registry.human_entities
+        hs = get_components(world, he, (HumanState,))[1]
+        if hs.status == LassaSusceptible
+            n_susceptible += 1
+        end
+    end
+
+    if (stats.infected_not_infectious + stats.current_cases + n_susceptible == 0) ||
+       tick.tick + 1 &gt;= params.max_ticks
+        get_resource(world, Terminate).stop = true
+    end
+    return nothing
+end</code></pre><h3 id="Model-(model.jl)"><a class="docs-heading-anchor" href="#Model-(model.jl)">Model (<code>model.jl</code>)</a><a id="Model-(model.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Model-(model.jl)" title="Permalink"></a></h3><p>The model file assembles all pieces: it creates the ECS <code>World</code> with the required component types, registers resources, builds the <code>Scheduler</code> with systems in execution order, and exposes the public <code>run</code> entry point. The observer pattern records the trajectory each tick.</p><pre><code class="language-julia hljs">function lassavirus_world(; initial_capacity::Int = 1024)
+    return World(
+        LassaPosition,
+        LassaHeading,
+        HumanState,
+        RatTag;
+        initial_capacity = initial_capacity,
+        allow_mutable = true,
+    )
+end
+
+function lassavirus_systems()
+    return (
+        InitLassaSystem(),
+        LassaMovementSystem(),
+        LassaInfectionSystem(),
+        LassaStatsSystem(),
+        LassaTerminationSystem(),
+    )
+end
+
+function lassavirus_model(params::LassaParams = LassaParams())
+    world = lassavirus_world()
+    _add_standard_resources!(world, params)
+    add_resource!(world, LassaStats())
+    add_resource!(world, LassaRegistry())
+    scheduler = Scheduler(world, lassavirus_systems())
+    initialize!(scheduler)
+    return scheduler
+end
+
+struct LassaVirusObserver end
+
+function lassavirus_headers(::LassaVirusObserver)
+    return [&quot;PctInfected&quot;, &quot;PctImmune&quot;, &quot;CurrentCases&quot;, &quot;TotalFatalities&quot;]
+end
+
+function lassavirus_values(::LassaVirusObserver, world::World)
+    stats = get_resource(world, LassaStats)
+    return Float64[stats.pct_infected, stats.pct_immune, Float64(stats.current_cases), Float64(stats.total_fatalities)]
+end
+
+function run_lassavirus(; params::LassaParams = LassaParams(), observe::Bool = true)
+    return _run_model(lassavirus_model, LassaVirusObserver(), lassavirus_values; params, observe)
+end</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../languagechange/languagechange/">« Language Change</a><a class="docs-footer-nextpage" href="../../leonarditechadoption/leonarditechadoption/">Leonardi Tech Adoption »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.20.0 on <span class="colophon-date" title="Wednesday 18 November 2026 18:43">Wednesday 18 November 2026</span>. Using Julia version 1.13.4.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>

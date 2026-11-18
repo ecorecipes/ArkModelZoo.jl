@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="referrer" content="no-referrer"/><title>Fungal Bioremediation · ArkModelZoo.jl</title><meta name="title" content="Fungal Bioremediation · ArkModelZoo.jl"/><meta property="og:title" content="Fungal Bioremediation · ArkModelZoo.jl"/><meta property="twitter:title" content="Fungal Bioremediation · ArkModelZoo.jl"/><meta name="description" content="Documentation for ArkModelZoo.jl."/><meta property="og:description" content="Documentation for ArkModelZoo.jl."/><meta property="twitter:description" content="Documentation for ArkModelZoo.jl."/><meta property="og:url" content="https://ecorecipes.github.io/ArkModelZoo.jl/tutorials/fungalbioremediation/fungalbioremediation/"/><meta property="twitter:url" content="https://ecorecipes.github.io/ArkModelZoo.jl/tutorials/fungalbioremediation/fungalbioremediation/"/><link rel="canonical" href="https://ecorecipes.github.io/ArkModelZoo.jl/tutorials/fungalbioremediation/fungalbioremediation/"/><script data-outdated-warner src="../../../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.63.2/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../../assets/documenter.js"></script><script src="../../../search_index.js"></script><script src="../../../siteinfo.js"></script><script src="../../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="../../../">ArkModelZoo.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../../../">Home</a></li><li><span class="tocitem">Resilience</span><ul><li><a class="tocitem" href="../../resilience/resilience/">Resilience of agent-based models</a></li></ul></li><li><span class="tocitem">Models</span><ul><li><a class="tocitem" href="../../abtgc/abtgc/">ABTgc</a></li><li><a class="tocitem" href="../../aids/aids/">AIDS</a></li><li><a class="tocitem" href="../../altruism/altruism/">Altruism</a></li><li><a class="tocitem" href="../../antsystem/antsystem/">Ant System TSP</a></li><li><a class="tocitem" href="../../ants/ants/">Ants</a></li><li><a class="tocitem" href="../../artificialeconomy/artificialeconomy/">Artificial Economy</a></li><li><a class="tocitem" href="../../axelrodcultural/axelrodcultural/">AxelrodCultural</a></li><li><a class="tocitem" href="../../babysittingcoop/babysittingcoop/">Baby Sitting Coop</a></li><li><a class="tocitem" href="../../bank_reserves/bank_reserves/">Bank Reserves</a></li><li><a class="tocitem" href="../../bayesian/bayesian/">Bayesian Updating</a></li><li><a class="tocitem" href="../../beinggreen/beinggreen/">Being Green</a></li><li><a class="tocitem" href="../../birthrates/birthrates/">Birthrates</a></li><li><a class="tocitem" href="../../blackbox/blackbox/">BlackBox</a></li><li><a class="tocitem" href="../../boiling/boiling/">Boiling</a></li><li><a class="tocitem" href="../../bombscenario/bombscenario/">BombScenario</a></li><li><a class="tocitem" href="../../brians_brain/brians_brain/">Brian’s Brain</a></li><li><a class="tocitem" href="../../bullwhipeffect/bullwhipeffect/">Bullwhip Effect</a></li><li><a class="tocitem" href="../../ca_1d_elementary/ca_1d_elementary/">CA 1D Elementary</a></li><li><a class="tocitem" href="../../civilizationgrowth/civilizationgrowth/">Civilization Growth</a></li><li><a class="tocitem" href="../../climatechange/climatechange/">Climate Change</a></li><li><a class="tocitem" href="../../coin/coin/">COIN Learning</a></li><li><a class="tocitem" href="../../competitionlearning/competitionlearning/">Competition Learning</a></li><li><a class="tocitem" href="../../contactprocess/contactprocess/">Contact Process 2D</a></li><li><a class="tocitem" href="../../contagionnw/contagionnw/">Contagion NW</a></li><li><a class="tocitem" href="../../contagionsi/contagionsi/">Contagion SI</a></li><li><a class="tocitem" href="../../contagionsir/contagionsir/">Contagion SIR</a></li><li><a class="tocitem" href="../../cooperation/cooperation/">Cooperation</a></li><li><a class="tocitem" href="../../coordination/coordination/">Coordination</a></li><li><a class="tocitem" href="../../coordination2groups/coordination2groups/">Coordination 2 Groups</a></li><li><a class="tocitem" href="../../croprotation/croprotation/">Crop Rotation</a></li><li><a class="tocitem" href="../../crystallization/crystallization/">Crystallization</a></li><li><a class="tocitem" href="../../csvnetworkforaging/csvnetworkforaging/">CSV Network Foraging</a></li><li><a class="tocitem" href="../../csvpopulation/csvpopulation/">CSV Population</a></li><li><a class="tocitem" href="../../culturaldiffusion/culturaldiffusion/">Cultural Diffusion</a></li><li><a class="tocitem" href="../../cyberspaceopinion/cyberspaceopinion/">Cyberspace Opinion</a></li><li><a class="tocitem" href="../../daisyworld/daisyworld/">Daisyworld</a></li><li><a class="tocitem" href="../../dating/dating/">Dating</a></li><li><a class="tocitem" href="../../diffusionnetwork/diffusionnetwork/">Diffusion Network</a></li><li><a class="tocitem" href="../../diffusionofhiv/diffusionofhiv/">DiffusionOfHIV</a></li><li><a class="tocitem" href="../../disinfobitstringnw/disinfobitstringnw/">Disinfobitstringnw</a></li><li><a class="tocitem" href="../../dla/dla/">Dla</a></li><li><a class="tocitem" href="../../dlasimple/dlasimple/">DLA Simple</a></li><li><a class="tocitem" href="../../druguse/druguse/">Drug Use</a></li><li><a class="tocitem" href="../../druguseoverdose/druguseoverdose/">Drug Use Overdose</a></li><li><a class="tocitem" href="../../elfarol/elfarol/">El Farol</a></li><li><a class="tocitem" href="../../erosion/erosion/">Erosion</a></li><li><a class="tocitem" href="../../ethnocentrism/ethnocentrism/">Ethnocentrism</a></li><li><a class="tocitem" href="../../evolutionofnorms/evolutionofnorms/">EvolutionOfNorms</a></li><li><a class="tocitem" href="../../firepercolation/firepercolation/">Fire Percolation</a></li><li><a class="tocitem" href="../../firebenchmark/firebenchmark/">FireBenchmark</a></li><li><a class="tocitem" href="../../fireflies/fireflies/">Fireflies</a></li><li><a class="tocitem" href="../../flocking/flocking/">Flocking</a></li><li><a class="tocitem" href="../../flockingnetwork/flockingnetwork/">Flocking Network</a></li><li><a class="tocitem" href="../../forestdewdney/forestdewdney/">Forest Dewdney</a></li><li><a class="tocitem" href="../../fire/fire/">Forest Fire</a></li><li class="is-active"><a class="tocitem" href>Fungal Bioremediation</a><ul class="internal"><li><a class="tocitem" href="#Overview"><span>Overview</span></a></li><li><a class="tocitem" href="#Parameters"><span>Parameters</span></a></li><li><a class="tocitem" href="#Source-Code"><span>Source Code</span></a></li><li><a class="tocitem" href="#Time-Series"><span>Time Series</span></a></li><li><a class="tocitem" href="#Ensemble-Runs"><span>Ensemble Runs</span></a></li><li><a class="tocitem" href="#Parameter-Sensitivity"><span>Parameter Sensitivity</span></a></li><li><a class="tocitem" href="#Appendix:-Source-Code"><span>Appendix: Source Code</span></a></li></ul></li><li><a class="tocitem" href="../../giant_component/giant_component/">Giant Component</a></li><li><a class="tocitem" href="../../gishillclimber/gishillclimber/">GIS HillClimber</a></li><li><a class="tocitem" href="../../granovetter/granovetter/">Granovetter</a></li><li><a class="tocitem" href="../../grassbrushtrees/grassbrushtrees/">Grass Brush Trees</a></li><li><a class="tocitem" href="../../diffusion/diffusion/">Heat Diffusion</a></li><li><a class="tocitem" href="../../heatbugs/heatbugs/">Heatbugs</a></li><li><a class="tocitem" href="../../hikingelevation/hikingelevation/">HikingElevation</a></li><li><a class="tocitem" href="../../infinitelife/infinitelife/">Infinite Life</a></li><li><a class="tocitem" href="../../infodiffusion/infodiffusion/">Info Diffusion</a></li><li><a class="tocitem" href="../../ising/ising/">Ising</a></li><li><a class="tocitem" href="../../languageborders/languageborders/">Language Borders</a></li><li><a class="tocitem" href="../../languagechange/languagechange/">Language Change</a></li><li><a class="tocitem" href="../../lassavirus/lassavirus/">LassaVirus</a></li><li><a class="tocitem" href="../../leonarditechadoption/leonarditechadoption/">Leonardi Tech Adoption</a></li><li><a class="tocitem" href="../../life/life/">Life</a></li><li><a class="tocitem" href="../../logistic_growth/logistic_growth/">Logistic Growth</a></li><li><a class="tocitem" href="../../mailmen/mailmen/">Mailmen Delivery</a></li><li><a class="tocitem" href="../../marriage/marriage/">Marriage Problem</a></li><li><a class="tocitem" href="../../mimicry/mimicry/">Mimicry</a></li><li><a class="tocitem" href="../../minimalsis/minimalsis/">Minimal SIS</a></li><li><a class="tocitem" href="../../minoritybelief/minoritybelief/">Minority Belief Spread</a></li><li><a class="tocitem" href="../../minoritygame/minoritygame/">Minority Game</a></li><li><a class="tocitem" href="../../misinformationsbfc/misinformationsbfc/">Misinformation SBFC</a></li><li><a class="tocitem" href="../../modsocsegregation/modsocsegregation/">Modsoc Segregation</a></li><li><a class="tocitem" href="../../mousetraps/mousetraps/">Mousetraps</a></li><li><a class="tocitem" href="../../multidrugresistant/multidrugresistant/">MultidrugResistant</a></li><li><a class="tocitem" href="../../opinionbc/opinionbc/">Opinion Dynamics BC</a></li><li><a class="tocitem" href="../../paretolearn/paretolearn/">Pareto Learning</a></li><li><a class="tocitem" href="../../participatorydisinfo/participatorydisinfo/">Participatory Disinformation</a></li><li><a class="tocitem" href="../../participatorydisinformation/participatorydisinformation/">Participatory Disinformation</a></li><li><a class="tocitem" href="../../particles/particles/">Particles</a></li><li><a class="tocitem" href="../../party/party/">Party</a></li><li><a class="tocitem" href="../../pd_basic_evolutionary/pd_basic_evolutionary/">PD Basic Evolutionary</a></li><li><a class="tocitem" href="../../pdsimple/pdsimple/">PD Simple</a></li><li><a class="tocitem" href="../../percolation/percolation/">Percolation</a></li><li><a class="tocitem" href="../../polymerdynamics/polymerdynamics/">Polymer Dynamics</a></li><li><a class="tocitem" href="../../prefattachhomophily/prefattachhomophily/">Pref Attach Homophily</a></li><li><a class="tocitem" href="../../preferential_attachment/preferential_attachment/">Preferential Attachment</a></li><li><a class="tocitem" href="../../privacyopinion/privacyopinion/">Privacy Opinion</a></li><li><a class="tocitem" href="../../productsmarket/productsmarket/">Products Market</a></li><li><a class="tocitem" href="../../public_good/public_good/">Public Good</a></li><li><a class="tocitem" href="../../cqin/cqin/">Quality Improvement Network</a></li><li><a class="tocitem" href="../../rabbits_grass_weeds/rabbits_grass_weeds/">Rabbits Grass Weeds</a></li><li><a class="tocitem" href="../../decay/decay/">Radioactive Decay</a></li><li><a class="tocitem" href="../../rationalevolvingpd/rationalevolvingpd/">Rational Evolving PD</a></li><li><a class="tocitem" href="../../rebellion/rebellion/">Rebellion</a></li><li><a class="tocitem" href="../../recruitingmovement/recruitingmovement/">Recruiting Movement</a></li><li><a class="tocitem" href="../../recruiting/recruiting/">Recruiting Supporters</a></li><li><a class="tocitem" href="../../recruitingsupporters/recruitingsupporters/">Recruiting Supporters</a></li><li><a class="tocitem" href="../../resilientteam/resilientteam/">Resilient Team</a></li><li><a class="tocitem" href="../../rhinopoaching/rhinopoaching/">Rhino Poaching</a></li><li><a class="tocitem" href="../../riseofradicalism/riseofradicalism/">Rise of Radicalism</a></li><li><a class="tocitem" href="../../rope/rope/">Rope</a></li><li><a class="tocitem" href="../../rumormill/rumormill/">Rumor Mill</a></li><li><a class="tocitem" href="../../sand/sand/">Sand</a></li><li><a class="tocitem" href="../../schelling/schelling/">Schelling Segregation</a></li><li><a class="tocitem" href="../../segregation/segregation/">Segregation</a></li><li><a class="tocitem" href="../../shepherds/shepherds/">Shepherds</a></li><li><a class="tocitem" href="../../simple_genetic_algorithm/simple_genetic_algorithm/">Simple Genetic Algorithm</a></li><li><a class="tocitem" href="../../simplemarket/simplemarket/">Simple Market</a></li><li><a class="tocitem" href="../../simplemarketrandom/simplemarketrandom/">Simple Market Random</a></li><li><a class="tocitem" href="../../simplemarkettable/simplemarkettable/">Simple Market Table</a></li><li><a class="tocitem" href="../../sir/sir/">SIR Epidemic</a></li><li><a class="tocitem" href="../../sleuthlanduse/sleuthlanduse/">Sleuth LandUse</a></li><li><a class="tocitem" href="../../slime/slime/">Slime</a></li><li><a class="tocitem" href="../../slowspread/slowspread/">Slow Spread Env Action</a></li><li><a class="tocitem" href="../../small_worlds/small_worlds/">Small Worlds</a></li><li><a class="tocitem" href="../../socialinfluence/socialinfluence/">Social Influence</a></li><li><a class="tocitem" href="../../socialnetworkdiffusion/socialnetworkdiffusion/">Social Network Diffusion</a></li><li><a class="tocitem" href="../../soliddiffusion/soliddiffusion/">Solid Diffusion</a></li><li><a class="tocitem" href="../../spatialattitude/spatialattitude/">Spatial Attitude</a></li><li><a class="tocitem" href="../../ipd/ipd/">Spatial IPD</a></li><li><a class="tocitem" href="../../spatialopinion/spatialopinion/">Spatial Opinion Dynamics</a></li><li><a class="tocitem" href="../../fakenews/fakenews/">Spread of Fake News</a></li><li><a class="tocitem" href="../../spreadingbots/spreadingbots/">Spreading Bots</a></li><li><a class="tocitem" href="../../spreadinggroups/spreadinggroups/">Spreading Groups</a></li><li><a class="tocitem" href="../../sugarscape_1_growback/sugarscape_1_growback/">Sugarscape 1 Growback</a></li><li><a class="tocitem" href="../../sugarscapeculture/sugarscapeculture/">Sugarscape Culture</a></li><li><a class="tocitem" href="../../sugarscapesexual/sugarscapesexual/">Sugarscape Sexual</a></li><li><a class="tocitem" href="../../superdiffuser/superdiffuser/">SuperDiffuser</a></li><li><a class="tocitem" href="../../teamassembly/teamassembly/">Team Assembly</a></li><li><a class="tocitem" href="../../termites/termites/">Termites</a></li><li><a class="tocitem" href="../../thermostat/thermostat/">Thermostat</a></li><li><a class="tocitem" href="../../tourism/tourism/">Tourism</a></li><li><a class="tocitem" href="../../traffic2lanes/traffic2lanes/">Traffic 2 Lanes</a></li><li><a class="tocitem" href="../../trafficbasic/trafficbasic/">Traffic Basic</a></li><li><a class="tocitem" href="../../trafficgrid/trafficgrid/">Traffic Grid</a></li><li><a class="tocitem" href="../../trafficintersection/trafficintersection/">Traffic Intersection</a></li><li><a class="tocitem" href="../../tumor/tumor/">Tumor</a></li><li><a class="tocitem" href="../../unitcohesion/unitcohesion/">Unit Cohesion</a></li><li><a class="tocitem" href="../../virus_on_network/virus_on_network/">Virus on a Network</a></li><li><a class="tocitem" href="../../virus/virus/">Virus on Network</a></li><li><a class="tocitem" href="../../voronoivoter/voronoivoter/">Voronoi Voter</a></li><li><a class="tocitem" href="../../voter/voter/">Voter Model</a></li><li><a class="tocitem" href="../../voting/voting/">Voting</a></li><li><a class="tocitem" href="../../wealthdistribution/wealthdistribution/">Wealth Distribution</a></li><li><a class="tocitem" href="../../wisdomcrowd/wisdomcrowd/">Wisdom of Crowd</a></li><li><a class="tocitem" href="../../wolfsheep/wolfsheep/">Wolf Sheep Predation</a></li></ul></li><li><a class="tocitem" href="../../../api/">API Reference</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Models</a></li><li class="is-active"><a href>Fungal Bioremediation</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Fungal Bioremediation</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/ecorecipes/ArkModelZoo.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/ecorecipes/ArkModelZoo.jl/blob/main/docs/src/tutorials/fungalbioremediation/fungalbioremediation.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Fungal-Bioremediation"><a class="docs-heading-anchor" href="#Fungal-Bioremediation">Fungal Bioremediation</a><a id="Fungal-Bioremediation-1"></a><a class="docs-heading-anchor-permalink" href="#Fungal-Bioremediation" title="Permalink"></a></h1><h2 id="Overview"><a class="docs-heading-anchor" href="#Overview">Overview</a><a id="Overview-1"></a><a class="docs-heading-anchor-permalink" href="#Overview" title="Permalink"></a></h2><h3 id="WHAT-IS-IT?"><a class="docs-heading-anchor" href="#WHAT-IS-IT?">WHAT IS IT?</a><a id="WHAT-IS-IT?-1"></a><a class="docs-heading-anchor-permalink" href="#WHAT-IS-IT?" title="Permalink"></a></h3><p>This is a model of fungal bioremediation. In this model, white rot fungus produces enzymes that serve two purposes: breaking down lignin (a complex polymer found in wood) and degrading neonicotinoids (contaminants).</p><p>Lignin is broken down into glucose, which is then consumed by bacteria and fungi in cellular respiration. The fungi and bacteria have a symbiotic relationship. Since bacteria cannot break down lignin, they rely on fungal enzymes to break down lignin to produce glucose in the absence of other glucose.</p><p>The fungal enzymes also degrade neonicotinoids (contaminants in the water). While in reality, the neonicotinoids would be degraded into a potentially less harmful product, in this model, the neonicotinoids are simply modeled as being eliminated.</p><p>For further context, in a real world setting, white rot fungi growing on wood chips would function as a filter. As contaminated water flows through the fungi filter, the fungi convert neonicotinoids in the water into potentially less harmful products.</p><p>This model includes elements of enzyme kinetics and organisms’ competition for food.</p><h3 id="HOW-IT-WORKS"><a class="docs-heading-anchor" href="#HOW-IT-WORKS">HOW IT WORKS</a><a id="HOW-IT-WORKS-1"></a><a class="docs-heading-anchor-permalink" href="#HOW-IT-WORKS" title="Permalink"></a></h3><p>When the experiment is set up, fungi, bacteria, and contaminants are randomly placed in the grid.</p><p>New fungi grow outward from old fungi, and as fungi age, they become less active and eventually die off. The fungi become whiter in color as they age. Fungi consume nutrients, glucose, and dissolved oxygen in the surrounding patches and produce enzymes that degrade lignin and neonicotinoids.</p><p>Bacteria also consume glucose, nutrients, and dissolved oxygen in the surrounding patches.</p><p>Nutrients and dissolved oxygen diffuse throughout the water.</p><p>Sliders control various factors that influence reaction rates, reproduction rates, water speed, oxygen levels, the starting amount of ECs, and the amount of energy gained from glucose consumption.</p><p>The first switch allows for the user to turn on nutrient replenishing, and the second switch allows for the user to turn on background coloring so that the background changes colors based on the levels of glucose present.</p><h3 id="THINGS-TO-NOTICE"><a class="docs-heading-anchor" href="#THINGS-TO-NOTICE">THINGS TO NOTICE</a><a id="THINGS-TO-NOTICE-1"></a><a class="docs-heading-anchor-permalink" href="#THINGS-TO-NOTICE" title="Permalink"></a></h3><p>Notice the time it takes for a certain amount of contaminants to be removed and the percent of contaminants that are removed before all fungi die off.</p><p>Notice the colors of the patches. What does that indicate about the diffusing behavior of the nutrients and dissolved oxygen?</p><p>Notice the behavios of the fungi, bacteria, and enzyme populations. Are the populations always increasing? Always decreasing? Do they rapidly increase and then decrease?</p><p>Notice the shapes of the graphs for glucose, nutrients, lignin, and dissolved O2.</p><p>Notice the behavior at low and high water flow.</p><h3 id="THINGS-TO-TRY"><a class="docs-heading-anchor" href="#THINGS-TO-TRY">THINGS TO TRY</a><a id="THINGS-TO-TRY-1"></a><a class="docs-heading-anchor-permalink" href="#THINGS-TO-TRY" title="Permalink"></a></h3><p>Task 1: There are three different sliders related to the reaction rate: temperature, pH, and uv-light. For each condition, there’s an optimal condition where the enzymes function best. Try to figure out what the optimal conditions are. Consider isolating each condition (don’t change multiple at once as that will make it difficult to determine how each change affected the experiment). Consider a model where the water speed = 0 and a model where the water speed = 1.</p><p>Task 2: There’s a cost associated with each of these conditions (e.g. keeping the solution at a constant temperature). Assuming all of the conditions cost the same amount to make optimal, figure out which two conditions at their optimal have the greatest positive impact on the rate. Which condition can be sub-optimal while having the smallest negative impact on the rate? Consider a model where the water speed = 0 and a model where the water speed = 1.</p><p>Task 3: Now, figure out which condition should be optimal if you can only have one optimal condition and the other two must be sub-optimal. Can you rank the conditions from least to greatest impact on rate?</p><p>Task 4: Consider changing the replenish O2 time. What happens when replenish O2 time is smaller? How about when it is larger?</p><p>Task 5: Considering all four sliders (temperature, pH, UV light, and replenish O2 time), try to modify the conditions so that you produce four different results in a model where water speed = 0: no removal of ECs, low removal of ECs, moderate removal of ECs, and high removal of ECs. For a model where water speed = 1, try to create conditions where there is low, moderate, and high numbers of ECs escaping.</p><p>Task 6: Determine the optimal water speed (1-5) for fungi survival and ensuring that few contaminants escape the filter. Why do you think this speed is the best? How does the idea of water speed apply in the real world? What engineering mechanisms could be added to ensure the optimal water speed?</p><p>Task 7: Using the different sliders and input boxes, find conditions that cause less fungi growth. Why do you think these conditions hurt fungi growth?</p><p>Final Task Part 1: Using any or all of the sliders, try to create a scenario where no species is too dominant or too weak, the reaction proceeds relatively quickly, and few contaminants escape.</p><p>Final Task Part 2: How many of sliders can you have at sub-optimal conditions while allowing minimal numbers of contaminants to escape. How far from the optimal condition can the sliders be while still maintaining low numbers of contaminants escaping.</p><h3 id="EXTENDING-THE-MODEL"><a class="docs-heading-anchor" href="#EXTENDING-THE-MODEL">EXTENDING THE MODEL</a><a id="EXTENDING-THE-MODEL-1"></a><a class="docs-heading-anchor-permalink" href="#EXTENDING-THE-MODEL" title="Permalink"></a></h3><p>(suggested things to add or change in the Code tab to make the model more complicated, detailed, accurate, etc.)</p><h3 id="NETLOGO-FEATURES"><a class="docs-heading-anchor" href="#NETLOGO-FEATURES">NETLOGO FEATURES</a><a id="NETLOGO-FEATURES-1"></a><a class="docs-heading-anchor-permalink" href="#NETLOGO-FEATURES" title="Permalink"></a></h3><p>(interesting or unusual features of NetLogo that the model uses, particularly in the Code tab; or where workarounds were needed for missing features)</p><h3 id="RELATED-MODELS"><a class="docs-heading-anchor" href="#RELATED-MODELS">RELATED MODELS</a><a id="RELATED-MODELS-1"></a><a class="docs-heading-anchor-permalink" href="#RELATED-MODELS" title="Permalink"></a></h3><p>The wolf-sheep predation model similarly shows competition between biological organisms. It also shows how the various agents/turtles rely on the patches for food.</p><p>The enzyme kinetics model illustrates the relationship between Kc, Kd, and Kr. It also illustrates the lock and key model for how enzymes function as a catalyst in a reaction.</p><h3 id="CREDITS-AND-REFERENCES"><a class="docs-heading-anchor" href="#CREDITS-AND-REFERENCES">CREDITS AND REFERENCES</a><a id="CREDITS-AND-REFERENCES-1"></a><a class="docs-heading-anchor-permalink" href="#CREDITS-AND-REFERENCES" title="Permalink"></a></h3><p>(a reference to the model’s URL on the web if it has one, as well as any other necessary credits, citations, and links)</p><h2 id="Parameters"><a class="docs-heading-anchor" href="#Parameters">Parameters</a><a id="Parameters-1"></a><a class="docs-heading-anchor-permalink" href="#Parameters" title="Permalink"></a></h2><table><tr><th style="text-align: right">Parameter</th><th style="text-align: right">Type</th><th style="text-align: right">Default</th><th style="text-align: right">Description</th></tr><tr><td style="text-align: right"><code>temperature</code></td><td style="text-align: right"><code>Float64</code></td><td style="text-align: right"><code>33.5</code></td><td style="text-align: right">temperature</td></tr><tr><td style="text-align: right"><code>pH</code></td><td style="text-align: right"><code>Float64</code></td><td style="text-align: right"><code>5.0</code></td><td style="text-align: right">pH</td></tr><tr><td style="text-align: right"><code>fungi_species</code></td><td style="text-align: right"><code>String</code></td><td style="text-align: right"><code>&quot;Pleurotus Ostreatus&quot;</code></td><td style="text-align: right">fungi species</td></tr><tr><td style="text-align: right"><code>initial_fungi</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>6</code></td><td style="text-align: right">initial fungi</td></tr><tr><td style="text-align: right"><code>initial_ecs</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>40</code></td><td style="text-align: right">initial ecs</td></tr><tr><td style="text-align: right"><code>ms</code></td><td style="text-align: right"><code>Float64</code></td><td style="text-align: right"><code>0.5</code></td><td style="text-align: right">mortality speed</td></tr><tr><td style="text-align: right"><code>grid_width</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>33</code></td><td style="text-align: right">-16..16</td></tr><tr><td style="text-align: right"><code>grid_height</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>33</code></td><td style="text-align: right">grid height</td></tr><tr><td style="text-align: right"><code>max_ticks</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>200</code></td><td style="text-align: right">max ticks</td></tr></table><h2 id="Source-Code"><a class="docs-heading-anchor" href="#Source-Code">Source Code</a><a id="Source-Code-1"></a><a class="docs-heading-anchor-permalink" href="#Source-Code" title="Permalink"></a></h2><p>The Julia code to run this model:</p><pre><code class="language-julia hljs">using ArkModelZoo
+_, trajectory = run_fungalbioremediation()</code></pre><h2 id="Time-Series"><a class="docs-heading-anchor" href="#Time-Series">Time Series</a><a id="Time-Series-1"></a><a class="docs-heading-anchor-permalink" href="#Time-Series" title="Permalink"></a></h2><p><img src="../plot_timeseries.png" alt="Fungal Bioremediation time series"/></p><h2 id="Ensemble-Runs"><a class="docs-heading-anchor" href="#Ensemble-Runs">Ensemble Runs</a><a id="Ensemble-Runs-1"></a><a class="docs-heading-anchor-permalink" href="#Ensemble-Runs" title="Permalink"></a></h2><p>Ten replicates with different random seeds, showing mean ± standard deviation.</p><p><img src="../plot_ensemble.png" alt="Fungal Bioremediation ensemble"/></p><h2 id="Parameter-Sensitivity"><a class="docs-heading-anchor" href="#Parameter-Sensitivity">Parameter Sensitivity</a><a id="Parameter-Sensitivity-1"></a><a class="docs-heading-anchor-permalink" href="#Parameter-Sensitivity" title="Permalink"></a></h2><p>Varying <code>temperature</code>.</p><p><img src="../plot_sensitivity.png" alt="Fungal Bioremediation sensitivity"/></p><h2 id="Appendix:-Source-Code"><a class="docs-heading-anchor" href="#Appendix:-Source-Code">Appendix: Source Code</a><a id="Appendix:-Source-Code-1"></a><a class="docs-heading-anchor-permalink" href="#Appendix:-Source-Code" title="Permalink"></a></h2><p>This model is implemented in the <a href="https://github.com/sdwfrost/Ark.jl">Ark.jl</a> Entity-Component-System (ECS) framework. The code is split into five files, each with a distinct role:</p><ul><li><strong>Parameters</strong>: a mutable struct holding all configurable values.</li><li><strong>Components</strong>: lightweight data types attached to individual entities (agents).</li><li><strong>Resources</strong>: world-level shared state accessible to all systems.</li><li><strong>Systems</strong>: functions that operate on entities each tick, defining model behavior.</li><li><strong>Model</strong>: wiring that assembles the world, registers resources and systems, and provides the run entry point.</li></ul><h3 id="Parameters-(parameters.jl)"><a class="docs-heading-anchor" href="#Parameters-(parameters.jl)">Parameters (<code>parameters.jl</code>)</a><a id="Parameters-(parameters.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Parameters-(parameters.jl)" title="Permalink"></a></h3><p>The parameter struct uses <code>@kwdef</code> so that every field has a default value and can be overridden by keyword. These defaults match the original NetLogo model’s slider settings.</p><pre><code class="language-julia hljs">Base.@kwdef mutable struct FBRParams
+    temperature::Float64 = 33.5
+    pH::Float64 = 5.0
+    fungi_species::String = &quot;Pleurotus Ostreatus&quot;
+    initial_fungi::Int = 6
+    initial_ecs::Int = 40
+    ms::Float64 = 0.5         # mortality speed
+    grid_width::Int = 33      # -16..16
+    grid_height::Int = 33
+    max_ticks::Int = 200
+    seed::Int = 42
+end</code></pre><h3 id="Components-(components.jl)"><a class="docs-heading-anchor" href="#Components-(components.jl)">Components (<code>components.jl</code>)</a><a id="Components-(components.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Components-(components.jl)" title="Permalink"></a></h3><p>Components are lightweight data types attached to individual entities (agents). Mutable structs hold per-entity state, while empty tag structs act as markers for the ECS query system to efficiently filter entities.</p><pre><code class="language-julia hljs">struct FBRDummy end</code></pre><h3 id="Resources-(resources.jl)"><a class="docs-heading-anchor" href="#Resources-(resources.jl)">Resources (<code>resources.jl</code>)</a><a id="Resources-(resources.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Resources-(resources.jl)" title="Permalink"></a></h3><p>Resources are world-level singletons shared across all systems, used for global state and aggregate statistics.</p><pre><code class="language-julia hljs"># Species-specific parameters for fungi
+struct FBRFungiSpecies
+    growth_temp::Float64
+    growth_pH::Float64
+    enzyme_production_cost::Float64
+    enzyme_production_pH::Float64
+end
+
+const FBR_SPECIES = Dict(
+    &quot;Pleurotus Ostreatus&quot; =&gt; FBRFungiSpecies(33.5, 4.0, 2.5, 5.0),
+    &quot;Trametes Versicolor&quot; =&gt; FBRFungiSpecies(24.0, 1.0, 1.0, 3.75),
+    &quot;Phanerodontia Chrysosporium&quot; =&gt; FBRFungiSpecies(30.0, 2.0, 1.0, 4.0),
+)
+
+mutable struct FBRFungus
+    x::Float64
+    y::Float64
+    age::Float64
+    energy::Float64
+    NH4::Float64
+    partner::Int      # 0 = no partner, else index into ecs vector
+    alive::Bool
+end
+
+mutable struct FBREnzyme
+    x::Float64
+    y::Float64
+    age::Float64
+    heading::Float64
+    partner::Int      # 0 = no partner, else index into ecs vector
+    turn::Float64
+    pause_time::Float64
+    alive::Bool
+end
+
+mutable struct FBREC
+    x::Float64
+    y::Float64
+    heading::Float64
+    partner::Int      # 0 = no partner
+    locked_time::Int
+    taken::Bool       # absorbed by a fungus intracellularly
+    alive::Bool
+end
+
+mutable struct FBRPatchGrid
+    width::Int
+    height::Int
+    glucose::Matrix{Float64}
+    O2::Matrix{Float64}
+    lignin::Matrix{Float64}
+end
+
+function FBRPatchGrid(w::Int, h::Int)
+    FBRPatchGrid(w, h, fill(4.0, w, h), fill(25.0, w, h), fill(100.0, w, h))
+end
+
+mutable struct FBRWorld
+    fungi::Vector{FBRFungus}
+    enzymes::Vector{FBREnzyme}
+    ecs::Vector{FBREC}
+    species_params::FBRFungiSpecies
+    ec_added::Int
+    intracellularly::Int
+    Kc::Int
+    Kr::Int
+    Kd::Int
+    complexes_formed::Int
+    dissociated::Int
+    adjuster_enzymes::Int
+    adjuster_fungi::Int
+end
+
+function FBRWorld(sp::FBRFungiSpecies)
+    FBRWorld(FBRFungus[], FBREnzyme[], FBREC[], sp,
+             0, 0, 0, 0, 0, 0, 0, 1, 1)
+end
+
+mutable struct FBRStats
+    num_fungi::Int
+    num_enzymes::Int
+    num_ecs::Int
+end
+FBRStats() = FBRStats(0, 0, 0)</code></pre><h3 id="Systems-(systems.jl)"><a class="docs-heading-anchor" href="#Systems-(systems.jl)">Systems (<code>systems.jl</code>)</a><a id="Systems-(systems.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Systems-(systems.jl)" title="Permalink"></a></h3><p>Systems contain the model logic and execute in a defined order each tick. Each system struct implements either <code>initialize!</code> (run once at setup) or <code>update!</code> (run every tick).</p><pre><code class="language-julia hljs"># ============================================================
+# Fungal Bioremediation – Systems
+# Port of the NetLogo &quot;Fungal Bioremediation&quot; model.
+# ============================================================
+
+# ---------- helpers ----------
+
+# Map continuous coordinate to 1-based grid index (world is -16..16, grid is 1..33)
+@inline function _fbr_to_patch(v::Float64, size::Int)
+    clamp(round(Int, v) + (size ÷ 2 + 1), 1, size)
+end
+
+# Boundary-reflecting heading-based movement (NetLogo style)
+function _fbr_move!(x::Ref{Float64}, y::Ref{Float64}, heading::Ref{Float64},
+                    rng, half::Float64)
+    # random turn
+    heading[] += rand(rng) * 90.0 - 45.0
+    θ = deg2rad(heading[])
+    dx = sin(θ)
+    dy = cos(θ)
+    nx = x[] + dx
+    ny = y[] + dy
+    # Reflect off boundaries
+    if nx &gt; half
+        nx = 2.0 * half - nx
+        heading[] = 360.0 - heading[]
+    elseif nx &lt; -half
+        nx = -2.0 * half - nx
+        heading[] = 360.0 - heading[]
+    end
+    if ny &gt; half
+        ny = 2.0 * half - ny
+        heading[] = 180.0 - heading[]
+    elseif ny &lt; -half
+        ny = -2.0 * half - ny
+        heading[] = 180.0 - heading[]
+    end
+    x[] = clamp(nx, -half, half)
+    y[] = clamp(ny, -half, half)
+    heading[] = mod(heading[], 360.0)
+    return nothing
+end
+
+# Compact alive agents in-place (swap-remove dead ones)
+function _fbr_compact!(v::Vector{T}) where {T}
+    i = 1
+    while i &lt;= length(v)
+        if !v[i].alive
+            v[i] = v[end]
+            pop!(v)
+        else
+            i += 1
+        end
+    end
+    return nothing
+end
+
+# ============================================================
+# Init system
+# ============================================================
+
+struct InitFBRSystem &lt;: System end
+
+function initialize!(::InitFBRSystem, world::World)
+    params = get_resource(world, FBRParams)
+    rng    = get_resource(world, RNGResource).rng
+    fbr    = get_resource(world, FBRWorld)
+    grid   = get_resource(world, FBRPatchGrid)
+    stats  = get_resource(world, FBRStats)
+
+    sp = FBR_SPECIES[params.fungi_species]
+    fbr.species_params = sp
+
+    # Reset patch grid
+    w, h = grid.width, grid.height
+    fill!(grid.glucose, 4.0)
+    fill!(grid.O2, 25.0)
+    fill!(grid.lignin, 100.0)
+
+    # Create fungi at random positions within [-14,14]
+    empty!(fbr.fungi)
+    for _ in 1:params.initial_fungi
+        fx = rand(rng) * 28.0 - 14.0
+        fy = rand(rng) * 28.0 - 14.0
+        push!(fbr.fungi, FBRFungus(fx, fy, 0.0, 30.0, 12.0, 0, true))
+    end
+
+    # Create ECs: x random in [-16,16], y = one-of(-16, 16)
+    empty!(fbr.ecs)
+    half = Float64(params.grid_width ÷ 2)
+    for _ in 1:params.initial_ecs
+        ex = rand(rng) * 2.0 * half - half
+        ey = rand(rng, Bool) ? half : -half
+        eh = rand(rng) * 360.0
+        push!(fbr.ecs, FBREC(ex, ey, eh, 0, 0, false, true))
+    end
+
+    empty!(fbr.enzymes)
+    fbr.ec_added = 0
+    fbr.intracellularly = 0
+    fbr.Kc = 0; fbr.Kr = 0; fbr.Kd = 0
+    fbr.complexes_formed = 0; fbr.dissociated = 0
+    fbr.adjuster_enzymes = 1; fbr.adjuster_fungi = 1
+
+    # Stats
+    stats.num_fungi   = length(fbr.fungi)
+    stats.num_enzymes = 0
+    stats.num_ecs     = length(fbr.ecs)
+    return nothing
+end
+
+# ============================================================
+# Main go system – one NetLogo tick
+# ============================================================
+
+struct FBRGoSystem &lt;: System end
+
+function update!(::FBRGoSystem, world::World)
+    params = get_resource(world, FBRParams)
+    rng    = get_resource(world, RNGResource).rng
+    fbr    = get_resource(world, FBRWorld)
+    grid   = get_resource(world, FBRPatchGrid)
+    stats  = get_resource(world, FBRStats)
+    tick   = get_resource(world, Tick).tick
+    sp     = fbr.species_params
+    half   = Float64(params.grid_width ÷ 2)   # 16.0
+    w, h   = grid.width, grid.height
+
+    n_fungi   = count(f -&gt; f.alive, fbr.fungi)
+    n_enzymes = count(e -&gt; e.alive, fbr.enzymes)
+    n_ecs     = count(e -&gt; e.alive, fbr.ecs)
+
+    # --- stop conditions ---
+    if tick &gt; 400 &amp;&amp; n_ecs == 0
+        get_resource(world, Terminate).stop = true
+        return nothing
+    end
+    if tick &gt; 1000
+        get_resource(world, Terminate).stop = true
+        return nothing
+    end
+
+    # --- diffuse glucose &amp; O2 ---
+    diffuse_bounded!(grid.glucose, 0.5, w, h)
+    diffuse_bounded!(grid.O2, 0.5, w, h)
+
+    # --- update adjusters ---
+    fbr.adjuster_enzymes = max(round(Int, n_enzymes &gt; 0 ? n_enzymes^(1/4) : 1.0), 1)
+    fbr.adjuster_fungi   = max(round(Int, n_enzymes &gt; 0 ? n_enzymes^(1/5) : 1.0), 1)
+
+    # --- move agents ---
+    _fbr_move_agents!(fbr, rng, half)
+
+    # --- break down lignin ---
+    _fbr_break_down_lignin!(fbr, grid, rng, n_enzymes, w, h)
+
+    # --- eat glucose ---
+    _fbr_eat_glucose!(fbr, grid, sp, w, h)
+
+    # --- replenish O2 ---
+    if tick &gt; 0 &amp;&amp; tick % 5 == 0
+        @inbounds for j in 1:h, i in 1:w
+            if grid.O2[i, j] &lt;= 50.0
+                grid.O2[i, j] += 30.0
+            end
+        end
+    end
+
+    # --- reproduce ---
+    _fbr_reproduce!(fbr, grid, rng, params, sp, tick, w, h)
+
+    # --- produce ECs ---
+    if tick &gt; 32 &amp;&amp; tick % 6 == 0
+        for _ in 1:2
+            ex = rand(rng) * 2.0 * half - half
+            ey = rand(rng, Bool) ? half : -half
+            eh = rand(rng) * 360.0
+            push!(fbr.ecs, FBREC(ex, ey, eh, 0, 0, false, true))
+            fbr.ec_added += 1
+        end
+    end
+
+    # --- age fungus ---
+    for f in fbr.fungi
+        f.alive || continue
+        f.age += 1.0
+    end
+
+    # --- age enzymes ---
+    for e in fbr.enzymes
+        e.alive || continue
+        e.age += 1.0
+    end
+
+    # --- check death ---
+    _fbr_check_death!(fbr, params)
+
+    # --- nutrient status (energy decay) ---
+    for f in fbr.fungi
+        f.alive || continue
+        f.energy -= 0.5
+        f.NH4 -= 0.1
+    end
+
+    # --- intracellular degrade ---
+    _fbr_intracellular_degrade!(fbr, rng, half)
+
+    # --- denature ---
+    _fbr_denature!(fbr, params)
+
+    # --- degrade ECs (complex formation / dissociation / react-forward) ---
+    _fbr_degrade_ecs!(fbr, rng)
+
+    # --- compact dead agents ---
+    _fbr_compact!(fbr.fungi)
+    _fbr_compact!(fbr.enzymes)
+    _fbr_compact!(fbr.ecs)
+
+    # --- reindex partners after compaction ---
+    _fbr_clear_stale_partners!(fbr)
+
+    # --- stats ---
+    stats.num_fungi   = length(fbr.fungi)
+    stats.num_enzymes = length(fbr.enzymes)
+    stats.num_ecs     = length(fbr.ecs)
+
+    return nothing
+end
+
+# ---- sub-procedures ----
+
+function _fbr_move_agents!(fbr::FBRWorld, rng, half::Float64)
+    for e in fbr.enzymes
+        e.alive || continue
+        e.partner != 0 &amp;&amp; continue   # partnered enzymes don&#39;t move
+        xr = Ref(e.x); yr = Ref(e.y); hr = Ref(e.heading)
+        _fbr_move!(xr, yr, hr, rng, half)
+        e.x = xr[]; e.y = yr[]; e.heading = hr[]
+    end
+    for ec in fbr.ecs
+        ec.alive || continue
+        ec.partner != 0 &amp;&amp; continue  # partnered ECs don&#39;t move
+        ec.taken &amp;&amp; continue
+        xr = Ref(ec.x); yr = Ref(ec.y); hr = Ref(ec.heading)
+        _fbr_move!(xr, yr, hr, rng, half)
+        ec.x = xr[]; ec.y = yr[]; ec.heading = hr[]
+    end
+end
+
+function _fbr_break_down_lignin!(fbr::FBRWorld, grid::FBRPatchGrid,
+                                  rng, n_enzymes::Int, w::Int, h::Int)
+    # Unpartnered enzymes convert lignin → glucose
+    for e in fbr.enzymes
+        e.alive || continue
+        e.partner != 0 &amp;&amp; continue
+        px = _fbr_to_patch(e.x, w)
+        py = _fbr_to_patch(e.y, h)
+        if grid.lignin[px, py] &gt; 0.0
+            amt = min(grid.lignin[px, py], 1.0)
+            grid.lignin[px, py] -= amt
+            grid.glucose[px, py] += amt * 0.5
+        end
+    end
+    # If few enzymes, fungi also break down lignin
+    if n_enzymes &lt; 5
+        for f in fbr.fungi
+            f.alive || continue
+            px = _fbr_to_patch(f.x, w)
+            py = _fbr_to_patch(f.y, h)
+            if grid.lignin[px, py] &gt; 0.0
+                amt = min(grid.lignin[px, py], 0.5)
+                grid.lignin[px, py] -= amt
+                grid.glucose[px, py] += amt * 0.25
+            end
+        end
+    end
+end
+
+function _fbr_eat_glucose!(fbr::FBRWorld, grid::FBRPatchGrid,
+                            sp::FBRFungiSpecies, w::Int, h::Int)
+    for f in fbr.fungi
+        f.alive || continue
+        px = _fbr_to_patch(f.x, w)
+        py = _fbr_to_patch(f.y, h)
+        avail_g = grid.glucose[px, py]
+        avail_o = grid.O2[px, py]
+        consume_g = min(avail_g, 2.0)
+        consume_o = min(avail_o, 1.0)
+        if consume_g &gt; 0.0 &amp;&amp; consume_o &gt; 0.0
+            grid.glucose[px, py] -= consume_g
+            grid.O2[px, py] -= consume_o
+            f.energy += consume_g * 1.5
+        end
+    end
+end
+
+function _fbr_reproduce!(fbr::FBRWorld, grid::FBRPatchGrid, rng,
+                          params::FBRParams, sp::FBRFungiSpecies,
+                          tick::Int, w::Int, h::Int)
+    new_fungi = FBRFungus[]
+    new_enzymes = FBREnzyme[]
+    for f in fbr.fungi
+        f.alive || continue
+        # Reproduce conditions: age &gt; 10, energy &gt; 20, correct temp/pH ranges
+        temp_ok = abs(params.temperature - sp.growth_temp) &lt; 5.0
+        pH_ok   = abs(params.pH - sp.growth_pH) &lt; 3.0
+        if f.age &gt; 10.0 &amp;&amp; f.energy &gt; 20.0 &amp;&amp; temp_ok &amp;&amp; pH_ok
+            # Produce offspring fungus
+            f.energy /= 2.0
+            nx = f.x + rand(rng) * 2.0 - 1.0
+            ny = f.y + rand(rng) * 2.0 - 1.0
+            half = Float64(params.grid_width ÷ 2)
+            nx = clamp(nx, -half, half)
+            ny = clamp(ny, -half, half)
+            push!(new_fungi, FBRFungus(nx, ny, 0.0, f.energy, 12.0, 0, true))
+        else
+            # Produce enzyme if conditions met
+            pH_enz_ok = abs(params.pH - sp.enzyme_production_pH) &lt; 2.0
+            if f.energy &gt; sp.enzyme_production_cost &amp;&amp; pH_enz_ok
+                f.energy -= sp.enzyme_production_cost
+                eh = rand(rng) * 360.0
+                push!(new_enzymes, FBREnzyme(f.x, f.y, 0.0, eh, 0, 0.0, 0.0, true))
+            end
+        end
+    end
+    append!(fbr.fungi, new_fungi)
+    append!(fbr.enzymes, new_enzymes)
+end
+
+function _fbr_check_death!(fbr::FBRWorld, params::FBRParams)
+    ms = params.ms
+    # Fungi die if energy &lt;= 0 or age &gt; threshold
+    for f in fbr.fungi
+        f.alive || continue
+        if f.energy &lt;= 0.0 || f.age &gt; 200.0 * ms
+            f.alive = false
+        end
+    end
+    # Enzymes die if age &gt; threshold
+    for e in fbr.enzymes
+        e.alive || continue
+        if e.age &gt; 150.0 * ms
+            e.alive = false
+            # Release partner EC if any
+            if e.partner != 0 &amp;&amp; e.partner &lt;= length(fbr.ecs)
+                ec = fbr.ecs[e.partner]
+                if ec.alive
+                    ec.partner = 0
+                end
+            end
+            e.partner = 0
+        end
+    end
+end
+
+function _fbr_intracellular_degrade!(fbr::FBRWorld, rng, half::Float64)
+    # Fungi absorb nearby free ECs
+    for f in fbr.fungi
+        f.alive || continue
+        f.partner != 0 &amp;&amp; continue
+        for (idx, ec) in enumerate(fbr.ecs)
+            ec.alive || continue
+            ec.taken &amp;&amp; continue
+            ec.partner != 0 &amp;&amp; continue
+            dist = sqrt((f.x - ec.x)^2 + (f.y - ec.y)^2)
+            if dist &lt; 1.5
+                ec.taken = true
+                ec.locked_time = 0
+                f.partner = idx
+                fbr.intracellularly += 1
+                break
+            end
+        end
+    end
+    # Intracellularly absorbed ECs degrade after 34 ticks
+    for f in fbr.fungi
+        f.alive || continue
+        f.partner == 0 &amp;&amp; continue
+        pidx = f.partner
+        if pidx &lt;= length(fbr.ecs) &amp;&amp; fbr.ecs[pidx].alive &amp;&amp; fbr.ecs[pidx].taken
+            fbr.ecs[pidx].locked_time += 1
+            if fbr.ecs[pidx].locked_time &gt;= 34
+                fbr.ecs[pidx].alive = false
+                f.partner = 0
+            end
+        else
+            f.partner = 0
+        end
+    end
+end
+
+function _fbr_denature!(fbr::FBRWorld, params::FBRParams)
+    # Enzymes age faster based on pH distance from optimal
+    ph_diff = abs(params.pH - 5.0)
+    extra_age = ph_diff * 0.5
+    for e in fbr.enzymes
+        e.alive || continue
+        e.age += extra_age
+    end
+end
+
+function _fbr_degrade_ecs!(fbr::FBRWorld, rng)
+    # Form complexes: free enzyme + free EC within distance
+    for (eidx, e) in enumerate(fbr.enzymes)
+        e.alive || continue
+        e.partner != 0 &amp;&amp; continue
+        for (cidx, ec) in enumerate(fbr.ecs)
+            ec.alive || continue
+            ec.partner != 0 &amp;&amp; continue
+            ec.taken &amp;&amp; continue
+            dist = sqrt((e.x - ec.x)^2 + (e.y - ec.y)^2)
+            if dist &lt; 2.0
+                e.partner = cidx
+                ec.partner = eidx
+                fbr.complexes_formed += 1
+                fbr.Kc += 1
+                break
+            end
+        end
+    end
+
+    # Dissociate some complexes (stochastic)
+    for (eidx, e) in enumerate(fbr.enzymes)
+        e.alive || continue
+        e.partner == 0 &amp;&amp; continue
+        pidx = e.partner
+        (pidx &gt; length(fbr.ecs) || !fbr.ecs[pidx].alive) &amp;&amp; begin
+            e.partner = 0; continue
+        end
+        ec = fbr.ecs[pidx]
+        ec.taken &amp;&amp; continue  # intracellular, skip
+        # Dissociation probability
+        if rand(rng) &lt; 0.1
+            ec.partner = 0
+            e.partner = 0
+            fbr.dissociated += 1
+            fbr.Kr += 1
+        end
+    end
+
+    # React forward: enzyme-EC complex → EC destroyed, enzyme released
+    for (eidx, e) in enumerate(fbr.enzymes)
+        e.alive || continue
+        e.partner == 0 &amp;&amp; continue
+        pidx = e.partner
+        (pidx &gt; length(fbr.ecs) || !fbr.ecs[pidx].alive) &amp;&amp; begin
+            e.partner = 0; continue
+        end
+        ec = fbr.ecs[pidx]
+        ec.taken &amp;&amp; continue
+        # Reaction probability
+        if rand(rng) &lt; 0.15
+            ec.alive = false
+            e.partner = 0
+            fbr.Kd += 1
+        end
+    end
+end
+
+# After compaction, partner indices may be stale – clear them.
+function _fbr_clear_stale_partners!(fbr::FBRWorld)
+    # Build lookup: old indices are invalid after compact, so reset all partnerships
+    # and re-establish based on proximity is too expensive; instead just clear stale refs.
+    for f in fbr.fungi
+        if f.partner != 0
+            if f.partner &gt; length(fbr.ecs) || !fbr.ecs[f.partner].alive || !fbr.ecs[f.partner].taken
+                f.partner = 0
+            end
+        end
+    end
+    for e in fbr.enzymes
+        if e.partner != 0
+            if e.partner &gt; length(fbr.ecs) || !fbr.ecs[e.partner].alive
+                e.partner = 0
+            end
+        end
+    end
+    for ec in fbr.ecs
+        if ec.partner != 0
+            if ec.partner &gt; length(fbr.enzymes) || !fbr.enzymes[ec.partner].alive
+                ec.partner = 0
+            end
+        end
+    end
+end
+
+# ============================================================
+# Termination system
+# ============================================================
+
+struct FBRTerminationSystem &lt;: System end
+
+function update!(::FBRTerminationSystem, world::World)
+    params = get_resource(world, FBRParams)
+    tick   = get_resource(world, Tick)
+
+    if tick.tick + 1 &gt;= params.max_ticks
+        get_resource(world, Terminate).stop = true
+    end
+    return nothing
+end</code></pre><h3 id="Model-(model.jl)"><a class="docs-heading-anchor" href="#Model-(model.jl)">Model (<code>model.jl</code>)</a><a id="Model-(model.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Model-(model.jl)" title="Permalink"></a></h3><p>The model file assembles all pieces: it creates the ECS <code>World</code> with the required component types, registers resources, builds the <code>Scheduler</code> with systems in execution order, and exposes the public <code>run</code> entry point. The observer pattern records the trajectory each tick.</p><pre><code class="language-julia hljs">function fungalbioremediation_world(; initial_capacity::Int = 256)
+    return World(
+        FBRDummy;
+        initial_capacity = initial_capacity,
+        allow_mutable = true,
+    )
+end
+
+function fungalbioremediation_systems()
+    return (
+        InitFBRSystem(),
+        FBRGoSystem(),
+        FBRTerminationSystem(),
+    )
+end
+
+function fungalbioremediation_model(params::FBRParams = FBRParams())
+    world = fungalbioremediation_world()
+    sp = get(FBR_SPECIES, params.fungi_species,
+             FBRFungiSpecies(33.5, 4.0, 2.5, 5.0))
+    _add_standard_resources!(world, params)
+    add_resource!(world, FBRPatchGrid(params.grid_width, params.grid_height))
+    add_resource!(world, FBRWorld(sp))
+    add_resource!(world, FBRStats())
+    scheduler = Scheduler(world, fungalbioremediation_systems())
+    initialize!(scheduler)
+    return scheduler
+end
+
+struct FBRObserver end
+
+function fungalbioremediation_headers(::FBRObserver)
+    return [&quot;num_fungi&quot;, &quot;num_enzymes&quot;, &quot;num_ecs&quot;]
+end
+
+function fungalbioremediation_values(::FBRObserver, world::World)
+    stats = get_resource(world, FBRStats)
+    return Float64[stats.num_fungi, stats.num_enzymes, stats.num_ecs]
+end
+
+function run_fungalbioremediation(; params::FBRParams = FBRParams(), observe::Bool = true)
+    return _run_model(fungalbioremediation_model, FBRObserver(), fungalbioremediation_values; params, observe)
+end</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../fire/fire/">« Forest Fire</a><a class="docs-footer-nextpage" href="../../giant_component/giant_component/">Giant Component »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.20.0 on <span class="colophon-date" title="Wednesday 18 November 2026 18:43">Wednesday 18 November 2026</span>. Using Julia version 1.13.4.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
