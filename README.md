@@ -71,6 +71,36 @@ NetLogo-style wrapper spellings such as `simple_birth_rates`,
 `disinfo_nw_bitstring`, `artificial_economy`, and `search_path` resolve through
 `model_info` and the generic `run_model` entry point.
 
+## Resilience: SciML problems
+
+Daisyworld and Wolf–Sheep can also be run as SciML problems, `DaisyworldProblem` and
+`WolfSheepProblem`, advanced one tick at a time by `TickStepping()`. Their integrators provide
+`init`, `step!`, `reinit!` (an exact replay), `set_u!`, `solve` and `EnsembleProblem`. So the
+simulation-based resilience metrics of
+[DynamicalResilience.jl](https://github.com/ecorecipes/DynamicalResilience.jl), re-exported
+here, run on them directly: `recovery`, `basin_stability`, `ramped_series` and
+`early_warning`.
+
+```julia
+using ArkModelZoo
+prob = DaisyworldProblem(DaisyworldParams(solar_luminosity = 1.8); u0 = [NaN, 0.2, 0.2], tspan = (0, 300))
+basin_stability(prob, TickStepping(); trajectories = 100, seed = 1,
+                sample_perturbation = (u, rng) -> [NaN, 0.5rand(rng), 0.5rand(rng)],
+                returned = u -> u[2] + u[3] > 0.05)
+```
+
+The state is a summary vector:
+- **Daisyworld:** `[mean temperature, white cover, black cover]`;
+- **Wolf–Sheep:** `[sheep, wolves, green patches]`.
+
+Setting it moves the world by the smallest random change with that summary. The vignette
+`vignettes/resilience/resilience.qmd` covers:
+- basin stability and early-warning indicators for Daisyworld;
+- return after a pulse, and coexistence basins, for Wolf–Sheep.
+
+`step!` is SciML's `step!`, so `step!(scheduler)` and `step!(integrator, dt, true)` are the
+same function.
+
 ## ECS Architecture
 
 Each model follows the same ECS pattern:
