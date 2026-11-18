@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="referrer" content="no-referrer"/><title>Being Green · ArkModelZoo.jl</title><meta name="title" content="Being Green · ArkModelZoo.jl"/><meta property="og:title" content="Being Green · ArkModelZoo.jl"/><meta property="twitter:title" content="Being Green · ArkModelZoo.jl"/><meta name="description" content="Documentation for ArkModelZoo.jl."/><meta property="og:description" content="Documentation for ArkModelZoo.jl."/><meta property="twitter:description" content="Documentation for ArkModelZoo.jl."/><meta property="og:url" content="https://ecorecipes.github.io/ArkModelZoo.jl/tutorials/beinggreen/beinggreen/"/><meta property="twitter:url" content="https://ecorecipes.github.io/ArkModelZoo.jl/tutorials/beinggreen/beinggreen/"/><link rel="canonical" href="https://ecorecipes.github.io/ArkModelZoo.jl/tutorials/beinggreen/beinggreen/"/><script data-outdated-warner src="../../../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.63.2/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../../assets/documenter.js"></script><script src="../../../search_index.js"></script><script src="../../../siteinfo.js"></script><script src="../../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="../../../">ArkModelZoo.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../../../">Home</a></li><li><span class="tocitem">Resilience</span><ul><li><a class="tocitem" href="../../resilience/resilience/">Resilience of agent-based models</a></li></ul></li><li><span class="tocitem">Models</span><ul><li><a class="tocitem" href="../../abtgc/abtgc/">ABTgc</a></li><li><a class="tocitem" href="../../aids/aids/">AIDS</a></li><li><a class="tocitem" href="../../altruism/altruism/">Altruism</a></li><li><a class="tocitem" href="../../antsystem/antsystem/">Ant System TSP</a></li><li><a class="tocitem" href="../../ants/ants/">Ants</a></li><li><a class="tocitem" href="../../artificialeconomy/artificialeconomy/">Artificial Economy</a></li><li><a class="tocitem" href="../../axelrodcultural/axelrodcultural/">AxelrodCultural</a></li><li><a class="tocitem" href="../../babysittingcoop/babysittingcoop/">Baby Sitting Coop</a></li><li><a class="tocitem" href="../../bank_reserves/bank_reserves/">Bank Reserves</a></li><li><a class="tocitem" href="../../bayesian/bayesian/">Bayesian Updating</a></li><li class="is-active"><a class="tocitem" href>Being Green</a><ul class="internal"><li><a class="tocitem" href="#Overview"><span>Overview</span></a></li><li><a class="tocitem" href="#Parameters"><span>Parameters</span></a></li><li><a class="tocitem" href="#Source-Code"><span>Source Code</span></a></li><li><a class="tocitem" href="#Time-Series"><span>Time Series</span></a></li><li><a class="tocitem" href="#Ensemble-Runs"><span>Ensemble Runs</span></a></li><li><a class="tocitem" href="#Parameter-Sensitivity"><span>Parameter Sensitivity</span></a></li><li><a class="tocitem" href="#Appendix:-Source-Code"><span>Appendix: Source Code</span></a></li></ul></li><li><a class="tocitem" href="../../birthrates/birthrates/">Birthrates</a></li><li><a class="tocitem" href="../../blackbox/blackbox/">BlackBox</a></li><li><a class="tocitem" href="../../boiling/boiling/">Boiling</a></li><li><a class="tocitem" href="../../bombscenario/bombscenario/">BombScenario</a></li><li><a class="tocitem" href="../../brians_brain/brians_brain/">Brian’s Brain</a></li><li><a class="tocitem" href="../../bullwhipeffect/bullwhipeffect/">Bullwhip Effect</a></li><li><a class="tocitem" href="../../ca_1d_elementary/ca_1d_elementary/">CA 1D Elementary</a></li><li><a class="tocitem" href="../../civilizationgrowth/civilizationgrowth/">Civilization Growth</a></li><li><a class="tocitem" href="../../climatechange/climatechange/">Climate Change</a></li><li><a class="tocitem" href="../../coin/coin/">COIN Learning</a></li><li><a class="tocitem" href="../../competitionlearning/competitionlearning/">Competition Learning</a></li><li><a class="tocitem" href="../../contactprocess/contactprocess/">Contact Process 2D</a></li><li><a class="tocitem" href="../../contagionnw/contagionnw/">Contagion NW</a></li><li><a class="tocitem" href="../../contagionsi/contagionsi/">Contagion SI</a></li><li><a class="tocitem" href="../../contagionsir/contagionsir/">Contagion SIR</a></li><li><a class="tocitem" href="../../cooperation/cooperation/">Cooperation</a></li><li><a class="tocitem" href="../../coordination/coordination/">Coordination</a></li><li><a class="tocitem" href="../../coordination2groups/coordination2groups/">Coordination 2 Groups</a></li><li><a class="tocitem" href="../../croprotation/croprotation/">Crop Rotation</a></li><li><a class="tocitem" href="../../crystallization/crystallization/">Crystallization</a></li><li><a class="tocitem" href="../../csvnetworkforaging/csvnetworkforaging/">CSV Network Foraging</a></li><li><a class="tocitem" href="../../csvpopulation/csvpopulation/">CSV Population</a></li><li><a class="tocitem" href="../../culturaldiffusion/culturaldiffusion/">Cultural Diffusion</a></li><li><a class="tocitem" href="../../cyberspaceopinion/cyberspaceopinion/">Cyberspace Opinion</a></li><li><a class="tocitem" href="../../daisyworld/daisyworld/">Daisyworld</a></li><li><a class="tocitem" href="../../dating/dating/">Dating</a></li><li><a class="tocitem" href="../../diffusionnetwork/diffusionnetwork/">Diffusion Network</a></li><li><a class="tocitem" href="../../diffusionofhiv/diffusionofhiv/">DiffusionOfHIV</a></li><li><a class="tocitem" href="../../disinfobitstringnw/disinfobitstringnw/">Disinfobitstringnw</a></li><li><a class="tocitem" href="../../dla/dla/">Dla</a></li><li><a class="tocitem" href="../../dlasimple/dlasimple/">DLA Simple</a></li><li><a class="tocitem" href="../../druguse/druguse/">Drug Use</a></li><li><a class="tocitem" href="../../druguseoverdose/druguseoverdose/">Drug Use Overdose</a></li><li><a class="tocitem" href="../../elfarol/elfarol/">El Farol</a></li><li><a class="tocitem" href="../../erosion/erosion/">Erosion</a></li><li><a class="tocitem" href="../../ethnocentrism/ethnocentrism/">Ethnocentrism</a></li><li><a class="tocitem" href="../../evolutionofnorms/evolutionofnorms/">EvolutionOfNorms</a></li><li><a class="tocitem" href="../../firepercolation/firepercolation/">Fire Percolation</a></li><li><a class="tocitem" href="../../firebenchmark/firebenchmark/">FireBenchmark</a></li><li><a class="tocitem" href="../../fireflies/fireflies/">Fireflies</a></li><li><a class="tocitem" href="../../flocking/flocking/">Flocking</a></li><li><a class="tocitem" href="../../flockingnetwork/flockingnetwork/">Flocking Network</a></li><li><a class="tocitem" href="../../forestdewdney/forestdewdney/">Forest Dewdney</a></li><li><a class="tocitem" href="../../fire/fire/">Forest Fire</a></li><li><a class="tocitem" href="../../fungalbioremediation/fungalbioremediation/">Fungal Bioremediation</a></li><li><a class="tocitem" href="../../giant_component/giant_component/">Giant Component</a></li><li><a class="tocitem" href="../../gishillclimber/gishillclimber/">GIS HillClimber</a></li><li><a class="tocitem" href="../../granovetter/granovetter/">Granovetter</a></li><li><a class="tocitem" href="../../grassbrushtrees/grassbrushtrees/">Grass Brush Trees</a></li><li><a class="tocitem" href="../../diffusion/diffusion/">Heat Diffusion</a></li><li><a class="tocitem" href="../../heatbugs/heatbugs/">Heatbugs</a></li><li><a class="tocitem" href="../../hikingelevation/hikingelevation/">HikingElevation</a></li><li><a class="tocitem" href="../../infinitelife/infinitelife/">Infinite Life</a></li><li><a class="tocitem" href="../../infodiffusion/infodiffusion/">Info Diffusion</a></li><li><a class="tocitem" href="../../ising/ising/">Ising</a></li><li><a class="tocitem" href="../../languageborders/languageborders/">Language Borders</a></li><li><a class="tocitem" href="../../languagechange/languagechange/">Language Change</a></li><li><a class="tocitem" href="../../lassavirus/lassavirus/">LassaVirus</a></li><li><a class="tocitem" href="../../leonarditechadoption/leonarditechadoption/">Leonardi Tech Adoption</a></li><li><a class="tocitem" href="../../life/life/">Life</a></li><li><a class="tocitem" href="../../logistic_growth/logistic_growth/">Logistic Growth</a></li><li><a class="tocitem" href="../../mailmen/mailmen/">Mailmen Delivery</a></li><li><a class="tocitem" href="../../marriage/marriage/">Marriage Problem</a></li><li><a class="tocitem" href="../../mimicry/mimicry/">Mimicry</a></li><li><a class="tocitem" href="../../minimalsis/minimalsis/">Minimal SIS</a></li><li><a class="tocitem" href="../../minoritybelief/minoritybelief/">Minority Belief Spread</a></li><li><a class="tocitem" href="../../minoritygame/minoritygame/">Minority Game</a></li><li><a class="tocitem" href="../../misinformationsbfc/misinformationsbfc/">Misinformation SBFC</a></li><li><a class="tocitem" href="../../modsocsegregation/modsocsegregation/">Modsoc Segregation</a></li><li><a class="tocitem" href="../../mousetraps/mousetraps/">Mousetraps</a></li><li><a class="tocitem" href="../../multidrugresistant/multidrugresistant/">MultidrugResistant</a></li><li><a class="tocitem" href="../../opinionbc/opinionbc/">Opinion Dynamics BC</a></li><li><a class="tocitem" href="../../paretolearn/paretolearn/">Pareto Learning</a></li><li><a class="tocitem" href="../../participatorydisinfo/participatorydisinfo/">Participatory Disinformation</a></li><li><a class="tocitem" href="../../participatorydisinformation/participatorydisinformation/">Participatory Disinformation</a></li><li><a class="tocitem" href="../../particles/particles/">Particles</a></li><li><a class="tocitem" href="../../party/party/">Party</a></li><li><a class="tocitem" href="../../pd_basic_evolutionary/pd_basic_evolutionary/">PD Basic Evolutionary</a></li><li><a class="tocitem" href="../../pdsimple/pdsimple/">PD Simple</a></li><li><a class="tocitem" href="../../percolation/percolation/">Percolation</a></li><li><a class="tocitem" href="../../polymerdynamics/polymerdynamics/">Polymer Dynamics</a></li><li><a class="tocitem" href="../../prefattachhomophily/prefattachhomophily/">Pref Attach Homophily</a></li><li><a class="tocitem" href="../../preferential_attachment/preferential_attachment/">Preferential Attachment</a></li><li><a class="tocitem" href="../../privacyopinion/privacyopinion/">Privacy Opinion</a></li><li><a class="tocitem" href="../../productsmarket/productsmarket/">Products Market</a></li><li><a class="tocitem" href="../../public_good/public_good/">Public Good</a></li><li><a class="tocitem" href="../../cqin/cqin/">Quality Improvement Network</a></li><li><a class="tocitem" href="../../rabbits_grass_weeds/rabbits_grass_weeds/">Rabbits Grass Weeds</a></li><li><a class="tocitem" href="../../decay/decay/">Radioactive Decay</a></li><li><a class="tocitem" href="../../rationalevolvingpd/rationalevolvingpd/">Rational Evolving PD</a></li><li><a class="tocitem" href="../../rebellion/rebellion/">Rebellion</a></li><li><a class="tocitem" href="../../recruitingmovement/recruitingmovement/">Recruiting Movement</a></li><li><a class="tocitem" href="../../recruiting/recruiting/">Recruiting Supporters</a></li><li><a class="tocitem" href="../../recruitingsupporters/recruitingsupporters/">Recruiting Supporters</a></li><li><a class="tocitem" href="../../resilientteam/resilientteam/">Resilient Team</a></li><li><a class="tocitem" href="../../rhinopoaching/rhinopoaching/">Rhino Poaching</a></li><li><a class="tocitem" href="../../riseofradicalism/riseofradicalism/">Rise of Radicalism</a></li><li><a class="tocitem" href="../../rope/rope/">Rope</a></li><li><a class="tocitem" href="../../rumormill/rumormill/">Rumor Mill</a></li><li><a class="tocitem" href="../../sand/sand/">Sand</a></li><li><a class="tocitem" href="../../schelling/schelling/">Schelling Segregation</a></li><li><a class="tocitem" href="../../segregation/segregation/">Segregation</a></li><li><a class="tocitem" href="../../shepherds/shepherds/">Shepherds</a></li><li><a class="tocitem" href="../../simple_genetic_algorithm/simple_genetic_algorithm/">Simple Genetic Algorithm</a></li><li><a class="tocitem" href="../../simplemarket/simplemarket/">Simple Market</a></li><li><a class="tocitem" href="../../simplemarketrandom/simplemarketrandom/">Simple Market Random</a></li><li><a class="tocitem" href="../../simplemarkettable/simplemarkettable/">Simple Market Table</a></li><li><a class="tocitem" href="../../sir/sir/">SIR Epidemic</a></li><li><a class="tocitem" href="../../sleuthlanduse/sleuthlanduse/">Sleuth LandUse</a></li><li><a class="tocitem" href="../../slime/slime/">Slime</a></li><li><a class="tocitem" href="../../slowspread/slowspread/">Slow Spread Env Action</a></li><li><a class="tocitem" href="../../small_worlds/small_worlds/">Small Worlds</a></li><li><a class="tocitem" href="../../socialinfluence/socialinfluence/">Social Influence</a></li><li><a class="tocitem" href="../../socialnetworkdiffusion/socialnetworkdiffusion/">Social Network Diffusion</a></li><li><a class="tocitem" href="../../soliddiffusion/soliddiffusion/">Solid Diffusion</a></li><li><a class="tocitem" href="../../spatialattitude/spatialattitude/">Spatial Attitude</a></li><li><a class="tocitem" href="../../ipd/ipd/">Spatial IPD</a></li><li><a class="tocitem" href="../../spatialopinion/spatialopinion/">Spatial Opinion Dynamics</a></li><li><a class="tocitem" href="../../fakenews/fakenews/">Spread of Fake News</a></li><li><a class="tocitem" href="../../spreadingbots/spreadingbots/">Spreading Bots</a></li><li><a class="tocitem" href="../../spreadinggroups/spreadinggroups/">Spreading Groups</a></li><li><a class="tocitem" href="../../sugarscape_1_growback/sugarscape_1_growback/">Sugarscape 1 Growback</a></li><li><a class="tocitem" href="../../sugarscapeculture/sugarscapeculture/">Sugarscape Culture</a></li><li><a class="tocitem" href="../../sugarscapesexual/sugarscapesexual/">Sugarscape Sexual</a></li><li><a class="tocitem" href="../../superdiffuser/superdiffuser/">SuperDiffuser</a></li><li><a class="tocitem" href="../../teamassembly/teamassembly/">Team Assembly</a></li><li><a class="tocitem" href="../../termites/termites/">Termites</a></li><li><a class="tocitem" href="../../thermostat/thermostat/">Thermostat</a></li><li><a class="tocitem" href="../../tourism/tourism/">Tourism</a></li><li><a class="tocitem" href="../../traffic2lanes/traffic2lanes/">Traffic 2 Lanes</a></li><li><a class="tocitem" href="../../trafficbasic/trafficbasic/">Traffic Basic</a></li><li><a class="tocitem" href="../../trafficgrid/trafficgrid/">Traffic Grid</a></li><li><a class="tocitem" href="../../trafficintersection/trafficintersection/">Traffic Intersection</a></li><li><a class="tocitem" href="../../tumor/tumor/">Tumor</a></li><li><a class="tocitem" href="../../unitcohesion/unitcohesion/">Unit Cohesion</a></li><li><a class="tocitem" href="../../virus_on_network/virus_on_network/">Virus on a Network</a></li><li><a class="tocitem" href="../../virus/virus/">Virus on Network</a></li><li><a class="tocitem" href="../../voronoivoter/voronoivoter/">Voronoi Voter</a></li><li><a class="tocitem" href="../../voter/voter/">Voter Model</a></li><li><a class="tocitem" href="../../voting/voting/">Voting</a></li><li><a class="tocitem" href="../../wealthdistribution/wealthdistribution/">Wealth Distribution</a></li><li><a class="tocitem" href="../../wisdomcrowd/wisdomcrowd/">Wisdom of Crowd</a></li><li><a class="tocitem" href="../../wolfsheep/wolfsheep/">Wolf Sheep Predation</a></li></ul></li><li><a class="tocitem" href="../../../api/">API Reference</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Models</a></li><li class="is-active"><a href>Being Green</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Being Green</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/ecorecipes/ArkModelZoo.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/ecorecipes/ArkModelZoo.jl/blob/main/docs/src/tutorials/beinggreen/beinggreen.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Being-Green"><a class="docs-heading-anchor" href="#Being-Green">Being Green</a><a id="Being-Green-1"></a><a class="docs-heading-anchor-permalink" href="#Being-Green" title="Permalink"></a></h1><h2 id="Overview"><a class="docs-heading-anchor" href="#Overview">Overview</a><a id="Overview-1"></a><a class="docs-heading-anchor-permalink" href="#Overview" title="Permalink"></a></h2><p>This vignette demonstrates the <strong>Being Green</strong> model implemented in <a href="https://github.com/sdwfrost/ArkModelZoo.jl">ArkModelZoo.jl</a> using the Ark.jl ECS framework.</p><h2 id="Parameters"><a class="docs-heading-anchor" href="#Parameters">Parameters</a><a id="Parameters-1"></a><a class="docs-heading-anchor-permalink" href="#Parameters" title="Permalink"></a></h2><table><tr><th style="text-align: right">Parameter</th><th style="text-align: right">Type</th><th style="text-align: right">Default</th><th style="text-align: right">Description</th></tr><tr><td style="text-align: right"><code>initial_people</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>200</code></td><td style="text-align: right">initial people</td></tr><tr><td style="text-align: right"><code>average_locus_of_control</code></td><td style="text-align: right"><code>Float64</code></td><td style="text-align: right"><code>50.0</code></td><td style="text-align: right">average locus of control</td></tr><tr><td style="text-align: right"><code>average_social_pressure</code></td><td style="text-align: right"><code>Float64</code></td><td style="text-align: right"><code>50.0</code></td><td style="text-align: right">average social pressure</td></tr><tr><td style="text-align: right"><code>average_sense_of_responsibility</code></td><td style="text-align: right"><code>Float64</code></td><td style="text-align: right"><code>50.0</code></td><td style="text-align: right">average sense of responsibility</td></tr><tr><td style="text-align: right"><code>average_pbc</code></td><td style="text-align: right"><code>Float64</code></td><td style="text-align: right"><code>20.0</code></td><td style="text-align: right">average pbc</td></tr><tr><td style="text-align: right"><code>initial_action_taker_frac</code></td><td style="text-align: right"><code>Float64</code></td><td style="text-align: right"><code>0.10</code></td><td style="text-align: right">initial action taker frac</td></tr><tr><td style="text-align: right"><code>grid_width</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>33</code></td><td style="text-align: right">grid width</td></tr><tr><td style="text-align: right"><code>grid_height</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>33</code></td><td style="text-align: right">grid height</td></tr><tr><td style="text-align: right"><code>max_ticks</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>200</code></td><td style="text-align: right">max ticks</td></tr></table><h2 id="Source-Code"><a class="docs-heading-anchor" href="#Source-Code">Source Code</a><a id="Source-Code-1"></a><a class="docs-heading-anchor-permalink" href="#Source-Code" title="Permalink"></a></h2><p>The Julia code to run this model:</p><pre><code class="language-julia hljs">using ArkModelZoo
+_, trajectory = run_beinggreen()</code></pre><h2 id="Time-Series"><a class="docs-heading-anchor" href="#Time-Series">Time Series</a><a id="Time-Series-1"></a><a class="docs-heading-anchor-permalink" href="#Time-Series" title="Permalink"></a></h2><p><img src="../plot_timeseries.png" alt="Being Green time series"/></p><h2 id="Ensemble-Runs"><a class="docs-heading-anchor" href="#Ensemble-Runs">Ensemble Runs</a><a id="Ensemble-Runs-1"></a><a class="docs-heading-anchor-permalink" href="#Ensemble-Runs" title="Permalink"></a></h2><p>Ten replicates with different random seeds, showing mean ± standard deviation.</p><p><img src="../plot_ensemble.png" alt="Being Green ensemble"/></p><h2 id="Parameter-Sensitivity"><a class="docs-heading-anchor" href="#Parameter-Sensitivity">Parameter Sensitivity</a><a id="Parameter-Sensitivity-1"></a><a class="docs-heading-anchor-permalink" href="#Parameter-Sensitivity" title="Permalink"></a></h2><p>Varying <code>initial_people</code>.</p><p><img src="../plot_sensitivity.png" alt="Being Green sensitivity"/></p><h2 id="Appendix:-Source-Code"><a class="docs-heading-anchor" href="#Appendix:-Source-Code">Appendix: Source Code</a><a id="Appendix:-Source-Code-1"></a><a class="docs-heading-anchor-permalink" href="#Appendix:-Source-Code" title="Permalink"></a></h2><p>This model is implemented in the <a href="https://github.com/sdwfrost/Ark.jl">Ark.jl</a> Entity-Component-System (ECS) framework. The code is split into five files, each with a distinct role:</p><ul><li><strong>Parameters</strong>: a mutable struct holding all configurable values.</li><li><strong>Components</strong>: lightweight data types attached to individual entities (agents).</li><li><strong>Resources</strong>: world-level shared state accessible to all systems.</li><li><strong>Systems</strong>: functions that operate on entities each tick, defining model behavior.</li><li><strong>Model</strong>: wiring that assembles the world, registers resources and systems, and provides the run entry point.</li></ul><h3 id="Parameters-(parameters.jl)"><a class="docs-heading-anchor" href="#Parameters-(parameters.jl)">Parameters (<code>parameters.jl</code>)</a><a id="Parameters-(parameters.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Parameters-(parameters.jl)" title="Permalink"></a></h3><p>The parameter struct uses <code>@kwdef</code> so that every field has a default value and can be overridden by keyword. These defaults match the original NetLogo model’s slider settings.</p><pre><code class="language-julia hljs">Base.@kwdef mutable struct BeingGreenParams
+    initial_people::Int = 200
+    average_locus_of_control::Float64 = 50.0
+    average_social_pressure::Float64 = 50.0
+    average_sense_of_responsibility::Float64 = 50.0
+    average_pbc::Float64 = 20.0
+    initial_action_taker_frac::Float64 = 0.10
+    grid_width::Int = 33
+    grid_height::Int = 33
+    max_ticks::Int = 200
+    seed::Int = 42
+end</code></pre><h3 id="Components-(components.jl)"><a class="docs-heading-anchor" href="#Components-(components.jl)">Components (<code>components.jl</code>)</a><a id="Components-(components.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Components-(components.jl)" title="Permalink"></a></h3><p>Components are lightweight data types attached to individual entities (agents). Mutable structs hold per-entity state, while empty tag structs act as markers for the ECS query system to efficiently filter entities.</p><pre><code class="language-julia hljs">mutable struct GreenPosition
+    x::Float64
+    y::Float64
+end
+GreenPosition() = GreenPosition(0.0, 0.0)
+
+mutable struct GreenHeading
+    heading::Float64
+end
+GreenHeading() = GreenHeading(0.0)
+
+mutable struct ActionTaker
+    is_action_taker::Bool
+end
+ActionTaker() = ActionTaker(false)
+
+mutable struct GreenProperties
+    locus_of_control::Float64
+    sense_of_responsibility::Float64
+    pbc::Float64
+    social_pressure::Float64
+end
+GreenProperties() = GreenProperties(0.0, 0.0, 0.0, 0.0)</code></pre><h3 id="Resources-(resources.jl)"><a class="docs-heading-anchor" href="#Resources-(resources.jl)">Resources (<code>resources.jl</code>)</a><a id="Resources-(resources.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Resources-(resources.jl)" title="Permalink"></a></h3><p>Resources are world-level singletons shared across all systems, used for global state and aggregate statistics.</p><pre><code class="language-julia hljs">mutable struct BeingGreenGrid
+    width::Int
+    height::Int
+    cells::Matrix{Vector{Entity}}
+end
+
+function BeingGreenGrid(w::Int, h::Int)
+    cells = [Entity[] for _ in 1:w, _ in 1:h]
+    BeingGreenGrid(w, h, cells)
+end
+
+function clear_grid!(grid::BeingGreenGrid)
+    for col in grid.cells
+        empty!(col)
+    end
+end
+
+function pos_to_cell(x::Float64, y::Float64, w::Int, h::Int)
+    gx = mod1(round(Int, x), w)
+    gy = mod1(round(Int, y), h)
+    return gx, gy
+end
+
+mutable struct BeingGreenStats
+    n_action_takers::Int
+end
+BeingGreenStats() = BeingGreenStats(0)</code></pre><h3 id="Systems-(systems.jl)"><a class="docs-heading-anchor" href="#Systems-(systems.jl)">Systems (<code>systems.jl</code>)</a><a id="Systems-(systems.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Systems-(systems.jl)" title="Permalink"></a></h3><p>Systems contain the model logic and execute in a defined order each tick. Each system struct implements either <code>initialize!</code> (run once at setup) or <code>update!</code> (run every tick).</p><pre><code class="language-julia hljs"># --- Helpers ---
+
+function _green_wrap(v::Float64, span::Int)
+    return mod(v - 0.5, Float64(span)) + 0.5
+end
+
+function _green_move!(rng, pos::GreenPosition, hdg::GreenHeading, w::Int, h::Int)
+    hdg.heading = mod(hdg.heading + rand(rng) * 360.0, 360.0)
+    θ = deg2rad(hdg.heading)
+    pos.x = _green_wrap(pos.x + sin(θ), w)
+    pos.y = _green_wrap(pos.y + cos(θ), h)
+end
+
+function _rebuild_grid!(world::World, grid::BeingGreenGrid)
+    clear_grid!(grid)
+    w, h = grid.width, grid.height
+    for (eids, positions) in Query(world, (GreenPosition,))
+        @inbounds for i in eachindex(eids)
+            gx, gy = pos_to_cell(positions[i].x, positions[i].y, w, h)
+            push!(grid.cells[gx, gy], eids[i])
+        end
+    end
+end
+
+# --- Initialization ---
+
+struct InitBeingGreenSystem &lt;: System end
+
+function initialize!(::InitBeingGreenSystem, world::World)
+    params = get_resource(world, BeingGreenParams)
+    rng = get_resource(world, RNGResource).rng
+    stats = get_resource(world, BeingGreenStats)
+    grid = get_resource(world, BeingGreenGrid)
+    w, h = params.grid_width, params.grid_height
+
+    n_at = 0
+    for who in 0:(params.initial_people - 1)
+        x = rand(rng) * w + 0.5
+        y = rand(rng) * h + 0.5
+        is_at = who &lt; round(Int, params.initial_people * params.initial_action_taker_frac)
+        loc = randn(rng) * 10.0 + params.average_locus_of_control
+        sor = randn(rng) * 10.0 + params.average_sense_of_responsibility
+        pbc = randn(rng) * 10.0 + params.average_pbc
+        sp  = randn(rng) * 10.0 + params.average_social_pressure
+        new_entity!(world, (
+            GreenPosition(x, y),
+            GreenHeading(0.0),
+            ActionTaker(is_at),
+            GreenProperties(loc, sor, pbc, sp),
+        ))
+        if is_at; n_at += 1; end
+    end
+    stats.n_action_takers = n_at
+    _rebuild_grid!(world, grid)
+    return nothing
+end
+
+# --- Move All Turtles ---
+
+struct MoveBeingGreenSystem &lt;: System end
+
+function update!(::MoveBeingGreenSystem, world::World)
+    rng = get_resource(world, RNGResource).rng
+    grid = get_resource(world, BeingGreenGrid)
+    w, h = grid.width, grid.height
+
+    # Collect and shuffle for random order
+    agents = Tuple{GreenPosition, GreenHeading}[]
+    for (_, positions, headings) in Query(world, (GreenPosition, GreenHeading))
+        @inbounds for i in eachindex(positions)
+            push!(agents, (positions[i], headings[i]))
+        end
+    end
+    order = randperm(rng, length(agents))
+    for idx in order
+        pos, hdg = agents[idx]
+        _green_move!(rng, pos, hdg, w, h)
+    end
+
+    _rebuild_grid!(world, grid)
+    return nothing
+end
+
+# --- Interact ---
+# Action-takers influence non-action-takers on neighboring patches.
+
+struct InteractBeingGreenSystem &lt;: System end
+
+function update!(::InteractBeingGreenSystem, world::World)
+    rng = get_resource(world, RNGResource).rng
+    grid = get_resource(world, BeingGreenGrid)
+    w, h = grid.width, grid.height
+
+    # Cache boolean flags before any modifications this tick.
+    # NetLogo&#39;s susceptible?/internal?/responsible? are set by evaluate-parameters
+    # at the END of each tick and remain stale throughout the next tick&#39;s influence.
+    cached_flags = Dict{Entity, Tuple{Bool, Bool, Bool}}()
+    for (eids, ats, props_arr) in Query(world, (ActionTaker, GreenProperties))
+        @inbounds for i in eachindex(eids)
+            if !ats[i].is_action_taker
+                p = props_arr[i]
+                cached_flags[eids[i]] = (
+                    p.social_pressure &gt; 70,
+                    p.locus_of_control &gt; 70,
+                    p.sense_of_responsibility &gt; 70,
+                )
+            end
+        end
+    end
+
+    # Collect action-taker positions
+    at_list = Tuple{Entity, Int, Int}[]
+    for (eids, positions, ats) in Query(world, (GreenPosition, ActionTaker))
+        @inbounds for i in eachindex(eids)
+            if ats[i].is_action_taker
+                gx, gy = pos_to_cell(positions[i].x, positions[i].y, w, h)
+                push!(at_list, (eids[i], gx, gy))
+            end
+        end
+    end
+    Random.shuffle!(rng, at_list)
+
+    for (_, gx, gy) in at_list
+        # Collect non-action-taker entities on 8 neighboring patches
+        nearby_red = Entity[]
+        for dx in -1:1, dy in -1:1
+            (dx == 0 &amp;&amp; dy == 0) &amp;&amp; continue
+            nx = mod1(gx + dx, w)
+            ny = mod1(gy + dy, h)
+            for eid in grid.cells[nx, ny]
+                at = get_components(world, eid, (ActionTaker,))[1]
+                if !at.is_action_taker
+                    push!(nearby_red, eid)
+                end
+            end
+        end
+        isempty(nearby_red) &amp;&amp; continue
+
+        Random.shuffle!(rng, nearby_red)
+        for eid in nearby_red
+            props = get_components(world, eid, (GreenProperties,))[1]
+            pos = get_components(world, eid, (GreenPosition,))[1]
+            hdg = get_components(world, eid, (GreenHeading,))[1]
+
+            susceptible, internal, responsible = cached_flags[eid]
+
+            if !susceptible
+                props.social_pressure += 1
+            elseif !internal
+                props.pbc += 5
+                props.locus_of_control += 1
+            elseif !responsible
+                props.pbc += 5
+                props.sense_of_responsibility += 5
+            else
+                props.pbc += 5
+            end
+
+            # Influenced turtle moves
+            old_gx, old_gy = pos_to_cell(pos.x, pos.y, w, h)
+            _green_move!(rng, pos, hdg, w, h)
+            new_gx, new_gy = pos_to_cell(pos.x, pos.y, w, h)
+            if old_gx != new_gx || old_gy != new_gy
+                filter!(e -&gt; !isequal(e, eid), grid.cells[old_gx, old_gy])
+                push!(grid.cells[new_gx, new_gy], eid)
+            end
+        end
+    end
+    return nothing
+end
+
+# --- Test ---
+
+struct TestBeingGreenSystem &lt;: System end
+
+function update!(::TestBeingGreenSystem, world::World)
+    for (_, ats, props_arr) in Query(world, (ActionTaker, GreenProperties))
+        @inbounds for i in eachindex(ats)
+            if !ats[i].is_action_taker
+                p = props_arr[i]
+                if p.locus_of_control &gt; 70 &amp;&amp; p.sense_of_responsibility &gt; 70 &amp;&amp; p.pbc &gt; 70
+                    ats[i].is_action_taker = true
+                end
+            end
+        end
+    end
+    return nothing
+end
+
+# --- Termination ---
+
+struct BeingGreenTerminationSystem &lt;: System end
+
+function update!(::BeingGreenTerminationSystem, world::World)
+    params = get_resource(world, BeingGreenParams)
+    stats = get_resource(world, BeingGreenStats)
+    tick = get_resource(world, Tick)
+
+    n_at = 0
+    n_total = 0
+    for (_, ats) in Query(world, (ActionTaker,))
+        @inbounds for i in eachindex(ats)
+            n_total += 1
+            if ats[i].is_action_taker
+                n_at += 1
+            end
+        end
+    end
+    stats.n_action_takers = n_at
+
+    if n_at == n_total || tick.tick + 1 &gt;= params.max_ticks
+        get_resource(world, Terminate).stop = true
+    end
+    return nothing
+end</code></pre><h3 id="Model-(model.jl)"><a class="docs-heading-anchor" href="#Model-(model.jl)">Model (<code>model.jl</code>)</a><a id="Model-(model.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Model-(model.jl)" title="Permalink"></a></h3><p>The model file assembles all pieces: it creates the ECS <code>World</code> with the required component types, registers resources, builds the <code>Scheduler</code> with systems in execution order, and exposes the public <code>run</code> entry point. The observer pattern records the trajectory each tick.</p><pre><code class="language-julia hljs">function beinggreen_world(; initial_capacity::Int = 512)
+    return World(
+        GreenPosition,
+        GreenHeading,
+        ActionTaker,
+        GreenProperties;
+        initial_capacity = initial_capacity,
+        allow_mutable = true,
+    )
+end
+
+function beinggreen_systems()
+    return (
+        InitBeingGreenSystem(),
+        MoveBeingGreenSystem(),
+        InteractBeingGreenSystem(),
+        TestBeingGreenSystem(),
+        BeingGreenTerminationSystem(),
+    )
+end
+
+function beinggreen_model(params::BeingGreenParams = BeingGreenParams())
+    world = beinggreen_world()
+    _add_standard_resources!(world, params)
+    add_resource!(world, BeingGreenGrid(params.grid_width, params.grid_height))
+    add_resource!(world, BeingGreenStats())
+    scheduler = Scheduler(world, beinggreen_systems())
+    initialize!(scheduler)
+    return scheduler
+end
+
+struct BeingGreenObserver end
+
+function beinggreen_headers(::BeingGreenObserver)
+    return [&quot;NActionTakers&quot;]
+end
+
+function beinggreen_values(::BeingGreenObserver, world::World)
+    stats = get_resource(world, BeingGreenStats)
+    return Float64[stats.n_action_takers]
+end
+
+function run_beinggreen(; params::BeingGreenParams = BeingGreenParams(), observe::Bool = true)
+    return _run_model(beinggreen_model, BeingGreenObserver(), beinggreen_values; params, observe)
+end</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../bayesian/bayesian/">« Bayesian Updating</a><a class="docs-footer-nextpage" href="../../birthrates/birthrates/">Birthrates »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.20.0 on <span class="colophon-date" title="Wednesday 18 November 2026 19:14">Wednesday 18 November 2026</span>. Using Julia version 1.13.4.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>

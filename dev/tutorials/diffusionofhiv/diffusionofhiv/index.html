@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="referrer" content="no-referrer"/><title>DiffusionOfHIV · ArkModelZoo.jl</title><meta name="title" content="DiffusionOfHIV · ArkModelZoo.jl"/><meta property="og:title" content="DiffusionOfHIV · ArkModelZoo.jl"/><meta property="twitter:title" content="DiffusionOfHIV · ArkModelZoo.jl"/><meta name="description" content="Documentation for ArkModelZoo.jl."/><meta property="og:description" content="Documentation for ArkModelZoo.jl."/><meta property="twitter:description" content="Documentation for ArkModelZoo.jl."/><meta property="og:url" content="https://ecorecipes.github.io/ArkModelZoo.jl/tutorials/diffusionofhiv/diffusionofhiv/"/><meta property="twitter:url" content="https://ecorecipes.github.io/ArkModelZoo.jl/tutorials/diffusionofhiv/diffusionofhiv/"/><link rel="canonical" href="https://ecorecipes.github.io/ArkModelZoo.jl/tutorials/diffusionofhiv/diffusionofhiv/"/><script data-outdated-warner src="../../../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.63.2/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../../assets/documenter.js"></script><script src="../../../search_index.js"></script><script src="../../../siteinfo.js"></script><script src="../../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="../../../">ArkModelZoo.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../../../">Home</a></li><li><span class="tocitem">Resilience</span><ul><li><a class="tocitem" href="../../resilience/resilience/">Resilience of agent-based models</a></li></ul></li><li><span class="tocitem">Models</span><ul><li><a class="tocitem" href="../../abtgc/abtgc/">ABTgc</a></li><li><a class="tocitem" href="../../aids/aids/">AIDS</a></li><li><a class="tocitem" href="../../altruism/altruism/">Altruism</a></li><li><a class="tocitem" href="../../antsystem/antsystem/">Ant System TSP</a></li><li><a class="tocitem" href="../../ants/ants/">Ants</a></li><li><a class="tocitem" href="../../artificialeconomy/artificialeconomy/">Artificial Economy</a></li><li><a class="tocitem" href="../../axelrodcultural/axelrodcultural/">AxelrodCultural</a></li><li><a class="tocitem" href="../../babysittingcoop/babysittingcoop/">Baby Sitting Coop</a></li><li><a class="tocitem" href="../../bank_reserves/bank_reserves/">Bank Reserves</a></li><li><a class="tocitem" href="../../bayesian/bayesian/">Bayesian Updating</a></li><li><a class="tocitem" href="../../beinggreen/beinggreen/">Being Green</a></li><li><a class="tocitem" href="../../birthrates/birthrates/">Birthrates</a></li><li><a class="tocitem" href="../../blackbox/blackbox/">BlackBox</a></li><li><a class="tocitem" href="../../boiling/boiling/">Boiling</a></li><li><a class="tocitem" href="../../bombscenario/bombscenario/">BombScenario</a></li><li><a class="tocitem" href="../../brians_brain/brians_brain/">Brian’s Brain</a></li><li><a class="tocitem" href="../../bullwhipeffect/bullwhipeffect/">Bullwhip Effect</a></li><li><a class="tocitem" href="../../ca_1d_elementary/ca_1d_elementary/">CA 1D Elementary</a></li><li><a class="tocitem" href="../../civilizationgrowth/civilizationgrowth/">Civilization Growth</a></li><li><a class="tocitem" href="../../climatechange/climatechange/">Climate Change</a></li><li><a class="tocitem" href="../../coin/coin/">COIN Learning</a></li><li><a class="tocitem" href="../../competitionlearning/competitionlearning/">Competition Learning</a></li><li><a class="tocitem" href="../../contactprocess/contactprocess/">Contact Process 2D</a></li><li><a class="tocitem" href="../../contagionnw/contagionnw/">Contagion NW</a></li><li><a class="tocitem" href="../../contagionsi/contagionsi/">Contagion SI</a></li><li><a class="tocitem" href="../../contagionsir/contagionsir/">Contagion SIR</a></li><li><a class="tocitem" href="../../cooperation/cooperation/">Cooperation</a></li><li><a class="tocitem" href="../../coordination/coordination/">Coordination</a></li><li><a class="tocitem" href="../../coordination2groups/coordination2groups/">Coordination 2 Groups</a></li><li><a class="tocitem" href="../../croprotation/croprotation/">Crop Rotation</a></li><li><a class="tocitem" href="../../crystallization/crystallization/">Crystallization</a></li><li><a class="tocitem" href="../../csvnetworkforaging/csvnetworkforaging/">CSV Network Foraging</a></li><li><a class="tocitem" href="../../csvpopulation/csvpopulation/">CSV Population</a></li><li><a class="tocitem" href="../../culturaldiffusion/culturaldiffusion/">Cultural Diffusion</a></li><li><a class="tocitem" href="../../cyberspaceopinion/cyberspaceopinion/">Cyberspace Opinion</a></li><li><a class="tocitem" href="../../daisyworld/daisyworld/">Daisyworld</a></li><li><a class="tocitem" href="../../dating/dating/">Dating</a></li><li><a class="tocitem" href="../../diffusionnetwork/diffusionnetwork/">Diffusion Network</a></li><li class="is-active"><a class="tocitem" href>DiffusionOfHIV</a><ul class="internal"><li><a class="tocitem" href="#Overview"><span>Overview</span></a></li><li><a class="tocitem" href="#Parameters"><span>Parameters</span></a></li><li><a class="tocitem" href="#Source-Code"><span>Source Code</span></a></li><li><a class="tocitem" href="#Time-Series"><span>Time Series</span></a></li><li><a class="tocitem" href="#Ensemble-Runs"><span>Ensemble Runs</span></a></li><li><a class="tocitem" href="#Parameter-Sensitivity"><span>Parameter Sensitivity</span></a></li><li><a class="tocitem" href="#Appendix:-Source-Code"><span>Appendix: Source Code</span></a></li></ul></li><li><a class="tocitem" href="../../disinfobitstringnw/disinfobitstringnw/">Disinfobitstringnw</a></li><li><a class="tocitem" href="../../dla/dla/">Dla</a></li><li><a class="tocitem" href="../../dlasimple/dlasimple/">DLA Simple</a></li><li><a class="tocitem" href="../../druguse/druguse/">Drug Use</a></li><li><a class="tocitem" href="../../druguseoverdose/druguseoverdose/">Drug Use Overdose</a></li><li><a class="tocitem" href="../../elfarol/elfarol/">El Farol</a></li><li><a class="tocitem" href="../../erosion/erosion/">Erosion</a></li><li><a class="tocitem" href="../../ethnocentrism/ethnocentrism/">Ethnocentrism</a></li><li><a class="tocitem" href="../../evolutionofnorms/evolutionofnorms/">EvolutionOfNorms</a></li><li><a class="tocitem" href="../../firepercolation/firepercolation/">Fire Percolation</a></li><li><a class="tocitem" href="../../firebenchmark/firebenchmark/">FireBenchmark</a></li><li><a class="tocitem" href="../../fireflies/fireflies/">Fireflies</a></li><li><a class="tocitem" href="../../flocking/flocking/">Flocking</a></li><li><a class="tocitem" href="../../flockingnetwork/flockingnetwork/">Flocking Network</a></li><li><a class="tocitem" href="../../forestdewdney/forestdewdney/">Forest Dewdney</a></li><li><a class="tocitem" href="../../fire/fire/">Forest Fire</a></li><li><a class="tocitem" href="../../fungalbioremediation/fungalbioremediation/">Fungal Bioremediation</a></li><li><a class="tocitem" href="../../giant_component/giant_component/">Giant Component</a></li><li><a class="tocitem" href="../../gishillclimber/gishillclimber/">GIS HillClimber</a></li><li><a class="tocitem" href="../../granovetter/granovetter/">Granovetter</a></li><li><a class="tocitem" href="../../grassbrushtrees/grassbrushtrees/">Grass Brush Trees</a></li><li><a class="tocitem" href="../../diffusion/diffusion/">Heat Diffusion</a></li><li><a class="tocitem" href="../../heatbugs/heatbugs/">Heatbugs</a></li><li><a class="tocitem" href="../../hikingelevation/hikingelevation/">HikingElevation</a></li><li><a class="tocitem" href="../../infinitelife/infinitelife/">Infinite Life</a></li><li><a class="tocitem" href="../../infodiffusion/infodiffusion/">Info Diffusion</a></li><li><a class="tocitem" href="../../ising/ising/">Ising</a></li><li><a class="tocitem" href="../../languageborders/languageborders/">Language Borders</a></li><li><a class="tocitem" href="../../languagechange/languagechange/">Language Change</a></li><li><a class="tocitem" href="../../lassavirus/lassavirus/">LassaVirus</a></li><li><a class="tocitem" href="../../leonarditechadoption/leonarditechadoption/">Leonardi Tech Adoption</a></li><li><a class="tocitem" href="../../life/life/">Life</a></li><li><a class="tocitem" href="../../logistic_growth/logistic_growth/">Logistic Growth</a></li><li><a class="tocitem" href="../../mailmen/mailmen/">Mailmen Delivery</a></li><li><a class="tocitem" href="../../marriage/marriage/">Marriage Problem</a></li><li><a class="tocitem" href="../../mimicry/mimicry/">Mimicry</a></li><li><a class="tocitem" href="../../minimalsis/minimalsis/">Minimal SIS</a></li><li><a class="tocitem" href="../../minoritybelief/minoritybelief/">Minority Belief Spread</a></li><li><a class="tocitem" href="../../minoritygame/minoritygame/">Minority Game</a></li><li><a class="tocitem" href="../../misinformationsbfc/misinformationsbfc/">Misinformation SBFC</a></li><li><a class="tocitem" href="../../modsocsegregation/modsocsegregation/">Modsoc Segregation</a></li><li><a class="tocitem" href="../../mousetraps/mousetraps/">Mousetraps</a></li><li><a class="tocitem" href="../../multidrugresistant/multidrugresistant/">MultidrugResistant</a></li><li><a class="tocitem" href="../../opinionbc/opinionbc/">Opinion Dynamics BC</a></li><li><a class="tocitem" href="../../paretolearn/paretolearn/">Pareto Learning</a></li><li><a class="tocitem" href="../../participatorydisinfo/participatorydisinfo/">Participatory Disinformation</a></li><li><a class="tocitem" href="../../participatorydisinformation/participatorydisinformation/">Participatory Disinformation</a></li><li><a class="tocitem" href="../../particles/particles/">Particles</a></li><li><a class="tocitem" href="../../party/party/">Party</a></li><li><a class="tocitem" href="../../pd_basic_evolutionary/pd_basic_evolutionary/">PD Basic Evolutionary</a></li><li><a class="tocitem" href="../../pdsimple/pdsimple/">PD Simple</a></li><li><a class="tocitem" href="../../percolation/percolation/">Percolation</a></li><li><a class="tocitem" href="../../polymerdynamics/polymerdynamics/">Polymer Dynamics</a></li><li><a class="tocitem" href="../../prefattachhomophily/prefattachhomophily/">Pref Attach Homophily</a></li><li><a class="tocitem" href="../../preferential_attachment/preferential_attachment/">Preferential Attachment</a></li><li><a class="tocitem" href="../../privacyopinion/privacyopinion/">Privacy Opinion</a></li><li><a class="tocitem" href="../../productsmarket/productsmarket/">Products Market</a></li><li><a class="tocitem" href="../../public_good/public_good/">Public Good</a></li><li><a class="tocitem" href="../../cqin/cqin/">Quality Improvement Network</a></li><li><a class="tocitem" href="../../rabbits_grass_weeds/rabbits_grass_weeds/">Rabbits Grass Weeds</a></li><li><a class="tocitem" href="../../decay/decay/">Radioactive Decay</a></li><li><a class="tocitem" href="../../rationalevolvingpd/rationalevolvingpd/">Rational Evolving PD</a></li><li><a class="tocitem" href="../../rebellion/rebellion/">Rebellion</a></li><li><a class="tocitem" href="../../recruitingmovement/recruitingmovement/">Recruiting Movement</a></li><li><a class="tocitem" href="../../recruiting/recruiting/">Recruiting Supporters</a></li><li><a class="tocitem" href="../../recruitingsupporters/recruitingsupporters/">Recruiting Supporters</a></li><li><a class="tocitem" href="../../resilientteam/resilientteam/">Resilient Team</a></li><li><a class="tocitem" href="../../rhinopoaching/rhinopoaching/">Rhino Poaching</a></li><li><a class="tocitem" href="../../riseofradicalism/riseofradicalism/">Rise of Radicalism</a></li><li><a class="tocitem" href="../../rope/rope/">Rope</a></li><li><a class="tocitem" href="../../rumormill/rumormill/">Rumor Mill</a></li><li><a class="tocitem" href="../../sand/sand/">Sand</a></li><li><a class="tocitem" href="../../schelling/schelling/">Schelling Segregation</a></li><li><a class="tocitem" href="../../segregation/segregation/">Segregation</a></li><li><a class="tocitem" href="../../shepherds/shepherds/">Shepherds</a></li><li><a class="tocitem" href="../../simple_genetic_algorithm/simple_genetic_algorithm/">Simple Genetic Algorithm</a></li><li><a class="tocitem" href="../../simplemarket/simplemarket/">Simple Market</a></li><li><a class="tocitem" href="../../simplemarketrandom/simplemarketrandom/">Simple Market Random</a></li><li><a class="tocitem" href="../../simplemarkettable/simplemarkettable/">Simple Market Table</a></li><li><a class="tocitem" href="../../sir/sir/">SIR Epidemic</a></li><li><a class="tocitem" href="../../sleuthlanduse/sleuthlanduse/">Sleuth LandUse</a></li><li><a class="tocitem" href="../../slime/slime/">Slime</a></li><li><a class="tocitem" href="../../slowspread/slowspread/">Slow Spread Env Action</a></li><li><a class="tocitem" href="../../small_worlds/small_worlds/">Small Worlds</a></li><li><a class="tocitem" href="../../socialinfluence/socialinfluence/">Social Influence</a></li><li><a class="tocitem" href="../../socialnetworkdiffusion/socialnetworkdiffusion/">Social Network Diffusion</a></li><li><a class="tocitem" href="../../soliddiffusion/soliddiffusion/">Solid Diffusion</a></li><li><a class="tocitem" href="../../spatialattitude/spatialattitude/">Spatial Attitude</a></li><li><a class="tocitem" href="../../ipd/ipd/">Spatial IPD</a></li><li><a class="tocitem" href="../../spatialopinion/spatialopinion/">Spatial Opinion Dynamics</a></li><li><a class="tocitem" href="../../fakenews/fakenews/">Spread of Fake News</a></li><li><a class="tocitem" href="../../spreadingbots/spreadingbots/">Spreading Bots</a></li><li><a class="tocitem" href="../../spreadinggroups/spreadinggroups/">Spreading Groups</a></li><li><a class="tocitem" href="../../sugarscape_1_growback/sugarscape_1_growback/">Sugarscape 1 Growback</a></li><li><a class="tocitem" href="../../sugarscapeculture/sugarscapeculture/">Sugarscape Culture</a></li><li><a class="tocitem" href="../../sugarscapesexual/sugarscapesexual/">Sugarscape Sexual</a></li><li><a class="tocitem" href="../../superdiffuser/superdiffuser/">SuperDiffuser</a></li><li><a class="tocitem" href="../../teamassembly/teamassembly/">Team Assembly</a></li><li><a class="tocitem" href="../../termites/termites/">Termites</a></li><li><a class="tocitem" href="../../thermostat/thermostat/">Thermostat</a></li><li><a class="tocitem" href="../../tourism/tourism/">Tourism</a></li><li><a class="tocitem" href="../../traffic2lanes/traffic2lanes/">Traffic 2 Lanes</a></li><li><a class="tocitem" href="../../trafficbasic/trafficbasic/">Traffic Basic</a></li><li><a class="tocitem" href="../../trafficgrid/trafficgrid/">Traffic Grid</a></li><li><a class="tocitem" href="../../trafficintersection/trafficintersection/">Traffic Intersection</a></li><li><a class="tocitem" href="../../tumor/tumor/">Tumor</a></li><li><a class="tocitem" href="../../unitcohesion/unitcohesion/">Unit Cohesion</a></li><li><a class="tocitem" href="../../virus_on_network/virus_on_network/">Virus on a Network</a></li><li><a class="tocitem" href="../../virus/virus/">Virus on Network</a></li><li><a class="tocitem" href="../../voronoivoter/voronoivoter/">Voronoi Voter</a></li><li><a class="tocitem" href="../../voter/voter/">Voter Model</a></li><li><a class="tocitem" href="../../voting/voting/">Voting</a></li><li><a class="tocitem" href="../../wealthdistribution/wealthdistribution/">Wealth Distribution</a></li><li><a class="tocitem" href="../../wisdomcrowd/wisdomcrowd/">Wisdom of Crowd</a></li><li><a class="tocitem" href="../../wolfsheep/wolfsheep/">Wolf Sheep Predation</a></li></ul></li><li><a class="tocitem" href="../../../api/">API Reference</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Models</a></li><li class="is-active"><a href>DiffusionOfHIV</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>DiffusionOfHIV</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/ecorecipes/ArkModelZoo.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/ecorecipes/ArkModelZoo.jl/blob/main/docs/src/tutorials/diffusionofhiv/diffusionofhiv.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="DiffusionOfHIV"><a class="docs-heading-anchor" href="#DiffusionOfHIV">DiffusionOfHIV</a><a id="DiffusionOfHIV-1"></a><a class="docs-heading-anchor-permalink" href="#DiffusionOfHIV" title="Permalink"></a></h1><h2 id="Overview"><a class="docs-heading-anchor" href="#Overview">Overview</a><a id="Overview-1"></a><a class="docs-heading-anchor-permalink" href="#Overview" title="Permalink"></a></h2><h3 id="WHAT-IS-IT?"><a class="docs-heading-anchor" href="#WHAT-IS-IT?">WHAT IS IT?</a><a id="WHAT-IS-IT?-1"></a><a class="docs-heading-anchor-permalink" href="#WHAT-IS-IT?" title="Permalink"></a></h3><p>This model simulates the spread of the human immunodeficiency virus (HIV), via sexual transmission, through a small isolated human population. It therefore illustrates the effects of certain sexual practices across a population.</p><p>As is well known now, HIV is spread in a variety of ways of which sexual contact is only one. HIV can also be spread by needle-sharing among injecting drug users, through blood transfusions (although this has become very uncommon in countries like the United States in which blood is screened for HIV antibodies), or from HIV-infected women to their babies either before or during birth, or afterwards through breast-feeding. This model focuses only on the spread of HIV via sexual contact.</p><p>The model examines the emergent effects of four aspects of sexual behavior. The user controls the population’s tendency to practice abstinence, the amount of time an average “couple” in the population will stay together, the population’s tendency to use condoms, and the population’s tendency to get tested for HIV. Exploration of the first and second variables may illustrate how changes in sexual mores in our society have contributed to increases in the prevalence of sexually transmitted diseases, while exploration of the third and fourth may provide contemporary solutions to the problem.</p><p>By allowing the user to control how often an average individual will choose to be tested, the user can explore an important dimension of HIV’s threat to public health. Because the virus does not make itself immediately known in its host, individuals are often infected for some time before a test or immune deficiency symptoms (which leads to a test) identifies them as such. Regular identification of individuals infected by the virus could have significant public health impacts if knowledge of the infection positively affected sexual behaviors. This model explores this possibility by making all individuals who know of their positive HIV status always practice safe sex.</p><h3 id="HOW-IT-WORKS"><a class="docs-heading-anchor" href="#HOW-IT-WORKS">HOW IT WORKS</a><a id="HOW-IT-WORKS-1"></a><a class="docs-heading-anchor-permalink" href="#HOW-IT-WORKS" title="Permalink"></a></h3><p>The model uses “couples” to represent two people engaged in sexual relations. Individuals wander around the world when they are not in couples. Upon coming into contact with a suitable partner, there is a chance the two individuals will “couple” together. When this happens, the two individuals no longer move about, they stand next to each other holding hands as a representation of two people in a sexual relationship.</p><p>The presence of the virus in the population is represented by the colors of individuals. Three colors are used: green individuals are uninfected, blue individuals are infected but their infection is unknown, and red individuals are infected and their infection is known.</p><h3 id="THINGS-TO-NOTICE"><a class="docs-heading-anchor" href="#THINGS-TO-NOTICE">THINGS TO NOTICE</a><a id="THINGS-TO-NOTICE-1"></a><a class="docs-heading-anchor-permalink" href="#THINGS-TO-NOTICE" title="Permalink"></a></h3><p>Set the INITIAL-PEOPLE slider to 300, AVERAGE-COUPLING-TENDENCY to 10, AVERAGE-COMMITMENT to 100, and the other two sliders to 0. Push SETUP and then push GO. Notice that many individuals rapidly pair up into stationary “couples”, with the patches behind them turned a dark gray. These couples represent sexual activity between the two individuals. Individuals that continue to move about (and do not have a gray patch behind them) are not engaging in sexual relations. With RELATIONSHIP-DURATION set to 100, an average individual will have monogamous sexual relations with a partner for about 100 weeks (approximately 2 years) before ending the sexual relationship and searching out a new partner.</p><p>Stop the simulation (by pressing the GO button once again), move the AVERAGE-COUPLING-TENDENCY slider to 0, push SETUP, and start the simulation again (with the GO button). Notice that this time, couples are not forming. With a low COUPLING-TENDENCY, individuals do not choose to have sex, which in this model is depicted by the graphical representation of couplehood. Notice that with these settings, HIV does not typically spread. However, spreading could happen since the population’s tendency is set according to a normal distribution and a few people will probably have COUPLING-TENDENCY values above 0 at this setting.</p><p>Again reset the simulation, this time with AVERAGE-COUPLING-TENDENCY set back to 10 and AVERAGE-COMMITMENT set to 1. Notice that while individuals do not stand still next to each other for any noticeable length of time, coupling is nevertheless occurring. This is indicated by the occasional flash of dark gray behind individuals that are briefly next to one another. Notice that the spread of HIV is actually faster when RELATIONSHIP-DURATION is very short compared to when it is very long.</p><p>Now run a simulation with AVERAGE-COMMITMENT equal to 1, AVERAGE-COUPLING-TENDENCY set to 1, AVERAGE-CONDOM-USE set to 10, and AVERAGE-TEST-FREQUENCY set to 1.0. With negligible couple formation and high condom use anyway, there should be no spread of HIV. Notice how pale blue “infection unknown” individuals turn red much quicker in this simulation. When the individuals turn red, they know their HIV status. Some individuals turn red because they have been infected for long enough that they develop symptoms, which alerts them to the need for an HIV test. Others become red because they choose to be tested. With AVERAGE-TEST-FREQUENCY set to 1.0, healthy individuals are also being tested, but their color does not change since the tests come back negative.</p><p>When all the individuals in the simulation are either green or red, change the sliders without stopping the simulation. Set AVERAGE-COUPLING-TENDENCY to 10, AVERAGE-COMMITMENT to 100, AVERAGE-CONDOM-USE to 0, and AVERAGE-TEST-FREQUENCY to 0. Notice that despite the immediate formation of couples and the fact that condom-use tendency is presumably very low, some between healthy (green) individuals and infected (red) individuals, no spread of HIV occurs. This is because while the model expects HIV positive individuals to continue to engage in sexual relations, it presumes that those individuals will always use condoms and that the condoms will always work. The rationale for this design is discussed briefly in the “What is it?” section of this tab.</p><p>Finally, set INITIAL-PEOPLE to 500 to notice that couples can form on top of each other. Watch the simulation until you see individuals by themselves, but standing still and with a gray patch behind them indicating coupling. Underneath one of its neighbors, is the individuals partner. This apparent bug in the program is necessary because individuals need to be able to couple fairly freely. If space constraints prohibited coupling, unwanted emergent behavior would occur with high population densities.</p><p>Couples are formed by a partnership of “righty” and “lefty” shapes which is not immediately noticeable. These shapes are not intended to represent genders in any fashion, but merely to provide a useful way to depict couple graphics. In order for the hands of a righty and lefty to match up, both must be off-centered in their patch. Without this feature, two couples next to each other would appear to be a line of four individuals (instead of two groups of two). It is intended that the differences between righty and lefty shapes not be especially apparent in order to prevent unintended associations with gender. Any righty or lefty shape can be thought of as male or female or neither.</p><h3 id="THINGS-TO-TRY"><a class="docs-heading-anchor" href="#THINGS-TO-TRY">THINGS TO TRY</a><a id="THINGS-TO-TRY-1"></a><a class="docs-heading-anchor-permalink" href="#THINGS-TO-TRY" title="Permalink"></a></h3><p>Run a number of experiments with the GO button to find out the effects of different variables on the spread of HIV. Try using good controls in your experiment. Good controls are when only one variable is changed between trials. For instance, to find out what effect the average duration of a relationship has, run four experiments with the AVERAGE-COMMITMENT slider set at 1 the first time, 2 the second time, 10 the third time, and 50 the last. How much does the prevalence of HIV increase in each case? Does this match your expectations?</p><p>Are the effects of some slider variables mediated by the effects of others? For instance, if lower AVERAGE-COMMITMENT values seem to increase the spread of HIV when all other sliders are set at 0, does the same thing occur if all other sliders are set at 10? You can run many experiments to test different hypotheses regarding the emergent public health effects associated with individual sexual behaviors.</p><h3 id="EXTENDING-THE-MODEL"><a class="docs-heading-anchor" href="#EXTENDING-THE-MODEL">EXTENDING THE MODEL</a><a id="EXTENDING-THE-MODEL-1"></a><a class="docs-heading-anchor-permalink" href="#EXTENDING-THE-MODEL" title="Permalink"></a></h3><p>Like all computer simulations of human behaviors, this model has necessarily simplified its subject area substantially. The model therefore provides numerous opportunities for extension:</p><p>The model depicts sexual activity as two people standing next to each other. This suggests that all couples have sex and that abstinence is only practiced in singlehood. The model could be changed to reflect a more realistic view of what couples are. Individuals could be in couples without having sex. To show sex, then, a new graphical representation would have to be employed. Perhaps sex could be symbolized by having the patches beneath the couple flash briefly to a different color.</p><p>The model does not distinguish between genders. This is an obvious over-simplification chosen because making an exclusively heterosexual model was untenable while making one that included a variety of sexual preferences might have distracted from the public health issues which it was designed to explore. However, extending the model by adding genders would make the model more realistic.</p><p>The model assumes that individuals who are aware that they are infected always practice safe sex. This portrayal of human behavior is clearly not entirely realistic, but it does create interesting emergent behavior that has genuine relevance to certain public health debate. However, an interesting extension of the model would be to change individuals’ reactions to knowledge of HIV status.</p><p>The model assumes that condom use is always 100% effective. In fact, responsible condom use is actually slightly less than ideal protection from the transmission of HIV. Add a line of code to the INFECT procedure to check for a slight random chance that a particular episode of condom-use is not effective. Another change that can be made in the INFECT procedure regards a couple’s choice of condom-use. In this model, when the two partners of a couple “disagree” about whether or not to use a condom, the partner that doesn’t wish to use a condom makes the choice. The opposite possibility is also valid.</p><p>Finally, certain significant changes can easily be made in the model by simply changing the value of certain global variables in the procedure SETUP-GLOBALS. Two variables set in this procedure that are especially worthy of investigation are INFECTION-CHANCE and SYMPTOMS-SHOW. The former controls what chance an infection has of spreading from an infected to an uninfected partner if no protection is used. The variable is currently set to 50, meaning that in a week of sexual relations, the chance of infection occurring is 50%. It is not clear at this time how realistic that figure is. SYMPTOMS-SHOW is the variable that controls how long, on average, a person will have the HIV virus before symptoms begin to appear, alerting that person to the presence of some health problem. It is currently set to 200 (weeks) in this model.</p><h3 id="NETLOGO-FEATURES"><a class="docs-heading-anchor" href="#NETLOGO-FEATURES">NETLOGO FEATURES</a><a id="NETLOGO-FEATURES-1"></a><a class="docs-heading-anchor-permalink" href="#NETLOGO-FEATURES" title="Permalink"></a></h3><p>Notice that the four procedures that assign the different tendencies generate many small random numbers and add them together. This produces a normal distribution of tendency values. A random number between 0 and 100 is as likely to be 1 as it is to be 99. However, the sum of 20 numbers between 0 and 5 is much more likely to be 50 than it is to be</p><ol><li></li></ol><p>Notice that the global variables SLIDER-CHECK-1, SLIDER-CHECK-2, and so on are assigned with the values of the various sliders so that the model can check the sliders against the variables while the model is running. Every time-step, a slider’s value is checked against a global variable that holds the value of what the slider’s value was the time-step before. If the slider’s current value is different than the global variable, NetLogo knows to call procedures that adjust the population’s tendencies. Otherwise, those adjustment procedures are not called.</p><h3 id="CREDITS-AND-REFERENCES"><a class="docs-heading-anchor" href="#CREDITS-AND-REFERENCES">CREDITS AND REFERENCES</a><a id="CREDITS-AND-REFERENCES-1"></a><a class="docs-heading-anchor-permalink" href="#CREDITS-AND-REFERENCES" title="Permalink"></a></h3><p>Special thanks to Steve Longenecker for model development.</p><h3 id="HOW-TO-CITE"><a class="docs-heading-anchor" href="#HOW-TO-CITE">HOW TO CITE</a><a id="HOW-TO-CITE-1"></a><a class="docs-heading-anchor-permalink" href="#HOW-TO-CITE" title="Permalink"></a></h3><p>If you mention this model or the NetLogo software in a publication, we ask that you include the citations below.</p><p>For the model itself:</p><ul><li>Wilensky, U. (1997). NetLogo HIV model. http://ccl.northwestern.edu/netlogo/models/HIV. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.</li></ul><p>Please cite the NetLogo software as:</p><ul><li>Wilensky, U. (1999). NetLogo. http://ccl.northwestern.edu/netlogo/. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.</li></ul><h3 id="COPYRIGHT-AND-LICENSE"><a class="docs-heading-anchor" href="#COPYRIGHT-AND-LICENSE">COPYRIGHT AND LICENSE</a><a id="COPYRIGHT-AND-LICENSE-1"></a><a class="docs-heading-anchor-permalink" href="#COPYRIGHT-AND-LICENSE" title="Permalink"></a></h3><p>Copyright 1997 Uri Wilensky.</p><p><img src="http://ccl.northwestern.edu/images/creativecommons/byncsa.png" alt="CC BY-NC-SA 3.0"/></p><p>This model is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License. To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/3.0/ or send a letter to Creative Commons, 559 Nathan Abbott Way, Stanford, California 94305, USA.</p><p>NetLogo itself is free software for non-commercial use under the terms of the GNU General Public License (<a href="https://ccl.northwestern.edu/netlogo/docs/copyright.html">see full license information here</a>).</p><p>To inquire about commercial licenses for either NetLogo or specific models from the models library, please contact netlogo-commercial-admin@ccl.northwestern.edu.</p><p>This model was created as part of the project: CONNECTED MATHEMATICS: MAKING SENSE OF COMPLEX PHENOMENA THROUGH BUILDING OBJECT-BASED PARALLEL MODELS (OBPML). The project gratefully acknowledges the support of the National Science Foundation (Applications of Advanced Technologies Program) – grant numbers RED #9552950 and REC #9632612.</p><p>This model was converted to NetLogo as part of the projects: PARTICIPATORY SIMULATIONS: NETWORK-BASED DESIGN FOR SYSTEMS LEARNING IN CLASSROOMS and/or INTEGRATED SIMULATION AND MODELING ENVIRONMENT. The project gratefully acknowledges the support of the National Science Foundation (REPP &amp; ROLE programs) – grant numbers REC #9814682 and REC-0126227. Converted from StarLogoT to NetLogo, 2001.</p><h2 id="Parameters"><a class="docs-heading-anchor" href="#Parameters">Parameters</a><a id="Parameters-1"></a><a class="docs-heading-anchor-permalink" href="#Parameters" title="Permalink"></a></h2><table><tr><th style="text-align: right">Parameter</th><th style="text-align: right">Type</th><th style="text-align: right">Default</th><th style="text-align: right">Description</th></tr><tr><td style="text-align: right"><code>condom_use</code></td><td style="text-align: right"><code>Bool</code></td><td style="text-align: right"><code>false</code></td><td style="text-align: right">condom use</td></tr><tr><td style="text-align: right"><code>infection_rate</code></td><td style="text-align: right"><code>Float64</code></td><td style="text-align: right"><code>1.0</code></td><td style="text-align: right">1.0 = 100%, reduced to 0.2 with condom use</td></tr><tr><td style="text-align: right"><code>pop_scale</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>100000</code></td><td style="text-align: right">divide population by this for agent count</td></tr><tr><td style="text-align: right"><code>grid_width</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>401</code></td><td style="text-align: right">grid width</td></tr><tr><td style="text-align: right"><code>grid_height</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>401</code></td><td style="text-align: right">grid height</td></tr><tr><td style="text-align: right"><code>max_ticks</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>100</code></td><td style="text-align: right">max ticks</td></tr></table><h2 id="Source-Code"><a class="docs-heading-anchor" href="#Source-Code">Source Code</a><a id="Source-Code-1"></a><a class="docs-heading-anchor-permalink" href="#Source-Code" title="Permalink"></a></h2><p>The Julia code to run this model:</p><pre><code class="language-julia hljs">using ArkModelZoo
+_, trajectory = run_diffusionofhiv()</code></pre><h2 id="Time-Series"><a class="docs-heading-anchor" href="#Time-Series">Time Series</a><a id="Time-Series-1"></a><a class="docs-heading-anchor-permalink" href="#Time-Series" title="Permalink"></a></h2><p><img src="../plot_timeseries.png" alt="DiffusionOfHIV time series"/></p><h2 id="Ensemble-Runs"><a class="docs-heading-anchor" href="#Ensemble-Runs">Ensemble Runs</a><a id="Ensemble-Runs-1"></a><a class="docs-heading-anchor-permalink" href="#Ensemble-Runs" title="Permalink"></a></h2><p>Ten replicates with different random seeds, showing mean ± standard deviation.</p><p><img src="../plot_ensemble.png" alt="DiffusionOfHIV ensemble"/></p><h2 id="Parameter-Sensitivity"><a class="docs-heading-anchor" href="#Parameter-Sensitivity">Parameter Sensitivity</a><a id="Parameter-Sensitivity-1"></a><a class="docs-heading-anchor-permalink" href="#Parameter-Sensitivity" title="Permalink"></a></h2><p>Varying <code>infection_rate</code>.</p><p><img src="../plot_sensitivity.png" alt="DiffusionOfHIV sensitivity"/></p><h2 id="Appendix:-Source-Code"><a class="docs-heading-anchor" href="#Appendix:-Source-Code">Appendix: Source Code</a><a id="Appendix:-Source-Code-1"></a><a class="docs-heading-anchor-permalink" href="#Appendix:-Source-Code" title="Permalink"></a></h2><p>This model is implemented in the <a href="https://github.com/sdwfrost/Ark.jl">Ark.jl</a> Entity-Component-System (ECS) framework. The code is split into five files, each with a distinct role:</p><ul><li><strong>Parameters</strong>: a mutable struct holding all configurable values.</li><li><strong>Components</strong>: lightweight data types attached to individual entities (agents).</li><li><strong>Resources</strong>: world-level shared state accessible to all systems.</li><li><strong>Systems</strong>: functions that operate on entities each tick, defining model behavior.</li><li><strong>Model</strong>: wiring that assembles the world, registers resources and systems, and provides the run entry point.</li></ul><h3 id="Parameters-(parameters.jl)"><a class="docs-heading-anchor" href="#Parameters-(parameters.jl)">Parameters (<code>parameters.jl</code>)</a><a id="Parameters-(parameters.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Parameters-(parameters.jl)" title="Permalink"></a></h3><p>The parameter struct uses <code>@kwdef</code> so that every field has a default value and can be overridden by keyword. These defaults match the original NetLogo model’s slider settings.</p><pre><code class="language-julia hljs">Base.@kwdef mutable struct HIVParams
+    condom_use::Bool = false
+    infection_rate::Float64 = 1.0   # 1.0 = 100%, reduced to 0.2 with condom use
+    pop_scale::Int = 100000         # divide population by this for agent count
+    grid_width::Int = 401
+    grid_height::Int = 401
+    max_ticks::Int = 100
+    seed::Int = 42
+end</code></pre><h3 id="Components-(components.jl)"><a class="docs-heading-anchor" href="#Components-(components.jl)">Components (<code>components.jl</code>)</a><a id="Components-(components.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Components-(components.jl)" title="Permalink"></a></h3><p>Components are lightweight data types attached to individual entities (agents). Mutable structs hold per-entity state, while empty tag structs act as markers for the ECS query system to efficiently filter entities.</p><pre><code class="language-julia hljs">struct HIVDummy end</code></pre><h3 id="Resources-(resources.jl)"><a class="docs-heading-anchor" href="#Resources-(resources.jl)">Resources (<code>resources.jl</code>)</a><a id="Resources-(resources.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Resources-(resources.jl)" title="Permalink"></a></h3><p>Resources are world-level singletons shared across all systems, used for global state and aggregate statistics.</p><pre><code class="language-julia hljs"># US state data: (id, centroid_x, centroid_y, population, pctHIV, minticket, maxticket)
+const HIV_STATE_DATA = [
+    (1, -122.01, 47.12, 6897012, 0.0022, 1, 20),
+    (2, -112.9, 45.82, 1005141, 0.0006, 21, 40),
+    (3, -69.21, 44.71, 1329192, 0.0014, 41, 60),
+    (4, -97.77, 47.63, 699628, 0.0005, 61, 80),
+    (5, -98.04, 43.59, 833354, 0.0006, 81, 100),
+    (6, -107.4, 43.02, 576412, 0.0006, 101, 120),
+    (7, -89.65, 44.94, 5726398, 0.0011, 121, 140),
+    (8, -114.51, 45.41, 1595728, 0.0007, 141, 160),
+    (9, -72.57, 43.95, 626011, 0.0013, 161, 180),
+    (10, -94.69, 46.74, 5379139, 0.0016, 181, 200),
+    (11, -120.13, 44.96, 3899353, 0.0022, 201, 220),
+    (12, -71.7, 43.76, 1320718, 0.0012, 221, 240),
+    (13, -93.59, 41.91, 3074186, 0.0009, 241, 260),
+    (14, -71.1, 41.95, 6646144, 0.0041, 261, 280),
+    (15, -97.46, 41.55, 1855525, 0.0012, 281, 300),
+    (16, -74.63, 42.27, 19570261, 0.009, 301, 340),
+    (17, -76.22, 40.8, 12763536, 0.0032, 341, 360),
+    (18, -72.65, 41.62, 3590347, 0.0038, 361, 380),
+    (19, -71.45, 41.65, 1050292, 0.0024, 381, 400),
+    (20, -74.82, 40.28, 8864590, 0.0049, 401, 420),
+    (21, -86.79, 38.78, 6537334, 0.0017, 421, 440),
+    (22, -115.73, 37.44, 2758931, 0.0035, 441, 490),
+    (23, -111.38, 39.28, 2855287, 0.001, 491, 510),
+    (24, -119.03, 35.81, 38041430, 0.0048, 511, 570),
+    (25, -82.46, 39.58, 11544225, 0.002, 571, 590),
+    (26, -89.33, 39.2, 12875255, 0.0035, 591, 610),
+    (27, -77.04, 38.89, 632323, 0.0343, 611, 630),
+    (28, -75.51, 39.26, 917092, 0.0047, 631, 650),
+    (29, -80.2, 38.83, 1855413, 0.0012, 651, 670),
+    (30, -77.15, 39.09, 5884563, 0.0074, 671, 690),
+    (31, -105.08, 38.97, 5187582, 0.0024, 691, 710),
+    (32, -85.75, 37.76, 4380415, 0.0019, 711, 730),
+    (33, -96.91, 38.85, 2885905, 0.0013, 731, 750),
+    (34, -78.54, 37.68, 8185867, 0.0031, 751, 770),
+    (35, -91.77, 38.32, 6021988, 0.0022, 771, 790),
+    (36, -113.95, 34.47, 6553255, 0.0025, 791, 810),
+    (37, -96.97, 34.38, 3814820, 0.0018, 811, 830),
+    (38, -78.96, 35.61, 9752073, 0.0033, 831, 850),
+    (39, -86.76, 35.85, 6456243, 0.003, 851, 870),
+    (40, -97.2, 31.02, 26059203, 0.004, 871, 915),
+    (41, -105.66, 34.06, 2085538, 0.0017, 916, 935),
+    (42, -86.31, 32.28, 4822023, 0.003, 936, 955),
+    (43, -90.59, 32.69, 2984926, 0.0035, 956, 975),
+    (44, -82.87, 32.57, 9919945, 0.0058, 976, 995),
+    (45, -81.53, 33.64, 4723723, 0.0041, 996, 1015),
+    (46, -91.21, 34.6, 2949131, 0.002, 1016, 1035),
+    (47, -91.48, 30.78, 4601893, 0.0049, 1036, 1055),
+    (48, -83.18, 28.89, 19317568, 0.0066, 1056, 1110),
+    (49, -86.25, 45.38, 9883360, 0.0018, 1111, 1130),
+]
+
+mutable struct HIVAgent
+    x::Int
+    y::Int
+    home_state::Int       # state index (1-49)
+    infected::Bool
+    coupled::Bool
+    partner_idx::Int      # 0 = no partner
+    age::Int              # ticks since birth, die at 6
+    traveling::Bool
+    home_x::Int
+    home_y::Int
+end
+
+mutable struct HIVState
+    width::Int
+    height::Int
+    state_id::Matrix{Int}     # Voronoi: patch → nearest state (1-49)
+    agents::Vector{HIVAgent}
+    alive::Vector{Bool}
+    # State patch lists for fast random placement
+    state_patches::Vector{Vector{Tuple{Int,Int}}}
+end
+
+function HIVState(w::Int, h::Int)
+    HIVState(w, h,
+        zeros(Int, w, h),
+        HIVAgent[],
+        Bool[],
+        [Tuple{Int,Int}[] for _ in 1:49])
+end
+
+mutable struct HIVStats
+    pct_infected::Float64
+    total_agents::Int
+    total_infected::Int
+end
+HIVStats() = HIVStats(0.0, 0, 0)</code></pre><h3 id="Systems-(systems.jl)"><a class="docs-heading-anchor" href="#Systems-(systems.jl)">Systems (<code>systems.jl</code>)</a><a id="Systems-(systems.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Systems-(systems.jl)" title="Permalink"></a></h3><p>Systems contain the model logic and execute in a defined order each tick. Each system struct implements either <code>initialize!</code> (run once at setup) or <code>update!</code> (run every tick).</p><pre><code class="language-julia hljs"># --- Initialization ---
+
+struct InitHIVSystem &lt;: System end
+
+function _gis_to_grid(gis_x::Float64, gis_y::Float64, w::Int, h::Int)
+    # Map GIS coords (-125..-65 lon, 28..48 lat) to grid (1..w, 1..h)
+    gx = round(Int, (gis_x - (-125.0)) / ((-65.0) - (-125.0)) * (w - 1)) + 1
+    gy = round(Int, (gis_y - 28.0) / (48.0 - 28.0) * (h - 1)) + 1
+    return (clamp(gx, 1, w), clamp(gy, 1, h))
+end
+
+function initialize!(::InitHIVSystem, world::World)
+    params = get_resource(world, HIVParams)
+    rng = get_resource(world, RNGResource).rng
+    st = get_resource(world, HIVState)
+    stats = get_resource(world, HIVStats)
+    w, h = st.width, st.height
+
+    # Build grid centroids in grid coordinates
+    centroids = Vector{Tuple{Int,Int}}(undef, 49)
+    for i in 1:49
+        _, cx, cy = HIV_STATE_DATA[i][1], HIV_STATE_DATA[i][2], HIV_STATE_DATA[i][3]
+        centroids[i] = _gis_to_grid(Float64(cx), Float64(cy), w, h)
+    end
+
+    # Voronoi tessellation: assign each patch to nearest state centroid
+    for x in 1:w, y in 1:h
+        best_d = Inf
+        best_s = 1
+        for s in 1:49
+            cx, cy = centroids[s]
+            d = (x - cx)^2 + (y - cy)^2
+            if d &lt; best_d
+                best_d = d
+                best_s = s
+            end
+        end
+        st.state_id[x, y] = best_s
+        push!(st.state_patches[best_s], (x, y))
+    end
+
+    # Create agents proportional to population
+    for i in 1:49
+        pop = HIV_STATE_DATA[i][4]
+        pct = HIV_STATE_DATA[i][5]
+        n_agents = max(1, div(pop, params.pop_scale))
+        n_infected = round(Int, n_agents * pct)
+        patches = st.state_patches[i]
+        isempty(patches) &amp;&amp; continue
+
+        for j in 1:n_agents
+            px, py = patches[rand(rng, 1:length(patches))]
+            is_inf = j &lt;= n_infected
+            agent = HIVAgent(px, py, i, is_inf, false, 0,
+                             rand(rng, 0:5), false, px, py)
+            push!(st.agents, agent)
+            push!(st.alive, true)
+        end
+    end
+
+    _update_hiv_stats!(st, stats)
+    return nothing
+end
+
+function _update_hiv_stats!(st::HIVState, stats::HIVStats)
+    total = 0
+    infected = 0
+    for i in eachindex(st.agents)
+        if st.alive[i]
+            total += 1
+            if st.agents[i].infected
+                infected += 1
+            end
+        end
+    end
+    stats.total_agents = total
+    stats.total_infected = infected
+    stats.pct_infected = total &gt; 0 ? infected / total : 0.0
+    return nothing
+end
+
+# Ticket-based state lookup
+function _ticket_to_state(ticket::Int)
+    for i in 1:49
+        if HIV_STATE_DATA[i][6] &lt;= ticket &lt;= HIV_STATE_DATA[i][7]
+            return i
+        end
+    end
+    return 1
+end
+
+# Wrapping helper
+function _hiv_wrap(v::Int, sz::Int)
+    return mod1(v, sz)
+end
+
+# --- Aging &amp; Reproduction ---
+
+struct HIVAgingSystem &lt;: System end
+
+function update!(::HIVAgingSystem, world::World)
+    rng = get_resource(world, RNGResource).rng
+    st = get_resource(world, HIVState)
+
+    new_agents = HIVAgent[]
+    for i in eachindex(st.agents)
+        !st.alive[i] &amp;&amp; continue
+        a = st.agents[i]
+        a.age += 1
+        if a.age &gt;= 6
+            # Reproduce: new agent at same position
+            child_inf = a.infected &amp;&amp; rand(rng) &lt; 0.01
+            push!(new_agents, HIVAgent(a.x, a.y, a.home_state, child_inf,
+                                       false, 0, 0, false, a.x, a.y))
+            # Uncouple partner
+            if a.coupled &amp;&amp; a.partner_idx &gt; 0 &amp;&amp; a.partner_idx &lt;= length(st.agents) &amp;&amp; st.alive[a.partner_idx]
+                st.agents[a.partner_idx].coupled = false
+                st.agents[a.partner_idx].partner_idx = 0
+            end
+            st.alive[i] = false
+        end
+    end
+
+    for na in new_agents
+        push!(st.agents, na)
+        push!(st.alive, true)
+    end
+    return nothing
+end
+
+# --- Movement ---
+
+struct HIVMovementSystem &lt;: System end
+
+function update!(::HIVMovementSystem, world::World)
+    rng = get_resource(world, RNGResource).rng
+    st = get_resource(world, HIVState)
+    w, h = st.width, st.height
+
+    for i in eachindex(st.agents)
+        !st.alive[i] &amp;&amp; continue
+        a = st.agents[i]
+
+        if rand(rng) &lt; 0.66
+            # Long-distance travel
+            ticket = rand(rng, 1:1130)
+            dest_state = _ticket_to_state(ticket)
+            patches = st.state_patches[dest_state]
+            if !isempty(patches)
+                px, py = patches[rand(rng, 1:length(patches))]
+                a.traveling = true
+                a.home_x = a.x
+                a.home_y = a.y
+                a.x = px
+                a.y = py
+            end
+        else
+            # Local move within radius 5 in same state
+            dx = rand(rng, -5:5)
+            dy = rand(rng, -5:5)
+            nx = _hiv_wrap(a.x + dx, w)
+            ny = _hiv_wrap(a.y + dy, h)
+            if st.state_id[nx, ny] == a.home_state
+                a.x = nx
+                a.y = ny
+            end
+        end
+    end
+    return nothing
+end
+
+# --- Coupling &amp; Infection ---
+
+struct HIVCouplingSystem &lt;: System end
+
+function update!(::HIVCouplingSystem, world::World)
+    params = get_resource(world, HIVParams)
+    rng = get_resource(world, RNGResource).rng
+    st = get_resource(world, HIVState)
+    w, h = st.width, st.height
+
+    inf_rate = params.condom_use ? 0.2 : params.infection_rate
+
+    # Build spatial grid index (cell size 11 covers radius 5 from center)
+    cell_sz = 11
+    gw = div(w, cell_sz) + 1
+    gh = div(h, cell_sz) + 1
+    spatial = [Int[] for _ in 1:(gw*gh)]
+    n_agents = length(st.agents)
+    for i in 1:n_agents
+        !st.alive[i] &amp;&amp; continue
+        a = st.agents[i]
+        a.coupled &amp;&amp; continue
+        cx = div(a.x - 1, cell_sz) + 1
+        cy = div(a.y - 1, cell_sz) + 1
+        push!(spatial[(cy-1)*gw + cx], i)
+    end
+
+    for i in 1:n_agents
+        !st.alive[i] &amp;&amp; continue
+        a = st.agents[i]
+        a.coupled &amp;&amp; continue
+
+        ax_cell = div(a.x - 1, cell_sz) + 1
+        ay_cell = div(a.y - 1, cell_sz) + 1
+
+        found = false
+        for dcx in -1:1, dcy in -1:1
+            found &amp;&amp; break
+            ncx = ax_cell + dcx
+            ncy = ay_cell + dcy
+            (ncx &lt; 1 || ncx &gt; gw || ncy &lt; 1 || ncy &gt; gh) &amp;&amp; continue
+            cell_agents = spatial[(ncy-1)*gw + ncx]
+            for j in cell_agents
+                j == i &amp;&amp; continue
+                !st.alive[j] &amp;&amp; continue
+                b = st.agents[j]
+                b.coupled &amp;&amp; continue
+
+                dx = abs(a.x - b.x)
+                dy = abs(a.y - b.y)
+                dx = min(dx, w - dx)
+                dy = min(dy, h - dy)
+                if dx &lt;= 5 &amp;&amp; dy &lt;= 5
+                    a.coupled = true
+                    b.coupled = true
+                    a.partner_idx = j
+                    b.partner_idx = i
+
+                    if a.infected &amp;&amp; !b.infected
+                        if rand(rng) &lt; inf_rate
+                            b.infected = true
+                        end
+                    elseif b.infected &amp;&amp; !a.infected
+                        if rand(rng) &lt; inf_rate
+                            a.infected = true
+                        end
+                    end
+                    found = true
+                    break
+                end
+            end
+        end
+    end
+    return nothing
+end
+
+# --- Return Home ---
+
+struct HIVReturnSystem &lt;: System end
+
+function update!(::HIVReturnSystem, world::World)
+    st = get_resource(world, HIVState)
+    for i in eachindex(st.agents)
+        !st.alive[i] &amp;&amp; continue
+        a = st.agents[i]
+        if a.traveling
+            a.x = a.home_x
+            a.y = a.home_y
+            a.traveling = false
+        end
+        # Uncouple after each tick
+        if a.coupled
+            if a.partner_idx &gt; 0 &amp;&amp; a.partner_idx &lt;= length(st.agents) &amp;&amp; st.alive[a.partner_idx]
+                st.agents[a.partner_idx].coupled = false
+                st.agents[a.partner_idx].partner_idx = 0
+            end
+            a.coupled = false
+            a.partner_idx = 0
+        end
+    end
+    return nothing
+end
+
+# --- Stats ---
+
+struct HIVStatsSystem &lt;: System end
+
+function update!(::HIVStatsSystem, world::World)
+    st = get_resource(world, HIVState)
+    stats = get_resource(world, HIVStats)
+    _update_hiv_stats!(st, stats)
+    return nothing
+end
+
+# --- Termination ---
+
+struct HIVTerminationSystem &lt;: System end
+
+function update!(::HIVTerminationSystem, world::World)
+    params = get_resource(world, HIVParams)
+    tick = get_resource(world, Tick)
+    if tick.tick + 1 &gt;= params.max_ticks
+        get_resource(world, Terminate).stop = true
+    end
+    return nothing
+end</code></pre><h3 id="Model-(model.jl)"><a class="docs-heading-anchor" href="#Model-(model.jl)">Model (<code>model.jl</code>)</a><a id="Model-(model.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Model-(model.jl)" title="Permalink"></a></h3><p>The model file assembles all pieces: it creates the ECS <code>World</code> with the required component types, registers resources, builds the <code>Scheduler</code> with systems in execution order, and exposes the public <code>run</code> entry point. The observer pattern records the trajectory each tick.</p><pre><code class="language-julia hljs">function diffusionofhiv_world(; initial_capacity::Int = 128)
+    return World(
+        HIVDummy;
+        initial_capacity = initial_capacity,
+        allow_mutable = true,
+    )
+end
+
+function diffusionofhiv_systems()
+    return (
+        InitHIVSystem(),
+        HIVAgingSystem(),
+        HIVMovementSystem(),
+        HIVCouplingSystem(),
+        HIVReturnSystem(),
+        HIVStatsSystem(),
+        HIVTerminationSystem(),
+    )
+end
+
+function diffusionofhiv_model(params::HIVParams = HIVParams())
+    world = diffusionofhiv_world()
+    _add_standard_resources!(world, params)
+    add_resource!(world, HIVState(params.grid_width, params.grid_height))
+    add_resource!(world, HIVStats())
+    scheduler = Scheduler(world, diffusionofhiv_systems())
+    initialize!(scheduler)
+    return scheduler
+end
+
+struct HIVObserver end
+
+function diffusionofhiv_headers(::HIVObserver)
+    return [&quot;PctInfected&quot;]
+end
+
+function diffusionofhiv_values(::HIVObserver, world::World)
+    stats = get_resource(world, HIVStats)
+    return Float64[stats.pct_infected]
+end
+
+function run_diffusionofhiv(; params::HIVParams = HIVParams(), observe::Bool = true)
+    return _run_model(diffusionofhiv_model, HIVObserver(), diffusionofhiv_values; params, observe)
+end</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../diffusionnetwork/diffusionnetwork/">« Diffusion Network</a><a class="docs-footer-nextpage" href="../../disinfobitstringnw/disinfobitstringnw/">Disinfobitstringnw »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.20.0 on <span class="colophon-date" title="Wednesday 18 November 2026 19:14">Wednesday 18 November 2026</span>. Using Julia version 1.13.4.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>

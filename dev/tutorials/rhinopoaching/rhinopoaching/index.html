@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="referrer" content="no-referrer"/><title>Rhino Poaching · ArkModelZoo.jl</title><meta name="title" content="Rhino Poaching · ArkModelZoo.jl"/><meta property="og:title" content="Rhino Poaching · ArkModelZoo.jl"/><meta property="twitter:title" content="Rhino Poaching · ArkModelZoo.jl"/><meta name="description" content="Documentation for ArkModelZoo.jl."/><meta property="og:description" content="Documentation for ArkModelZoo.jl."/><meta property="twitter:description" content="Documentation for ArkModelZoo.jl."/><meta property="og:url" content="https://ecorecipes.github.io/ArkModelZoo.jl/tutorials/rhinopoaching/rhinopoaching/"/><meta property="twitter:url" content="https://ecorecipes.github.io/ArkModelZoo.jl/tutorials/rhinopoaching/rhinopoaching/"/><link rel="canonical" href="https://ecorecipes.github.io/ArkModelZoo.jl/tutorials/rhinopoaching/rhinopoaching/"/><script data-outdated-warner src="../../../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.63.2/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../../assets/documenter.js"></script><script src="../../../search_index.js"></script><script src="../../../siteinfo.js"></script><script src="../../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="../../../">ArkModelZoo.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../../../">Home</a></li><li><span class="tocitem">Resilience</span><ul><li><a class="tocitem" href="../../resilience/resilience/">Resilience of agent-based models</a></li></ul></li><li><span class="tocitem">Models</span><ul><li><a class="tocitem" href="../../abtgc/abtgc/">ABTgc</a></li><li><a class="tocitem" href="../../aids/aids/">AIDS</a></li><li><a class="tocitem" href="../../altruism/altruism/">Altruism</a></li><li><a class="tocitem" href="../../antsystem/antsystem/">Ant System TSP</a></li><li><a class="tocitem" href="../../ants/ants/">Ants</a></li><li><a class="tocitem" href="../../artificialeconomy/artificialeconomy/">Artificial Economy</a></li><li><a class="tocitem" href="../../axelrodcultural/axelrodcultural/">AxelrodCultural</a></li><li><a class="tocitem" href="../../babysittingcoop/babysittingcoop/">Baby Sitting Coop</a></li><li><a class="tocitem" href="../../bank_reserves/bank_reserves/">Bank Reserves</a></li><li><a class="tocitem" href="../../bayesian/bayesian/">Bayesian Updating</a></li><li><a class="tocitem" href="../../beinggreen/beinggreen/">Being Green</a></li><li><a class="tocitem" href="../../birthrates/birthrates/">Birthrates</a></li><li><a class="tocitem" href="../../blackbox/blackbox/">BlackBox</a></li><li><a class="tocitem" href="../../boiling/boiling/">Boiling</a></li><li><a class="tocitem" href="../../bombscenario/bombscenario/">BombScenario</a></li><li><a class="tocitem" href="../../brians_brain/brians_brain/">Brian’s Brain</a></li><li><a class="tocitem" href="../../bullwhipeffect/bullwhipeffect/">Bullwhip Effect</a></li><li><a class="tocitem" href="../../ca_1d_elementary/ca_1d_elementary/">CA 1D Elementary</a></li><li><a class="tocitem" href="../../civilizationgrowth/civilizationgrowth/">Civilization Growth</a></li><li><a class="tocitem" href="../../climatechange/climatechange/">Climate Change</a></li><li><a class="tocitem" href="../../coin/coin/">COIN Learning</a></li><li><a class="tocitem" href="../../competitionlearning/competitionlearning/">Competition Learning</a></li><li><a class="tocitem" href="../../contactprocess/contactprocess/">Contact Process 2D</a></li><li><a class="tocitem" href="../../contagionnw/contagionnw/">Contagion NW</a></li><li><a class="tocitem" href="../../contagionsi/contagionsi/">Contagion SI</a></li><li><a class="tocitem" href="../../contagionsir/contagionsir/">Contagion SIR</a></li><li><a class="tocitem" href="../../cooperation/cooperation/">Cooperation</a></li><li><a class="tocitem" href="../../coordination/coordination/">Coordination</a></li><li><a class="tocitem" href="../../coordination2groups/coordination2groups/">Coordination 2 Groups</a></li><li><a class="tocitem" href="../../croprotation/croprotation/">Crop Rotation</a></li><li><a class="tocitem" href="../../crystallization/crystallization/">Crystallization</a></li><li><a class="tocitem" href="../../csvnetworkforaging/csvnetworkforaging/">CSV Network Foraging</a></li><li><a class="tocitem" href="../../csvpopulation/csvpopulation/">CSV Population</a></li><li><a class="tocitem" href="../../culturaldiffusion/culturaldiffusion/">Cultural Diffusion</a></li><li><a class="tocitem" href="../../cyberspaceopinion/cyberspaceopinion/">Cyberspace Opinion</a></li><li><a class="tocitem" href="../../daisyworld/daisyworld/">Daisyworld</a></li><li><a class="tocitem" href="../../dating/dating/">Dating</a></li><li><a class="tocitem" href="../../diffusionnetwork/diffusionnetwork/">Diffusion Network</a></li><li><a class="tocitem" href="../../diffusionofhiv/diffusionofhiv/">DiffusionOfHIV</a></li><li><a class="tocitem" href="../../disinfobitstringnw/disinfobitstringnw/">Disinfobitstringnw</a></li><li><a class="tocitem" href="../../dla/dla/">Dla</a></li><li><a class="tocitem" href="../../dlasimple/dlasimple/">DLA Simple</a></li><li><a class="tocitem" href="../../druguse/druguse/">Drug Use</a></li><li><a class="tocitem" href="../../druguseoverdose/druguseoverdose/">Drug Use Overdose</a></li><li><a class="tocitem" href="../../elfarol/elfarol/">El Farol</a></li><li><a class="tocitem" href="../../erosion/erosion/">Erosion</a></li><li><a class="tocitem" href="../../ethnocentrism/ethnocentrism/">Ethnocentrism</a></li><li><a class="tocitem" href="../../evolutionofnorms/evolutionofnorms/">EvolutionOfNorms</a></li><li><a class="tocitem" href="../../firepercolation/firepercolation/">Fire Percolation</a></li><li><a class="tocitem" href="../../firebenchmark/firebenchmark/">FireBenchmark</a></li><li><a class="tocitem" href="../../fireflies/fireflies/">Fireflies</a></li><li><a class="tocitem" href="../../flocking/flocking/">Flocking</a></li><li><a class="tocitem" href="../../flockingnetwork/flockingnetwork/">Flocking Network</a></li><li><a class="tocitem" href="../../forestdewdney/forestdewdney/">Forest Dewdney</a></li><li><a class="tocitem" href="../../fire/fire/">Forest Fire</a></li><li><a class="tocitem" href="../../fungalbioremediation/fungalbioremediation/">Fungal Bioremediation</a></li><li><a class="tocitem" href="../../giant_component/giant_component/">Giant Component</a></li><li><a class="tocitem" href="../../gishillclimber/gishillclimber/">GIS HillClimber</a></li><li><a class="tocitem" href="../../granovetter/granovetter/">Granovetter</a></li><li><a class="tocitem" href="../../grassbrushtrees/grassbrushtrees/">Grass Brush Trees</a></li><li><a class="tocitem" href="../../diffusion/diffusion/">Heat Diffusion</a></li><li><a class="tocitem" href="../../heatbugs/heatbugs/">Heatbugs</a></li><li><a class="tocitem" href="../../hikingelevation/hikingelevation/">HikingElevation</a></li><li><a class="tocitem" href="../../infinitelife/infinitelife/">Infinite Life</a></li><li><a class="tocitem" href="../../infodiffusion/infodiffusion/">Info Diffusion</a></li><li><a class="tocitem" href="../../ising/ising/">Ising</a></li><li><a class="tocitem" href="../../languageborders/languageborders/">Language Borders</a></li><li><a class="tocitem" href="../../languagechange/languagechange/">Language Change</a></li><li><a class="tocitem" href="../../lassavirus/lassavirus/">LassaVirus</a></li><li><a class="tocitem" href="../../leonarditechadoption/leonarditechadoption/">Leonardi Tech Adoption</a></li><li><a class="tocitem" href="../../life/life/">Life</a></li><li><a class="tocitem" href="../../logistic_growth/logistic_growth/">Logistic Growth</a></li><li><a class="tocitem" href="../../mailmen/mailmen/">Mailmen Delivery</a></li><li><a class="tocitem" href="../../marriage/marriage/">Marriage Problem</a></li><li><a class="tocitem" href="../../mimicry/mimicry/">Mimicry</a></li><li><a class="tocitem" href="../../minimalsis/minimalsis/">Minimal SIS</a></li><li><a class="tocitem" href="../../minoritybelief/minoritybelief/">Minority Belief Spread</a></li><li><a class="tocitem" href="../../minoritygame/minoritygame/">Minority Game</a></li><li><a class="tocitem" href="../../misinformationsbfc/misinformationsbfc/">Misinformation SBFC</a></li><li><a class="tocitem" href="../../modsocsegregation/modsocsegregation/">Modsoc Segregation</a></li><li><a class="tocitem" href="../../mousetraps/mousetraps/">Mousetraps</a></li><li><a class="tocitem" href="../../multidrugresistant/multidrugresistant/">MultidrugResistant</a></li><li><a class="tocitem" href="../../opinionbc/opinionbc/">Opinion Dynamics BC</a></li><li><a class="tocitem" href="../../paretolearn/paretolearn/">Pareto Learning</a></li><li><a class="tocitem" href="../../participatorydisinfo/participatorydisinfo/">Participatory Disinformation</a></li><li><a class="tocitem" href="../../participatorydisinformation/participatorydisinformation/">Participatory Disinformation</a></li><li><a class="tocitem" href="../../particles/particles/">Particles</a></li><li><a class="tocitem" href="../../party/party/">Party</a></li><li><a class="tocitem" href="../../pd_basic_evolutionary/pd_basic_evolutionary/">PD Basic Evolutionary</a></li><li><a class="tocitem" href="../../pdsimple/pdsimple/">PD Simple</a></li><li><a class="tocitem" href="../../percolation/percolation/">Percolation</a></li><li><a class="tocitem" href="../../polymerdynamics/polymerdynamics/">Polymer Dynamics</a></li><li><a class="tocitem" href="../../prefattachhomophily/prefattachhomophily/">Pref Attach Homophily</a></li><li><a class="tocitem" href="../../preferential_attachment/preferential_attachment/">Preferential Attachment</a></li><li><a class="tocitem" href="../../privacyopinion/privacyopinion/">Privacy Opinion</a></li><li><a class="tocitem" href="../../productsmarket/productsmarket/">Products Market</a></li><li><a class="tocitem" href="../../public_good/public_good/">Public Good</a></li><li><a class="tocitem" href="../../cqin/cqin/">Quality Improvement Network</a></li><li><a class="tocitem" href="../../rabbits_grass_weeds/rabbits_grass_weeds/">Rabbits Grass Weeds</a></li><li><a class="tocitem" href="../../decay/decay/">Radioactive Decay</a></li><li><a class="tocitem" href="../../rationalevolvingpd/rationalevolvingpd/">Rational Evolving PD</a></li><li><a class="tocitem" href="../../rebellion/rebellion/">Rebellion</a></li><li><a class="tocitem" href="../../recruitingmovement/recruitingmovement/">Recruiting Movement</a></li><li><a class="tocitem" href="../../recruiting/recruiting/">Recruiting Supporters</a></li><li><a class="tocitem" href="../../recruitingsupporters/recruitingsupporters/">Recruiting Supporters</a></li><li><a class="tocitem" href="../../resilientteam/resilientteam/">Resilient Team</a></li><li class="is-active"><a class="tocitem" href>Rhino Poaching</a><ul class="internal"><li><a class="tocitem" href="#Overview"><span>Overview</span></a></li><li><a class="tocitem" href="#Parameters"><span>Parameters</span></a></li><li><a class="tocitem" href="#Source-Code"><span>Source Code</span></a></li><li><a class="tocitem" href="#Time-Series"><span>Time Series</span></a></li><li><a class="tocitem" href="#Ensemble-Runs"><span>Ensemble Runs</span></a></li><li><a class="tocitem" href="#Parameter-Sensitivity"><span>Parameter Sensitivity</span></a></li><li><a class="tocitem" href="#Appendix:-Source-Code"><span>Appendix: Source Code</span></a></li></ul></li><li><a class="tocitem" href="../../riseofradicalism/riseofradicalism/">Rise of Radicalism</a></li><li><a class="tocitem" href="../../rope/rope/">Rope</a></li><li><a class="tocitem" href="../../rumormill/rumormill/">Rumor Mill</a></li><li><a class="tocitem" href="../../sand/sand/">Sand</a></li><li><a class="tocitem" href="../../schelling/schelling/">Schelling Segregation</a></li><li><a class="tocitem" href="../../segregation/segregation/">Segregation</a></li><li><a class="tocitem" href="../../shepherds/shepherds/">Shepherds</a></li><li><a class="tocitem" href="../../simple_genetic_algorithm/simple_genetic_algorithm/">Simple Genetic Algorithm</a></li><li><a class="tocitem" href="../../simplemarket/simplemarket/">Simple Market</a></li><li><a class="tocitem" href="../../simplemarketrandom/simplemarketrandom/">Simple Market Random</a></li><li><a class="tocitem" href="../../simplemarkettable/simplemarkettable/">Simple Market Table</a></li><li><a class="tocitem" href="../../sir/sir/">SIR Epidemic</a></li><li><a class="tocitem" href="../../sleuthlanduse/sleuthlanduse/">Sleuth LandUse</a></li><li><a class="tocitem" href="../../slime/slime/">Slime</a></li><li><a class="tocitem" href="../../slowspread/slowspread/">Slow Spread Env Action</a></li><li><a class="tocitem" href="../../small_worlds/small_worlds/">Small Worlds</a></li><li><a class="tocitem" href="../../socialinfluence/socialinfluence/">Social Influence</a></li><li><a class="tocitem" href="../../socialnetworkdiffusion/socialnetworkdiffusion/">Social Network Diffusion</a></li><li><a class="tocitem" href="../../soliddiffusion/soliddiffusion/">Solid Diffusion</a></li><li><a class="tocitem" href="../../spatialattitude/spatialattitude/">Spatial Attitude</a></li><li><a class="tocitem" href="../../ipd/ipd/">Spatial IPD</a></li><li><a class="tocitem" href="../../spatialopinion/spatialopinion/">Spatial Opinion Dynamics</a></li><li><a class="tocitem" href="../../fakenews/fakenews/">Spread of Fake News</a></li><li><a class="tocitem" href="../../spreadingbots/spreadingbots/">Spreading Bots</a></li><li><a class="tocitem" href="../../spreadinggroups/spreadinggroups/">Spreading Groups</a></li><li><a class="tocitem" href="../../sugarscape_1_growback/sugarscape_1_growback/">Sugarscape 1 Growback</a></li><li><a class="tocitem" href="../../sugarscapeculture/sugarscapeculture/">Sugarscape Culture</a></li><li><a class="tocitem" href="../../sugarscapesexual/sugarscapesexual/">Sugarscape Sexual</a></li><li><a class="tocitem" href="../../superdiffuser/superdiffuser/">SuperDiffuser</a></li><li><a class="tocitem" href="../../teamassembly/teamassembly/">Team Assembly</a></li><li><a class="tocitem" href="../../termites/termites/">Termites</a></li><li><a class="tocitem" href="../../thermostat/thermostat/">Thermostat</a></li><li><a class="tocitem" href="../../tourism/tourism/">Tourism</a></li><li><a class="tocitem" href="../../traffic2lanes/traffic2lanes/">Traffic 2 Lanes</a></li><li><a class="tocitem" href="../../trafficbasic/trafficbasic/">Traffic Basic</a></li><li><a class="tocitem" href="../../trafficgrid/trafficgrid/">Traffic Grid</a></li><li><a class="tocitem" href="../../trafficintersection/trafficintersection/">Traffic Intersection</a></li><li><a class="tocitem" href="../../tumor/tumor/">Tumor</a></li><li><a class="tocitem" href="../../unitcohesion/unitcohesion/">Unit Cohesion</a></li><li><a class="tocitem" href="../../virus_on_network/virus_on_network/">Virus on a Network</a></li><li><a class="tocitem" href="../../virus/virus/">Virus on Network</a></li><li><a class="tocitem" href="../../voronoivoter/voronoivoter/">Voronoi Voter</a></li><li><a class="tocitem" href="../../voter/voter/">Voter Model</a></li><li><a class="tocitem" href="../../voting/voting/">Voting</a></li><li><a class="tocitem" href="../../wealthdistribution/wealthdistribution/">Wealth Distribution</a></li><li><a class="tocitem" href="../../wisdomcrowd/wisdomcrowd/">Wisdom of Crowd</a></li><li><a class="tocitem" href="../../wolfsheep/wolfsheep/">Wolf Sheep Predation</a></li></ul></li><li><a class="tocitem" href="../../../api/">API Reference</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Models</a></li><li class="is-active"><a href>Rhino Poaching</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Rhino Poaching</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/ecorecipes/ArkModelZoo.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/ecorecipes/ArkModelZoo.jl/blob/main/docs/src/tutorials/rhinopoaching/rhinopoaching.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Rhino-Poaching"><a class="docs-heading-anchor" href="#Rhino-Poaching">Rhino Poaching</a><a id="Rhino-Poaching-1"></a><a class="docs-heading-anchor-permalink" href="#Rhino-Poaching" title="Permalink"></a></h1><h2 id="Overview"><a class="docs-heading-anchor" href="#Overview">Overview</a><a id="Overview-1"></a><a class="docs-heading-anchor-permalink" href="#Overview" title="Permalink"></a></h2><h3 id="WHAT-IS-IT?"><a class="docs-heading-anchor" href="#WHAT-IS-IT?">WHAT IS IT?</a><a id="WHAT-IS-IT?-1"></a><a class="docs-heading-anchor-permalink" href="#WHAT-IS-IT?" title="Permalink"></a></h3><p>This model explores the dynamic interaction between three agents involved in rhino poaching: rhinos, poachers, and rangers. The agents make decisions based on their environment and are also influenced by other agents. A population of rhino agents live inside a protected area and are moving around. Poachers try to find these rhino’s in order to kill them. Rangers try to find the poachers in order to capture them and ultimately prevent the rhino population from going extinct. The model can be used to identify optimal ranger strategies under varying environmental conditions, but also for studying various strategies that poachers may use to avoid detection or for successfully finding rhinos.</p><h3 id="HOW-IT-WORKS"><a class="docs-heading-anchor" href="#HOW-IT-WORKS">HOW IT WORKS</a><a id="HOW-IT-WORKS-1"></a><a class="docs-heading-anchor-permalink" href="#HOW-IT-WORKS" title="Permalink"></a></h3><p><strong>The world</strong> The world is created by the “SETUP-PARK” button. The patches at the border of the world are colored black and represent the area outside the reserve. All other patches represent the protected area where a population of rhinos live. These patches contain a varying amount of resources (ranged from 0-1), roughness (ranged from 1-5), home range information (to which rhino does this patch belongs to) and finally signs of recent rhino, poacher and ranger activity. Resources can represent food, water or other features that are relevant to your species of interest. These resources are diffused to create more natural and realistic gradients. All patches have a resource regrowth rate. Some patches do not contain any resources, here called ‘sandy areas’. The slider “SANDY-AREAS” gives you control over the percentage of patches with no resources. Roughness is also an umbrella term for features that may make an area less desirable or more difficult to move through (for example, mountains or dense vegetation). Agents moving through rough areas results the agent waiting an extra tick (slowing them down).By default all patches are equally “easy” to traverse with a roughness value of 1. Adding rough areas with the “ROUGH-AREAS” slider creates the specified amount of rough patches with the maximum value of 5 and a radius around it to smooth out the effect. All this information was combined into one variable named “patch attractiveness”. This value is used to direct each agent’s movement and described in more detail for each agent.</p><p>There are several visualization options available from the “VISUALIZATION” drop-menu. The option RESOURCE<em>COLOURS visualizes the amount of resources available in each patch, colored by a shade of green. The higher the amount of resources, the more darker the shade of green. The patches with a resources value of 0 (the sandy patches) are colored brown. The option ROUGHNESS</em>COLORS visualizes all patches with a roughness value larger than 1 along a shade of red. Patches with a roughness value equal to 1 are visualized based on their resources. The option RHINO_HOME-RANGES shows how the rhino territories are distributed. The color of the patch is the same as the color of the rhino it belongs to. Please note that the rhino colors are randomly distributed so it may occur that two rhinos have the same color. The next section describes how home ranges are formed.</p><p><strong>Rhinos</strong> The rhino agents are created and put in place by the “SETUP-RHINOS” button. The number of rhino agents is determined by the NUM-RHINOS slider. Rhinos are randomly placed in the world. If another agent is within a radius of 10 patches, the rhino is moved to a random different patch without any agents within that radius. If none of the patches can for-fill that condition, the rhino will be placed on a random patch that is has not been taken yet. Each 1.5 patch in the rhino’s radius is added to its home range, and it expands when the rhino is moving. If a rhino was killed by poachers, all of its home range patches become unoccupied. The rhinos move by making a weighted decisions by based on the variables of its neighboring patches. The variables involved are the amount of resources, the roughness, and the distance to other rhinos. Each of these variables were scaled from 0 to 1 with 1 indicating the high preference. The variables are then summed and the divided by the sum of weights. The weights for the rhinos are “RESOURCE-WEIGHT”, “ROUGHNESS-WEIGHT”, “RHINO-AVOID-WEIGHT”, and “GOAL-WEIGHT”, and are adjustable in the interface. This information was stored in the variable ‘patch attractiveness’ that describes the overall attractiveness and hence the likelihood that the rhino will go to that patch. This was done by using the rnd:weighted-one-of function. To reduce the likelihood that rhinos will enter territories of other rhinos, the patch attractiveness of neighbors that belong to one of the other rhinos, are divided by 10. Once the rhino moved to one of the neighboring cells, it will consume 1% of the available resources. After moving to a new patch, the rhino will consume 1% of the resources (specified by the FORAGE-AMOUNT slider), add the patch to its territory and a 50% chance of leaving signs in that patch. The rhino will also remember and avoid the last 3 visited patches.</p><p><strong>Poachers</strong> Poachers are added by the SETUP-HUMANS procedure and placed at a random patch on one of the black border patches. The number of poachers in the world can be changed by using the “NUM-POACHERS” slider. The time available for hunting is specified by the “POACHER-TIME” slider. When time has run out, they will leave the park. The variables involved in poacher movement are signs of recent rhino activity, signs of ranger activity, roughness, resources, and distance to goal. The weights for poacher decision-making are “RANGER-AVOID-WEIGHT”, “HUNT-RHINO-WEIGHT”, “ROUGHNESS-WEIGHT”, “RESOURCE-WEIGHT”, and “GOAL-WEIGHT”. Poachers check if there are rhinos within the “POACHER-VISION” radius. If so, the poacher will kill it, remove it from the world and move towards the nearest border patch. Poachers will lay low after successfully escaping the reserve (regardless if a rhino was killed or not). The lay low time was defined as twice the “POACHER-TIME” plus random 100. Poachers also have a 50% chance of leaving signs, whereas killing a rhino will leave permanent signs. Poachers remember patches where they killed rhinos as success sites, patches with recent-rhino-activity as good-sites, and patches with ranger activity as failure sites. The success and failure sites are used to plan new poaching trips and to determine where the poacher will enter the park next.</p><p><strong>Rangers</strong> The SETUP-HUMANS procedure also builds ranger camps and create rangers. The number of camps and rangers can be specified with the “NUM-CAMPS” and “NUM-RANGERS” slider respectively. Camps are put either randomly, at fixed locations or manually. This can be set from the “CAMP-PLACEMENT” drop-down menu (where “WE-DECIDE” is the manual option). Rangers sprout from camps and start their first patrol there. Rangers use movement rules similar to poachers, only their aim is to find poachers. Their movement is directed by goal distance and weight, rhino signs, poacher signs and roughness. This again accumulates into a patch attractiveness, allowing rangers to pick the highest relative attractiveness with a degree of randomness. The duration of each patrol is specified by the “PATROL-LENGTH” slider. When a ranger detects a poacher within the “RANGER-RADIUS” slider, the poacher was caught and removed from the world. Patches with poacher signs are remembered as risky areas whereas non-poaching sites are remembered as safe-areas. This information is used in the planning of the next patrols. Rangers also have a 50% chance of leaving signs. When the patrol-time ends, rangers move to the nearest camp or border patch and wait a number of ticks before going out again. Ranger agents have two strategies that can be specified from the “PATROL-TYPE” drop-down-menu. The “STANDARD-PATROL” is the weighted decision-making as described above. The “FENCE-PATROL” lets the ranger team moves along the border of the reserve and do not make weighted decisions. If the ranger enters a patch with poacher signs, the PATROL-LENGTH will be reset to 0, and from here makes weighted decisions similar to the STANDARD-PATROL strategy. This represents a so-called ‘response time’ that will take over when an illegal entry was detected.</p><p>The signs of rhinos, poachers, and rangers will decrease in value over time. When it reaches 0, the signs are not visible for the agents.</p><h3 id="THINGS-TO-NOTICE"><a class="docs-heading-anchor" href="#THINGS-TO-NOTICE">THINGS TO NOTICE</a><a id="THINGS-TO-NOTICE-1"></a><a class="docs-heading-anchor-permalink" href="#THINGS-TO-NOTICE" title="Permalink"></a></h3><p>This is an abstract representation of a protected area. The units (patches and ticks) are an arbitrary measurement and don’t map directly to real world time or space. This can only be done when this model is applied to a specific context or setting where one can define what one tick or patch means in the real world.</p><h3 id="THINGS-TO-TRY"><a class="docs-heading-anchor" href="#THINGS-TO-TRY">THINGS TO TRY</a><a id="THINGS-TO-TRY-1"></a><a class="docs-heading-anchor-permalink" href="#THINGS-TO-TRY" title="Permalink"></a></h3><p>The aim is to find ranger strategies that match the existing or realistic anti-poaching strategies, in order to keep as many rhinos alive as possible. It is important to make these ranger strategies realistic and practically feasible. How does adding more teams, longer patrols, influence the number of surviving rhinos? Is one strategy more effective than the other? What will happen if the rangers or poachers know better the whereabouts of the rhinos?</p><h3 id="EXTENDING-THE-MODEL"><a class="docs-heading-anchor" href="#EXTENDING-THE-MODEL">EXTENDING THE MODEL</a><a id="EXTENDING-THE-MODEL-1"></a><a class="docs-heading-anchor-permalink" href="#EXTENDING-THE-MODEL" title="Permalink"></a></h3><p>The strength of this general model and the behavioral rules is that they can be applied to any park or reserve and that one can make additional assumptions to better fit their specific setting. The model should be regarded as a first step to understand the wildlife crime and would only benefit from further improvements and extensions. Additional ranger strategies can be developed, added and tested in this model. This model focuses on active poaching (searching and shooting an animal), but passive poaching such as traps and snares can also be implemented and subsequently test which anti-poaching strategies work best for this poaching activity. Also rangers and poachers may start learning more from one another (communication can lead to success and failure sites being shared), or the effect of corruption. One may also try to change the environment to better represent a real-life national park or reserve by, for example, creating rivers or different types of habits.</p><h3 id="NETLOGO-FEATURES"><a class="docs-heading-anchor" href="#NETLOGO-FEATURES">NETLOGO FEATURES</a><a id="NETLOGO-FEATURES-1"></a><a class="docs-heading-anchor-permalink" href="#NETLOGO-FEATURES" title="Permalink"></a></h3><p>To allow for the random weighted decision rules for agent movement use: extensions [rnd] Allowing the use of: rnd:weighted-one-of</p><h3 id="RELATED-MODELS"><a class="docs-heading-anchor" href="#RELATED-MODELS">RELATED MODELS</a><a id="RELATED-MODELS-1"></a><a class="docs-heading-anchor-permalink" href="#RELATED-MODELS" title="Permalink"></a></h3><p>The wolf-sheep predation model and the mammoths model are similar as they look the dynamic interactions between two types of agents. Tuskless elephants is another model related to poaching.</p><h3 id="CREDITS-AND-REFERENCES"><a class="docs-heading-anchor" href="#CREDITS-AND-REFERENCES">CREDITS AND REFERENCES</a><a id="CREDITS-AND-REFERENCES-1"></a><a class="docs-heading-anchor-permalink" href="#CREDITS-AND-REFERENCES" title="Permalink"></a></h3><p>We would like to thank Michael Mäs and Andrew Lemieux for their support and help in building the model.</p><h2 id="Parameters"><a class="docs-heading-anchor" href="#Parameters">Parameters</a><a id="Parameters-1"></a><a class="docs-heading-anchor-permalink" href="#Parameters" title="Permalink"></a></h2><table><tr><th style="text-align: right">Parameter</th><th style="text-align: right">Type</th><th style="text-align: right">Default</th><th style="text-align: right">Description</th></tr><tr><td style="text-align: right"><code>width</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>101</code></td><td style="text-align: right">width</td></tr><tr><td style="text-align: right"><code>height</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>101</code></td><td style="text-align: right">height</td></tr><tr><td style="text-align: right"><code>num_rhinos</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>20</code></td><td style="text-align: right">num rhinos</td></tr><tr><td style="text-align: right"><code>num_poachers</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>10</code></td><td style="text-align: right">num poachers</td></tr><tr><td style="text-align: right"><code>num_rangers</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>4</code></td><td style="text-align: right">num rangers</td></tr><tr><td style="text-align: right"><code>max_roughness</code></td><td style="text-align: right"><code>Float64</code></td><td style="text-align: right"><code>0.6</code></td><td style="text-align: right">fraction of rough terrain</td></tr><tr><td style="text-align: right"><code>sprout_delay_time</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>500</code></td><td style="text-align: right">ticks before resource sprouts in rough cells</td></tr><tr><td style="text-align: right"><code>resource_regrow_rate</code></td><td style="text-align: right"><code>Float64</code></td><td style="text-align: right"><code>0.01</code></td><td style="text-align: right">logistic regrowth rate</td></tr><tr><td style="text-align: right"><code>rhino_reproduce_prob</code></td><td style="text-align: right"><code>Float64</code></td><td style="text-align: right"><code>0.01</code></td><td style="text-align: right">per-tick reproduction probability</td></tr><tr><td style="text-align: right"><code>poacher_detect_range</code></td><td style="text-align: right"><code>Float64</code></td><td style="text-align: right"><code>5.0</code></td><td style="text-align: right">poacher search radius for rhino signs</td></tr><tr><td style="text-align: right"><code>ranger_detect_range</code></td><td style="text-align: right"><code>Float64</code></td><td style="text-align: right"><code>3.0</code></td><td style="text-align: right">ranger detection radius for poachers</td></tr><tr><td style="text-align: right"><code>poacher_kill_range</code></td><td style="text-align: right"><code>Float64</code></td><td style="text-align: right"><code>2.0</code></td><td style="text-align: right">poacher kill radius for rhinos</td></tr><tr><td style="text-align: right"><code>rhino_forage_radius</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>3</code></td><td style="text-align: right">neighbourhood search for foraging</td></tr><tr><td style="text-align: right"><code>activity_decay</code></td><td style="text-align: right"><code>Float64</code></td><td style="text-align: right"><code>0.99</code></td><td style="text-align: right">per-tick decay of rhino activity signs</td></tr><tr><td style="text-align: right"><code>home_weight</code></td><td style="text-align: right"><code>Float64</code></td><td style="text-align: right"><code>0.3</code></td><td style="text-align: right">weight of home-range fidelity</td></tr><tr><td style="text-align: right"><code>resource_weight</code></td><td style="text-align: right"><code>Float64</code></td><td style="text-align: right"><code>0.7</code></td><td style="text-align: right">weight of resource attraction</td></tr><tr><td style="text-align: right"><code>max_rhinos</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>100</code></td><td style="text-align: right">pre-allocated capacity</td></tr><tr><td style="text-align: right"><code>max_ticks</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>200</code></td><td style="text-align: right">max ticks</td></tr></table><h2 id="Source-Code"><a class="docs-heading-anchor" href="#Source-Code">Source Code</a><a id="Source-Code-1"></a><a class="docs-heading-anchor-permalink" href="#Source-Code" title="Permalink"></a></h2><p>The Julia code to run this model:</p><pre><code class="language-julia hljs">using ArkModelZoo
+_, trajectory = run_rhinopoaching()</code></pre><h2 id="Time-Series"><a class="docs-heading-anchor" href="#Time-Series">Time Series</a><a id="Time-Series-1"></a><a class="docs-heading-anchor-permalink" href="#Time-Series" title="Permalink"></a></h2><p><img src="../plot_timeseries.png" alt="Rhino Poaching time series"/></p><h2 id="Ensemble-Runs"><a class="docs-heading-anchor" href="#Ensemble-Runs">Ensemble Runs</a><a id="Ensemble-Runs-1"></a><a class="docs-heading-anchor-permalink" href="#Ensemble-Runs" title="Permalink"></a></h2><p>Ten replicates with different random seeds, showing mean ± standard deviation.</p><p><img src="../plot_ensemble.png" alt="Rhino Poaching ensemble"/></p><h2 id="Parameter-Sensitivity"><a class="docs-heading-anchor" href="#Parameter-Sensitivity">Parameter Sensitivity</a><a id="Parameter-Sensitivity-1"></a><a class="docs-heading-anchor-permalink" href="#Parameter-Sensitivity" title="Permalink"></a></h2><p>Varying <code>width</code>.</p><p><img src="../plot_sensitivity.png" alt="Rhino Poaching sensitivity"/></p><h2 id="Appendix:-Source-Code"><a class="docs-heading-anchor" href="#Appendix:-Source-Code">Appendix: Source Code</a><a id="Appendix:-Source-Code-1"></a><a class="docs-heading-anchor-permalink" href="#Appendix:-Source-Code" title="Permalink"></a></h2><p>This model is implemented in the <a href="https://github.com/sdwfrost/Ark.jl">Ark.jl</a> Entity-Component-System (ECS) framework. The code is split into five files, each with a distinct role:</p><ul><li><strong>Parameters</strong>: a mutable struct holding all configurable values.</li><li><strong>Components</strong>: lightweight data types attached to individual entities (agents).</li><li><strong>Resources</strong>: world-level shared state accessible to all systems.</li><li><strong>Systems</strong>: functions that operate on entities each tick, defining model behavior.</li><li><strong>Model</strong>: wiring that assembles the world, registers resources and systems, and provides the run entry point.</li></ul><h3 id="Parameters-(parameters.jl)"><a class="docs-heading-anchor" href="#Parameters-(parameters.jl)">Parameters (<code>parameters.jl</code>)</a><a id="Parameters-(parameters.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Parameters-(parameters.jl)" title="Permalink"></a></h3><p>The parameter struct uses <code>@kwdef</code> so that every field has a default value and can be overridden by keyword. These defaults match the original NetLogo model’s slider settings.</p><pre><code class="language-julia hljs">Base.@kwdef mutable struct RhinoParams
+    width::Int = 101
+    height::Int = 101
+    num_rhinos::Int = 20
+    num_poachers::Int = 10
+    num_rangers::Int = 4
+    max_roughness::Float64 = 0.6             # fraction of rough terrain
+    sprout_delay_time::Int = 500             # ticks before resource sprouts in rough cells
+    resource_regrow_rate::Float64 = 0.01     # logistic regrowth rate
+    rhino_reproduce_prob::Float64 = 0.01     # per-tick reproduction probability
+    poacher_detect_range::Float64 = 5.0      # poacher search radius for rhino signs
+    ranger_detect_range::Float64 = 3.0       # ranger detection radius for poachers
+    poacher_kill_range::Float64 = 2.0        # poacher kill radius for rhinos
+    rhino_forage_radius::Int = 3             # neighbourhood search for foraging
+    activity_decay::Float64 = 0.99           # per-tick decay of rhino activity signs
+    home_weight::Float64 = 0.3               # weight of home-range fidelity
+    resource_weight::Float64 = 0.7           # weight of resource attraction
+    max_rhinos::Int = 100                    # pre-allocated capacity
+    max_ticks::Int = 200
+    seed::Int = 42
+end</code></pre><h3 id="Components-(components.jl)"><a class="docs-heading-anchor" href="#Components-(components.jl)">Components (<code>components.jl</code>)</a><a id="Components-(components.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Components-(components.jl)" title="Permalink"></a></h3><p>Components are lightweight data types attached to individual entities (agents). Mutable structs hold per-entity state, while empty tag structs act as markers for the ECS query system to efficiently filter entities.</p><pre><code class="language-julia hljs">struct RhinoDummy end</code></pre><h3 id="Resources-(resources.jl)"><a class="docs-heading-anchor" href="#Resources-(resources.jl)">Resources (<code>resources.jl</code>)</a><a id="Resources-(resources.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Resources-(resources.jl)" title="Permalink"></a></h3><p>Resources are world-level singletons shared across all systems, used for global state and aggregate statistics.</p><pre><code class="language-julia hljs">mutable struct RhinoState
+    # Rhinos (pre-allocated to max_rhinos)
+    n_rhinos::Int
+    rhino_x::Vector{Float64}
+    rhino_y::Vector{Float64}
+    rhino_heading::Vector{Float64}
+    rhino_alive::Vector{Bool}
+    rhino_home_x::Vector{Float64}
+    rhino_home_y::Vector{Float64}
+    rhino_ticks_alive::Vector{Int}
+    # Poachers
+    n_poachers::Int
+    poacher_x::Vector{Float64}
+    poacher_y::Vector{Float64}
+    poacher_heading::Vector{Float64}
+    poacher_alive::Vector{Bool}
+    poacher_goal::Vector{Int}   # 0=journey-to, 1=hunting, 2=journey-after
+    poacher_caught::Vector{Bool}
+    # Rangers
+    n_rangers::Int
+    ranger_x::Vector{Float64}
+    ranger_y::Vector{Float64}
+    ranger_heading::Vector{Float64}
+    # Grid
+    width::Int
+    height::Int
+    resources::Matrix{Float64}
+    max_resources::Matrix{Float64}
+    roughness::Matrix{Float64}
+    rhino_activity::Matrix{Float64}
+    # Stats
+    total_killed::Int
+end
+
+
+
+mutable struct RhinoStats
+    n_rhinos::Int
+    n_poachers::Int
+    total_killed::Int
+end
+RhinoStats() = RhinoStats(0, 0, 0)</code></pre><h3 id="Systems-(systems.jl)"><a class="docs-heading-anchor" href="#Systems-(systems.jl)">Systems (<code>systems.jl</code>)</a><a id="Systems-(systems.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Systems-(systems.jl)" title="Permalink"></a></h3><p>Systems contain the model logic and execute in a defined order each tick. Each system struct implements either <code>initialize!</code> (run once at setup) or <code>update!</code> (run every tick).</p><pre><code class="language-julia hljs"># --- Helpers ---
+
+function _rhino_weighted_choice(rng, items, weights)
+    total = sum(weights)
+    if total &lt;= 0.0
+        return items[rand(rng, 1:length(items))]
+    end
+    r = rand(rng) * total
+    cumul = 0.0
+    for (item, w) in zip(items, weights)
+        cumul += w
+        if cumul &gt;= r
+            return item
+        end
+    end
+    return items[end]
+end
+
+@inline function _rhino_dist(x1, y1, x2, y2)
+    return sqrt((x1 - x2)^2 + (y1 - y2)^2)
+end
+
+# --- Initialization ---
+
+struct InitRhinoSystem &lt;: System end
+
+function initialize!(::InitRhinoSystem, world::World)
+    state = get_resource(world, RhinoState)
+    stats = get_resource(world, RhinoStats)
+    stats.n_rhinos = sum(state.rhino_alive)
+    stats.n_poachers = sum(state.poacher_alive)
+    stats.total_killed = state.total_killed
+    return nothing
+end
+
+# --- Resource Regrowth ---
+
+struct RhinoResourceGrowSystem &lt;: System end
+
+function update!(::RhinoResourceGrowSystem, world::World)
+    params = get_resource(world, RhinoParams)
+    state = get_resource(world, RhinoState)
+
+    for x in 1:state.width, y in 1:state.height
+        if state.roughness[x, y] &lt; 1.0
+            state.resources[x, y] += params.resource_regrow_rate *
+                (state.max_resources[x, y] - state.resources[x, y])
+        end
+    end
+    return nothing
+end
+
+# --- Activity Decay ---
+
+struct RhinoActivityDecaySystem &lt;: System end
+
+function update!(::RhinoActivityDecaySystem, world::World)
+    params = get_resource(world, RhinoParams)
+    state = get_resource(world, RhinoState)
+
+    state.rhino_activity .*= params.activity_decay
+    return nothing
+end
+
+# --- Rhino Forage ---
+
+struct RhinoForageSystem &lt;: System end
+
+function update!(::RhinoForageSystem, world::World)
+    params = get_resource(world, RhinoParams)
+    rng = get_resource(world, RNGResource).rng
+    state = get_resource(world, RhinoState)
+    w, h = state.width, state.height
+    radius = params.rhino_forage_radius
+
+    for i in 1:length(state.rhino_alive)
+        !state.rhino_alive[i] &amp;&amp; continue
+
+        gx = clamp(round(Int, state.rhino_x[i]), 1, w)
+        gy = clamp(round(Int, state.rhino_y[i]), 1, h)
+
+        # Leave activity at current location
+        state.rhino_activity[gx, gy] += 1.0
+
+        # Forage: weighted random choice of neighboring cell
+        candidates = Tuple{Int,Int}[]
+        weights = Float64[]
+
+        for dx in -radius:radius, dy in -radius:radius
+            (dx == 0 &amp;&amp; dy == 0) &amp;&amp; continue
+            nx = gx + dx
+            ny = gy + dy
+            (nx &lt; 1 || nx &gt; w || ny &lt; 1 || ny &gt; h) &amp;&amp; continue
+            state.roughness[nx, ny] &gt;= 1.0 &amp;&amp; continue
+
+            res_score = state.resources[nx, ny]
+            home_dist = _rhino_dist(Float64(nx), Float64(ny),
+                                    state.rhino_home_x[i], state.rhino_home_y[i])
+            home_score = max(0.0, 1.0 - home_dist / 50.0)
+
+            score = params.resource_weight * res_score + params.home_weight * home_score * 10.0
+            if score &gt; 0.0
+                push!(candidates, (nx, ny))
+                push!(weights, score)
+            end
+        end
+
+        if !isempty(candidates)
+            chosen = _rhino_weighted_choice(rng, candidates, weights)
+            state.rhino_x[i] = Float64(chosen[1])
+            state.rhino_y[i] = Float64(chosen[2])
+        else
+            angle = rand(rng) * 2π
+            state.rhino_x[i] = clamp(state.rhino_x[i] + cos(angle) * 2.0, 1.0, Float64(w))
+            state.rhino_y[i] = clamp(state.rhino_y[i] + sin(angle) * 2.0, 1.0, Float64(h))
+        end
+
+        # Consume resources
+        new_gx = clamp(round(Int, state.rhino_x[i]), 1, w)
+        new_gy = clamp(round(Int, state.rhino_y[i]), 1, h)
+        consumed = min(state.resources[new_gx, new_gy], 1.0)
+        state.resources[new_gx, new_gy] -= consumed
+
+        # Slowly drift home range
+        state.rhino_home_x[i] = 0.99 * state.rhino_home_x[i] + 0.01 * state.rhino_x[i]
+        state.rhino_home_y[i] = 0.99 * state.rhino_home_y[i] + 0.01 * state.rhino_y[i]
+
+        state.rhino_ticks_alive[i] += 1
+    end
+    return nothing
+end
+
+# --- Rhino Reproduction ---
+
+struct RhinoReproduceSystem &lt;: System end
+
+function update!(::RhinoReproduceSystem, world::World)
+    params = get_resource(world, RhinoParams)
+    rng = get_resource(world, RNGResource).rng
+    state = get_resource(world, RhinoState)
+    w, h = state.width, state.height
+
+    n_alive = sum(state.rhino_alive)
+    n_alive &gt;= params.max_rhinos &amp;&amp; return nothing
+
+    for i in 1:length(state.rhino_alive)
+        !state.rhino_alive[i] &amp;&amp; continue
+        state.rhino_ticks_alive[i] &lt; 50 &amp;&amp; continue
+
+        if rand(rng) &lt; params.rhino_reproduce_prob
+            n_alive &gt;= params.max_rhinos &amp;&amp; break
+
+            slot = findfirst(x -&gt; !x, state.rhino_alive)
+            slot === nothing &amp;&amp; break
+
+            state.rhino_alive[slot] = true
+            state.rhino_x[slot] = clamp(state.rhino_x[i] + (rand(rng) - 0.5) * 2.0, 1.0, Float64(w))
+            state.rhino_y[slot] = clamp(state.rhino_y[i] + (rand(rng) - 0.5) * 2.0, 1.0, Float64(h))
+            state.rhino_heading[slot] = rand(rng) * 360.0
+            state.rhino_home_x[slot] = state.rhino_x[slot]
+            state.rhino_home_y[slot] = state.rhino_y[slot]
+            state.rhino_ticks_alive[slot] = 0
+            n_alive += 1
+        end
+    end
+    return nothing
+end
+
+# --- Poacher System ---
+
+struct RhinoPoacherSystem &lt;: System end
+
+function update!(::RhinoPoacherSystem, world::World)
+    params = get_resource(world, RhinoParams)
+    rng = get_resource(world, RNGResource).rng
+    state = get_resource(world, RhinoState)
+    w, h = state.width, state.height
+
+    for i in 1:state.n_poachers
+        !state.poacher_alive[i] &amp;&amp; continue
+        state.poacher_caught[i] &amp;&amp; continue
+
+        if state.poacher_goal[i] == 0
+            # Journey to crime: move toward high rhino activity
+            gx = clamp(round(Int, state.poacher_x[i]), 1, w)
+            gy = clamp(round(Int, state.poacher_y[i]), 1, h)
+
+            best_dx, best_dy = 0.0, 0.0
+            best_activity = 0.0
+            search_r = round(Int, params.poacher_detect_range)
+
+            for dx in -search_r:search_r, dy in -search_r:search_r
+                (dx == 0 &amp;&amp; dy == 0) &amp;&amp; continue
+                nx = gx + dx
+                ny = gy + dy
+                (nx &lt; 1 || nx &gt; w || ny &lt; 1 || ny &gt; h) &amp;&amp; continue
+                if state.rhino_activity[nx, ny] &gt; best_activity
+                    best_activity = state.rhino_activity[nx, ny]
+                    best_dx = Float64(dx)
+                    best_dy = Float64(dy)
+                end
+            end
+
+            if best_activity &gt; 0.1
+                dist = sqrt(best_dx^2 + best_dy^2)
+                if dist &gt; 0.0
+                    state.poacher_x[i] += best_dx / dist * 1.5
+                    state.poacher_y[i] += best_dy / dist * 1.5
+                end
+                state.poacher_goal[i] = 1
+            else
+                angle = state.poacher_heading[i] + (rand(rng) - 0.5) * 60.0
+                state.poacher_heading[i] = angle
+                θ = deg2rad(angle)
+                state.poacher_x[i] += sin(θ) * 1.5
+                state.poacher_y[i] += cos(θ) * 1.5
+            end
+
+        elseif state.poacher_goal[i] == 1
+            # Hunting: try to kill a rhino
+            killed_this_step = false
+            for j in 1:length(state.rhino_alive)
+                !state.rhino_alive[j] &amp;&amp; continue
+                d = _rhino_dist(state.poacher_x[i], state.poacher_y[i],
+                                state.rhino_x[j], state.rhino_y[j])
+                if d &lt; params.poacher_kill_range
+                    state.rhino_alive[j] = false
+                    state.total_killed += 1
+                    killed_this_step = true
+                    break
+                end
+            end
+
+            if killed_this_step
+                state.poacher_goal[i] = 2
+            else
+                angle = state.poacher_heading[i] + (rand(rng) - 0.5) * 30.0
+                state.poacher_heading[i] = angle
+                θ = deg2rad(angle)
+                state.poacher_x[i] += sin(θ) * 1.0
+                state.poacher_y[i] += cos(θ) * 1.0
+                if rand(rng) &lt; 0.1
+                    state.poacher_goal[i] = 0
+                end
+            end
+
+        else  # goal == 2: flee toward nearest edge
+            edge_dx = state.poacher_x[i] &lt; Float64(w) / 2.0 ? -1.5 : 1.5
+            edge_dy = state.poacher_y[i] &lt; Float64(h) / 2.0 ? -1.5 : 1.5
+            state.poacher_x[i] += edge_dx + (rand(rng) - 0.5)
+            state.poacher_y[i] += edge_dy + (rand(rng) - 0.5)
+
+            # Reached edge → respawn at new edge position
+            if state.poacher_x[i] &lt;= 1.0 || state.poacher_x[i] &gt;= Float64(w) ||
+               state.poacher_y[i] &lt;= 1.0 || state.poacher_y[i] &gt;= Float64(h)
+                state.poacher_goal[i] = 0
+                if rand(rng) &lt; 0.5
+                    state.poacher_x[i] = rand(rng) &lt; 0.5 ? 1.0 : Float64(w)
+                    state.poacher_y[i] = rand(rng) * (h - 1) + 1.0
+                else
+                    state.poacher_x[i] = rand(rng) * (w - 1) + 1.0
+                    state.poacher_y[i] = rand(rng) &lt; 0.5 ? 1.0 : Float64(h)
+                end
+            end
+        end
+
+        state.poacher_x[i] = clamp(state.poacher_x[i], 1.0, Float64(w))
+        state.poacher_y[i] = clamp(state.poacher_y[i], 1.0, Float64(h))
+    end
+    return nothing
+end
+
+# --- Ranger System ---
+
+struct RhinoRangerSystem &lt;: System end
+
+function update!(::RhinoRangerSystem, world::World)
+    params = get_resource(world, RhinoParams)
+    rng = get_resource(world, RNGResource).rng
+    state = get_resource(world, RhinoState)
+    w, h = state.width, state.height
+
+    for i in 1:state.n_rangers
+        angle = state.ranger_heading[i] + (rand(rng) - 0.5) * 90.0
+        state.ranger_heading[i] = angle
+        θ = deg2rad(angle)
+        state.ranger_x[i] = clamp(state.ranger_x[i] + sin(θ) * 2.0, 1.0, Float64(w))
+        state.ranger_y[i] = clamp(state.ranger_y[i] + cos(θ) * 2.0, 1.0, Float64(h))
+
+        for j in 1:state.n_poachers
+            !state.poacher_alive[j] &amp;&amp; continue
+            state.poacher_caught[j] &amp;&amp; continue
+            d = _rhino_dist(state.ranger_x[i], state.ranger_y[i],
+                            state.poacher_x[j], state.poacher_y[j])
+            if d &lt; params.ranger_detect_range
+                state.poacher_caught[j] = true
+                state.poacher_alive[j] = false
+            end
+        end
+    end
+    return nothing
+end
+
+# --- Stats ---
+
+struct RhinoStatsSystem &lt;: System end
+
+function update!(::RhinoStatsSystem, world::World)
+    state = get_resource(world, RhinoState)
+    stats = get_resource(world, RhinoStats)
+    stats.n_rhinos = sum(state.rhino_alive)
+    stats.n_poachers = sum(state.poacher_alive)
+    stats.total_killed = state.total_killed
+    return nothing
+end
+
+# --- Termination ---
+
+struct RhinoTerminationSystem &lt;: System end
+
+function update!(::RhinoTerminationSystem, world::World)
+    params = get_resource(world, RhinoParams)
+    tick = get_resource(world, Tick)
+    if tick.tick + 1 &gt;= params.max_ticks
+        get_resource(world, Terminate).stop = true
+    end
+    return nothing
+end</code></pre><h3 id="Model-(model.jl)"><a class="docs-heading-anchor" href="#Model-(model.jl)">Model (<code>model.jl</code>)</a><a id="Model-(model.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Model-(model.jl)" title="Permalink"></a></h3><p>The model file assembles all pieces: it creates the ECS <code>World</code> with the required component types, registers resources, builds the <code>Scheduler</code> with systems in execution order, and exposes the public <code>run</code> entry point. The observer pattern records the trajectory each tick.</p><pre><code class="language-julia hljs">function _build_rhino_state(params::RhinoParams, rng)
+    w, h = params.width, params.height
+
+    resources = zeros(Float64, w, h)
+    max_resources = zeros(Float64, w, h)
+    roughness = zeros(Float64, w, h)
+
+    for x in 1:w, y in 1:h
+        resources[x, y] = -log(max(rand(rng), 1e-10)) * 10.0
+        max_resources[x, y] = resources[x, y]
+        roughness[x, y] = rand(rng) &lt; params.max_roughness ? 1.0 : 0.0
+    end
+
+    mr = params.max_rhinos
+    rhino_x = zeros(Float64, mr)
+    rhino_y = zeros(Float64, mr)
+    rhino_heading = zeros(Float64, mr)
+    rhino_alive = fill(false, mr)
+    rhino_home_x = zeros(Float64, mr)
+    rhino_home_y = zeros(Float64, mr)
+    rhino_ticks = zeros(Int, mr)
+
+    for i in 1:params.num_rhinos
+        rx = rand(rng) * (w - 1) + 1.0
+        ry = rand(rng) * (h - 1) + 1.0
+        rhino_x[i] = rx
+        rhino_y[i] = ry
+        rhino_heading[i] = rand(rng) * 360.0
+        rhino_alive[i] = true
+        rhino_home_x[i] = rx
+        rhino_home_y[i] = ry
+    end
+
+    np = params.num_poachers
+    poacher_x = zeros(Float64, np)
+    poacher_y = zeros(Float64, np)
+    poacher_heading = zeros(Float64, np)
+    poacher_alive = fill(true, np)
+    poacher_goal = zeros(Int, np)
+    poacher_caught = fill(false, np)
+
+    for i in 1:np
+        if rand(rng) &lt; 0.5
+            poacher_x[i] = rand(rng) &lt; 0.5 ? 1.0 : Float64(w)
+            poacher_y[i] = rand(rng) * (h - 1) + 1.0
+        else
+            poacher_x[i] = rand(rng) * (w - 1) + 1.0
+            poacher_y[i] = rand(rng) &lt; 0.5 ? 1.0 : Float64(h)
+        end
+        poacher_heading[i] = rand(rng) * 360.0
+    end
+
+    nrg = params.num_rangers
+    ranger_x = zeros(Float64, nrg)
+    ranger_y = zeros(Float64, nrg)
+    ranger_heading = zeros(Float64, nrg)
+
+    cx, cy = w / 2.0, h / 2.0
+    offset = min(w, h) / 4.0
+    corners = [(cx - offset, cy - offset), (cx + offset, cy - offset),
+               (cx - offset, cy + offset), (cx + offset, cy + offset)]
+    for i in 1:min(nrg, 4)
+        ranger_x[i] = corners[i][1]
+        ranger_y[i] = corners[i][2]
+        ranger_heading[i] = rand(rng) * 360.0
+    end
+    for i in 5:nrg
+        ranger_x[i] = cx + (rand(rng) - 0.5) * offset
+        ranger_y[i] = cy + (rand(rng) - 0.5) * offset
+        ranger_heading[i] = rand(rng) * 360.0
+    end
+
+    return RhinoState(
+        params.num_rhinos, rhino_x, rhino_y, rhino_heading, rhino_alive,
+        rhino_home_x, rhino_home_y, rhino_ticks,
+        np, poacher_x, poacher_y, poacher_heading, poacher_alive, poacher_goal, poacher_caught,
+        nrg, ranger_x, ranger_y, ranger_heading,
+        w, h, resources, max_resources, roughness, zeros(Float64, w, h),
+        0,
+    )
+end
+
+function rhinopoaching_world(; initial_capacity::Int = 128)
+    return World(RhinoDummy; initial_capacity = initial_capacity, allow_mutable = true)
+end
+
+function rhinopoaching_systems()
+    return (
+        InitRhinoSystem(),
+        RhinoResourceGrowSystem(),
+        RhinoActivityDecaySystem(),
+        RhinoForageSystem(),
+        RhinoReproduceSystem(),
+        RhinoPoacherSystem(),
+        RhinoRangerSystem(),
+        RhinoStatsSystem(),
+        RhinoTerminationSystem(),
+    )
+end
+
+function rhinopoaching_model(params::RhinoParams = RhinoParams())
+    world = rhinopoaching_world()
+    rng_resource = RNGResource(Xoshiro(params.seed))
+    add_resource!(world, Tick(0))
+    add_resource!(world, Terminate(false))
+    add_resource!(world, rng_resource)
+    add_resource!(world, deepcopy(params))
+    add_resource!(world, _build_rhino_state(params, rng_resource.rng))
+    add_resource!(world, RhinoStats())
+    scheduler = Scheduler(world, rhinopoaching_systems())
+    initialize!(scheduler)
+    return scheduler
+end
+
+struct RhinoObserver end
+
+function rhino_headers(::RhinoObserver)
+    return [&quot;Rhinos&quot;, &quot;Poachers&quot;, &quot;TotalKilled&quot;]
+end
+
+function rhino_values(::RhinoObserver, world::World)
+    stats = get_resource(world, RhinoStats)
+    return Float64[stats.n_rhinos, stats.n_poachers, stats.total_killed]
+end
+
+function run_rhinopoaching(; params::RhinoParams = RhinoParams(), observe::Bool = true)
+    return _run_model(rhinopoaching_model, RhinoObserver(), rhino_values; params, observe)
+end</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../resilientteam/resilientteam/">« Resilient Team</a><a class="docs-footer-nextpage" href="../../riseofradicalism/riseofradicalism/">Rise of Radicalism »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.20.0 on <span class="colophon-date" title="Wednesday 18 November 2026 19:14">Wednesday 18 November 2026</span>. Using Julia version 1.13.4.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>

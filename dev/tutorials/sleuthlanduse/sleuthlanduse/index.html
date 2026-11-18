@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="referrer" content="no-referrer"/><title>Sleuth LandUse · ArkModelZoo.jl</title><meta name="title" content="Sleuth LandUse · ArkModelZoo.jl"/><meta property="og:title" content="Sleuth LandUse · ArkModelZoo.jl"/><meta property="twitter:title" content="Sleuth LandUse · ArkModelZoo.jl"/><meta name="description" content="Documentation for ArkModelZoo.jl."/><meta property="og:description" content="Documentation for ArkModelZoo.jl."/><meta property="twitter:description" content="Documentation for ArkModelZoo.jl."/><meta property="og:url" content="https://ecorecipes.github.io/ArkModelZoo.jl/tutorials/sleuthlanduse/sleuthlanduse/"/><meta property="twitter:url" content="https://ecorecipes.github.io/ArkModelZoo.jl/tutorials/sleuthlanduse/sleuthlanduse/"/><link rel="canonical" href="https://ecorecipes.github.io/ArkModelZoo.jl/tutorials/sleuthlanduse/sleuthlanduse/"/><script data-outdated-warner src="../../../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.63.2/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../../assets/documenter.js"></script><script src="../../../search_index.js"></script><script src="../../../siteinfo.js"></script><script src="../../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="../../../">ArkModelZoo.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../../../">Home</a></li><li><span class="tocitem">Resilience</span><ul><li><a class="tocitem" href="../../resilience/resilience/">Resilience of agent-based models</a></li></ul></li><li><span class="tocitem">Models</span><ul><li><a class="tocitem" href="../../abtgc/abtgc/">ABTgc</a></li><li><a class="tocitem" href="../../aids/aids/">AIDS</a></li><li><a class="tocitem" href="../../altruism/altruism/">Altruism</a></li><li><a class="tocitem" href="../../antsystem/antsystem/">Ant System TSP</a></li><li><a class="tocitem" href="../../ants/ants/">Ants</a></li><li><a class="tocitem" href="../../artificialeconomy/artificialeconomy/">Artificial Economy</a></li><li><a class="tocitem" href="../../axelrodcultural/axelrodcultural/">AxelrodCultural</a></li><li><a class="tocitem" href="../../babysittingcoop/babysittingcoop/">Baby Sitting Coop</a></li><li><a class="tocitem" href="../../bank_reserves/bank_reserves/">Bank Reserves</a></li><li><a class="tocitem" href="../../bayesian/bayesian/">Bayesian Updating</a></li><li><a class="tocitem" href="../../beinggreen/beinggreen/">Being Green</a></li><li><a class="tocitem" href="../../birthrates/birthrates/">Birthrates</a></li><li><a class="tocitem" href="../../blackbox/blackbox/">BlackBox</a></li><li><a class="tocitem" href="../../boiling/boiling/">Boiling</a></li><li><a class="tocitem" href="../../bombscenario/bombscenario/">BombScenario</a></li><li><a class="tocitem" href="../../brians_brain/brians_brain/">Brian’s Brain</a></li><li><a class="tocitem" href="../../bullwhipeffect/bullwhipeffect/">Bullwhip Effect</a></li><li><a class="tocitem" href="../../ca_1d_elementary/ca_1d_elementary/">CA 1D Elementary</a></li><li><a class="tocitem" href="../../civilizationgrowth/civilizationgrowth/">Civilization Growth</a></li><li><a class="tocitem" href="../../climatechange/climatechange/">Climate Change</a></li><li><a class="tocitem" href="../../coin/coin/">COIN Learning</a></li><li><a class="tocitem" href="../../competitionlearning/competitionlearning/">Competition Learning</a></li><li><a class="tocitem" href="../../contactprocess/contactprocess/">Contact Process 2D</a></li><li><a class="tocitem" href="../../contagionnw/contagionnw/">Contagion NW</a></li><li><a class="tocitem" href="../../contagionsi/contagionsi/">Contagion SI</a></li><li><a class="tocitem" href="../../contagionsir/contagionsir/">Contagion SIR</a></li><li><a class="tocitem" href="../../cooperation/cooperation/">Cooperation</a></li><li><a class="tocitem" href="../../coordination/coordination/">Coordination</a></li><li><a class="tocitem" href="../../coordination2groups/coordination2groups/">Coordination 2 Groups</a></li><li><a class="tocitem" href="../../croprotation/croprotation/">Crop Rotation</a></li><li><a class="tocitem" href="../../crystallization/crystallization/">Crystallization</a></li><li><a class="tocitem" href="../../csvnetworkforaging/csvnetworkforaging/">CSV Network Foraging</a></li><li><a class="tocitem" href="../../csvpopulation/csvpopulation/">CSV Population</a></li><li><a class="tocitem" href="../../culturaldiffusion/culturaldiffusion/">Cultural Diffusion</a></li><li><a class="tocitem" href="../../cyberspaceopinion/cyberspaceopinion/">Cyberspace Opinion</a></li><li><a class="tocitem" href="../../daisyworld/daisyworld/">Daisyworld</a></li><li><a class="tocitem" href="../../dating/dating/">Dating</a></li><li><a class="tocitem" href="../../diffusionnetwork/diffusionnetwork/">Diffusion Network</a></li><li><a class="tocitem" href="../../diffusionofhiv/diffusionofhiv/">DiffusionOfHIV</a></li><li><a class="tocitem" href="../../disinfobitstringnw/disinfobitstringnw/">Disinfobitstringnw</a></li><li><a class="tocitem" href="../../dla/dla/">Dla</a></li><li><a class="tocitem" href="../../dlasimple/dlasimple/">DLA Simple</a></li><li><a class="tocitem" href="../../druguse/druguse/">Drug Use</a></li><li><a class="tocitem" href="../../druguseoverdose/druguseoverdose/">Drug Use Overdose</a></li><li><a class="tocitem" href="../../elfarol/elfarol/">El Farol</a></li><li><a class="tocitem" href="../../erosion/erosion/">Erosion</a></li><li><a class="tocitem" href="../../ethnocentrism/ethnocentrism/">Ethnocentrism</a></li><li><a class="tocitem" href="../../evolutionofnorms/evolutionofnorms/">EvolutionOfNorms</a></li><li><a class="tocitem" href="../../firepercolation/firepercolation/">Fire Percolation</a></li><li><a class="tocitem" href="../../firebenchmark/firebenchmark/">FireBenchmark</a></li><li><a class="tocitem" href="../../fireflies/fireflies/">Fireflies</a></li><li><a class="tocitem" href="../../flocking/flocking/">Flocking</a></li><li><a class="tocitem" href="../../flockingnetwork/flockingnetwork/">Flocking Network</a></li><li><a class="tocitem" href="../../forestdewdney/forestdewdney/">Forest Dewdney</a></li><li><a class="tocitem" href="../../fire/fire/">Forest Fire</a></li><li><a class="tocitem" href="../../fungalbioremediation/fungalbioremediation/">Fungal Bioremediation</a></li><li><a class="tocitem" href="../../giant_component/giant_component/">Giant Component</a></li><li><a class="tocitem" href="../../gishillclimber/gishillclimber/">GIS HillClimber</a></li><li><a class="tocitem" href="../../granovetter/granovetter/">Granovetter</a></li><li><a class="tocitem" href="../../grassbrushtrees/grassbrushtrees/">Grass Brush Trees</a></li><li><a class="tocitem" href="../../diffusion/diffusion/">Heat Diffusion</a></li><li><a class="tocitem" href="../../heatbugs/heatbugs/">Heatbugs</a></li><li><a class="tocitem" href="../../hikingelevation/hikingelevation/">HikingElevation</a></li><li><a class="tocitem" href="../../infinitelife/infinitelife/">Infinite Life</a></li><li><a class="tocitem" href="../../infodiffusion/infodiffusion/">Info Diffusion</a></li><li><a class="tocitem" href="../../ising/ising/">Ising</a></li><li><a class="tocitem" href="../../languageborders/languageborders/">Language Borders</a></li><li><a class="tocitem" href="../../languagechange/languagechange/">Language Change</a></li><li><a class="tocitem" href="../../lassavirus/lassavirus/">LassaVirus</a></li><li><a class="tocitem" href="../../leonarditechadoption/leonarditechadoption/">Leonardi Tech Adoption</a></li><li><a class="tocitem" href="../../life/life/">Life</a></li><li><a class="tocitem" href="../../logistic_growth/logistic_growth/">Logistic Growth</a></li><li><a class="tocitem" href="../../mailmen/mailmen/">Mailmen Delivery</a></li><li><a class="tocitem" href="../../marriage/marriage/">Marriage Problem</a></li><li><a class="tocitem" href="../../mimicry/mimicry/">Mimicry</a></li><li><a class="tocitem" href="../../minimalsis/minimalsis/">Minimal SIS</a></li><li><a class="tocitem" href="../../minoritybelief/minoritybelief/">Minority Belief Spread</a></li><li><a class="tocitem" href="../../minoritygame/minoritygame/">Minority Game</a></li><li><a class="tocitem" href="../../misinformationsbfc/misinformationsbfc/">Misinformation SBFC</a></li><li><a class="tocitem" href="../../modsocsegregation/modsocsegregation/">Modsoc Segregation</a></li><li><a class="tocitem" href="../../mousetraps/mousetraps/">Mousetraps</a></li><li><a class="tocitem" href="../../multidrugresistant/multidrugresistant/">MultidrugResistant</a></li><li><a class="tocitem" href="../../opinionbc/opinionbc/">Opinion Dynamics BC</a></li><li><a class="tocitem" href="../../paretolearn/paretolearn/">Pareto Learning</a></li><li><a class="tocitem" href="../../participatorydisinfo/participatorydisinfo/">Participatory Disinformation</a></li><li><a class="tocitem" href="../../participatorydisinformation/participatorydisinformation/">Participatory Disinformation</a></li><li><a class="tocitem" href="../../particles/particles/">Particles</a></li><li><a class="tocitem" href="../../party/party/">Party</a></li><li><a class="tocitem" href="../../pd_basic_evolutionary/pd_basic_evolutionary/">PD Basic Evolutionary</a></li><li><a class="tocitem" href="../../pdsimple/pdsimple/">PD Simple</a></li><li><a class="tocitem" href="../../percolation/percolation/">Percolation</a></li><li><a class="tocitem" href="../../polymerdynamics/polymerdynamics/">Polymer Dynamics</a></li><li><a class="tocitem" href="../../prefattachhomophily/prefattachhomophily/">Pref Attach Homophily</a></li><li><a class="tocitem" href="../../preferential_attachment/preferential_attachment/">Preferential Attachment</a></li><li><a class="tocitem" href="../../privacyopinion/privacyopinion/">Privacy Opinion</a></li><li><a class="tocitem" href="../../productsmarket/productsmarket/">Products Market</a></li><li><a class="tocitem" href="../../public_good/public_good/">Public Good</a></li><li><a class="tocitem" href="../../cqin/cqin/">Quality Improvement Network</a></li><li><a class="tocitem" href="../../rabbits_grass_weeds/rabbits_grass_weeds/">Rabbits Grass Weeds</a></li><li><a class="tocitem" href="../../decay/decay/">Radioactive Decay</a></li><li><a class="tocitem" href="../../rationalevolvingpd/rationalevolvingpd/">Rational Evolving PD</a></li><li><a class="tocitem" href="../../rebellion/rebellion/">Rebellion</a></li><li><a class="tocitem" href="../../recruitingmovement/recruitingmovement/">Recruiting Movement</a></li><li><a class="tocitem" href="../../recruiting/recruiting/">Recruiting Supporters</a></li><li><a class="tocitem" href="../../recruitingsupporters/recruitingsupporters/">Recruiting Supporters</a></li><li><a class="tocitem" href="../../resilientteam/resilientteam/">Resilient Team</a></li><li><a class="tocitem" href="../../rhinopoaching/rhinopoaching/">Rhino Poaching</a></li><li><a class="tocitem" href="../../riseofradicalism/riseofradicalism/">Rise of Radicalism</a></li><li><a class="tocitem" href="../../rope/rope/">Rope</a></li><li><a class="tocitem" href="../../rumormill/rumormill/">Rumor Mill</a></li><li><a class="tocitem" href="../../sand/sand/">Sand</a></li><li><a class="tocitem" href="../../schelling/schelling/">Schelling Segregation</a></li><li><a class="tocitem" href="../../segregation/segregation/">Segregation</a></li><li><a class="tocitem" href="../../shepherds/shepherds/">Shepherds</a></li><li><a class="tocitem" href="../../simple_genetic_algorithm/simple_genetic_algorithm/">Simple Genetic Algorithm</a></li><li><a class="tocitem" href="../../simplemarket/simplemarket/">Simple Market</a></li><li><a class="tocitem" href="../../simplemarketrandom/simplemarketrandom/">Simple Market Random</a></li><li><a class="tocitem" href="../../simplemarkettable/simplemarkettable/">Simple Market Table</a></li><li><a class="tocitem" href="../../sir/sir/">SIR Epidemic</a></li><li class="is-active"><a class="tocitem" href>Sleuth LandUse</a><ul class="internal"><li><a class="tocitem" href="#Overview"><span>Overview</span></a></li><li><a class="tocitem" href="#Parameters"><span>Parameters</span></a></li><li><a class="tocitem" href="#Source-Code"><span>Source Code</span></a></li><li><a class="tocitem" href="#Appendix:-Source-Code"><span>Appendix: Source Code</span></a></li></ul></li><li><a class="tocitem" href="../../slime/slime/">Slime</a></li><li><a class="tocitem" href="../../slowspread/slowspread/">Slow Spread Env Action</a></li><li><a class="tocitem" href="../../small_worlds/small_worlds/">Small Worlds</a></li><li><a class="tocitem" href="../../socialinfluence/socialinfluence/">Social Influence</a></li><li><a class="tocitem" href="../../socialnetworkdiffusion/socialnetworkdiffusion/">Social Network Diffusion</a></li><li><a class="tocitem" href="../../soliddiffusion/soliddiffusion/">Solid Diffusion</a></li><li><a class="tocitem" href="../../spatialattitude/spatialattitude/">Spatial Attitude</a></li><li><a class="tocitem" href="../../ipd/ipd/">Spatial IPD</a></li><li><a class="tocitem" href="../../spatialopinion/spatialopinion/">Spatial Opinion Dynamics</a></li><li><a class="tocitem" href="../../fakenews/fakenews/">Spread of Fake News</a></li><li><a class="tocitem" href="../../spreadingbots/spreadingbots/">Spreading Bots</a></li><li><a class="tocitem" href="../../spreadinggroups/spreadinggroups/">Spreading Groups</a></li><li><a class="tocitem" href="../../sugarscape_1_growback/sugarscape_1_growback/">Sugarscape 1 Growback</a></li><li><a class="tocitem" href="../../sugarscapeculture/sugarscapeculture/">Sugarscape Culture</a></li><li><a class="tocitem" href="../../sugarscapesexual/sugarscapesexual/">Sugarscape Sexual</a></li><li><a class="tocitem" href="../../superdiffuser/superdiffuser/">SuperDiffuser</a></li><li><a class="tocitem" href="../../teamassembly/teamassembly/">Team Assembly</a></li><li><a class="tocitem" href="../../termites/termites/">Termites</a></li><li><a class="tocitem" href="../../thermostat/thermostat/">Thermostat</a></li><li><a class="tocitem" href="../../tourism/tourism/">Tourism</a></li><li><a class="tocitem" href="../../traffic2lanes/traffic2lanes/">Traffic 2 Lanes</a></li><li><a class="tocitem" href="../../trafficbasic/trafficbasic/">Traffic Basic</a></li><li><a class="tocitem" href="../../trafficgrid/trafficgrid/">Traffic Grid</a></li><li><a class="tocitem" href="../../trafficintersection/trafficintersection/">Traffic Intersection</a></li><li><a class="tocitem" href="../../tumor/tumor/">Tumor</a></li><li><a class="tocitem" href="../../unitcohesion/unitcohesion/">Unit Cohesion</a></li><li><a class="tocitem" href="../../virus_on_network/virus_on_network/">Virus on a Network</a></li><li><a class="tocitem" href="../../virus/virus/">Virus on Network</a></li><li><a class="tocitem" href="../../voronoivoter/voronoivoter/">Voronoi Voter</a></li><li><a class="tocitem" href="../../voter/voter/">Voter Model</a></li><li><a class="tocitem" href="../../voting/voting/">Voting</a></li><li><a class="tocitem" href="../../wealthdistribution/wealthdistribution/">Wealth Distribution</a></li><li><a class="tocitem" href="../../wisdomcrowd/wisdomcrowd/">Wisdom of Crowd</a></li><li><a class="tocitem" href="../../wolfsheep/wolfsheep/">Wolf Sheep Predation</a></li></ul></li><li><a class="tocitem" href="../../../api/">API Reference</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Models</a></li><li class="is-active"><a href>Sleuth LandUse</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Sleuth LandUse</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/ecorecipes/ArkModelZoo.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/ecorecipes/ArkModelZoo.jl/blob/main/docs/src/tutorials/sleuthlanduse/sleuthlanduse.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Sleuth-LandUse"><a class="docs-heading-anchor" href="#Sleuth-LandUse">Sleuth LandUse</a><a id="Sleuth-LandUse-1"></a><a class="docs-heading-anchor-permalink" href="#Sleuth-LandUse" title="Permalink"></a></h1><h2 id="Overview"><a class="docs-heading-anchor" href="#Overview">Overview</a><a id="Overview-1"></a><a class="docs-heading-anchor-permalink" href="#Overview" title="Permalink"></a></h2><p>This vignette demonstrates the <strong>Sleuth LandUse</strong> model implemented in <a href="https://github.com/sdwfrost/ArkModelZoo.jl">ArkModelZoo.jl</a> using the Ark.jl ECS framework.</p><h2 id="Parameters"><a class="docs-heading-anchor" href="#Parameters">Parameters</a><a id="Parameters-1"></a><a class="docs-heading-anchor-permalink" href="#Parameters" title="Permalink"></a></h2><table><tr><th style="text-align: right">Parameter</th><th style="text-align: right">Type</th><th style="text-align: right">Default</th><th style="text-align: right">Description</th></tr><tr><td style="text-align: right"><code>data_dir</code></td><td style="text-align: right"><code>String</code></td><td style="text-align: right"><code>&quot;.&quot;</code></td><td style="text-align: right">data dir</td></tr><tr><td style="text-align: right"><code>lobby</code></td><td style="text-align: right"><code>Float64</code></td><td style="text-align: right"><code>1.0</code></td><td style="text-align: right">lobby</td></tr><tr><td style="text-align: right"><code>dispersion</code></td><td style="text-align: right"><code>Float64</code></td><td style="text-align: right"><code>52.0</code></td><td style="text-align: right">dispersion</td></tr><tr><td style="text-align: right"><code>newspread</code></td><td style="text-align: right"><code>Float64</code></td><td style="text-align: right"><code>55.0</code></td><td style="text-align: right">newspread</td></tr><tr><td style="text-align: right"><code>spread</code></td><td style="text-align: right"><code>Float64</code></td><td style="text-align: right"><code>26.0</code></td><td style="text-align: right">spread</td></tr><tr><td style="text-align: right"><code>rounds</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>50</code></td><td style="text-align: right">rounds</td></tr><tr><td style="text-align: right"><code>grid_width</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>753</code></td><td style="text-align: right">grid width</td></tr><tr><td style="text-align: right"><code>grid_height</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>753</code></td><td style="text-align: right">grid height</td></tr><tr><td style="text-align: right"><code>max_ticks</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>50</code></td><td style="text-align: right">max ticks</td></tr></table><h2 id="Source-Code"><a class="docs-heading-anchor" href="#Source-Code">Source Code</a><a id="Source-Code-1"></a><a class="docs-heading-anchor-permalink" href="#Source-Code" title="Permalink"></a></h2><p>The Julia code to run this model:</p><pre><code class="language-julia hljs">using ArkModelZoo
+_, trajectory = run_sleuthlanduse()</code></pre><h2 id="Appendix:-Source-Code"><a class="docs-heading-anchor" href="#Appendix:-Source-Code">Appendix: Source Code</a><a id="Appendix:-Source-Code-1"></a><a class="docs-heading-anchor-permalink" href="#Appendix:-Source-Code" title="Permalink"></a></h2><p>This model is implemented in the <a href="https://github.com/sdwfrost/Ark.jl">Ark.jl</a> Entity-Component-System (ECS) framework. The code is split into five files, each with a distinct role:</p><ul><li><strong>Parameters</strong>: a mutable struct holding all configurable values.</li><li><strong>Components</strong>: lightweight data types attached to individual entities (agents).</li><li><strong>Resources</strong>: world-level shared state accessible to all systems.</li><li><strong>Systems</strong>: functions that operate on entities each tick, defining model behavior.</li><li><strong>Model</strong>: wiring that assembles the world, registers resources and systems, and provides the run entry point.</li></ul><h3 id="Parameters-(parameters.jl)"><a class="docs-heading-anchor" href="#Parameters-(parameters.jl)">Parameters (<code>parameters.jl</code>)</a><a id="Parameters-(parameters.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Parameters-(parameters.jl)" title="Permalink"></a></h3><p>The parameter struct uses <code>@kwdef</code> so that every field has a default value and can be overridden by keyword. These defaults match the original NetLogo model’s slider settings.</p><pre><code class="language-julia hljs">Base.@kwdef mutable struct SleuthParams
+    data_dir::String = &quot;.&quot;
+    lobby::Float64 = 1.0
+    dispersion::Float64 = 52.0
+    newspread::Float64 = 55.0
+    spread::Float64 = 26.0
+    rounds::Int = 50
+    grid_width::Int = 753
+    grid_height::Int = 753
+    max_ticks::Int = 50
+    seed::Int = 42
+end</code></pre><h3 id="Components-(components.jl)"><a class="docs-heading-anchor" href="#Components-(components.jl)">Components (<code>components.jl</code>)</a><a id="Components-(components.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Components-(components.jl)" title="Permalink"></a></h3><p>Components are lightweight data types attached to individual entities (agents). Mutable structs hold per-entity state, while empty tag structs act as markers for the ECS query system to efficiently filter entities.</p><pre><code class="language-julia hljs">struct SleuthDummy end</code></pre><h3 id="Resources-(resources.jl)"><a class="docs-heading-anchor" href="#Resources-(resources.jl)">Resources (<code>resources.jl</code>)</a><a id="Resources-(resources.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Resources-(resources.jl)" title="Permalink"></a></h3><p>Resources are world-level singletons shared across all systems, used for global state and aggregate statistics.</p><pre><code class="language-julia hljs"># County IDs used in the model
+const SLEUTH_COUNTY_IDS = [1, 2, 10, 12, 14, 18, 20, 24, 26, 28, 29, 32, 35, 36, 37, 40, 41, 42, 43, 44, 46, 49, 56]
+
+mutable struct SleuthGrid
+    width::Int
+    height::Int
+    urban::Matrix{Float64}
+    county::Matrix{Float64}
+    excluded::Matrix{Float64}
+    road::Matrix{Float64}
+    available::Matrix{Bool}
+    capdist::Matrix{Float64}
+    county_urban::Dict{Int,Int}     # county_id =&gt; urban count
+    county_total::Dict{Int,Int}     # county_id =&gt; total patch count
+end
+
+function SleuthGrid(w::Int, h::Int)
+    SleuthGrid(w, h,
+        zeros(Float64, w, h),
+        zeros(Float64, w, h),
+        zeros(Float64, w, h),
+        zeros(Float64, w, h),
+        falses(w, h),
+        zeros(Float64, w, h),
+        Dict{Int,Int}(),
+        Dict{Int,Int}())
+end
+
+mutable struct SleuthStats
+    urbantotal::Int
+    purbantotal::Float64
+    concentration::Float64
+end
+SleuthStats() = SleuthStats(0, 0.0, 0.0)</code></pre><h3 id="Systems-(systems.jl)"><a class="docs-heading-anchor" href="#Systems-(systems.jl)">Systems (<code>systems.jl</code>)</a><a id="Systems-(systems.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Systems-(systems.jl)" title="Permalink"></a></h3><p>Systems contain the model logic and execute in a defined order each tick. Each system struct implements either <code>initialize!</code> (run once at setup) or <code>update!</code> (run every tick).</p><pre><code class="language-julia hljs"># --- Initialization ---
+
+struct InitSleuthSystem &lt;: System end
+
+function initialize!(::InitSleuthSystem, world::World)
+    params = get_resource(world, SleuthParams)
+    grid = get_resource(world, SleuthGrid)
+    stats = get_resource(world, SleuthStats)
+    w, h = grid.width, grid.height
+
+    # Load 4 raster layers
+    urban_r = gis_load_asc(joinpath(params.data_dir, &quot;urbandclr3.asc&quot;))
+    county_r = gis_load_asc(joinpath(params.data_dir, &quot;countyls.asc&quot;))
+    excluded_r = gis_load_asc(joinpath(params.data_dir, &quot;excludedlr.asc&quot;))
+    road_r = gis_load_asc(joinpath(params.data_dir, &quot;rasterroad.asc&quot;))
+
+    # Use common envelope and resample to model grid size
+    env = gis_envelope(urban_r)
+    half_w = div(w, 2)
+    half_h = div(h, 2)
+    transform = gis_set_world_envelope(env, -half_w, half_w, -half_h, half_h)
+
+    grid.urban = gis_apply_raster(urban_r, w, h, transform)
+    grid.county = gis_apply_raster(county_r, w, h, transform)
+    grid.excluded = gis_apply_raster(excluded_r, w, h, transform)
+    grid.road = gis_apply_raster(road_r, w, h, transform)
+
+    nodata = urban_r.nodata
+
+    # Calculate centroid of county 43
+    cx43, cy43, n43 = 0.0, 0.0, 0
+    for x in 1:w, y in 1:h
+        cval = grid.county[x, y]
+        if cval != nodata &amp;&amp; round(Int, cval) == 43
+            cx43 += x; cy43 += y; n43 += 1
+        end
+    end
+    if n43 &gt; 0
+        cx43 /= n43; cy43 /= n43
+    else
+        cx43 = w / 2.0; cy43 = h / 2.0
+    end
+
+    # Calculate capdist and determine availability, county counts
+    for cid in SLEUTH_COUNTY_IDS
+        grid.county_urban[cid] = 0
+        grid.county_total[cid] = 0
+    end
+
+    for x in 1:w, y in 1:h
+        grid.capdist[x, y] = sqrt((x - cx43)^2 + (y - cy43)^2)
+        cval = grid.county[x, y]
+        cid = (cval == nodata || cval &lt; 0) ? 0 : round(Int, cval)
+        # Urban raster: 2 = urbanized, 1 = rural, -9999 = nodata
+        uval = grid.urban[x, y]
+        is_urban = uval != nodata &amp;&amp; uval &gt;= 2.0
+        # Excluded raster: 1 = excluded, -9999 = nodata
+        eval_v = grid.excluded[x, y]
+        is_excluded = eval_v != nodata &amp;&amp; eval_v &gt;= 1.0
+        in_valid_county = cid &gt; 0 &amp;&amp; cid &lt; 57
+
+        grid.available[x, y] = in_valid_county &amp;&amp; !is_excluded &amp;&amp; !is_urban
+
+        if in_valid_county &amp;&amp; cid in SLEUTH_COUNTY_IDS
+            grid.county_total[cid] = get(grid.county_total, cid, 0) + 1
+            if is_urban
+                grid.county_urban[cid] = get(grid.county_urban, cid, 0) + 1
+            end
+        end
+    end
+
+    _update_sleuth_stats!(grid, stats)
+    return nothing
+end
+
+function _update_sleuth_stats!(grid::SleuthGrid, stats::SleuthStats)
+    w, h = grid.width, grid.height
+    total_urban = 0
+    total_patches = 0
+    nodata = -9999.0
+
+    # Recount county urban/total
+    for cid in SLEUTH_COUNTY_IDS
+        grid.county_urban[cid] = 0
+        grid.county_total[cid] = 0
+    end
+
+    for x in 1:w, y in 1:h
+        cval = grid.county[x, y]
+        cid = (cval == nodata || cval &lt; 0) ? 0 : round(Int, cval)
+        if cid &gt; 0 &amp;&amp; cid &lt; 57
+            total_patches += 1
+            uval = grid.urban[x, y]
+            is_urban = uval != nodata &amp;&amp; uval &gt;= 2.0
+            if is_urban
+                total_urban += 1
+            end
+            if cid in SLEUTH_COUNTY_IDS
+                grid.county_total[cid] = get(grid.county_total, cid, 0) + 1
+                if is_urban
+                    grid.county_urban[cid] = get(grid.county_urban, cid, 0) + 1
+                end
+            end
+        end
+    end
+
+    stats.urbantotal = total_urban
+    stats.purbantotal = total_patches &gt; 0 ? total_urban / total_patches : 0.0
+
+    # Herfindahl concentration index
+    hhi = 0.0
+    for cid in SLEUTH_COUNTY_IDS
+        cu = get(grid.county_urban, cid, 0)
+        if total_urban &gt; 0
+            share = cu / total_urban
+            hhi += share^2
+        end
+    end
+    stats.concentration = hhi
+    return nothing
+end
+
+function _get_tax(grid::SleuthGrid, x::Int, y::Int, lobby::Float64)
+    cval = grid.county[x, y]
+    cid = (cval == -9999.0 || cval &lt; 0) ? 0 : round(Int, cval)
+    cu = get(grid.county_urban, cid, 0)
+    ct = get(grid.county_total, cid, 0)
+    pct_urban = ct &gt; 0 ? cu / ct : 0.0
+    return pct_urban * lobby * 100.0
+end
+
+# Wrapping helper
+function _wrap(v::Int, lo::Int, hi::Int)
+    r = hi - lo + 1
+    return mod(v - lo, r) + lo
+end
+
+# --- Growth System ---
+
+struct SleuthGrowthSystem &lt;: System end
+
+function update!(::SleuthGrowthSystem, world::World)
+    params = get_resource(world, SleuthParams)
+    rng = get_resource(world, RNGResource).rng
+    grid = get_resource(world, SleuthGrid)
+    w, h = grid.width, grid.height
+
+    # Spontaneous growth
+    for _ in 1:params.rounds
+        x = rand(rng, 1:w)
+        y = rand(rng, 1:h)
+        if !grid.available[x, y]
+            continue
+        end
+        tax = _get_tax(grid, x, y, params.lobby)
+        threshold = params.dispersion * 5.3 * (100.0 - tax) / 100.0
+        if rand(rng) * 100.0 &lt; threshold
+            # Urbanize
+            grid.urban[x, y] = 2.0
+            grid.available[x, y] = false
+
+            # Spread to up to 2 neighbors
+            spread_count = 0
+            for _ in 1:8
+                spread_count &gt;= 2 &amp;&amp; break
+                dx = rand(rng, -1:1)
+                dy = rand(rng, -1:1)
+                (dx == 0 &amp;&amp; dy == 0) &amp;&amp; continue
+                nx = _wrap(x + dx, 1, w)
+                ny = _wrap(y + dy, 1, h)
+                if grid.available[nx, ny]
+                    ntax = _get_tax(grid, nx, ny, params.lobby)
+                    if rand(rng) * 100.0 &lt; params.newspread * (100.0 - ntax) / 100.0
+                        grid.urban[nx, ny] = 2.0
+                        grid.available[nx, ny] = false
+                        spread_count += 1
+                    end
+                end
+            end
+        end
+    end
+
+    # Edge growth: available patches with &gt;= 3 urban neighbors urbanize
+    to_urbanize = Tuple{Int,Int}[]
+    for x in 1:w, y in 1:h
+        if !grid.available[x, y]
+            continue
+        end
+        urban_neighbors = 0
+        for dx in -1:1, dy in -1:1
+            (dx == 0 &amp;&amp; dy == 0) &amp;&amp; continue
+            nx = _wrap(x + dx, 1, w)
+            ny = _wrap(y + dy, 1, h)
+            if grid.urban[nx, ny] &gt;= 2.0
+                urban_neighbors += 1
+            end
+        end
+        if urban_neighbors &gt;= 3
+            tax = _get_tax(grid, x, y, params.lobby)
+            if rand(rng) * 100.0 &lt; params.spread * (100.0 - tax) / 100.0
+                push!(to_urbanize, (x, y))
+            end
+        end
+    end
+    for (x, y) in to_urbanize
+        grid.urban[x, y] = 2.0
+        grid.available[x, y] = false
+    end
+
+    return nothing
+end
+
+# --- Stats Update ---
+
+struct SleuthStatsSystem &lt;: System end
+
+function update!(::SleuthStatsSystem, world::World)
+    grid = get_resource(world, SleuthGrid)
+    stats = get_resource(world, SleuthStats)
+    _update_sleuth_stats!(grid, stats)
+    return nothing
+end
+
+# --- Termination ---
+
+struct SleuthTerminationSystem &lt;: System end
+
+function update!(::SleuthTerminationSystem, world::World)
+    params = get_resource(world, SleuthParams)
+    tick = get_resource(world, Tick)
+    if tick.tick + 1 &gt;= params.max_ticks
+        get_resource(world, Terminate).stop = true
+    end
+    return nothing
+end</code></pre><h3 id="Model-(model.jl)"><a class="docs-heading-anchor" href="#Model-(model.jl)">Model (<code>model.jl</code>)</a><a id="Model-(model.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Model-(model.jl)" title="Permalink"></a></h3><p>The model file assembles all pieces: it creates the ECS <code>World</code> with the required component types, registers resources, builds the <code>Scheduler</code> with systems in execution order, and exposes the public <code>run</code> entry point. The observer pattern records the trajectory each tick.</p><pre><code class="language-julia hljs">function sleuthlanduse_world(; initial_capacity::Int = 128)
+    return World(
+        SleuthDummy;
+        initial_capacity = initial_capacity,
+        allow_mutable = true,
+    )
+end
+
+function sleuthlanduse_systems()
+    return (
+        InitSleuthSystem(),
+        SleuthGrowthSystem(),
+        SleuthStatsSystem(),
+        SleuthTerminationSystem(),
+    )
+end
+
+function sleuthlanduse_model(params::SleuthParams = SleuthParams())
+    world = sleuthlanduse_world()
+    _add_standard_resources!(world, params)
+    add_resource!(world, SleuthGrid(params.grid_width, params.grid_height))
+    add_resource!(world, SleuthStats())
+    scheduler = Scheduler(world, sleuthlanduse_systems())
+    initialize!(scheduler)
+    return scheduler
+end
+
+struct SleuthObserver end
+
+function sleuthlanduse_headers(::SleuthObserver)
+    return [&quot;UrbanTotal&quot;, &quot;PctUrban&quot;, &quot;Concentration&quot;]
+end
+
+function sleuthlanduse_values(::SleuthObserver, world::World)
+    stats = get_resource(world, SleuthStats)
+    return Float64[stats.urbantotal, stats.purbantotal, stats.concentration]
+end
+
+function run_sleuthlanduse(; params::SleuthParams = SleuthParams(), observe::Bool = true)
+    return _run_model(sleuthlanduse_model, SleuthObserver(), sleuthlanduse_values; params, observe)
+end</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../sir/sir/">« SIR Epidemic</a><a class="docs-footer-nextpage" href="../../slime/slime/">Slime »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.20.0 on <span class="colophon-date" title="Wednesday 18 November 2026 19:14">Wednesday 18 November 2026</span>. Using Julia version 1.13.4.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>

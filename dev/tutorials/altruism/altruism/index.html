@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="referrer" content="no-referrer"/><title>Altruism · ArkModelZoo.jl</title><meta name="title" content="Altruism · ArkModelZoo.jl"/><meta property="og:title" content="Altruism · ArkModelZoo.jl"/><meta property="twitter:title" content="Altruism · ArkModelZoo.jl"/><meta name="description" content="Documentation for ArkModelZoo.jl."/><meta property="og:description" content="Documentation for ArkModelZoo.jl."/><meta property="twitter:description" content="Documentation for ArkModelZoo.jl."/><meta property="og:url" content="https://ecorecipes.github.io/ArkModelZoo.jl/tutorials/altruism/altruism/"/><meta property="twitter:url" content="https://ecorecipes.github.io/ArkModelZoo.jl/tutorials/altruism/altruism/"/><link rel="canonical" href="https://ecorecipes.github.io/ArkModelZoo.jl/tutorials/altruism/altruism/"/><script data-outdated-warner src="../../../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.63.2/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../../assets/documenter.js"></script><script src="../../../search_index.js"></script><script src="../../../siteinfo.js"></script><script src="../../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="../../../">ArkModelZoo.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../../../">Home</a></li><li><span class="tocitem">Resilience</span><ul><li><a class="tocitem" href="../../resilience/resilience/">Resilience of agent-based models</a></li></ul></li><li><span class="tocitem">Models</span><ul><li><a class="tocitem" href="../../abtgc/abtgc/">ABTgc</a></li><li><a class="tocitem" href="../../aids/aids/">AIDS</a></li><li class="is-active"><a class="tocitem" href>Altruism</a><ul class="internal"><li><a class="tocitem" href="#Overview"><span>Overview</span></a></li><li><a class="tocitem" href="#Parameters"><span>Parameters</span></a></li><li><a class="tocitem" href="#Source-Code"><span>Source Code</span></a></li><li><a class="tocitem" href="#Time-Series"><span>Time Series</span></a></li><li><a class="tocitem" href="#Ensemble-Runs"><span>Ensemble Runs</span></a></li><li><a class="tocitem" href="#Parameter-Sensitivity"><span>Parameter Sensitivity</span></a></li><li><a class="tocitem" href="#Appendix:-Source-Code"><span>Appendix: Source Code</span></a></li></ul></li><li><a class="tocitem" href="../../antsystem/antsystem/">Ant System TSP</a></li><li><a class="tocitem" href="../../ants/ants/">Ants</a></li><li><a class="tocitem" href="../../artificialeconomy/artificialeconomy/">Artificial Economy</a></li><li><a class="tocitem" href="../../axelrodcultural/axelrodcultural/">AxelrodCultural</a></li><li><a class="tocitem" href="../../babysittingcoop/babysittingcoop/">Baby Sitting Coop</a></li><li><a class="tocitem" href="../../bank_reserves/bank_reserves/">Bank Reserves</a></li><li><a class="tocitem" href="../../bayesian/bayesian/">Bayesian Updating</a></li><li><a class="tocitem" href="../../beinggreen/beinggreen/">Being Green</a></li><li><a class="tocitem" href="../../birthrates/birthrates/">Birthrates</a></li><li><a class="tocitem" href="../../blackbox/blackbox/">BlackBox</a></li><li><a class="tocitem" href="../../boiling/boiling/">Boiling</a></li><li><a class="tocitem" href="../../bombscenario/bombscenario/">BombScenario</a></li><li><a class="tocitem" href="../../brians_brain/brians_brain/">Brian’s Brain</a></li><li><a class="tocitem" href="../../bullwhipeffect/bullwhipeffect/">Bullwhip Effect</a></li><li><a class="tocitem" href="../../ca_1d_elementary/ca_1d_elementary/">CA 1D Elementary</a></li><li><a class="tocitem" href="../../civilizationgrowth/civilizationgrowth/">Civilization Growth</a></li><li><a class="tocitem" href="../../climatechange/climatechange/">Climate Change</a></li><li><a class="tocitem" href="../../coin/coin/">COIN Learning</a></li><li><a class="tocitem" href="../../competitionlearning/competitionlearning/">Competition Learning</a></li><li><a class="tocitem" href="../../contactprocess/contactprocess/">Contact Process 2D</a></li><li><a class="tocitem" href="../../contagionnw/contagionnw/">Contagion NW</a></li><li><a class="tocitem" href="../../contagionsi/contagionsi/">Contagion SI</a></li><li><a class="tocitem" href="../../contagionsir/contagionsir/">Contagion SIR</a></li><li><a class="tocitem" href="../../cooperation/cooperation/">Cooperation</a></li><li><a class="tocitem" href="../../coordination/coordination/">Coordination</a></li><li><a class="tocitem" href="../../coordination2groups/coordination2groups/">Coordination 2 Groups</a></li><li><a class="tocitem" href="../../croprotation/croprotation/">Crop Rotation</a></li><li><a class="tocitem" href="../../crystallization/crystallization/">Crystallization</a></li><li><a class="tocitem" href="../../csvnetworkforaging/csvnetworkforaging/">CSV Network Foraging</a></li><li><a class="tocitem" href="../../csvpopulation/csvpopulation/">CSV Population</a></li><li><a class="tocitem" href="../../culturaldiffusion/culturaldiffusion/">Cultural Diffusion</a></li><li><a class="tocitem" href="../../cyberspaceopinion/cyberspaceopinion/">Cyberspace Opinion</a></li><li><a class="tocitem" href="../../daisyworld/daisyworld/">Daisyworld</a></li><li><a class="tocitem" href="../../dating/dating/">Dating</a></li><li><a class="tocitem" href="../../diffusionnetwork/diffusionnetwork/">Diffusion Network</a></li><li><a class="tocitem" href="../../diffusionofhiv/diffusionofhiv/">DiffusionOfHIV</a></li><li><a class="tocitem" href="../../disinfobitstringnw/disinfobitstringnw/">Disinfobitstringnw</a></li><li><a class="tocitem" href="../../dla/dla/">Dla</a></li><li><a class="tocitem" href="../../dlasimple/dlasimple/">DLA Simple</a></li><li><a class="tocitem" href="../../druguse/druguse/">Drug Use</a></li><li><a class="tocitem" href="../../druguseoverdose/druguseoverdose/">Drug Use Overdose</a></li><li><a class="tocitem" href="../../elfarol/elfarol/">El Farol</a></li><li><a class="tocitem" href="../../erosion/erosion/">Erosion</a></li><li><a class="tocitem" href="../../ethnocentrism/ethnocentrism/">Ethnocentrism</a></li><li><a class="tocitem" href="../../evolutionofnorms/evolutionofnorms/">EvolutionOfNorms</a></li><li><a class="tocitem" href="../../firepercolation/firepercolation/">Fire Percolation</a></li><li><a class="tocitem" href="../../firebenchmark/firebenchmark/">FireBenchmark</a></li><li><a class="tocitem" href="../../fireflies/fireflies/">Fireflies</a></li><li><a class="tocitem" href="../../flocking/flocking/">Flocking</a></li><li><a class="tocitem" href="../../flockingnetwork/flockingnetwork/">Flocking Network</a></li><li><a class="tocitem" href="../../forestdewdney/forestdewdney/">Forest Dewdney</a></li><li><a class="tocitem" href="../../fire/fire/">Forest Fire</a></li><li><a class="tocitem" href="../../fungalbioremediation/fungalbioremediation/">Fungal Bioremediation</a></li><li><a class="tocitem" href="../../giant_component/giant_component/">Giant Component</a></li><li><a class="tocitem" href="../../gishillclimber/gishillclimber/">GIS HillClimber</a></li><li><a class="tocitem" href="../../granovetter/granovetter/">Granovetter</a></li><li><a class="tocitem" href="../../grassbrushtrees/grassbrushtrees/">Grass Brush Trees</a></li><li><a class="tocitem" href="../../diffusion/diffusion/">Heat Diffusion</a></li><li><a class="tocitem" href="../../heatbugs/heatbugs/">Heatbugs</a></li><li><a class="tocitem" href="../../hikingelevation/hikingelevation/">HikingElevation</a></li><li><a class="tocitem" href="../../infinitelife/infinitelife/">Infinite Life</a></li><li><a class="tocitem" href="../../infodiffusion/infodiffusion/">Info Diffusion</a></li><li><a class="tocitem" href="../../ising/ising/">Ising</a></li><li><a class="tocitem" href="../../languageborders/languageborders/">Language Borders</a></li><li><a class="tocitem" href="../../languagechange/languagechange/">Language Change</a></li><li><a class="tocitem" href="../../lassavirus/lassavirus/">LassaVirus</a></li><li><a class="tocitem" href="../../leonarditechadoption/leonarditechadoption/">Leonardi Tech Adoption</a></li><li><a class="tocitem" href="../../life/life/">Life</a></li><li><a class="tocitem" href="../../logistic_growth/logistic_growth/">Logistic Growth</a></li><li><a class="tocitem" href="../../mailmen/mailmen/">Mailmen Delivery</a></li><li><a class="tocitem" href="../../marriage/marriage/">Marriage Problem</a></li><li><a class="tocitem" href="../../mimicry/mimicry/">Mimicry</a></li><li><a class="tocitem" href="../../minimalsis/minimalsis/">Minimal SIS</a></li><li><a class="tocitem" href="../../minoritybelief/minoritybelief/">Minority Belief Spread</a></li><li><a class="tocitem" href="../../minoritygame/minoritygame/">Minority Game</a></li><li><a class="tocitem" href="../../misinformationsbfc/misinformationsbfc/">Misinformation SBFC</a></li><li><a class="tocitem" href="../../modsocsegregation/modsocsegregation/">Modsoc Segregation</a></li><li><a class="tocitem" href="../../mousetraps/mousetraps/">Mousetraps</a></li><li><a class="tocitem" href="../../multidrugresistant/multidrugresistant/">MultidrugResistant</a></li><li><a class="tocitem" href="../../opinionbc/opinionbc/">Opinion Dynamics BC</a></li><li><a class="tocitem" href="../../paretolearn/paretolearn/">Pareto Learning</a></li><li><a class="tocitem" href="../../participatorydisinfo/participatorydisinfo/">Participatory Disinformation</a></li><li><a class="tocitem" href="../../participatorydisinformation/participatorydisinformation/">Participatory Disinformation</a></li><li><a class="tocitem" href="../../particles/particles/">Particles</a></li><li><a class="tocitem" href="../../party/party/">Party</a></li><li><a class="tocitem" href="../../pd_basic_evolutionary/pd_basic_evolutionary/">PD Basic Evolutionary</a></li><li><a class="tocitem" href="../../pdsimple/pdsimple/">PD Simple</a></li><li><a class="tocitem" href="../../percolation/percolation/">Percolation</a></li><li><a class="tocitem" href="../../polymerdynamics/polymerdynamics/">Polymer Dynamics</a></li><li><a class="tocitem" href="../../prefattachhomophily/prefattachhomophily/">Pref Attach Homophily</a></li><li><a class="tocitem" href="../../preferential_attachment/preferential_attachment/">Preferential Attachment</a></li><li><a class="tocitem" href="../../privacyopinion/privacyopinion/">Privacy Opinion</a></li><li><a class="tocitem" href="../../productsmarket/productsmarket/">Products Market</a></li><li><a class="tocitem" href="../../public_good/public_good/">Public Good</a></li><li><a class="tocitem" href="../../cqin/cqin/">Quality Improvement Network</a></li><li><a class="tocitem" href="../../rabbits_grass_weeds/rabbits_grass_weeds/">Rabbits Grass Weeds</a></li><li><a class="tocitem" href="../../decay/decay/">Radioactive Decay</a></li><li><a class="tocitem" href="../../rationalevolvingpd/rationalevolvingpd/">Rational Evolving PD</a></li><li><a class="tocitem" href="../../rebellion/rebellion/">Rebellion</a></li><li><a class="tocitem" href="../../recruitingmovement/recruitingmovement/">Recruiting Movement</a></li><li><a class="tocitem" href="../../recruiting/recruiting/">Recruiting Supporters</a></li><li><a class="tocitem" href="../../recruitingsupporters/recruitingsupporters/">Recruiting Supporters</a></li><li><a class="tocitem" href="../../resilientteam/resilientteam/">Resilient Team</a></li><li><a class="tocitem" href="../../rhinopoaching/rhinopoaching/">Rhino Poaching</a></li><li><a class="tocitem" href="../../riseofradicalism/riseofradicalism/">Rise of Radicalism</a></li><li><a class="tocitem" href="../../rope/rope/">Rope</a></li><li><a class="tocitem" href="../../rumormill/rumormill/">Rumor Mill</a></li><li><a class="tocitem" href="../../sand/sand/">Sand</a></li><li><a class="tocitem" href="../../schelling/schelling/">Schelling Segregation</a></li><li><a class="tocitem" href="../../segregation/segregation/">Segregation</a></li><li><a class="tocitem" href="../../shepherds/shepherds/">Shepherds</a></li><li><a class="tocitem" href="../../simple_genetic_algorithm/simple_genetic_algorithm/">Simple Genetic Algorithm</a></li><li><a class="tocitem" href="../../simplemarket/simplemarket/">Simple Market</a></li><li><a class="tocitem" href="../../simplemarketrandom/simplemarketrandom/">Simple Market Random</a></li><li><a class="tocitem" href="../../simplemarkettable/simplemarkettable/">Simple Market Table</a></li><li><a class="tocitem" href="../../sir/sir/">SIR Epidemic</a></li><li><a class="tocitem" href="../../sleuthlanduse/sleuthlanduse/">Sleuth LandUse</a></li><li><a class="tocitem" href="../../slime/slime/">Slime</a></li><li><a class="tocitem" href="../../slowspread/slowspread/">Slow Spread Env Action</a></li><li><a class="tocitem" href="../../small_worlds/small_worlds/">Small Worlds</a></li><li><a class="tocitem" href="../../socialinfluence/socialinfluence/">Social Influence</a></li><li><a class="tocitem" href="../../socialnetworkdiffusion/socialnetworkdiffusion/">Social Network Diffusion</a></li><li><a class="tocitem" href="../../soliddiffusion/soliddiffusion/">Solid Diffusion</a></li><li><a class="tocitem" href="../../spatialattitude/spatialattitude/">Spatial Attitude</a></li><li><a class="tocitem" href="../../ipd/ipd/">Spatial IPD</a></li><li><a class="tocitem" href="../../spatialopinion/spatialopinion/">Spatial Opinion Dynamics</a></li><li><a class="tocitem" href="../../fakenews/fakenews/">Spread of Fake News</a></li><li><a class="tocitem" href="../../spreadingbots/spreadingbots/">Spreading Bots</a></li><li><a class="tocitem" href="../../spreadinggroups/spreadinggroups/">Spreading Groups</a></li><li><a class="tocitem" href="../../sugarscape_1_growback/sugarscape_1_growback/">Sugarscape 1 Growback</a></li><li><a class="tocitem" href="../../sugarscapeculture/sugarscapeculture/">Sugarscape Culture</a></li><li><a class="tocitem" href="../../sugarscapesexual/sugarscapesexual/">Sugarscape Sexual</a></li><li><a class="tocitem" href="../../superdiffuser/superdiffuser/">SuperDiffuser</a></li><li><a class="tocitem" href="../../teamassembly/teamassembly/">Team Assembly</a></li><li><a class="tocitem" href="../../termites/termites/">Termites</a></li><li><a class="tocitem" href="../../thermostat/thermostat/">Thermostat</a></li><li><a class="tocitem" href="../../tourism/tourism/">Tourism</a></li><li><a class="tocitem" href="../../traffic2lanes/traffic2lanes/">Traffic 2 Lanes</a></li><li><a class="tocitem" href="../../trafficbasic/trafficbasic/">Traffic Basic</a></li><li><a class="tocitem" href="../../trafficgrid/trafficgrid/">Traffic Grid</a></li><li><a class="tocitem" href="../../trafficintersection/trafficintersection/">Traffic Intersection</a></li><li><a class="tocitem" href="../../tumor/tumor/">Tumor</a></li><li><a class="tocitem" href="../../unitcohesion/unitcohesion/">Unit Cohesion</a></li><li><a class="tocitem" href="../../virus_on_network/virus_on_network/">Virus on a Network</a></li><li><a class="tocitem" href="../../virus/virus/">Virus on Network</a></li><li><a class="tocitem" href="../../voronoivoter/voronoivoter/">Voronoi Voter</a></li><li><a class="tocitem" href="../../voter/voter/">Voter Model</a></li><li><a class="tocitem" href="../../voting/voting/">Voting</a></li><li><a class="tocitem" href="../../wealthdistribution/wealthdistribution/">Wealth Distribution</a></li><li><a class="tocitem" href="../../wisdomcrowd/wisdomcrowd/">Wisdom of Crowd</a></li><li><a class="tocitem" href="../../wolfsheep/wolfsheep/">Wolf Sheep Predation</a></li></ul></li><li><a class="tocitem" href="../../../api/">API Reference</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Models</a></li><li class="is-active"><a href>Altruism</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Altruism</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/ecorecipes/ArkModelZoo.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/ecorecipes/ArkModelZoo.jl/blob/main/docs/src/tutorials/altruism/altruism.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Altruism"><a class="docs-heading-anchor" href="#Altruism">Altruism</a><a id="Altruism-1"></a><a class="docs-heading-anchor-permalink" href="#Altruism" title="Permalink"></a></h1><h2 id="Overview"><a class="docs-heading-anchor" href="#Overview">Overview</a><a id="Overview-1"></a><a class="docs-heading-anchor-permalink" href="#Overview" title="Permalink"></a></h2><h3 id="WHAT-IS-IT?"><a class="docs-heading-anchor" href="#WHAT-IS-IT?">WHAT IS IT?</a><a id="WHAT-IS-IT?-1"></a><a class="docs-heading-anchor-permalink" href="#WHAT-IS-IT?" title="Permalink"></a></h3><p>This is an evolutionary biology model. It models population genetics with respect to the fitness of traits that are affected by social and environmental conditions. The model has two types of patch agents: altruistic agents and selfish agents.</p><p>The basic premise of the model is that the selfish agents and the altruistic agents are competing for each spot in the world by entering into a genetic lottery. You can imagine these agents as plants who “seed” for a spot, and the dominant seed generally wins. The details of the lottery are explained below in HOW IT WORKS.</p><p>Under normal (non-interfering) environmental conditions, the selfish agents win, and the altruistic population is driven to extinction. However, as outlined in HOW TO USE IT, when the environmental conditions are made more harsh, the altruistic population is able to survive, and even dominate the selfish population.</p><p>This model (and Cooperation and Divide the Cake) are part of the EACH unit (“Evolution of Altruistic and Cooperative Habits: Learning About Complexity in Evolution”). See http://ccl.northwestern.edu/rp/each/index.shtml for more information on the EACH unit. The EACH unit is embedded within the BEAGLE (Biological Experiments in Adaptation, Genetics, Learning and Evolution) evolution curriculum. See http://ccl.northwestern.edu/rp/beagle/index.shtml.</p><h3 id="HOW-IT-WORKS"><a class="docs-heading-anchor" href="#HOW-IT-WORKS">HOW IT WORKS</a><a id="HOW-IT-WORKS-1"></a><a class="docs-heading-anchor-permalink" href="#HOW-IT-WORKS" title="Permalink"></a></h3><ol><li><p>Patches live in five-cell, plus-sign-shaped neighborhoods. Whenever  a patch is calculating something about its fitness, it is the center  of the neighborhood. For another patch, when that patch is  calculating, it becomes merely one of the neighbors.</p></li><li><p>Each patch is an agent that has a fitness. Each patch is also the  location of a lottery for its space. The patch and the four  surrounding patches put in “seeds” to try to get the patch turned to  their type of patch, altruist or selfish. Being successful in the  lottery is getting patches to turn to your type. We’re assuming here  that the type (altruistic or selfish) is the important genetic  trait.</p></li><li><p>Each patch calculates its own fitness using equation: if it is A  (altruist): 1 - cost + (Number Altruists in Neighborhood / 5 *  benefit from Altruists) if it is S (selfish): 1 + (Number Altruists  in Neighborhood / 5 * benefit from Altruists) Thus, the fitness of  the S patch will be higher than the fitness of the A’s. If the cost  is 0.2 and benefit is 0.5, for an A surrounded by two S’s and two  A’s, then the fitness of this spot is 1 - 0.2 + (3/5 * 0.5) = 1.1.</p></li><li><p>After each patch has calculated its fitness, it looks to its four  neighbors. Each of the five patches, including itself, puts a  weighted seed into a genetic lottery for this center spot. So, for  example, if the neighborhood is ASASA, each of the three A’s  register their fitness value, and each of the two S’s put in their  fitness. The A’s are added, and the S’s are added. Let us assume  that the A’s add up to 3.2 (this includes the A in the center spot),  and the S’s add up to 2.6. These two numbers are the altruist weight  and selfish weight respectively, in the lottery for the center spot.  Now, the larger number, whichever it is, is called the Major seed;  it is divided by the sum of all the fitnesses. Thus, 3.2/(3.2 + 2.6)  = .552. This number is the Altruism seed in the lottery. The minor  seed is 2.6/(3.2 + 2.6) = .448. (Notice that the Altruism seed of  the parent is 3/5 = .600, while the child’s is .552. Even though  altruism is dominating, it is losing ground.)</p></li><li><p>There are a number of ways of doing the lottery itself. Currently,  we choose a random number between 0 and 1. Now, if the Number is  below the Minor seed, the minor weight gets the spot, and if it is  above the major seed, the major seed gets the spot. So, in the  example, if the random number is anywhere from .449 to 1, then the  Major seed gets it. If it is between 0 and .448, the minor seed gets  it.</p></li></ol><h3 id="THINGS-TO-TRY"><a class="docs-heading-anchor" href="#THINGS-TO-TRY">THINGS TO TRY</a><a id="THINGS-TO-TRY-1"></a><a class="docs-heading-anchor-permalink" href="#THINGS-TO-TRY" title="Permalink"></a></h3><ol><li><p>At first, run the model with Harshness and Disease both at 0. Notice  that the selfish population quickly dominates the world, driving the  altruistic population to extinction. How do respective population  sizes affect the outcome?</p></li><li><p>Play with the values of cost and benefit. What are realistic values  for actual genetic competition? How does initial population size  effect the significance of these values?</p></li><li><p>Increase the Harshness and Disease values, independently, and with  respect to one another. What are the effects of the Harshness Model?  of Disease? How are the values dependent on one another? At what  values does the altruistic population begin to have greater success?</p></li><li><p>Consider why the introduction of Harshness and Disease conditions  affects the success of the altruistic population. How does each  population, run alone, respond to the Harshness and Disease  conditions? If you imagine the black spots as Voids (a third type of  competing agent), what is the fitness relationship between Altruists  and Voids? Selfish agents and Voids?</p></li><li><p>Can you find slider values that maximize the advantage of the  altruistic agents?</p></li><li><p>Try running BehaviorSpace on this model to explore the model’s  behavior under a range of initial conditions.</p></li></ol><h3 id="EXTENDING-THE-MODEL"><a class="docs-heading-anchor" href="#EXTENDING-THE-MODEL">EXTENDING THE MODEL</a><a id="EXTENDING-THE-MODEL-1"></a><a class="docs-heading-anchor-permalink" href="#EXTENDING-THE-MODEL" title="Permalink"></a></h3><p>The model can be extended in a number of interesting directions, including adding new environmental variables, adding different types of agents, and changing the altruistic and selfish weighting under different environmental conditions.</p><p>This model does not address the behaviors of individuals, only the relative weights of genetic traits. A next step in considering the evolution of altruism is to model altruistic behaviors. (See the related model: Cooperation.)</p><h3 id="NETLOGO-FEATURES"><a class="docs-heading-anchor" href="#NETLOGO-FEATURES">NETLOGO FEATURES</a><a id="NETLOGO-FEATURES-1"></a><a class="docs-heading-anchor-permalink" href="#NETLOGO-FEATURES" title="Permalink"></a></h3><p>This model uses patches as its basic agents. Can you design an “equivalent” model using turtles? How would the model dynamics be affected?</p><h3 id="RELATED-MODELS"><a class="docs-heading-anchor" href="#RELATED-MODELS">RELATED MODELS</a><a id="RELATED-MODELS-1"></a><a class="docs-heading-anchor-permalink" href="#RELATED-MODELS" title="Permalink"></a></h3><ul><li>Cooperation</li><li>Divide the Cake</li></ul><h3 id="CREDITS-AND-REFERENCES"><a class="docs-heading-anchor" href="#CREDITS-AND-REFERENCES">CREDITS AND REFERENCES</a><a id="CREDITS-AND-REFERENCES-1"></a><a class="docs-heading-anchor-permalink" href="#CREDITS-AND-REFERENCES" title="Permalink"></a></h3><p>This model, the Cooperation model and the Divide the Cake model are part of the curriculum unit “Evolution of Altruistic and Cooperative Habits: Learning About Complexity in Evolution”. See http://ccl.northwestern.edu/rp/each/index.shtml for more information. The EACH unit is embedded within the BEAGLE (Biological Experiments in Adaptation, Genetics, Learning and Evolution) evolution curriculum. See http://ccl.northwestern.edu/rp/beagle/index.shtml.</p><p>This model is based on a paper by Mitteldorf and Wilson, 2000, “Population Viscosity and the Evolution of Altruism”, Journal of Theoretical Biology, v.204, pp.481-496.</p><p>Thanks also to Damon Centola and Scott Styles.</p><h3 id="HOW-TO-CITE"><a class="docs-heading-anchor" href="#HOW-TO-CITE">HOW TO CITE</a><a id="HOW-TO-CITE-1"></a><a class="docs-heading-anchor-permalink" href="#HOW-TO-CITE" title="Permalink"></a></h3><p>If you mention this model or the NetLogo software in a publication, we ask that you include the citations below.</p><p>For the model itself:</p><ul><li>Wilensky, U. (1998). NetLogo Altruism model. http://ccl.northwestern.edu/netlogo/models/Altruism. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.</li></ul><p>Please cite the NetLogo software as:</p><ul><li>Wilensky, U. (1999). NetLogo. http://ccl.northwestern.edu/netlogo/. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.</li></ul><h3 id="COPYRIGHT-AND-LICENSE"><a class="docs-heading-anchor" href="#COPYRIGHT-AND-LICENSE">COPYRIGHT AND LICENSE</a><a id="COPYRIGHT-AND-LICENSE-1"></a><a class="docs-heading-anchor-permalink" href="#COPYRIGHT-AND-LICENSE" title="Permalink"></a></h3><p>Copyright 1998 Uri Wilensky.</p><p><img src="http://ccl.northwestern.edu/images/creativecommons/byncsa.png" alt="CC BY-NC-SA 3.0"/></p><p>This model is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License. To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/3.0/ or send a letter to Creative Commons, 559 Nathan Abbott Way, Stanford, California 94305, USA.</p><p>NetLogo itself is free software for non-commercial use under the terms of the GNU General Public License (<a href="https://ccl.northwestern.edu/netlogo/docs/copyright.html">see full license information here</a>).</p><p>To inquire about commercial licenses for either NetLogo or specific models from the models library, please contact netlogo-commercial-admin@ccl.northwestern.edu.</p><p>This model was created as part of the project: CONNECTED MATHEMATICS: MAKING SENSE OF COMPLEX PHENOMENA THROUGH BUILDING OBJECT-BASED PARALLEL MODELS (OBPML). The project gratefully acknowledges the support of the National Science Foundation (Applications of Advanced Technologies Program) – grant numbers RED #9552950 and REC #9632612.</p><p>This model was converted to NetLogo as part of the projects: PARTICIPATORY SIMULATIONS: NETWORK-BASED DESIGN FOR SYSTEMS LEARNING IN CLASSROOMS and/or INTEGRATED SIMULATION AND MODELING ENVIRONMENT. The project gratefully acknowledges the support of the National Science Foundation (REPP &amp; ROLE programs) – grant numbers REC #9814682 and REC-0126227. Converted from StarLogoT to NetLogo, 2001.</p><h2 id="Parameters"><a class="docs-heading-anchor" href="#Parameters">Parameters</a><a id="Parameters-1"></a><a class="docs-heading-anchor-permalink" href="#Parameters" title="Permalink"></a></h2><table><tr><th style="text-align: right">Parameter</th><th style="text-align: right">Type</th><th style="text-align: right">Default</th><th style="text-align: right">Description</th></tr><tr><td style="text-align: right"><code>altruistic_probability</code></td><td style="text-align: right"><code>Float64</code></td><td style="text-align: right"><code>0.26</code></td><td style="text-align: right">altruistic probability</td></tr><tr><td style="text-align: right"><code>selfish_probability</code></td><td style="text-align: right"><code>Float64</code></td><td style="text-align: right"><code>0.26</code></td><td style="text-align: right">selfish probability</td></tr><tr><td style="text-align: right"><code>benefit_from_altruism</code></td><td style="text-align: right"><code>Float64</code></td><td style="text-align: right"><code>0.48</code></td><td style="text-align: right">benefit from altruism</td></tr><tr><td style="text-align: right"><code>cost_of_altruism</code></td><td style="text-align: right"><code>Float64</code></td><td style="text-align: right"><code>0.13</code></td><td style="text-align: right">cost of altruism</td></tr><tr><td style="text-align: right"><code>disease</code></td><td style="text-align: right"><code>Float64</code></td><td style="text-align: right"><code>0.0</code></td><td style="text-align: right">disease</td></tr><tr><td style="text-align: right"><code>harshness</code></td><td style="text-align: right"><code>Float64</code></td><td style="text-align: right"><code>0.0</code></td><td style="text-align: right">harshness</td></tr><tr><td style="text-align: right"><code>grid_width</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>41</code></td><td style="text-align: right">grid width</td></tr><tr><td style="text-align: right"><code>grid_height</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>41</code></td><td style="text-align: right">grid height</td></tr><tr><td style="text-align: right"><code>max_ticks</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>500</code></td><td style="text-align: right">max ticks</td></tr></table><h2 id="Source-Code"><a class="docs-heading-anchor" href="#Source-Code">Source Code</a><a id="Source-Code-1"></a><a class="docs-heading-anchor-permalink" href="#Source-Code" title="Permalink"></a></h2><p>The Julia code to run this model:</p><pre><code class="language-julia hljs">using ArkModelZoo
+_, trajectory = run_altruism()</code></pre><h2 id="Time-Series"><a class="docs-heading-anchor" href="#Time-Series">Time Series</a><a id="Time-Series-1"></a><a class="docs-heading-anchor-permalink" href="#Time-Series" title="Permalink"></a></h2><p><img src="../plot_timeseries.png" alt="Altruism time series"/></p><h2 id="Ensemble-Runs"><a class="docs-heading-anchor" href="#Ensemble-Runs">Ensemble Runs</a><a id="Ensemble-Runs-1"></a><a class="docs-heading-anchor-permalink" href="#Ensemble-Runs" title="Permalink"></a></h2><p>Ten replicates with different random seeds, showing mean ± standard deviation.</p><p><img src="../plot_ensemble.png" alt="Altruism ensemble"/></p><h2 id="Parameter-Sensitivity"><a class="docs-heading-anchor" href="#Parameter-Sensitivity">Parameter Sensitivity</a><a id="Parameter-Sensitivity-1"></a><a class="docs-heading-anchor-permalink" href="#Parameter-Sensitivity" title="Permalink"></a></h2><p>Varying <code>altruistic_probability</code>.</p><p><img src="../plot_sensitivity.png" alt="Altruism sensitivity"/></p><h2 id="Appendix:-Source-Code"><a class="docs-heading-anchor" href="#Appendix:-Source-Code">Appendix: Source Code</a><a id="Appendix:-Source-Code-1"></a><a class="docs-heading-anchor-permalink" href="#Appendix:-Source-Code" title="Permalink"></a></h2><p>This model is implemented in the <a href="https://github.com/sdwfrost/Ark.jl">Ark.jl</a> Entity-Component-System (ECS) framework. The code is split into five files, each with a distinct role:</p><ul><li><strong>Parameters</strong>: a mutable struct holding all configurable values.</li><li><strong>Components</strong>: lightweight data types attached to individual entities (agents).</li><li><strong>Resources</strong>: world-level shared state accessible to all systems.</li><li><strong>Systems</strong>: functions that operate on entities each tick, defining model behavior.</li><li><strong>Model</strong>: wiring that assembles the world, registers resources and systems, and provides the run entry point.</li></ul><h3 id="Parameters-(parameters.jl)"><a class="docs-heading-anchor" href="#Parameters-(parameters.jl)">Parameters (<code>parameters.jl</code>)</a><a id="Parameters-(parameters.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Parameters-(parameters.jl)" title="Permalink"></a></h3><p>The parameter struct uses <code>@kwdef</code> so that every field has a default value and can be overridden by keyword. These defaults match the original NetLogo model’s slider settings.</p><pre><code class="language-julia hljs">Base.@kwdef mutable struct ALTParams
+    altruistic_probability::Float64 = 0.26
+    selfish_probability::Float64 = 0.26
+    benefit_from_altruism::Float64 = 0.48
+    cost_of_altruism::Float64 = 0.13
+    disease::Float64 = 0.0
+    harshness::Float64 = 0.0
+    grid_width::Int = 41
+    grid_height::Int = 41
+    max_ticks::Int = 500
+    seed::Int = 42
+end</code></pre><h3 id="Components-(components.jl)"><a class="docs-heading-anchor" href="#Components-(components.jl)">Components (<code>components.jl</code>)</a><a id="Components-(components.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Components-(components.jl)" title="Permalink"></a></h3><p>Components are lightweight data types attached to individual entities (agents). Mutable structs hold per-entity state, while empty tag structs act as markers for the ECS query system to efficiently filter entities.</p><pre><code class="language-julia hljs"># Dummy component — World requires at least one registered component type.
+# Altruism is purely patch-based; no ECS entities are used.
+mutable struct ALTDummy
+    _::Int
+end
+ALTDummy() = ALTDummy(0)</code></pre><h3 id="Resources-(resources.jl)"><a class="docs-heading-anchor" href="#Resources-(resources.jl)">Resources (<code>resources.jl</code>)</a><a id="Resources-(resources.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Resources-(resources.jl)" title="Permalink"></a></h3><p>Resources are world-level singletons shared across all systems, used for global state and aggregate statistics.</p><pre><code class="language-julia hljs"># Patch types
+const ALT_HARSH = Int8(0)
+const ALT_ALTRUIST = Int8(1)
+const ALT_SELFISH = Int8(2)
+
+mutable struct ALTGrid
+    width::Int
+    height::Int
+    ptype::Matrix{Int8}            # 0=harsh, 1=altruist, 2=selfish
+    benefit_out::Matrix{Float64}
+    altruism_benefit::Matrix{Float64}
+    fitness::Matrix{Float64}
+    alt_fitness::Matrix{Float64}
+    self_fitness::Matrix{Float64}
+    harsh_fitness::Matrix{Float64}
+end
+
+function ALTGrid(w::Int, h::Int)
+    ALTGrid(w, h,
+        zeros(Int8, w, h),
+        zeros(w, h),
+        zeros(w, h),
+        zeros(w, h),
+        zeros(w, h),
+        zeros(w, h),
+        zeros(w, h))
+end
+
+mutable struct ALTStats
+    num_altruists::Int
+    num_selfish::Int
+    num_harsh::Int
+end
+ALTStats() = ALTStats(0, 0, 0)</code></pre><h3 id="Systems-(systems.jl)"><a class="docs-heading-anchor" href="#Systems-(systems.jl)">Systems (<code>systems.jl</code>)</a><a id="Systems-(systems.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Systems-(systems.jl)" title="Permalink"></a></h3><p>Systems contain the model logic and execute in a defined order each tick. Each system struct implements either <code>initialize!</code> (run once at setup) or <code>update!</code> (run every tick).</p><pre><code class="language-julia hljs"># Von Neumann (4-neighbor) offsets: N, S, E, W
+const ALT_VON_NEUMANN = ((0, -1), (0, 1), (1, 0), (-1, 0))
+
+# --- Initialization ---
+
+struct InitALTSystem &lt;: System end
+
+function initialize!(::InitALTSystem, world::World)
+    params = get_resource(world, ALTParams)
+    rng = get_resource(world, RNGResource).rng
+    grid = get_resource(world, ALTGrid)
+
+    for x in 1:grid.width, y in 1:grid.height
+        ptype_val = rand(rng)
+        if ptype_val &lt; params.altruistic_probability
+            grid.ptype[x, y] = ALT_ALTRUIST
+            grid.benefit_out[x, y] = 1.0
+        elseif ptype_val &lt; params.altruistic_probability + params.selfish_probability
+            grid.ptype[x, y] = ALT_SELFISH
+            grid.benefit_out[x, y] = 0.0
+        else
+            grid.ptype[x, y] = ALT_HARSH
+            grid.benefit_out[x, y] = 0.0
+        end
+    end
+
+    _alt_update_stats!(grid, get_resource(world, ALTStats))
+    return nothing
+end
+
+# --- Main Go System ---
+
+struct ALTGoSystem &lt;: System end
+
+function update!(::ALTGoSystem, world::World)
+    params = get_resource(world, ALTParams)
+    rng = get_resource(world, RNGResource).rng
+    grid = get_resource(world, ALTGrid)
+    stats = get_resource(world, ALTStats)
+    w, h = grid.width, grid.height
+
+    # Early termination: if no altruists and no selfish patches remain, stop
+    if stats.num_altruists == 0 &amp;&amp; stats.num_selfish == 0
+        get_resource(world, Terminate).stop = true
+        return nothing
+    end
+
+    # Phase 1: compute altruism-benefit for each patch
+    # benefit = benefit_from_altruism * (benefit_out + sum of 4 neighbors&#39; benefit_out) / 5
+    @inbounds for x in 1:w, y in 1:h
+        s = grid.benefit_out[x, y]
+        for (dx, dy) in ALT_VON_NEUMANN
+            nx = mod1(x + dx, w)
+            ny = mod1(y + dy, h)
+            s += grid.benefit_out[nx, ny]
+        end
+        grid.altruism_benefit[x, y] = params.benefit_from_altruism * s / 5.0
+    end
+
+    # Phase 2: compute fitness for each patch
+    @inbounds for x in 1:w, y in 1:h
+        pt = grid.ptype[x, y]
+        ab = grid.altruism_benefit[x, y]
+        if pt == ALT_SELFISH
+            grid.fitness[x, y] = 1.0 + ab
+        elseif pt == ALT_ALTRUIST
+            grid.fitness[x, y] = (1.0 - params.cost_of_altruism) + ab
+        else  # ALT_HARSH
+            grid.fitness[x, y] = params.harshness
+        end
+    end
+
+    # Phase 3: lottery (record-neighbor-fitness, find-lottery-weights, next-generation)
+    _alt_lottery!(rng, grid, params)
+
+    _alt_update_stats!(grid, stats)
+    return nothing
+end
+
+# --- Lottery ---
+
+function _alt_lottery!(rng, grid::ALTGrid, params::ALTParams)
+    w, h = grid.width, grid.height
+
+    # Scratch buffers for weights (reuse grid fields after lottery computation)
+    alt_w = grid.alt_fitness
+    self_w = grid.self_fitness
+    harsh_w = grid.harsh_fitness
+
+    # Record neighbor fitness: sum fitness by type from self + 4 cardinal neighbors
+    @inbounds for x in 1:w, y in 1:h
+        af = 0.0; sf = 0.0; hf = 0.0
+        # Self
+        pt = grid.ptype[x, y]
+        f = grid.fitness[x, y]
+        if pt == ALT_ALTRUIST
+            af += f
+        elseif pt == ALT_SELFISH
+            sf += f
+        else
+            hf += f
+        end
+        # 4 cardinal neighbors
+        for (dx, dy) in ALT_VON_NEUMANN
+            nx = mod1(x + dx, w)
+            ny = mod1(y + dy, h)
+            npt = grid.ptype[nx, ny]
+            nf = grid.fitness[nx, ny]
+            if npt == ALT_ALTRUIST
+                af += nf
+            elseif npt == ALT_SELFISH
+                sf += nf
+            else
+                hf += nf
+            end
+        end
+        alt_w[x, y] = af
+        self_w[x, y] = sf
+        harsh_w[x, y] = hf
+    end
+
+    # Find lottery weights: normalize
+    @inbounds for x in 1:w, y in 1:h
+        fitness_sum = alt_w[x, y] + self_w[x, y] + harsh_w[x, y] + params.disease
+        if fitness_sum &gt; 0.0
+            alt_w[x, y] /= fitness_sum
+            self_w[x, y] /= fitness_sum
+            harsh_w[x, y] /= fitness_sum
+        else
+            alt_w[x, y] = 0.0
+            self_w[x, y] = 0.0
+            harsh_w[x, y] = 0.0
+        end
+    end
+
+    # Next generation: probabilistic selection per patch
+    @inbounds for x in 1:w, y in 1:h
+        breed_chance = rand(rng)
+        if breed_chance &lt; alt_w[x, y]
+            grid.ptype[x, y] = ALT_ALTRUIST
+            grid.benefit_out[x, y] = 1.0
+        elseif breed_chance &lt; alt_w[x, y] + self_w[x, y]
+            grid.ptype[x, y] = ALT_SELFISH
+            grid.benefit_out[x, y] = 0.0
+        else
+            grid.ptype[x, y] = ALT_HARSH
+            grid.benefit_out[x, y] = 0.0
+        end
+    end
+end
+
+# --- Termination ---
+
+struct ALTTerminationSystem &lt;: System end
+
+function update!(::ALTTerminationSystem, world::World)
+    params = get_resource(world, ALTParams)
+    tick = get_resource(world, Tick)
+    stats = get_resource(world, ALTStats)
+
+    if tick.tick + 1 &gt;= params.max_ticks || (stats.num_altruists == 0 &amp;&amp; stats.num_selfish == 0)
+        get_resource(world, Terminate).stop = true
+    end
+    return nothing
+end
+
+# --- Helper ---
+
+function _alt_update_stats!(grid::ALTGrid, stats::ALTStats)
+    na = 0; ns = 0; nh = 0
+    @inbounds for x in 1:grid.width, y in 1:grid.height
+        pt = grid.ptype[x, y]
+        if pt == ALT_ALTRUIST
+            na += 1
+        elseif pt == ALT_SELFISH
+            ns += 1
+        else
+            nh += 1
+        end
+    end
+    stats.num_altruists = na
+    stats.num_selfish = ns
+    stats.num_harsh = nh
+    return nothing
+end</code></pre><h3 id="Model-(model.jl)"><a class="docs-heading-anchor" href="#Model-(model.jl)">Model (<code>model.jl</code>)</a><a id="Model-(model.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Model-(model.jl)" title="Permalink"></a></h3><p>The model file assembles all pieces: it creates the ECS <code>World</code> with the required component types, registers resources, builds the <code>Scheduler</code> with systems in execution order, and exposes the public <code>run</code> entry point. The observer pattern records the trajectory each tick.</p><pre><code class="language-julia hljs">function altruism_world(; initial_capacity::Int = 128)
+    return World(ALTDummy; initial_capacity = initial_capacity, allow_mutable = true)
+end
+
+function altruism_systems()
+    return (
+        InitALTSystem(),
+        ALTGoSystem(),
+        ALTTerminationSystem(),
+    )
+end
+
+function altruism_model(params::ALTParams = ALTParams())
+    world = altruism_world()
+    _add_standard_resources!(world, params)
+    add_resource!(world, ALTGrid(params.grid_width, params.grid_height))
+    add_resource!(world, ALTStats())
+    scheduler = Scheduler(world, altruism_systems())
+    initialize!(scheduler)
+    return scheduler
+end
+
+struct ALTObserver end
+
+function altruism_headers(::ALTObserver)
+    return [&quot;NumAltruists&quot;, &quot;NumSelfish&quot;, &quot;NumHarsh&quot;]
+end
+
+function altruism_values(::ALTObserver, world::World)
+    stats = get_resource(world, ALTStats)
+    return Float64[stats.num_altruists, stats.num_selfish, stats.num_harsh]
+end
+
+function run_altruism(; params::ALTParams = ALTParams(), observe::Bool = true)
+    return _run_model(altruism_model, ALTObserver(), altruism_values; params, observe)
+end</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../aids/aids/">« AIDS</a><a class="docs-footer-nextpage" href="../../antsystem/antsystem/">Ant System TSP »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.20.0 on <span class="colophon-date" title="Wednesday 18 November 2026 19:14">Wednesday 18 November 2026</span>. Using Julia version 1.13.4.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>

@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="referrer" content="no-referrer"/><title>Civilization Growth · ArkModelZoo.jl</title><meta name="title" content="Civilization Growth · ArkModelZoo.jl"/><meta property="og:title" content="Civilization Growth · ArkModelZoo.jl"/><meta property="twitter:title" content="Civilization Growth · ArkModelZoo.jl"/><meta name="description" content="Documentation for ArkModelZoo.jl."/><meta property="og:description" content="Documentation for ArkModelZoo.jl."/><meta property="twitter:description" content="Documentation for ArkModelZoo.jl."/><meta property="og:url" content="https://ecorecipes.github.io/ArkModelZoo.jl/tutorials/civilizationgrowth/civilizationgrowth/"/><meta property="twitter:url" content="https://ecorecipes.github.io/ArkModelZoo.jl/tutorials/civilizationgrowth/civilizationgrowth/"/><link rel="canonical" href="https://ecorecipes.github.io/ArkModelZoo.jl/tutorials/civilizationgrowth/civilizationgrowth/"/><script data-outdated-warner src="../../../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.63.2/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../../assets/documenter.js"></script><script src="../../../search_index.js"></script><script src="../../../siteinfo.js"></script><script src="../../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="../../../">ArkModelZoo.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../../../">Home</a></li><li><span class="tocitem">Resilience</span><ul><li><a class="tocitem" href="../../resilience/resilience/">Resilience of agent-based models</a></li></ul></li><li><span class="tocitem">Models</span><ul><li><a class="tocitem" href="../../abtgc/abtgc/">ABTgc</a></li><li><a class="tocitem" href="../../aids/aids/">AIDS</a></li><li><a class="tocitem" href="../../altruism/altruism/">Altruism</a></li><li><a class="tocitem" href="../../antsystem/antsystem/">Ant System TSP</a></li><li><a class="tocitem" href="../../ants/ants/">Ants</a></li><li><a class="tocitem" href="../../artificialeconomy/artificialeconomy/">Artificial Economy</a></li><li><a class="tocitem" href="../../axelrodcultural/axelrodcultural/">AxelrodCultural</a></li><li><a class="tocitem" href="../../babysittingcoop/babysittingcoop/">Baby Sitting Coop</a></li><li><a class="tocitem" href="../../bank_reserves/bank_reserves/">Bank Reserves</a></li><li><a class="tocitem" href="../../bayesian/bayesian/">Bayesian Updating</a></li><li><a class="tocitem" href="../../beinggreen/beinggreen/">Being Green</a></li><li><a class="tocitem" href="../../birthrates/birthrates/">Birthrates</a></li><li><a class="tocitem" href="../../blackbox/blackbox/">BlackBox</a></li><li><a class="tocitem" href="../../boiling/boiling/">Boiling</a></li><li><a class="tocitem" href="../../bombscenario/bombscenario/">BombScenario</a></li><li><a class="tocitem" href="../../brians_brain/brians_brain/">Brian’s Brain</a></li><li><a class="tocitem" href="../../bullwhipeffect/bullwhipeffect/">Bullwhip Effect</a></li><li><a class="tocitem" href="../../ca_1d_elementary/ca_1d_elementary/">CA 1D Elementary</a></li><li class="is-active"><a class="tocitem" href>Civilization Growth</a><ul class="internal"><li><a class="tocitem" href="#Overview"><span>Overview</span></a></li><li><a class="tocitem" href="#Parameters"><span>Parameters</span></a></li><li><a class="tocitem" href="#Source-Code"><span>Source Code</span></a></li><li><a class="tocitem" href="#Time-Series"><span>Time Series</span></a></li><li><a class="tocitem" href="#Ensemble-Runs"><span>Ensemble Runs</span></a></li><li><a class="tocitem" href="#Parameter-Sensitivity"><span>Parameter Sensitivity</span></a></li><li><a class="tocitem" href="#Appendix:-Source-Code"><span>Appendix: Source Code</span></a></li></ul></li><li><a class="tocitem" href="../../climatechange/climatechange/">Climate Change</a></li><li><a class="tocitem" href="../../coin/coin/">COIN Learning</a></li><li><a class="tocitem" href="../../competitionlearning/competitionlearning/">Competition Learning</a></li><li><a class="tocitem" href="../../contactprocess/contactprocess/">Contact Process 2D</a></li><li><a class="tocitem" href="../../contagionnw/contagionnw/">Contagion NW</a></li><li><a class="tocitem" href="../../contagionsi/contagionsi/">Contagion SI</a></li><li><a class="tocitem" href="../../contagionsir/contagionsir/">Contagion SIR</a></li><li><a class="tocitem" href="../../cooperation/cooperation/">Cooperation</a></li><li><a class="tocitem" href="../../coordination/coordination/">Coordination</a></li><li><a class="tocitem" href="../../coordination2groups/coordination2groups/">Coordination 2 Groups</a></li><li><a class="tocitem" href="../../croprotation/croprotation/">Crop Rotation</a></li><li><a class="tocitem" href="../../crystallization/crystallization/">Crystallization</a></li><li><a class="tocitem" href="../../csvnetworkforaging/csvnetworkforaging/">CSV Network Foraging</a></li><li><a class="tocitem" href="../../csvpopulation/csvpopulation/">CSV Population</a></li><li><a class="tocitem" href="../../culturaldiffusion/culturaldiffusion/">Cultural Diffusion</a></li><li><a class="tocitem" href="../../cyberspaceopinion/cyberspaceopinion/">Cyberspace Opinion</a></li><li><a class="tocitem" href="../../daisyworld/daisyworld/">Daisyworld</a></li><li><a class="tocitem" href="../../dating/dating/">Dating</a></li><li><a class="tocitem" href="../../diffusionnetwork/diffusionnetwork/">Diffusion Network</a></li><li><a class="tocitem" href="../../diffusionofhiv/diffusionofhiv/">DiffusionOfHIV</a></li><li><a class="tocitem" href="../../disinfobitstringnw/disinfobitstringnw/">Disinfobitstringnw</a></li><li><a class="tocitem" href="../../dla/dla/">Dla</a></li><li><a class="tocitem" href="../../dlasimple/dlasimple/">DLA Simple</a></li><li><a class="tocitem" href="../../druguse/druguse/">Drug Use</a></li><li><a class="tocitem" href="../../druguseoverdose/druguseoverdose/">Drug Use Overdose</a></li><li><a class="tocitem" href="../../elfarol/elfarol/">El Farol</a></li><li><a class="tocitem" href="../../erosion/erosion/">Erosion</a></li><li><a class="tocitem" href="../../ethnocentrism/ethnocentrism/">Ethnocentrism</a></li><li><a class="tocitem" href="../../evolutionofnorms/evolutionofnorms/">EvolutionOfNorms</a></li><li><a class="tocitem" href="../../firepercolation/firepercolation/">Fire Percolation</a></li><li><a class="tocitem" href="../../firebenchmark/firebenchmark/">FireBenchmark</a></li><li><a class="tocitem" href="../../fireflies/fireflies/">Fireflies</a></li><li><a class="tocitem" href="../../flocking/flocking/">Flocking</a></li><li><a class="tocitem" href="../../flockingnetwork/flockingnetwork/">Flocking Network</a></li><li><a class="tocitem" href="../../forestdewdney/forestdewdney/">Forest Dewdney</a></li><li><a class="tocitem" href="../../fire/fire/">Forest Fire</a></li><li><a class="tocitem" href="../../fungalbioremediation/fungalbioremediation/">Fungal Bioremediation</a></li><li><a class="tocitem" href="../../giant_component/giant_component/">Giant Component</a></li><li><a class="tocitem" href="../../gishillclimber/gishillclimber/">GIS HillClimber</a></li><li><a class="tocitem" href="../../granovetter/granovetter/">Granovetter</a></li><li><a class="tocitem" href="../../grassbrushtrees/grassbrushtrees/">Grass Brush Trees</a></li><li><a class="tocitem" href="../../diffusion/diffusion/">Heat Diffusion</a></li><li><a class="tocitem" href="../../heatbugs/heatbugs/">Heatbugs</a></li><li><a class="tocitem" href="../../hikingelevation/hikingelevation/">HikingElevation</a></li><li><a class="tocitem" href="../../infinitelife/infinitelife/">Infinite Life</a></li><li><a class="tocitem" href="../../infodiffusion/infodiffusion/">Info Diffusion</a></li><li><a class="tocitem" href="../../ising/ising/">Ising</a></li><li><a class="tocitem" href="../../languageborders/languageborders/">Language Borders</a></li><li><a class="tocitem" href="../../languagechange/languagechange/">Language Change</a></li><li><a class="tocitem" href="../../lassavirus/lassavirus/">LassaVirus</a></li><li><a class="tocitem" href="../../leonarditechadoption/leonarditechadoption/">Leonardi Tech Adoption</a></li><li><a class="tocitem" href="../../life/life/">Life</a></li><li><a class="tocitem" href="../../logistic_growth/logistic_growth/">Logistic Growth</a></li><li><a class="tocitem" href="../../mailmen/mailmen/">Mailmen Delivery</a></li><li><a class="tocitem" href="../../marriage/marriage/">Marriage Problem</a></li><li><a class="tocitem" href="../../mimicry/mimicry/">Mimicry</a></li><li><a class="tocitem" href="../../minimalsis/minimalsis/">Minimal SIS</a></li><li><a class="tocitem" href="../../minoritybelief/minoritybelief/">Minority Belief Spread</a></li><li><a class="tocitem" href="../../minoritygame/minoritygame/">Minority Game</a></li><li><a class="tocitem" href="../../misinformationsbfc/misinformationsbfc/">Misinformation SBFC</a></li><li><a class="tocitem" href="../../modsocsegregation/modsocsegregation/">Modsoc Segregation</a></li><li><a class="tocitem" href="../../mousetraps/mousetraps/">Mousetraps</a></li><li><a class="tocitem" href="../../multidrugresistant/multidrugresistant/">MultidrugResistant</a></li><li><a class="tocitem" href="../../opinionbc/opinionbc/">Opinion Dynamics BC</a></li><li><a class="tocitem" href="../../paretolearn/paretolearn/">Pareto Learning</a></li><li><a class="tocitem" href="../../participatorydisinfo/participatorydisinfo/">Participatory Disinformation</a></li><li><a class="tocitem" href="../../participatorydisinformation/participatorydisinformation/">Participatory Disinformation</a></li><li><a class="tocitem" href="../../particles/particles/">Particles</a></li><li><a class="tocitem" href="../../party/party/">Party</a></li><li><a class="tocitem" href="../../pd_basic_evolutionary/pd_basic_evolutionary/">PD Basic Evolutionary</a></li><li><a class="tocitem" href="../../pdsimple/pdsimple/">PD Simple</a></li><li><a class="tocitem" href="../../percolation/percolation/">Percolation</a></li><li><a class="tocitem" href="../../polymerdynamics/polymerdynamics/">Polymer Dynamics</a></li><li><a class="tocitem" href="../../prefattachhomophily/prefattachhomophily/">Pref Attach Homophily</a></li><li><a class="tocitem" href="../../preferential_attachment/preferential_attachment/">Preferential Attachment</a></li><li><a class="tocitem" href="../../privacyopinion/privacyopinion/">Privacy Opinion</a></li><li><a class="tocitem" href="../../productsmarket/productsmarket/">Products Market</a></li><li><a class="tocitem" href="../../public_good/public_good/">Public Good</a></li><li><a class="tocitem" href="../../cqin/cqin/">Quality Improvement Network</a></li><li><a class="tocitem" href="../../rabbits_grass_weeds/rabbits_grass_weeds/">Rabbits Grass Weeds</a></li><li><a class="tocitem" href="../../decay/decay/">Radioactive Decay</a></li><li><a class="tocitem" href="../../rationalevolvingpd/rationalevolvingpd/">Rational Evolving PD</a></li><li><a class="tocitem" href="../../rebellion/rebellion/">Rebellion</a></li><li><a class="tocitem" href="../../recruitingmovement/recruitingmovement/">Recruiting Movement</a></li><li><a class="tocitem" href="../../recruiting/recruiting/">Recruiting Supporters</a></li><li><a class="tocitem" href="../../recruitingsupporters/recruitingsupporters/">Recruiting Supporters</a></li><li><a class="tocitem" href="../../resilientteam/resilientteam/">Resilient Team</a></li><li><a class="tocitem" href="../../rhinopoaching/rhinopoaching/">Rhino Poaching</a></li><li><a class="tocitem" href="../../riseofradicalism/riseofradicalism/">Rise of Radicalism</a></li><li><a class="tocitem" href="../../rope/rope/">Rope</a></li><li><a class="tocitem" href="../../rumormill/rumormill/">Rumor Mill</a></li><li><a class="tocitem" href="../../sand/sand/">Sand</a></li><li><a class="tocitem" href="../../schelling/schelling/">Schelling Segregation</a></li><li><a class="tocitem" href="../../segregation/segregation/">Segregation</a></li><li><a class="tocitem" href="../../shepherds/shepherds/">Shepherds</a></li><li><a class="tocitem" href="../../simple_genetic_algorithm/simple_genetic_algorithm/">Simple Genetic Algorithm</a></li><li><a class="tocitem" href="../../simplemarket/simplemarket/">Simple Market</a></li><li><a class="tocitem" href="../../simplemarketrandom/simplemarketrandom/">Simple Market Random</a></li><li><a class="tocitem" href="../../simplemarkettable/simplemarkettable/">Simple Market Table</a></li><li><a class="tocitem" href="../../sir/sir/">SIR Epidemic</a></li><li><a class="tocitem" href="../../sleuthlanduse/sleuthlanduse/">Sleuth LandUse</a></li><li><a class="tocitem" href="../../slime/slime/">Slime</a></li><li><a class="tocitem" href="../../slowspread/slowspread/">Slow Spread Env Action</a></li><li><a class="tocitem" href="../../small_worlds/small_worlds/">Small Worlds</a></li><li><a class="tocitem" href="../../socialinfluence/socialinfluence/">Social Influence</a></li><li><a class="tocitem" href="../../socialnetworkdiffusion/socialnetworkdiffusion/">Social Network Diffusion</a></li><li><a class="tocitem" href="../../soliddiffusion/soliddiffusion/">Solid Diffusion</a></li><li><a class="tocitem" href="../../spatialattitude/spatialattitude/">Spatial Attitude</a></li><li><a class="tocitem" href="../../ipd/ipd/">Spatial IPD</a></li><li><a class="tocitem" href="../../spatialopinion/spatialopinion/">Spatial Opinion Dynamics</a></li><li><a class="tocitem" href="../../fakenews/fakenews/">Spread of Fake News</a></li><li><a class="tocitem" href="../../spreadingbots/spreadingbots/">Spreading Bots</a></li><li><a class="tocitem" href="../../spreadinggroups/spreadinggroups/">Spreading Groups</a></li><li><a class="tocitem" href="../../sugarscape_1_growback/sugarscape_1_growback/">Sugarscape 1 Growback</a></li><li><a class="tocitem" href="../../sugarscapeculture/sugarscapeculture/">Sugarscape Culture</a></li><li><a class="tocitem" href="../../sugarscapesexual/sugarscapesexual/">Sugarscape Sexual</a></li><li><a class="tocitem" href="../../superdiffuser/superdiffuser/">SuperDiffuser</a></li><li><a class="tocitem" href="../../teamassembly/teamassembly/">Team Assembly</a></li><li><a class="tocitem" href="../../termites/termites/">Termites</a></li><li><a class="tocitem" href="../../thermostat/thermostat/">Thermostat</a></li><li><a class="tocitem" href="../../tourism/tourism/">Tourism</a></li><li><a class="tocitem" href="../../traffic2lanes/traffic2lanes/">Traffic 2 Lanes</a></li><li><a class="tocitem" href="../../trafficbasic/trafficbasic/">Traffic Basic</a></li><li><a class="tocitem" href="../../trafficgrid/trafficgrid/">Traffic Grid</a></li><li><a class="tocitem" href="../../trafficintersection/trafficintersection/">Traffic Intersection</a></li><li><a class="tocitem" href="../../tumor/tumor/">Tumor</a></li><li><a class="tocitem" href="../../unitcohesion/unitcohesion/">Unit Cohesion</a></li><li><a class="tocitem" href="../../virus_on_network/virus_on_network/">Virus on a Network</a></li><li><a class="tocitem" href="../../virus/virus/">Virus on Network</a></li><li><a class="tocitem" href="../../voronoivoter/voronoivoter/">Voronoi Voter</a></li><li><a class="tocitem" href="../../voter/voter/">Voter Model</a></li><li><a class="tocitem" href="../../voting/voting/">Voting</a></li><li><a class="tocitem" href="../../wealthdistribution/wealthdistribution/">Wealth Distribution</a></li><li><a class="tocitem" href="../../wisdomcrowd/wisdomcrowd/">Wisdom of Crowd</a></li><li><a class="tocitem" href="../../wolfsheep/wolfsheep/">Wolf Sheep Predation</a></li></ul></li><li><a class="tocitem" href="../../../api/">API Reference</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Models</a></li><li class="is-active"><a href>Civilization Growth</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Civilization Growth</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/ecorecipes/ArkModelZoo.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/ecorecipes/ArkModelZoo.jl/blob/main/docs/src/tutorials/civilizationgrowth/civilizationgrowth.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Civilization-Growth"><a class="docs-heading-anchor" href="#Civilization-Growth">Civilization Growth</a><a id="Civilization-Growth-1"></a><a class="docs-heading-anchor-permalink" href="#Civilization-Growth" title="Permalink"></a></h1><h2 id="Overview"><a class="docs-heading-anchor" href="#Overview">Overview</a><a id="Overview-1"></a><a class="docs-heading-anchor-permalink" href="#Overview" title="Permalink"></a></h2><p>This vignette demonstrates the <strong>Civilization Growth</strong> model implemented in <a href="https://github.com/sdwfrost/ArkModelZoo.jl">ArkModelZoo.jl</a> using the Ark.jl ECS framework.</p><h2 id="Parameters"><a class="docs-heading-anchor" href="#Parameters">Parameters</a><a id="Parameters-1"></a><a class="docs-heading-anchor-permalink" href="#Parameters" title="Permalink"></a></h2><table><tr><th style="text-align: right">Parameter</th><th style="text-align: right">Type</th><th style="text-align: right">Default</th><th style="text-align: right">Description</th></tr><tr><td style="text-align: right"><code>number_civs</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>10</code></td><td style="text-align: right">number civs</td></tr><tr><td style="text-align: right"><code>farm_size_uniform</code></td><td style="text-align: right"><code>Bool</code></td><td style="text-align: right"><code>false</code></td><td style="text-align: right">farm size uniform</td></tr><tr><td style="text-align: right"><code>SoL_uniform</code></td><td style="text-align: right"><code>Bool</code></td><td style="text-align: right"><code>true</code></td><td style="text-align: right">SoL uniform</td></tr><tr><td style="text-align: right"><code>grid_width</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>65</code></td><td style="text-align: right">-32..32</td></tr><tr><td style="text-align: right"><code>grid_height</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>65</code></td><td style="text-align: right">-32..32</td></tr><tr><td style="text-align: right"><code>max_ticks</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>100</code></td><td style="text-align: right">max ticks</td></tr></table><h2 id="Source-Code"><a class="docs-heading-anchor" href="#Source-Code">Source Code</a><a id="Source-Code-1"></a><a class="docs-heading-anchor-permalink" href="#Source-Code" title="Permalink"></a></h2><p>The Julia code to run this model:</p><pre><code class="language-julia hljs">using ArkModelZoo
+_, trajectory = run_civilizationgrowth()</code></pre><h2 id="Time-Series"><a class="docs-heading-anchor" href="#Time-Series">Time Series</a><a id="Time-Series-1"></a><a class="docs-heading-anchor-permalink" href="#Time-Series" title="Permalink"></a></h2><p><img src="../plot_timeseries.png" alt="Civilization Growth time series"/></p><h2 id="Ensemble-Runs"><a class="docs-heading-anchor" href="#Ensemble-Runs">Ensemble Runs</a><a id="Ensemble-Runs-1"></a><a class="docs-heading-anchor-permalink" href="#Ensemble-Runs" title="Permalink"></a></h2><p>Ten replicates with different random seeds, showing mean ± standard deviation.</p><p><img src="../plot_ensemble.png" alt="Civilization Growth ensemble"/></p><h2 id="Parameter-Sensitivity"><a class="docs-heading-anchor" href="#Parameter-Sensitivity">Parameter Sensitivity</a><a id="Parameter-Sensitivity-1"></a><a class="docs-heading-anchor-permalink" href="#Parameter-Sensitivity" title="Permalink"></a></h2><p>Varying <code>number_civs</code>.</p><p><img src="../plot_sensitivity.png" alt="Civilization Growth sensitivity"/></p><h2 id="Appendix:-Source-Code"><a class="docs-heading-anchor" href="#Appendix:-Source-Code">Appendix: Source Code</a><a id="Appendix:-Source-Code-1"></a><a class="docs-heading-anchor-permalink" href="#Appendix:-Source-Code" title="Permalink"></a></h2><p>This model is implemented in the <a href="https://github.com/sdwfrost/Ark.jl">Ark.jl</a> Entity-Component-System (ECS) framework. The code is split into five files, each with a distinct role:</p><ul><li><strong>Parameters</strong>: a mutable struct holding all configurable values.</li><li><strong>Components</strong>: lightweight data types attached to individual entities (agents).</li><li><strong>Resources</strong>: world-level shared state accessible to all systems.</li><li><strong>Systems</strong>: functions that operate on entities each tick, defining model behavior.</li><li><strong>Model</strong>: wiring that assembles the world, registers resources and systems, and provides the run entry point.</li></ul><h3 id="Parameters-(parameters.jl)"><a class="docs-heading-anchor" href="#Parameters-(parameters.jl)">Parameters (<code>parameters.jl</code>)</a><a id="Parameters-(parameters.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Parameters-(parameters.jl)" title="Permalink"></a></h3><p>The parameter struct uses <code>@kwdef</code> so that every field has a default value and can be overridden by keyword. These defaults match the original NetLogo model’s slider settings.</p><pre><code class="language-julia hljs">Base.@kwdef mutable struct CivGrowthParams
+    number_civs::Int = 10
+    farm_size_uniform::Bool = false
+    SoL_uniform::Bool = true
+    grid_width::Int = 65   # -32..32
+    grid_height::Int = 65  # -32..32
+    max_ticks::Int = 100
+    seed::Int = 42
+end</code></pre><h3 id="Components-(components.jl)"><a class="docs-heading-anchor" href="#Components-(components.jl)">Components (<code>components.jl</code>)</a><a id="Components-(components.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Components-(components.jl)" title="Permalink"></a></h3><p>Components are lightweight data types attached to individual entities (agents). Mutable structs hold per-entity state, while empty tag structs act as markers for the ECS query system to efficiently filter entities.</p><pre><code class="language-julia hljs">mutable struct CivAgent
+    farm_size::Int
+    farm_RoP::Float64
+    farm_RoC::Float64
+    farm_excess::Float64
+    excess_prev_tick::Float64
+    SoL::Float64
+    SoL_max::Float64
+    SoL_min::Float64
+    RoExp::Float64
+    RoExp_prev_tick::Float64
+    fs_prev_tick::Int
+    choice::Int
+    px::Int  # patch x position (1-indexed)
+    py::Int  # patch y position (1-indexed)
+end
+CivAgent() = CivAgent(1, 0.0, 0.0, 0.0, 0.0, 0.0, 5.0, -5.0, 0.0, 0.0, 0, 0, 1, 1)</code></pre><h3 id="Resources-(resources.jl)"><a class="docs-heading-anchor" href="#Resources-(resources.jl)">Resources (<code>resources.jl</code>)</a><a id="Resources-(resources.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Resources-(resources.jl)" title="Permalink"></a></h3><p>Resources are world-level singletons shared across all systems, used for global state and aggregate statistics.</p><pre><code class="language-julia hljs">mutable struct CivGrid
+    RoP::Matrix{Float64}          # productivity per patch
+    belongs_to::Matrix{Entity}     # zero_entity = nobody, else civ entity
+    conflict_value::Matrix{Int}    # 0 or 1
+    width::Int
+    height::Int
+end
+
+function CivGrid(w::Int, h::Int)
+    CivGrid(
+        zeros(Float64, w, h),
+        fill(zero_entity, w, h),
+        zeros(Int, w, h),
+        w, h
+    )
+end
+
+mutable struct CivStats
+    n_civs::Int
+end
+CivStats() = CivStats(0)</code></pre><h3 id="Systems-(systems.jl)"><a class="docs-heading-anchor" href="#Systems-(systems.jl)">Systems (<code>systems.jl</code>)</a><a id="Systems-(systems.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Systems-(systems.jl)" title="Permalink"></a></h3><p>Systems contain the model logic and execute in a defined order each tick. Each system struct implements either <code>initialize!</code> (run once at setup) or <code>update!</code> (run every tick).</p><pre><code class="language-julia hljs"># Helper: get all patches within Euclidean distance d of (cx,cy) on a non-wrapping grid
+function patches_in_radius(cx::Int, cy::Int, d::Int, w::Int, h::Int)
+    result = Tuple{Int,Int}[]
+    for dx in -d:d
+        for dy in -d:d
+            if dx*dx + dy*dy &lt;= d*d
+                nx, ny = cx + dx, cy + dy
+                if 1 &lt;= nx &lt;= w &amp;&amp; 1 &lt;= ny &lt;= h
+                    push!(result, (nx, ny))
+                end
+            end
+        end
+    end
+    return result
+end
+
+# Helper: get Moore neighbors (non-wrapping)
+function civ_neighbors(x::Int, y::Int, w::Int, h::Int)
+    result = Tuple{Int,Int}[]
+    for dx in -1:1
+        for dy in -1:1
+            if dx == 0 &amp;&amp; dy == 0
+                continue
+            end
+            nx, ny = x + dx, y + dy
+            if 1 &lt;= nx &lt;= w &amp;&amp; 1 &lt;= ny &lt;= h
+                push!(result, (nx, ny))
+            end
+        end
+    end
+    return result
+end
+
+struct InitCivGrowthSystem &lt;: System end
+
+function initialize!(::InitCivGrowthSystem, world::World)
+    params = get_resource(world, CivGrowthParams)
+    rng_res = get_resource(world, RNGResource)
+    rng = rng_res.rng
+    grid = get_resource(world, CivGrid)
+    stats = get_resource(world, CivStats)
+    w, h = grid.width, grid.height
+
+    # Setup land: random RoP, then smooth 5 times
+    for x in 1:w, y in 1:h
+        grid.RoP[x, y] = rand(rng, 0:49)
+    end
+    # NetLogo: repeat 5 [ ask patches [ set RoP mean [RoP] of neighbors ] ]
+    # ask patches shuffles; each patch updates RoP in-place (asynchronous smoothing).
+    n_patches = w * h
+    patch_order = Vector{Int}(undef, n_patches)
+    for i in 1:n_patches
+        patch_order[i] = i
+    end
+    for _ in 1:5
+        # Fisher-Yates shuffle to match NetLogo&#39;s ask patches
+        for i in n_patches:-1:2
+            j = rand(rng, 1:i)
+            patch_order[i], patch_order[j] = patch_order[j], patch_order[i]
+        end
+        for idx in patch_order
+            x = mod1(idx, w)
+            y = div(idx - 1, w) + 1
+            nbrs = civ_neighbors(x, y, w, h)
+            if !isempty(nbrs)
+                grid.RoP[x, y] = mean(grid.RoP[nx, ny] for (nx, ny) in nbrs)
+            end
+        end
+    end
+
+    # Reset ownership
+    fill!(grid.belongs_to, zero_entity)
+    fill!(grid.conflict_value, 0)
+
+    # Create civs
+    civ_eids = Entity[]
+    for i in 1:params.number_civs
+        fs = params.farm_size_uniform ? 3 : rand(rng, 1:5)
+        civ = CivAgent()
+        civ.farm_size = fs
+        civ.px = rand(rng, 1:w)
+        civ.py = rand(rng, 1:h)
+        eid = new_entity!(world, (civ,))
+        push!(civ_eids, eid)
+    end
+
+    # Place civs: set-farm-in-radius for each (random order in NetLogo: ask turtles)
+    order = randperm(rng, length(civ_eids))
+    for idx in order
+        eid = civ_eids[idx]
+        civ = get_components(world, eid, (CivAgent,))[1]
+        set_farm_in_radius!(civ, eid, grid, rng, params, w, h)
+    end
+
+    # After all civs placed, set SoL
+    for eid in civ_eids
+        civ = get_components(world, eid, (CivAgent,))[1]
+        if params.SoL_uniform
+            civ.SoL = 0.0
+        else
+            civ.SoL = civ.farm_excess &gt; 0 ? rand(rng) * 5.0 : rand(rng) * -5.0
+        end
+        civ.SoL_max = 5.0
+        civ.SoL_min = -5.0
+    end
+
+    stats.n_civs = params.number_civs
+end
+
+function set_farm_in_radius!(civ::CivAgent, eid::Entity, grid::CivGrid, rng, params, w::Int, h::Int)
+    d = civ.farm_size
+
+    # Find valid placement: patch where no OTHER nearby patch is claimed
+    # NetLogo: `not any? other patches in-radius d with [belongs-to != nobody]`
+    # `other` excludes the candidate patch itself
+    candidates = Tuple{Int,Int}[]
+    for x in 1:w, y in 1:h
+        nbrs = patches_in_radius(x, y, d, w, h)
+        ok = true
+        for (nx, ny) in nbrs
+            (nx, ny) == (x, y) &amp;&amp; continue  # skip center (NetLogo &#39;other&#39;)
+            if !is_zero(grid.belongs_to[nx, ny])
+                ok = false
+                break
+            end
+        end
+        if ok
+            push!(candidates, (x, y))
+        end
+    end
+
+    if !isempty(candidates)
+        cx, cy = candidates[rand(rng, 1:length(candidates))]
+        civ.px = cx
+        civ.py = cy
+    end
+
+    # Claim patches in radius
+    farm = patches_in_radius(civ.px, civ.py, civ.farm_size, w, h)
+    for (fx, fy) in farm
+        grid.belongs_to[fx, fy] = eid
+    end
+
+    # Calculate farm stats
+    civ.farm_RoP = sum(grid.RoP[fx, fy] for (fx, fy) in farm)
+    civ.farm_RoC = Float64(length(farm) * 23)
+    civ.farm_excess = civ.farm_RoP - civ.farm_RoC
+end
+
+struct CivInvestSystem &lt;: System end
+
+function update!(::CivInvestSystem, world::World)
+    params = get_resource(world, CivGrowthParams)
+    rng_res = get_resource(world, RNGResource)
+    rng = rng_res.rng
+    grid = get_resource(world, CivGrid)
+    tick = get_resource(world, Tick)
+    w, h = grid.width, grid.height
+
+    all_eids = Entity[]
+    for (eids,) in Query(world, (CivAgent,))
+        append!(all_eids, eids)
+    end
+
+    shuffle!(rng, all_eids)
+    to_kill = Set{Entity}()
+
+    for eid in all_eids
+        eid in to_kill &amp;&amp; continue
+        civ = get_components(world, eid, (CivAgent,))[1]
+
+        # invest
+        p = rand(rng, 0:99)
+        civ.excess_prev_tick = civ.farm_excess
+        civ.RoExp_prev_tick = civ.RoExp
+        civ.fs_prev_tick = civ.farm_size
+
+        farm_count = length(patches_in_radius(civ.px, civ.py, civ.farm_size, w, h))
+
+        # invest: sequential if blocks match NetLogo cascading semantics
+        if civ.choice == 0
+            if civ.farm_excess &gt; 0 &amp;&amp; p &lt;= 40
+                civ.farm_RoP += civ.farm_excess
+                civ.choice = 1
+            end
+            if civ.farm_excess &gt; 0 &amp;&amp; p &gt; 60 &amp;&amp; civ.SoL &lt; civ.SoL_max
+                civ.SoL += 0.50
+                civ.choice = 2
+            end
+            if civ.farm_excess &gt; 0 &amp;&amp; p &gt; 60
+                civ.farm_RoC += farm_count * 2.0
+                civ.choice = 2
+            end
+            if civ.farm_excess &lt; 0 &amp;&amp; civ.SoL &gt;= civ.SoL_min
+                civ.SoL -= 0.10
+                civ.choice = 0
+            end
+        end
+        if civ.choice == 1
+            if civ.farm_excess &gt; 0 &amp;&amp; p &lt;= 40
+                civ.farm_RoP += civ.farm_excess
+                civ.SoL += 0.10
+                civ.choice = 1
+            end
+        end
+        if civ.choice == 2
+            if civ.farm_excess &gt; 0 &amp;&amp; p &gt; 60 &amp;&amp; civ.SoL &lt; civ.SoL_max
+                civ.SoL += 0.50
+                civ.choice = 2
+            end
+            if civ.farm_excess &gt; 0 &amp;&amp; p &gt; 60
+                civ.farm_RoC += farm_count * 2.0
+                civ.choice = 2
+            end
+        end
+
+        civ.farm_excess = civ.farm_RoP - civ.farm_RoC
+        if civ.excess_prev_tick != 0.0
+            civ.RoExp = (civ.farm_excess - civ.excess_prev_tick) / civ.excess_prev_tick
+        else
+            civ.RoExp = 0.0
+        end
+
+        # expand
+        if civ.RoExp &gt;= 0.50 &amp;&amp; civ.RoExp_prev_tick &gt;= 0.50 &amp;&amp; tick.tick &gt;= 5
+            civ.farm_size += 1
+            # assess: mark conflict on new territory
+            new_farm = patches_in_radius(civ.px, civ.py, civ.farm_size, w, h)
+            for (fx, fy) in new_farm
+                if !is_zero(grid.belongs_to[fx, fy]) &amp;&amp; grid.belongs_to[fx, fy] != eid
+                    grid.conflict_value[fx, fy] = 1
+                end
+            end
+        end
+
+        # conflict
+        if civ.farm_size &lt;= civ.fs_prev_tick
+            farm = patches_in_radius(civ.px, civ.py, civ.farm_size, w, h)
+            has_conflict = any(grid.conflict_value[fx, fy] == 1 for (fx, fy) in farm)
+            if has_conflict
+                for (fx, fy) in farm
+                    grid.conflict_value[fx, fy] = 0
+                end
+                push!(to_kill, eid)
+            end
+        else
+            # expand-civ
+            if civ.RoExp &gt;= 0.50 &amp;&amp; civ.RoExp_prev_tick &gt;= 0.50 &amp;&amp; tick.tick &gt;= 5
+                new_farm = patches_in_radius(civ.px, civ.py, civ.farm_size, w, h)
+                for (fx, fy) in new_farm
+                    grid.belongs_to[fx, fy] = eid
+                end
+            end
+        end
+    end
+
+    # Kill dead civs (NetLogo: conflict_value already cleared above; territory remains claimed)
+    for eid in to_kill
+        is_alive(world, eid) &amp;&amp; remove_entity!(world, eid)
+    end
+end
+
+struct CivStatsSystem &lt;: System end
+
+function update!(::CivStatsSystem, world::World)
+    stats = get_resource(world, CivStats)
+    n = 0
+    for (eids,) in Query(world, (CivAgent,))
+        n += length(eids)
+    end
+    stats.n_civs = n
+end
+
+struct CivTerminationSystem &lt;: System end
+
+function update!(::CivTerminationSystem, world::World)
+    params = get_resource(world, CivGrowthParams)
+    tick = get_resource(world, Tick)
+    term = get_resource(world, Terminate)
+    if tick.tick + 1 &gt;= params.max_ticks
+        term.stop = true
+    end
+end</code></pre><h3 id="Model-(model.jl)"><a class="docs-heading-anchor" href="#Model-(model.jl)">Model (<code>model.jl</code>)</a><a id="Model-(model.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Model-(model.jl)" title="Permalink"></a></h3><p>The model file assembles all pieces: it creates the ECS <code>World</code> with the required component types, registers resources, builds the <code>Scheduler</code> with systems in execution order, and exposes the public <code>run</code> entry point. The observer pattern records the trajectory each tick.</p><pre><code class="language-julia hljs">function civilizationgrowth_world(; initial_capacity::Int = 128)
+    World(
+        CivAgent;
+        initial_capacity = initial_capacity,
+        allow_mutable = true
+    )
+end
+
+function civilizationgrowth_systems()
+    return (
+        InitCivGrowthSystem(),
+        CivInvestSystem(),
+        CivStatsSystem(),
+        CivTerminationSystem()
+    )
+end
+
+function civilizationgrowth_model(params::CivGrowthParams = CivGrowthParams())
+    world = civilizationgrowth_world()
+    _add_standard_resources!(world, params)
+    add_resource!(world, CivGrid(params.grid_width, params.grid_height))
+    add_resource!(world, CivStats())
+    scheduler = Scheduler(world, civilizationgrowth_systems())
+    initialize!(scheduler)
+    return scheduler
+end
+
+struct CivGrowthObserver end
+
+function civilizationgrowth_headers(::CivGrowthObserver)
+    return [&quot;n_civs&quot;]
+end
+
+function civilizationgrowth_values(::CivGrowthObserver, world::World)
+    stats = get_resource(world, CivStats)
+    return Float64[Float64(stats.n_civs)]
+end
+
+function run_civilizationgrowth(; params::CivGrowthParams = CivGrowthParams(), observe::Bool = true)
+    return _run_model(civilizationgrowth_model, CivGrowthObserver(), civilizationgrowth_values; params, observe)
+end</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../ca_1d_elementary/ca_1d_elementary/">« CA 1D Elementary</a><a class="docs-footer-nextpage" href="../../climatechange/climatechange/">Climate Change »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.20.0 on <span class="colophon-date" title="Wednesday 18 November 2026 19:14">Wednesday 18 November 2026</span>. Using Julia version 1.13.4.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
